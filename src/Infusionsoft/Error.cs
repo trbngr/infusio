@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using LanguageExt;
+// ReSharper disable ClassNeverInstantiated.Global
 
 namespace Infusionsoft
 {

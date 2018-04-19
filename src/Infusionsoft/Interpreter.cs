@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LanguageExt;
 using Newtonsoft.Json;
+// ReSharper disable ConvertClosureToMethodGroup
 
 namespace Infusionsoft
 {
