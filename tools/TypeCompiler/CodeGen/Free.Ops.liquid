@@ -1,0 +1,41 @@
+public abstract class {{ FreeType }}<A>
+{
+    internal class Return : {{ FreeType }}<A>
+    {
+        public readonly A Value;
+        public Return(A value) => Value = value;
+    }
+    
+{% for operation in Operations -%}
+internal class {{ operation.ActualOperationName }} : {{ FreeType }}<A>
+    {
+        {% for parameter in operation.Parameters %}public {{ parameter.Type }} {{ parameter.VariableName | capitalize }} { get; }
+        {% endfor %}            
+        public Func<{% if operation.HasResult %}{{ operation.SyncResultType }}, {% endif %}{{ FreeType }}<A>> Next { get; }
+        
+        public {{ operation.ActualOperationName }}(Func<{% if operation.HasResult %}{{ operation.SyncResultType }}, {% endif %}{{ FreeType }}<A>> next{% if operation.Parameters.size > 0 %}, {% endif %}{% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.VariableName }}{% if forloop.last == false %}, {% endif %}{% endfor %})
+        {
+            Next = next;
+            {% for parameter in operation.Parameters %}{{ parameter.VariableName | capitalize }} = {{ parameter.VariableName }};
+            {% endfor %}                
+        }
+    }
+    {% endfor -%}
+}
+
+public static class {{ FreeType }}
+{
+    static {{ FreeType }}<B> Bind<A, B>(this {{ FreeType }}<A> op, Func<A, {{ FreeType }}<B>> fn) =>
+        op is {{ FreeType }}<A>.Return rt ? fn(rt.Value) :
+        {% for operation in Operations %}op is {{ FreeType }}<A>.{{ operation.ActualOperationName }} {% assign opName = forloop.index %} _{{ opName }} ? new {{ FreeType }}<B>.{{ operation.ActualOperationName }}({% if operation.HasResult %}x{% else %}(){% endif %} => _{{ opName }}.Next({% if operation.HasResult %}x{% endif %}).Bind(fn){% if operation.Parameters.size > 0 %}, {% endif %}{% for parameter in operation.Parameters %}_{{opName}}.{{ parameter.VariableName | capitalize }}{% if forloop.last == false %}, {% endif %}{% endfor %}){% if forloop.last == true %} as {{ FreeType }}<B> {% endif %} :  
+        {% endfor %}throw new NotSupportedException();
+
+    public static {{ FreeType }}<B> Map<A, B>(this {{ FreeType }}<A> op, Func<A, B> fn) =>
+        op.Bind(a => {{ DslModuleName }}.Return(fn(a)));
+
+    public static {{ FreeType }}<B> Select<A, B>(this {{ FreeType }}<A> op, Func<A, B> fn) =>
+        op.Bind(a => {{ DslModuleName }}.Return(fn(a)));
+
+    public static {{ FreeType }}<C> SelectMany<A, B, C>(this {{ FreeType }}<A> op, Func<A, {{ FreeType }}<B>> bind, Func<A, B, C> project) =>
+        op.Bind(a => bind(a).Select(b => project(a, b)));
+}

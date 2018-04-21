@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Infusionsoft;
+using Infusionsoft.Client;
 using Newtonsoft.Json;
+using Task = System.Threading.Tasks.Task;
 
 namespace Runner
 {
-    using static Dsl;
+    using static InfusionDsl;
     using static Formatting;
     using static Interpreter;
     using static JsonConvert;
@@ -17,7 +19,7 @@ namespace Runner
 
             var config = new InfusionsoftConfig("8akh7bm2fwvnaezu42hs5gwb");
 
-            var dsl = UpdatePhoneNumber("555-555-5555");
+            var dsl = UpdatePhoneNumber("666-555-5555");
 
             var profile = await Interpret(dsl, config);
             // or
@@ -26,10 +28,19 @@ namespace Runner
             Console.Out.WriteLine(SerializeObject(profile, Indented));
         }
 
-        static Op<AccountProfile> UpdatePhoneNumber(string phone) =>
+        static InfusionOp<AccountProfile> UpdatePhoneNumber(string phone) =>
             from prof in GetAccountProfile()
-            from _ in UpdateAccountProfile(prof.With(x => x.Phone = phone))
+            from _ in UpdateAccountInfo(prof.With(x => x.Phone = phone))
             from updated in GetAccountProfile()
             select updated;
+    }
+
+    static class Ext
+    {
+        public static T With<T>(this T self, Action<T> act)
+        {
+            act(self);
+            return self;
+        }
     }
 }

@@ -1,0 +1,31 @@
+public static class Interpreter
+{
+    static readonly HttpClient Client = new HttpClient();
+    
+    public static Task<Either<{{ DslModuleName }}Error, T>> Interpret<T>({{ FreeType }}<T> op, InfusionsoftConfig config) =>
+        RunAsync(op, config).ToEither();
+
+    public static Task<Either<{{ DslModuleName }}Error, T>> Run<T>(this {{ FreeType }}<T> op, InfusionsoftConfig config) =>
+        RunAsync(op, config).ToEither();
+        
+    static EitherAsync<{{ DslModuleName }}Error, T> RunAsync<T>({{ FreeType }}<T> op, InfusionsoftConfig config)
+    {
+        var client = new InfusionsoftClient(Client, config);
+        
+        return 
+                op is {{ FreeType }}<T>.Return r ? RightAsync<{{ DslModuleName }}Error, T>(r.Value.AsTask()) :
+                {% for operation in Operations %}op is {{ FreeType }}<T>.{{ operation.ActualOperationName }} {% assign op_name = forloop.index %} _{{ op_name }} ? Execute(() => client.{{ operation.ActualOperationName }}Using{{ operation.HttpMethodUpper | upcase }}Async({% for parameter in operation.Parameters %}_{{ op_name }}.{{ parameter.VariableName | capitalize }}{% if forloop.last == false %}, {% endif %}{% endfor %}),  _{{ op_name }}.Next, client) :
+                {% endfor %}throw new NotSupportedException();
+    }
+
+    static EitherAsync<{{ DslModuleName }}Error, B> Execute<T,B>(Func<Task<T>> fn, Func<T, {{ FreeType }}<B>> nextOp, InfusionsoftClient client) => 
+        from profile in AsEither(fn)
+        from next in RunAsync(nextOp(profile), client.Config)
+        select next;
+    
+    static EitherAsync<{{ DslModuleName }}Error, T> AsEither<T>(Func<Task<T>> fn) =>
+        TryAsync(() => fn()).Match(
+            Succ: t => Right<{{ DslModuleName }}Error, T>(t),
+            Fail: e => Left<{{ DslModuleName }}Error, T>({{ DslModuleName }}Error.New(e.Message))
+        ).ToAsync();
+}

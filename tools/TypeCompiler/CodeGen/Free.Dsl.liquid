@@ -1,0 +1,16 @@
+public class {{ DslModuleName }}Error : NewType<{{ DslModuleName }}Error, string>
+{
+    public {{ DslModuleName }}Error(string value) : base(value) { }
+    public {{ DslModuleName }}Error(SerializationInfo info, StreamingContext context) : base(info, context) { }
+}
+    
+public static class {{ DslModuleName }}
+{
+    internal static {{ FreeType }}<A> Return<A>(A value) =>
+        new {{ FreeType }}<A>.Return(value);
+        
+    {% for operation in Operations %}
+    public static {{ FreeType }}<{% if operation.HasResult %}{{ operation.SyncResultType }}{% else %}Unit{% endif %}> {{ operation.ActualOperationName }}({% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.VariableName }}{% if forloop.last == false %}, {% endif %}{% endfor %}) =>
+        new {{ FreeType }}<{% if operation.HasResult %}{{ operation.SyncResultType }}{% else %}Unit{% endif %}>.{{ operation.ActualOperationName }}(Return{% if operation.Parameters.size > 0 %}, {% endif %}{% for parameter in operation.Parameters %}{{ parameter.VariableName }}{% if forloop.last == false %}, {% endif %}{% endfor %});
+    {% endfor %}
+}
