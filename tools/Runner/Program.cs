@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Infusionsoft;
-using Infusionsoft.Client;
+using Infusion;
+using Infusion.Client;
 using Newtonsoft.Json;
 using Task = System.Threading.Tasks.Task;
 
@@ -17,7 +16,7 @@ namespace Runner
         static async Task Main()
         {
 
-            var config = new InfusionsoftConfig("8akh7bm2fwvnaezu42hs5gwb");
+            var config = new InfusionConfig("8akh7bm2fwvnaezu42hs5gwb");
 
             var dsl = UpdatePhoneNumber("666-555-5555");
 

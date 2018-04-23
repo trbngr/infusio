@@ -7,17 +7,12 @@
     <RootNamespace>DslCompiler</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="DotLiquid" Version="2.0.262" />
     <PackageReference Include="LanguageExt.Core" Version="3.0.1" />
-    <PackageReference Include="NSwag.CodeGeneration.CSharp" Version="11.17.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Humanizer.Core" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="CodeGen\Free.Dsl.liquid" />
-    <EmbeddedResource Include="CodeGen\Free.Dsl.liquid" />
-    <None Remove="CodeGen\Free.Interpreter.liquid" />
-    <EmbeddedResource Include="CodeGen\Free.Interpreter.liquid" />
-    <None Remove="CodeGen\Free.liquid" />
-    <EmbeddedResource Include="CodeGen\Free.liquid" />
-    <None Remove="CodeGen\Free.Ops.liquid" />
-    <EmbeddedResource Include="CodeGen\Free.Ops.liquid" />
+    <ProjectReference Include="..\..\src\Infusionsoft\Infusionsoft.csproj" />
   </ItemGroup>
 </Project>
