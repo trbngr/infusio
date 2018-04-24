@@ -9,183 +9,429 @@ using Infusion.Model;
 
 namespace Infusion
 {
-  public static class Dsl
-  {
-      internal static InfusionOp<A> Return<A>(A value) =>
-          new InfusionOp<A>.Return(value);
-
-      public static InfusionOp<AccountProfile> GetAccountProfile() =>
-          new GetAccountProfile<AccountProfile>(Return);
-
-      public static InfusionOp<AffiliateCommissionList> SearchCommissions(long? affiliateId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
-          new SearchCommissions<AffiliateCommissionList>(Return, affiliateId, offset, limit, until, since);
-
-      public static InfusionOp<ObjectModel> RetrieveAffiliateModel() =>
-          new RetrieveAffiliateModel<ObjectModel>(Return);
-
-      public static InfusionOp<AppointmentList> ListAppointments(long? contactId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
-          new ListAppointments<AppointmentList>(Return, contactId, offset, limit, until, since);
-
-      public static InfusionOp<ObjectModel> RetrieveAppointmentModel() =>
-          new RetrieveAppointmentModel<ObjectModel>(Return);
-
-      public static InfusionOp<Appointment> GetAppointment(long? appointmentId) =>
-          new GetAppointment<Appointment>(Return, appointmentId);
-
-      public static InfusionOp<CampaignList> ListCampaigns(string orderDirection = default, string order = default, string searchText = default, int? offset = default, int? limit = default) =>
-          new ListCampaigns<CampaignList>(Return, orderDirection, order, searchText, offset, limit);
-
-      public static InfusionOp<Campaign> GetCampaign(long? campaignId, Lst<string> optionalProperties = default) =>
-          new GetCampaign<Campaign>(Return, campaignId, optionalProperties);
-
-      public static InfusionOp<Unit> AddContactsToCampaignSequence(SetOfIds ids, long? sequenceId, long? campaignId) =>
-          new AddContactsToCampaignSequence<Unit>(Return, ids, sequenceId, campaignId);
-
-      public static InfusionOp<Unit> AddContactToCampaignSequence(long? contactId, long? sequenceId, long? campaignId) =>
-          new AddContactToCampaignSequence<Unit>(Return, contactId, sequenceId, campaignId);
-
-      public static InfusionOp<CompanyList> ListCompanies(Lst<string> optionalProperties = default, string orderDirection = default, string order = default, string companyName = default, int? offset = default, int? limit = default) =>
-          new ListCompanies<CompanyList>(Return, optionalProperties, orderDirection, order, companyName, offset, limit);
-
-      public static InfusionOp<ObjectModel> RetrieveCompanyModel() =>
-          new RetrieveCompanyModel<ObjectModel>(Return);
-
-      public static InfusionOp<ContactList> ListContacts(string orderDirection = default, string order = default, string familyName = default, string givenName = default, string email = default, int? offset = default, int? limit = default) =>
-          new ListContacts<ContactList>(Return, orderDirection, order, familyName, givenName, email, offset, limit);
-
-      public static InfusionOp<ObjectModel> RetrieveContactModel() =>
-          new RetrieveContactModel<ObjectModel>(Return);
-
-      public static InfusionOp<Unit> DeleteContact(long? contactId) =>
-          new DeleteContact<Unit>(Return, contactId);
-
-      public static InfusionOp<Unit> CreateCreditCard(long? contactId, CreditCard creditCard = default) =>
-          new CreateCreditCard<Unit>(Return, contactId, creditCard);
-
-      public static InfusionOp<EmailSentQueryResultList> ListEmailsForContact(long? contactId, string email = default, long? contactId2 = default, int? offset = default, int? limit = default) =>
-          new ListEmailsForContact<EmailSentQueryResultList>(Return, contactId, email, contactId2, offset, limit);
-
-      public static InfusionOp<ContactTagList> ListAppliedTags(long? contactId, int? offset = default, int? limit = default) =>
-          new ListAppliedTags<ContactTagList>(Return, contactId, offset, limit);
-
-      public static InfusionOp<Unit> RemoveTagsFromContact(long? tagId, long? contactId) =>
-          new RemoveTagsFromContact<Unit>(Return, tagId, contactId);
-
-      public static InfusionOp<FullContact> GetContact(long? id, Lst<string> optionalProperties = default) =>
-          new GetContact<FullContact>(Return, id, optionalProperties);
-
-      public static InfusionOp<EmailSentQueryResultList> ListEmails(string email = default, long? contactId = default, int? offset = default, int? limit = default) =>
-          new ListEmails<EmailSentQueryResultList>(Return, email, contactId, offset, limit);
-
-      public static InfusionOp<Unit> CreateEmails(EmailSentCreateList emailWithContent = default) =>
-          new CreateEmails<Unit>(Return, emailWithContent);
-
-      public static InfusionOp<Unit> DeleteEmails(SetOfIds emailIds) =>
-          new DeleteEmails<Unit>(Return, emailIds);
-
-      public static InfusionOp<EmailSentQueryResultWithContent> GetEmail(long? id) =>
-          new GetEmail<EmailSentQueryResultWithContent>(Return, id);
-
-      public static InfusionOp<FileList> ListFiles(string name = default, string type = default, string permission = default, string viewable = default, int? offset = default, int? limit = default) =>
-          new ListFiles<FileList>(Return, name, type, permission, viewable, offset, limit);
-
-      public static InfusionOp<FileInformation> GetFile(long? fileId, Lst<string> optionalProperties = default) =>
-          new GetFile<FileInformation>(Return, fileId, optionalProperties);
-
-      public static InfusionOp<Unit> ListStoredHookSubscriptions() =>
-          new ListStoredHookSubscriptions<Unit>(Return);
-
-      public static InfusionOp<Unit> ListHookEventTypes() =>
-          new ListHookEventTypes<Unit>(Return);
-
-      public static InfusionOp<RestHook> RetrieveAHookSubscription(string key) =>
-          new RetrieveAHookSubscription<RestHook>(Return, key);
-
-      public static InfusionOp<RestHook> VerifyAHookSubscriptionDelayed(string xHookSecret, string key) =>
-          new VerifyAHookSubscriptionDelayed<RestHook>(Return, xHookSecret, key);
-
-      public static InfusionOp<RestHook> VerifyAHookSubscription(string key) =>
-          new VerifyAHookSubscription<RestHook>(Return, key);
-
-      public static InfusionOp<UserInfoDTO> GetUserInfo() =>
-          new GetUserInfo<UserInfoDTO>(Return);
-
-      public static InfusionOp<OpportunityList> ListOpportunities(string order = default, string searchTerm = default, long? stageId = default, long? userId = default, int? offset = default, int? limit = default) =>
-          new ListOpportunities<OpportunityList>(Return, order, searchTerm, stageId, userId, offset, limit);
-
-      public static InfusionOp<ObjectModel> RetrieveOpportunityModel() =>
-          new RetrieveOpportunityModel<ObjectModel>(Return);
-
-      public static InfusionOp<Opportunity> GetOpportunity(long? opportunityId, Lst<string> optionalProperties = default) =>
-          new GetOpportunity<Opportunity>(Return, opportunityId, optionalProperties);
-
-      public static InfusionOp<Unit> ListOpportunityStagePipelines() =>
-          new ListOpportunityStagePipelines<Unit>(Return);
-
-      public static InfusionOp<OrderList> ListOrders(long? productId = default, long? contactId = default, string order = default, bool paid = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
-          new ListOrders<OrderList>(Return, productId, contactId, order, paid, offset, limit, until, since);
-
-      public static InfusionOp<ObjectModel> RetrieveOrderModel() =>
-          new RetrieveOrderModel<ObjectModel>(Return);
-
-      public static InfusionOp<Order> GetOrder(long? orderId) =>
-          new GetOrder<Order>(Return, orderId);
-
-      public static InfusionOp<TransactionList> ListTransactionsForOrder(long? orderId, long? contactId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
-          new ListTransactionsForOrder<TransactionList>(Return, orderId, contactId, offset, limit, until, since);
-
-      public static InfusionOp<ProductList> ListProducts(bool active = default, int? offset = default, int? limit = default) =>
-          new ListProducts<ProductList>(Return, active, offset, limit);
-
-      public static InfusionOp<ProductStatusList> ListProductsFromSyncToken(int? offset = default, int? limit = default, string syncToken = default) =>
-          new ListProductsFromSyncToken<ProductStatusList>(Return, offset, limit, syncToken);
-
-      public static InfusionOp<Product> GetProduct(long? productId) =>
-          new GetProduct<Product>(Return, productId);
-
-      public static InfusionOp<Setting> GetApplicationEnabled() =>
-          new GetApplicationEnabled<Setting>(Return);
-
-      public static InfusionOp<Setting> GetContactOptionTypes() =>
-          new GetContactOptionTypes<Setting>(Return);
-
-      public static InfusionOp<ObjectModel> RetrieveSubscriptionModel() =>
-          new RetrieveSubscriptionModel<ObjectModel>(Return);
-
-      public static InfusionOp<Tags> ListTags(long? category = default, int? offset = default, int? limit = default) =>
-          new ListTags<Tags>(Return, category, offset, limit);
-
-      public static InfusionOp<TagCategory> CreateTagCategory(CreateTagCategory tagCategory) =>
-          new CreateTagCategory<TagCategory>(Return, tagCategory);
-
-      public static InfusionOp<Tag> GetTag(long? id) =>
-          new GetTag<Tag>(Return, id);
-
-      public static InfusionOp<TaggedContactList> ListContactsForTagId(long? tagId, int? offset = default, int? limit = default) =>
-          new ListContactsForTagId<TaggedContactList>(Return, tagId, offset, limit);
-
-      public static InfusionOp<Unit> RemoveTagFromContactId(long? contactId, long? tagId) =>
-          new RemoveTagFromContactId<Unit>(Return, contactId, tagId);
-
-      public static InfusionOp<TaskList> ListTasks(string order = default, int? offset = default, int? limit = default, bool completed = default, string until = default, string since = default, long? userId = default, bool hasDueDate = default, long? contactId = default) =>
-          new ListTasks<TaskList>(Return, order, offset, limit, completed, until, since, userId, hasDueDate, contactId);
-
-      public static InfusionOp<ObjectModel> RetrieveTaskModel() =>
-          new RetrieveTaskModel<ObjectModel>(Return);
-
-      public static InfusionOp<TaskList> ListTasksForCurrentUser(string order = default, int? offset = default, int? limit = default, bool completed = default, string until = default, string since = default, long? userId = default, bool hasDueDate = default, long? contactId = default) =>
-          new ListTasksForCurrentUser<TaskList>(Return, order, offset, limit, completed, until, since, userId, hasDueDate, contactId);
-
-      public static InfusionOp<InfusionTask> GetTask(string taskId) =>
-          new GetTask<InfusionTask>(Return, taskId);
-
-      public static InfusionOp<TransactionList> ListTransactions(long? contactId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
-          new ListTransactions<TransactionList>(Return, contactId, offset, limit, until, since);
-
-      public static InfusionOp<Transaction> GetTransaction(long? transactionId) =>
-          new GetTransaction<Transaction>(Return, transactionId);
-
-      
-  }
+    public static class Dsl
+    {
+        internal static InfusionOp<A> Return<A>(A value) => new InfusionOp<A>.Return(value);
+        /// <summary>
+        /// Retrieve account profile
+        /// </summary>
+        /// <returns><see cref = "AccountProfile"/></returns>
+        public static InfusionOp<AccountProfile> GetAccountProfile() => new InfusionOp<AccountProfile>.GetAccountProfile(Return);
+        /// <summary>
+        /// Retrieve Commissions
+        /// </summary>
+        /// <param name = "affiliateId">Affiliate to retrieve commissions for</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <param name = "until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
+        /// <param name = "since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
+        /// <returns><see cref = "AffiliateCommissionList"/></returns>
+        public static InfusionOp<AffiliateCommissionList> SearchCommissions(long? affiliateId = default, int? offset = default, int? limit = default, string until = default, string since = default) => new InfusionOp<AffiliateCommissionList>.SearchCommissions(Return, affiliateId, offset, limit, until, since);
+        /// <summary>
+        /// Retrieve Affiliate Model
+        /// </summary>
+        /// <returns><see cref = "ObjectModel"/></returns>
+        public static InfusionOp<ObjectModel> RetrieveAffiliateModel() => new InfusionOp<ObjectModel>.RetrieveAffiliateModel(Return);
+        /// <summary>
+        /// List Appointments
+        /// </summary>
+        /// <param name = "contactId">Optionally find appointments with a contact</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <param name = "until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
+        /// <param name = "since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
+        /// <returns><see cref = "AppointmentList"/></returns>
+        public static InfusionOp<AppointmentList> ListAppointments(long? contactId = default, int? offset = default, int? limit = default, string until = default, string since = default) => new InfusionOp<AppointmentList>.ListAppointments(Return, contactId, offset, limit, until, since);
+        /// <summary>
+        /// Retrieve Appointment Model
+        /// </summary>
+        /// <returns><see cref = "ObjectModel"/></returns>
+        public static InfusionOp<ObjectModel> RetrieveAppointmentModel() => new InfusionOp<ObjectModel>.RetrieveAppointmentModel(Return);
+        /// <summary>
+        /// Retrieve an Appointment
+        /// </summary>
+        /// <param name = "appointmentId">appointmentId</param>
+        /// <returns><see cref = "Appointment"/></returns>
+        public static InfusionOp<Appointment> GetAppointment(long? appointmentId) => new InfusionOp<Appointment>.GetAppointment(Return, appointmentId);
+        /// <summary>
+        /// List Campaigns
+        /// </summary>
+        /// <param name = "orderDirection">How to order the data i.e. ascending (A-Z) or descending (Z-A)</param>
+        /// <param name = "order">Attribute to order items by</param>
+        /// <param name = "searchText">Optional text to search</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <returns><see cref = "CampaignList"/></returns>
+        public static InfusionOp<CampaignList> ListCampaigns(string orderDirection = default, string order = default, string searchText = default, int? offset = default, int? limit = default) => new InfusionOp<CampaignList>.ListCampaigns(Return, orderDirection, order, searchText, offset, limit);
+        /// <summary>
+        /// Retrieve a Campaign
+        /// </summary>
+        /// <param name = "campaignId">campaignId</param>
+        /// <param name = "optionalProperties">Comma-delimited list of Campaign properties to include in the response. (The fields `goals` and `sequences` aren't included, by default.)</param>
+        /// <returns><see cref = "Campaign"/></returns>
+        public static InfusionOp<Campaign> GetCampaign(long? campaignId, Lst<string> optionalProperties = default) => new InfusionOp<Campaign>.GetCampaign(Return, campaignId, optionalProperties);
+        /// <summary>
+        /// Add Multiple to Campaign Sequence
+        /// </summary>
+        /// <param name = "ids">ids</param>
+        /// <param name = "sequenceId">sequenceId</param>
+        /// <param name = "campaignId">campaignId</param>
+        /// <returns><see cref = "Unit"/></returns>
+        public static InfusionOp<Unit> AddContactsToCampaignSequence(Model.SetOfIds ids, long? sequenceId, long? campaignId) => new InfusionOp<Unit>.AddContactsToCampaignSequence(Return, ids, sequenceId, campaignId);
+        /// <summary>
+        /// Add to Campaign Sequence
+        /// </summary>
+        /// <param name = "contactId">contactId</param>
+        /// <param name = "sequenceId">sequenceId</param>
+        /// <param name = "campaignId">campaignId</param>
+        /// <returns><see cref = "Unit"/></returns>
+        public static InfusionOp<Unit> AddContactToCampaignSequence(long? contactId, long? sequenceId, long? campaignId) => new InfusionOp<Unit>.AddContactToCampaignSequence(Return, contactId, sequenceId, campaignId);
+        /// <summary>
+        /// List Companies
+        /// </summary>
+        /// <param name = "optionalProperties">Comma-delimited list of Company properties to include in the response. (Fields such as `notes`, `fax_number` and `custom_fields` aren't included, by default.)</param>
+        /// <param name = "orderDirection">How to order the data i.e. ascending (A-Z) or descending (Z-A)</param>
+        /// <param name = "order">Attribute to order items by</param>
+        /// <param name = "companyName">Optional company name to query on</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <returns><see cref = "CompanyList"/></returns>
+        public static InfusionOp<CompanyList> ListCompanies(Lst<string> optionalProperties = default, string orderDirection = default, string order = default, string companyName = default, int? offset = default, int? limit = default) => new InfusionOp<CompanyList>.ListCompanies(Return, optionalProperties, orderDirection, order, companyName, offset, limit);
+        /// <summary>
+        /// Retrieve Company Model
+        /// </summary>
+        /// <returns><see cref = "ObjectModel"/></returns>
+        public static InfusionOp<ObjectModel> RetrieveCompanyModel() => new InfusionOp<ObjectModel>.RetrieveCompanyModel(Return);
+        /// <summary>
+        /// List Contacts
+        /// </summary>
+        /// <param name = "orderDirection">How to order the data i.e. ascending (A-Z) or descending (Z-A)</param>
+        /// <param name = "order">Attribute to order items by</param>
+        /// <param name = "familyName">Optional last name or surname to query on</param>
+        /// <param name = "givenName">Optional first name or forename to query on</param>
+        /// <param name = "email">Optional email address to query on</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <returns><see cref = "ContactList"/></returns>
+        public static InfusionOp<ContactList> ListContacts(string orderDirection = default, string order = default, string familyName = default, string givenName = default, string email = default, int? offset = default, int? limit = default) => new InfusionOp<ContactList>.ListContacts(Return, orderDirection, order, familyName, givenName, email, offset, limit);
+        /// <summary>
+        /// Retrieve Contact Model
+        /// </summary>
+        /// <returns><see cref = "ObjectModel"/></returns>
+        public static InfusionOp<ObjectModel> RetrieveContactModel() => new InfusionOp<ObjectModel>.RetrieveContactModel(Return);
+        /// <summary>
+        /// Delete a Contact
+        /// </summary>
+        /// <param name = "contactId">contactId</param>
+        /// <returns><see cref = "Unit"/></returns>
+        public static InfusionOp<Unit> DeleteContact(long? contactId) => new InfusionOp<Unit>.DeleteContact(Return, contactId);
+        /// <summary>
+        /// Create a Credit Card
+        /// </summary>
+        /// <param name = "contactId">contactId</param>
+        /// <param name = "creditCard">creditCard</param>
+        /// <returns><see cref = "CreditCardAdded"/></returns>
+        public static InfusionOp<CreditCardAdded> CreateCreditCard(long? contactId, Model.CreditCard creditCard = default) => new InfusionOp<CreditCardAdded>.CreateCreditCard(Return, contactId, creditCard);
+        /// <summary>
+        /// List Emails
+        /// </summary>
+        /// <param name = "contactId">contactId</param>
+        /// <param name = "email">Optional email address to query on</param>
+        /// <param name = "contactId2">Optional Contact Id to find Emails for</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <returns><see cref = "EmailSentQueryResultList"/></returns>
+        public static InfusionOp<EmailSentQueryResultList> ListEmailsForContact(long? contactId, string email = default, long? contactId2 = default, int? offset = default, int? limit = default) => new InfusionOp<EmailSentQueryResultList>.ListEmailsForContact(Return, contactId, email, contactId2, offset, limit);
+        /// <summary>
+        /// List Applied Tags
+        /// </summary>
+        /// <param name = "contactId">contactId</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <returns><see cref = "ContactTagList"/></returns>
+        public static InfusionOp<ContactTagList> ListAppliedTags(long? contactId, int? offset = default, int? limit = default) => new InfusionOp<ContactTagList>.ListAppliedTags(Return, contactId, offset, limit);
+        /// <summary>
+        /// Remove Applied Tag
+        /// </summary>
+        /// <param name = "tagId">tagId</param>
+        /// <param name = "contactId">contactId</param>
+        /// <returns><see cref = "Unit"/></returns>
+        public static InfusionOp<Unit> RemoveTagsFromContact(long? tagId, long? contactId) => new InfusionOp<Unit>.RemoveTagsFromContact(Return, tagId, contactId);
+        /// <summary>
+        /// Retrieve a Contact
+        /// </summary>
+        /// <param name = "id">id</param>
+        /// <param name = "optionalProperties">Comma-delimited list of Contact properties to include in the response. (Some fields such as `lead_source_id`, `custom_fields`, and `job_title` aren't included, by default.)</param>
+        /// <returns><see cref = "FullContact"/></returns>
+        public static InfusionOp<FullContact> GetContact(long? id, Lst<string> optionalProperties = default) => new InfusionOp<FullContact>.GetContact(Return, id, optionalProperties);
+        /// <summary>
+        /// List Emails
+        /// </summary>
+        /// <param name = "email">Optional email address to query on</param>
+        /// <param name = "contactId">Optional Contact Id to find Emails for</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <returns><see cref = "EmailSentQueryResultList"/></returns>
+        public static InfusionOp<EmailSentQueryResultList> ListEmails(string email = default, long? contactId = default, int? offset = default, int? limit = default) => new InfusionOp<EmailSentQueryResultList>.ListEmails(Return, email, contactId, offset, limit);
+        /// <summary>
+        /// Create a set of Email Records
+        /// </summary>
+        /// <param name = "emailWithContent">Email records to persist, with content.</param>
+        /// <returns><see cref = "EmailSentCreateList"/></returns>
+        public static InfusionOp<EmailSentCreateList> CreateEmails(Model.EmailSentCreateList emailWithContent = default) => new InfusionOp<EmailSentCreateList>.CreateEmails(Return, emailWithContent);
+        /// <summary>
+        /// Un-sync a batch of Email Records
+        /// </summary>
+        /// <param name = "emailIds">emailIds</param>
+        /// <returns><see cref = "Unit"/></returns>
+        public static InfusionOp<Unit> DeleteEmails(Model.SetOfIds emailIds) => new InfusionOp<Unit>.DeleteEmails(Return, emailIds);
+        /// <summary>
+        /// Retrieve an Email
+        /// </summary>
+        /// <param name = "id">id</param>
+        /// <returns><see cref = "EmailSentQueryResultWithContent"/></returns>
+        public static InfusionOp<EmailSentQueryResultWithContent> GetEmail(long? id) => new InfusionOp<EmailSentQueryResultWithContent>.GetEmail(Return, id);
+        /// <summary>
+        /// List Files
+        /// </summary>
+        /// <param name = "name">Filter files based on name, with '*' preceding or following to indicate LIKE queries.</param>
+        /// <param name = "type">Filter based on the type of file.</param>
+        /// <param name = "permission">Filter based on the permission of files (USER or COMPANY), defaults to BOTH.</param>
+        /// <param name = "viewable">Include public or private files in response (PUBLIC or PRIVATE), defaults to BOTH.</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <returns><see cref = "FileList"/></returns>
+        public static InfusionOp<FileList> ListFiles(string name = default, string type = default, string permission = default, string viewable = default, int? offset = default, int? limit = default) => new InfusionOp<FileList>.ListFiles(Return, name, type, permission, viewable, offset, limit);
+        /// <summary>
+        /// Retrieve File
+        /// </summary>
+        /// <param name = "fileId">fileId</param>
+        /// <param name = "optionalProperties">Comma-delimited list of File properties to include in the response. (Some fields such as `file_data` aren't included, by default.)</param>
+        /// <returns><see cref = "FileInformation"/></returns>
+        public static InfusionOp<FileInformation> GetFile(long? fileId, Lst<string> optionalProperties = default) => new InfusionOp<FileInformation>.GetFile(Return, fileId, optionalProperties);
+        /// <summary>
+        /// List Stored Hook Subscriptions
+        /// </summary>
+        /// <returns><see cref = "Unit"/></returns>
+        public static InfusionOp<Unit> ListStoredHookSubscriptions() => new InfusionOp<Unit>.ListStoredHookSubscriptions(Return);
+        /// <summary>
+        /// List Hook Event Types
+        /// </summary>
+        /// <returns><see cref = "Unit"/></returns>
+        public static InfusionOp<Unit> ListHookEventTypes() => new InfusionOp<Unit>.ListHookEventTypes(Return);
+        /// <summary>
+        /// Retrieve a Hook Subscription
+        /// </summary>
+        /// <param name = "key">key</param>
+        /// <returns><see cref = "RestHook"/></returns>
+        public static InfusionOp<RestHook> RetrieveAHookSubscription(string key) => new InfusionOp<RestHook>.RetrieveAHookSubscription(Return, key);
+        /// <summary>
+        /// Verify a Hook Subscription, Delayed
+        /// </summary>
+        /// <param name = "xHookSecret">X-Hook-Secret</param>
+        /// <param name = "key">key</param>
+        /// <returns><see cref = "RestHook"/></returns>
+        public static InfusionOp<RestHook> VerifyAHookSubscriptionDelayed(string xHookSecret, string key) => new InfusionOp<RestHook>.VerifyAHookSubscriptionDelayed(Return, xHookSecret, key);
+        /// <summary>
+        /// Verify a Hook Subscription
+        /// </summary>
+        /// <param name = "key">key</param>
+        /// <returns><see cref = "RestHook"/></returns>
+        public static InfusionOp<RestHook> VerifyAHookSubscription(string key) => new InfusionOp<RestHook>.VerifyAHookSubscription(Return, key);
+        /// <summary>
+        /// Retrieve User Info
+        /// </summary>
+        /// <returns><see cref = "UserInfoDTO"/></returns>
+        public static InfusionOp<UserInfoDTO> GetUserInfo() => new InfusionOp<UserInfoDTO>.GetUserInfo(Return);
+        /// <summary>
+        /// List Opportunities
+        /// </summary>
+        /// <param name = "order">Attribute to order items by</param>
+        /// <param name = "searchTerm">Returns opportunities that match any of the contact's `given_name`, `family_name`, `company_name`, and `email_addresses` (searches `EMAIL1` only) fields as well as `opportunity_title`</param>
+        /// <param name = "stageId">Returns opportunities for the provided stage id</param>
+        /// <param name = "userId">Returns opportunities for the provided user id</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <returns><see cref = "OpportunityList"/></returns>
+        public static InfusionOp<OpportunityList> ListOpportunities(string order = default, string searchTerm = default, long? stageId = default, long? userId = default, int? offset = default, int? limit = default) => new InfusionOp<OpportunityList>.ListOpportunities(Return, order, searchTerm, stageId, userId, offset, limit);
+        /// <summary>
+        /// Retrieve Opportunity Model
+        /// </summary>
+        /// <returns><see cref = "ObjectModel"/></returns>
+        public static InfusionOp<ObjectModel> RetrieveOpportunityModel() => new InfusionOp<ObjectModel>.RetrieveOpportunityModel(Return);
+        /// <summary>
+        /// Retrieve an Opportunity
+        /// </summary>
+        /// <param name = "opportunityId">opportunityId</param>
+        /// <param name = "optionalProperties">Comma-delimited list of Opportunity properties to include in the response. (Some fields such as `custom_fields` aren't included, by default.)</param>
+        /// <returns><see cref = "Opportunity"/></returns>
+        public static InfusionOp<Opportunity> GetOpportunity(long? opportunityId, Lst<string> optionalProperties = default) => new InfusionOp<Opportunity>.GetOpportunity(Return, opportunityId, optionalProperties);
+        /// <summary>
+        /// List Opportunity Stage Pipeline
+        /// </summary>
+        /// <returns><see cref = "Unit"/></returns>
+        public static InfusionOp<Unit> ListOpportunityStagePipelines() => new InfusionOp<Unit>.ListOpportunityStagePipelines(Return);
+        /// <summary>
+        /// List Orders
+        /// </summary>
+        /// <param name = "productId">Returns orders containing the provided product id</param>
+        /// <param name = "contactId">Returns orders for the provided contact id</param>
+        /// <param name = "order">Attribute to order items by</param>
+        /// <param name = "paid">Sets paid status of items to return</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <param name = "until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
+        /// <param name = "since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
+        /// <returns><see cref = "OrderList"/></returns>
+        public static InfusionOp<OrderList> ListOrders(long? productId = default, long? contactId = default, string order = default, bool paid = default, int? offset = default, int? limit = default, string until = default, string since = default) => new InfusionOp<OrderList>.ListOrders(Return, productId, contactId, order, paid, offset, limit, until, since);
+        /// <summary>
+        /// Retrieve Custom Order Model
+        /// </summary>
+        /// <returns><see cref = "ObjectModel"/></returns>
+        public static InfusionOp<ObjectModel> RetrieveOrderModel() => new InfusionOp<ObjectModel>.RetrieveOrderModel(Return);
+        /// <summary>
+        /// Retrieve an Order
+        /// </summary>
+        /// <param name = "orderId">orderId</param>
+        /// <returns><see cref = "Order"/></returns>
+        public static InfusionOp<Order> GetOrder(long? orderId) => new InfusionOp<Order>.GetOrder(Return, orderId);
+        /// <summary>
+        /// Retrieve Order Transactions
+        /// </summary>
+        /// <param name = "orderId">orderId</param>
+        /// <param name = "contactId">Returns transactions for the provided contact id</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <param name = "until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
+        /// <param name = "since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
+        /// <returns><see cref = "TransactionList"/></returns>
+        public static InfusionOp<TransactionList> ListTransactionsForOrder(long? orderId, long? contactId = default, int? offset = default, int? limit = default, string until = default, string since = default) => new InfusionOp<TransactionList>.ListTransactionsForOrder(Return, orderId, contactId, offset, limit, until, since);
+        /// <summary>
+        /// List Products
+        /// </summary>
+        /// <param name = "active">Sets status of items to return</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <returns><see cref = "ProductList"/></returns>
+        public static InfusionOp<ProductList> ListProducts(bool active = default, int? offset = default, int? limit = default) => new InfusionOp<ProductList>.ListProducts(Return, active, offset, limit);
+        /// <summary>
+        /// Retrieve Synced Products
+        /// </summary>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <param name = "syncToken">sync_token</param>
+        /// <returns><see cref = "ProductStatusList"/></returns>
+        public static InfusionOp<ProductStatusList> ListProductsFromSyncToken(int? offset = default, int? limit = default, string syncToken = default) => new InfusionOp<ProductStatusList>.ListProductsFromSyncToken(Return, offset, limit, syncToken);
+        /// <summary>
+        /// Retrieve a Product
+        /// </summary>
+        /// <param name = "productId">productId</param>
+        /// <returns><see cref = "Product"/></returns>
+        public static InfusionOp<Product> GetProduct(long? productId) => new InfusionOp<Product>.GetProduct(Return, productId);
+        /// <summary>
+        /// Retrieve application status
+        /// </summary>
+        /// <returns><see cref = "Setting"/></returns>
+        public static InfusionOp<Setting> GetApplicationEnabled() => new InfusionOp<Setting>.GetApplicationEnabled(Return);
+        /// <summary>
+        /// List Contact types
+        /// </summary>
+        /// <returns><see cref = "Setting"/></returns>
+        public static InfusionOp<Setting> GetContactOptionTypes() => new InfusionOp<Setting>.GetContactOptionTypes(Return);
+        /// <summary>
+        /// Retrieve Subscription Model
+        /// </summary>
+        /// <returns><see cref = "ObjectModel"/></returns>
+        public static InfusionOp<ObjectModel> RetrieveSubscriptionModel() => new InfusionOp<ObjectModel>.RetrieveSubscriptionModel(Return);
+        /// <summary>
+        /// List Tags
+        /// </summary>
+        /// <param name = "category">Category Id of tags to filter by</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <returns><see cref = "Tags"/></returns>
+        public static InfusionOp<Tags> ListTags(long? category = default, int? offset = default, int? limit = default) => new InfusionOp<Tags>.ListTags(Return, category, offset, limit);
+        /// <summary>
+        /// Create Tag Category
+        /// </summary>
+        /// <param name = "tagCategory">tagCategory</param>
+        /// <returns><see cref = "TagCategory"/></returns>
+        public static InfusionOp<TagCategory> CreateTagCategory(Model.CreateTagCategory tagCategory) => new InfusionOp<TagCategory>.CreateTagCategory(Return, tagCategory);
+        /// <summary>
+        /// Retrieve a Tag
+        /// </summary>
+        /// <param name = "id">id</param>
+        /// <returns><see cref = "Tag"/></returns>
+        public static InfusionOp<Tag> GetTag(long? id) => new InfusionOp<Tag>.GetTag(Return, id);
+        /// <summary>
+        /// List Tagged Contacts
+        /// </summary>
+        /// <param name = "tagId">tagId</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <returns><see cref = "TaggedContactList"/></returns>
+        public static InfusionOp<TaggedContactList> ListContactsForTagId(long? tagId, int? offset = default, int? limit = default) => new InfusionOp<TaggedContactList>.ListContactsForTagId(Return, tagId, offset, limit);
+        /// <summary>
+        /// Remove Tag from Contact
+        /// </summary>
+        /// <param name = "contactId">contactId</param>
+        /// <param name = "tagId">tagId</param>
+        /// <returns><see cref = "Unit"/></returns>
+        public static InfusionOp<Unit> RemoveTagFromContactId(long? contactId, long? tagId) => new InfusionOp<Unit>.RemoveTagFromContactId(Return, contactId, tagId);
+        /// <summary>
+        /// List Tasks
+        /// </summary>
+        /// <param name = "order">Attribute to order items by</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <param name = "completed">Sets completed status of items to return</param>
+        /// <param name = "until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
+        /// <param name = "since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
+        /// <param name = "userId">user_id</param>
+        /// <param name = "hasDueDate">has_due_date</param>
+        /// <param name = "contactId">contact_id</param>
+        /// <returns><see cref = "TaskList"/></returns>
+        public static InfusionOp<TaskList> ListTasks(string order = default, int? offset = default, int? limit = default, bool completed = default, string until = default, string since = default, long? userId = default, bool hasDueDate = default, long? contactId = default) => new InfusionOp<TaskList>.ListTasks(Return, order, offset, limit, completed, until, since, userId, hasDueDate, contactId);
+        /// <summary>
+        /// Retrieve Task Model
+        /// </summary>
+        /// <returns><see cref = "ObjectModel"/></returns>
+        public static InfusionOp<ObjectModel> RetrieveTaskModel() => new InfusionOp<ObjectModel>.RetrieveTaskModel(Return);
+        /// <summary>
+        /// Search Tasks
+        /// </summary>
+        /// <param name = "order">Attribute to order items by</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <param name = "completed">Sets completed status of items to return</param>
+        /// <param name = "until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
+        /// <param name = "since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
+        /// <param name = "userId">Returns tasks for the provided user id</param>
+        /// <param name = "hasDueDate">Returns tasks that have an 'action date' when set to true</param>
+        /// <param name = "contactId">Returns tasks for the provided contact id</param>
+        /// <returns><see cref = "TaskList"/></returns>
+        public static InfusionOp<TaskList> ListTasksForCurrentUser(string order = default, int? offset = default, int? limit = default, bool completed = default, string until = default, string since = default, long? userId = default, bool hasDueDate = default, long? contactId = default) => new InfusionOp<TaskList>.ListTasksForCurrentUser(Return, order, offset, limit, completed, until, since, userId, hasDueDate, contactId);
+        /// <summary>
+        /// Retrieve a Task
+        /// </summary>
+        /// <param name = "taskId">taskId</param>
+        /// <returns><see cref = "InfusionTask"/></returns>
+        public static InfusionOp<InfusionTask> GetTask(string taskId) => new InfusionOp<InfusionTask>.GetTask(Return, taskId);
+        /// <summary>
+        /// List Transactions
+        /// </summary>
+        /// <param name = "contactId">Returns transactions for the provided contact id</param>
+        /// <param name = "offset">Sets a beginning range of items to return</param>
+        /// <param name = "limit">Sets a total of items to return</param>
+        /// <param name = "until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
+        /// <param name = "since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
+        /// <returns><see cref = "TransactionList"/></returns>
+        public static InfusionOp<TransactionList> ListTransactions(long? contactId = default, int? offset = default, int? limit = default, string until = default, string since = default) => new InfusionOp<TransactionList>.ListTransactions(Return, contactId, offset, limit, until, since);
+        /// <summary>
+        /// Retrieve a Transaction
+        /// </summary>
+        /// <param name = "transactionId">transactionId</param>
+        /// <returns><see cref = "Transaction"/></returns>
+        public static InfusionOp<Transaction> GetTransaction(long? transactionId) => new InfusionOp<Transaction>.GetTransaction(Return, transactionId);
+    }
 }
-

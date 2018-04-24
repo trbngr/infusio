@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using DotLiquid;
 using LanguageExt;
 using Newtonsoft.Json.Linq;
 
@@ -6,7 +7,7 @@ namespace DslCompiler.Parsing
 {
     using static Prelude;
 
-    class Definition
+    class Definition : ILiquidizable
     {
         public string Name { get; set; }
         public string Type { get; set; }
@@ -23,6 +24,8 @@ namespace DslCompiler.Parsing
                     .Map(x => Property.Parse(name, x))
                     .FoldT(Lst<Property>.Empty, (lst, p) => lst.Add(p))
             };
+
+        public object ToLiquid() => new {Name, Type, Properties};
     }
 
     /// <summary>
@@ -30,7 +33,6 @@ namespace DslCompiler.Parsing
     /// </summary>
     public enum Test
     {
-        [EnumMember(Value = "")]
-        One,
+        [EnumMember(Value = "")] One,
     }
 }

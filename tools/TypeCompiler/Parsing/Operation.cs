@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DotLiquid;
 using LanguageExt;
@@ -22,47 +23,58 @@ namespace DslCompiler.Parsing
 
         public object ToLiquid() => new
         {
-            Path, Name, HttpMethod, Summary, Description, Responses, Parameters, HasParameters, ResponseType
+            Path,
+            Name,
+            HttpMethod,
+            Summary,
+            Description,
+            Responses,
+            Parameters,
+            HasParameters,
+            ResponseType
         };
 
         public string ResponseType => Responses
-            .Find(x => x.StatusCode == "200")
+            .Find(x => x.StatusCode >= 200 && x.StatusCode <= 299)
             .Map(x => x.Type)
             .Match(
                 Some: type => Optional(type).IfNone("Unit"),
                 None: () => "Unit"
             );
 
-        public static Lst<Operation> ParseOperations(JToken token) => (
+        public static Lst<Operation> ParseOperations(JToken token, Set<string> definitions) => (
             from prop in Optional(token as JProperty)
             let path = prop.Name
             from child in prop.Children()
-            select ParseOperations(child, path)
+            select ParseOperations(child, path, definitions)
         ).Fold(
             Lst<Operation>.Empty,
             (lst, operations) => lst.AddRange(operations)
         );
 
-        static Lst<Operation> ParseOperations(JToken token, string path) => (
+        static Lst<Operation> ParseOperations(JToken token, string path, Set<string> definitions) => (
             from obj in Optional(token as JObject)
             from methodNode in Optional(obj.First as JProperty)
             let method = methodNode.Name.PascalCase()
             from p in methodNode.Children()
-            select ParseOperation(path, method, p)
+            select ParseOperation(path, method, p, definitions)
         ).FoldT(Lst<Operation>.Empty, (lst, op) => lst.Add(op));
 
-        private static Option<Operation> ParseOperation(string path, string method, JToken token) =>
+        private static Option<Operation> ParseOperation(string path, string method, JToken token,
+            Set<string> definitions) =>
             from opNode in Optional(token as JObject)
             from operationId in Optional(opNode["operationId"])
+            let operationName = operationId.Value<string>()
             let responses = opNode["responses"]
             let parameters = Optional(opNode["parameters"]).Map(pNode => pNode.Children().Map(node =>
             {
                 var param = node.Deserialize<OperationParameter>()
                     .Set(x => x.Name = x.Name.UnSnake().CamelCase());
 
-                return isnull(param.Type)
-                    ? param.Set(p => p.Type = ReadRef(Optional(node["schema"]).Map(x => x["$ref"])))
-                    : param.Set(p => p.Type = ResolveType(p));
+                return (isnull(param.Type)
+                        ? param.Set(p => p.Type = ReadRef(Optional(node["schema"]).Map(x => x["$ref"])))
+                        : param.Set(p => p.Type = ResolveType(p))
+                    ).Set(x => x.Type = definitions.Contains(x.Type) ? $"Model.{x.Type}" : x.Type);
             })).IfNone(Enumerable.Empty<OperationParameter>())
             select new Operation
             {
@@ -86,7 +98,7 @@ namespace DslCompiler.Parsing
 
         public bool IsValueType => ValueTypes.Find(Type).Map(_ => true).IfNone(false);
         public bool IsOptionalType => OptionalTypes.Find(Type).Map(_ => true).IfNone(Type == "object");
-        public string OptionalTypeName =>  IsValueType ? $"{Type}?" : Type;
+        public string OptionalTypeName => IsValueType ? $"{Type}?" : Type;
 
         public string Format { get; set; }
         public PropertyTypeItems Items { get; set; }
@@ -139,7 +151,7 @@ namespace DslCompiler.Parsing
 
     class OperationResponse : ILiquidizable
     {
-        public string StatusCode { get; set; }
+        public int StatusCode { get; set; }
         public string Description { get; set; }
         public string Type { get; set; }
         public bool HasType => notnull(Type);
@@ -149,12 +161,13 @@ namespace DslCompiler.Parsing
             from response in obj.Children()
             select
                 from statusCode in Optional(response as JProperty)
+                from code in parseInt(statusCode.Name)
                 let data = statusCode.First
                 let description = data["description"]
                 let type = ReadRef(Optional(data["schema"]).Map(x => x["$ref"]))
                 select new OperationResponse
                 {
-                    StatusCode = statusCode.Name,
+                    StatusCode = code,
                     Description = description.StringOrNull(),
                     Type = type
                 }).FoldT(Lst<OperationResponse>.Empty, (lst, response) => lst.Add(response));

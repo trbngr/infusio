@@ -97,6 +97,7 @@ namespace DslCompiler.Parsing
             Enum,
             IsEnum,
             VariableName,
+            JsonProperty,
             OptionalTypeName,
             IsOptionalType
         };
