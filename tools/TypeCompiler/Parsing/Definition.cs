@@ -3,10 +3,8 @@ using DotLiquid;
 using LanguageExt;
 using Newtonsoft.Json.Linq;
 
-namespace DslCompiler.Parsing
+namespace Infusio.Compiler.Parsing
 {
-    using static Prelude;
-
     class Definition : ILiquidizable
     {
         public string Name { get; set; }
@@ -14,7 +12,7 @@ namespace DslCompiler.Parsing
         public Lst<Property> Properties { get; set; }
 
         public static Option<Definition> ParseDefinitions(JToken token) =>
-            from prop in Optional(token as JProperty)
+            from prop in Prelude.Optional(token as JProperty)
             let name = prop.Name.RenameTaskIfNeeded()
             select new Definition
             {

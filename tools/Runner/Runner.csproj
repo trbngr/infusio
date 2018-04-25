@@ -5,6 +5,6 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Infusionsoft\Infusionsoft.csproj" />
+    <ProjectReference Include="..\..\src\Infusio\Infusio.csproj" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infusionsoft", "src\Infusionsoft\Infusionsoft.csproj", "{13994E9F-27AC-444D-89F5-667D48540E4D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infusio", "src\Infusio\Infusio.csproj", "{13994E9F-27AC-444D-89F5-667D48540E4D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "tools\Runner\Runner.csproj", "{5BAF2199-D7DB-4B35-A47C-49B1BA0A1ABF}"
 EndProject
@@ -15,9 +15,11 @@ Global
 		{13994E9F-27AC-444D-89F5-667D48540E4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13994E9F-27AC-444D-89F5-667D48540E4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13994E9F-27AC-444D-89F5-667D48540E4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13994E9F-27AC-444D-89F5-667D48540E4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BAF2199-D7DB-4B35-A47C-49B1BA0A1ABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5BAF2199-D7DB-4B35-A47C-49B1BA0A1ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BAF2199-D7DB-4B35-A47C-49B1BA0A1ABF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BAF2199-D7DB-4B35-A47C-49B1BA0A1ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B475500-937A-4888-940E-2EF5362F85AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3B475500-937A-4888-940E-2EF5362F85AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B475500-937A-4888-940E-2EF5362F85AB}.Release|Any CPU.ActiveCfg = Release|Any CPU

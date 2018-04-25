@@ -1,11 +1,8 @@
-﻿using LanguageExt;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace DslCompiler.Parsing
+namespace Infusio.Compiler.Parsing
 {
-    using static JsonConvert;
-
     public static class Serialization
     {
         static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
@@ -13,12 +10,12 @@ namespace DslCompiler.Parsing
             MetadataPropertyHandling = MetadataPropertyHandling.Ignore
         };
 
-        public static string Serialize(this object self) => SerializeObject(self, Settings);
+        public static string Serialize(this object self) => JsonConvert.SerializeObject(self, Settings);
 
         public static T Deserialize<T>(this string json) =>
-            DeserializeObject<T>(json, Settings);
+            JsonConvert.DeserializeObject<T>(json, Settings);
         
         public static T Deserialize<T>(this JToken token) =>
-            DeserializeObject<T>(token.ToString(), Settings);
+            JsonConvert.DeserializeObject<T>(token.ToString(), Settings);
     }
 }

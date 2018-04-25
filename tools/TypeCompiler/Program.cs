@@ -3,15 +3,18 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using DotLiquid;
-using DslCompiler.Parsing;
+using Infusio.Compiler.Parsing;
 using LanguageExt;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Newtonsoft.Json.Linq;
-using static LanguageExt.Prelude;
+using Microsoft.CodeAnalysis.Formatting;
+using Microsoft.CodeAnalysis.Options;
 
-namespace DslCompiler
+namespace Infusio.Compiler
 {
+    using static Prelude;
+
     class Program
     {
         static Task<JObject> LoadDocument() => File.Exists("infusion.json")
@@ -22,14 +25,13 @@ namespace DslCompiler
             from save in File.WriteAllTextAsync("infusion.json", json).Lift()
             select JObject.Parse(json);
 
-        static readonly string Dest = Path.GetFullPath("../../src/Infusionsoft");
+        static readonly string Dest = Path.GetFullPath("../../src/Infusio");
 
         static OutputDirectory OutDir(string dir) =>
             OutputDirectory.New(Path.Combine(Dest, dir));
 
         static async Task Main()
         {
-            var settings = new CodeGenSettings();
             var model = await LoadDocument().Map(TemplateModel.Parse);
 
             Template.RegisterFilter(typeof(Filters));
@@ -41,13 +43,13 @@ namespace DslCompiler
             Console.Out.WriteLine("");
         }
 
-        static Lst<(FileName, Try<GeneratedCode>)> GenerateForSingleFile(TemplateModel model) => 
+        static Lst<(FileName, Try<GeneratedCode>)> GenerateForSingleFile(TemplateModel model) =>
             List((FileName.New("Dsl"), Render("Dsl", model)))
                 .Add((FileName.New("Dto"), Render("Dto", model)))
                 .Add((FileName.New("Ops"), Render("Ops", model)))
                 .Add((FileName.New("Client"), Render("Client", model)));
 
-        static Lst<(OutputDirectory, FileName, Try<GeneratedCode>)> GenerateForMultiFile(TemplateModel model) => 
+        static Lst<(OutputDirectory, FileName, Try<GeneratedCode>)> GenerateForMultiFile(TemplateModel model) =>
             List((OutDir(Dest), FileName.New("Dsl"), Render("Dsl", model)))
             .AddRange(model.Definitions.Map(def =>(OutDir("Model"), FileName.New(def.Name), Render("Dto.MultiFile", def))))
             .AddRange(model.Operations.Map(op => (OutDir("Ops"), FileName.New(op.Name), Render("Op", op))))
@@ -55,21 +57,23 @@ namespace DslCompiler
 
         static Unit WriteToDisc(OutputDirectory directory, (FileName Name, Try<GeneratedCode> Attemp) result) =>
             WriteToDisc((directory, result.Name, result.Attemp));
-        
+
         static Unit WriteToDisc((OutputDirectory Directory, FileName Name, Try<GeneratedCode> Attempt) result) => match(
             from code in result.Attempt
             from ast in Try(CSharpSyntaxTree.ParseText(code))
             let _ = Directory.CreateDirectory(result.Directory)
             let path = Path.Combine(result.Directory, $"{result.Name}.cs")
             let writer = new StreamWriter(new FileStream(path, FileMode.Create))
-            from syntaxNode in Try(ast.GetRoot().NormalizeWhitespace())
-            from end in use(writer, TryAction<TextWriter>(syntaxNode.WriteTo))
+            let workspace = new AdhocWorkspace()
+            from syntaxNode in Try(ast.GetRoot())
+            let formattedCode = Formatter.Format(syntaxNode, workspace)
+            from end in use(writer, TryAction<TextWriter>(formattedCode.WriteTo))
             select end,
             Succ: identity,
             Fail: e =>
             {
                 Console.Out.WriteLine($"Error generating file {result.Name}. {e.Message}");
-                return unit;
+                return Prelude.unit;
             }
         );
 
@@ -81,7 +85,7 @@ namespace DslCompiler
         static Func<T, Try<Unit>> TryAction<T>(Action<T> action) => arg =>
         {
             action(arg);
-            return Try(unit);
+            return Try(Prelude.unit);
         };
     }
 
@@ -124,7 +128,7 @@ namespace DslCompiler
         public static Unit Return<T>(this T self, Action<T> act)
         {
             act(self);
-            return unit;
+            return Prelude.unit;
         }
 
         public static async Task<Unit> Lift(this Task task)

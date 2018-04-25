@@ -3,7 +3,7 @@ using System.Linq;
 using LanguageExt;
 using Newtonsoft.Json.Linq;
 
-namespace DslCompiler.Parsing
+namespace Infusio.Compiler.Parsing
 {
     using static Prelude;
 
@@ -14,14 +14,14 @@ namespace DslCompiler.Parsing
             ("number", p => "int"),
             ("boolean", p => "bool"),
             ("integer", p => p.Format == "int32" ? "int" : p.Format == "int64" ? "long" : throw new NotSupportedException($"{p.Format} is not supported")),
-            ("string", p => p.IsEnum ? p.Name.UnSnake() : "string"),
+            ("string", p => p.IsEnum ? Ext.UnSnake(p.Name) : "string"),
             ("array", p => ifNone(
                 from items in Optional(p.Items)
                 from type in Optional(items.Ref).Map(ReadRef) |
                              from t in Optional(items.Type)
                              from f in _typeMap.Find(t)
                              select f(new Property {Format = items.Format})
-                select $"Lst<{type.RenameTaskIfNeeded()}>",
+                select $"Lst<{RenameTaskIfNeeded(type)}>",
                 () => throw new NotSupportedException($"Unable to determine array type for property {p.ParentType}.{p.JsonProperty}")
             ))
         );

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace DslCompiler.Parsing
+namespace Infusio.Compiler.Parsing
 {
     public class PropertyTypeItems
     {

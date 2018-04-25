@@ -3,298 +3,421 @@
 // </auto-generated>
 //----------------------
 using System.Runtime.Serialization;
+
 using LanguageExt;
 using Newtonsoft.Json;
 
-namespace Infusion.Model
+namespace Infusio.Model
 {
-    public enum DuplicateOption
-    {
-        [EnumMember(Value = "Email")]
-        Email,
-        [EnumMember(Value = "EmailAndName")]
-        Emailandname
-    }
 
-    public enum Status
-    {
-        [EnumMember(Value = "Unverified")]
-        Unverified,
-        [EnumMember(Value = "Verified")]
-        Verified,
-        [EnumMember(Value = "Inactive")]
-        Inactive
-    }
-
-    public enum Field
-    {
-        [EnumMember(Value = "BILLING")]
-        Billing,
-        [EnumMember(Value = "SHIPPING")]
-        Shipping,
-        [EnumMember(Value = "OTHER")]
-        Other
-    }
-
-    public enum SourceType
-    {
-        [EnumMember(Value = "WEBFORM")]
-        Webform,
-        [EnumMember(Value = "LANDINGPAGE")]
-        Landingpage,
-        [EnumMember(Value = "IMPORT")]
-        Import,
-        [EnumMember(Value = "MANUAL")]
-        Manual,
-        [EnumMember(Value = "API")]
-        Api,
-        [EnumMember(Value = "OTHER")]
-        Other,
-        [EnumMember(Value = "UNKNOWN")]
-        Unknown
-    }
 
     public enum Category
     {
         [EnumMember(Value = "Attachments")]
         Attachments,
+
         [EnumMember(Value = "Cart")]
         Cart,
+
         [EnumMember(Value = "Documents")]
         Documents,
+
         [EnumMember(Value = "Hidden")]
         Hidden,
+
         [EnumMember(Value = "Invoice")]
         Invoice,
+
         [EnumMember(Value = "Logo")]
         Logo,
+
         [EnumMember(Value = "Tickets")]
         Tickets,
+
         [EnumMember(Value = "WebForm")]
         Webform,
+
         [EnumMember(Value = "Funnel")]
         Funnel
     }
 
-    public enum FieldType
-    {
-        [EnumMember(Value = "Currency")]
-        Currency,
-        [EnumMember(Value = "Date")]
-        Date,
-        [EnumMember(Value = "DateTime")]
-        Datetime,
-        [EnumMember(Value = "DayOfWeek")]
-        Dayofweek,
-        [EnumMember(Value = "Drilldown")]
-        Drilldown,
-        [EnumMember(Value = "Email")]
-        Email,
-        [EnumMember(Value = "Month")]
-        Month,
-        [EnumMember(Value = "ListBox")]
-        Listbox,
-        [EnumMember(Value = "Name")]
-        Name,
-        [EnumMember(Value = "WholeNumber")]
-        Wholenumber,
-        [EnumMember(Value = "DecimalNumber")]
-        Decimalnumber,
-        [EnumMember(Value = "Percent")]
-        Percent,
-        [EnumMember(Value = "PhoneNumber")]
-        Phonenumber,
-        [EnumMember(Value = "Radio")]
-        Radio,
-        [EnumMember(Value = "Dropdown")]
-        Dropdown,
-        [EnumMember(Value = "SocialSecurityNumber")]
-        Socialsecuritynumber,
-        [EnumMember(Value = "State")]
-        State,
-        [EnumMember(Value = "Text")]
-        Text,
-        [EnumMember(Value = "TextArea")]
-        Textarea,
-        [EnumMember(Value = "User")]
-        User,
-        [EnumMember(Value = "UserListBox")]
-        Userlistbox,
-        [EnumMember(Value = "Website")]
-        Website,
-        [EnumMember(Value = "Year")]
-        Year,
-        [EnumMember(Value = "YesNo")]
-        Yesno
-    }
 
     public enum FileBoxType
     {
         [EnumMember(Value = "Application")]
         Application,
+
         [EnumMember(Value = "Image")]
         Image,
+
         [EnumMember(Value = "Fax")]
         Fax,
+
         [EnumMember(Value = "Attachment")]
         Attachment,
+
         [EnumMember(Value = "Ticket")]
         Ticket,
+
         [EnumMember(Value = "Contact")]
         Contact,
+
         [EnumMember(Value = "DigitalProduct")]
         Digitalproduct,
+
         [EnumMember(Value = "Import")]
         Import,
+
         [EnumMember(Value = "Hidden")]
         Hidden,
+
         [EnumMember(Value = "WebForm")]
         Webform,
+
         [EnumMember(Value = "StyledCart")]
         Styledcart,
+
         [EnumMember(Value = "ReSampledImage")]
         Resampledimage,
+
         [EnumMember(Value = "TemplateThumbnail")]
         Templatethumbnail,
+
         [EnumMember(Value = "Funnel")]
         Funnel,
+
         [EnumMember(Value = "LogoThumbnail")]
         Logothumbnail
     }
 
-    public enum Type
-    {
-        [EnumMember(Value = "NULL")]
-        Null,
-        [EnumMember(Value = "Start")]
-        Start,
-        [EnumMember(Value = "Wait")]
-        Wait,
-        [EnumMember(Value = "DelayTimer")]
-        Delaytimer,
-        [EnumMember(Value = "ContactTimer")]
-        Contacttimer,
-        [EnumMember(Value = "DateTimer")]
-        Datetimer,
-        [EnumMember(Value = "Email")]
-        Email,
-        [EnumMember(Value = "BardEmail")]
-        Bardemail,
-        [EnumMember(Value = "EmailConfirm")]
-        Emailconfirm,
-        [EnumMember(Value = "Voice")]
-        Voice,
-        [EnumMember(Value = "Fax")]
-        Fax,
-        [EnumMember(Value = "Letter")]
-        Letter,
-        [EnumMember(Value = "Tag")]
-        Tag,
-        [EnumMember(Value = "Opportunity")]
-        Opportunity,
-        [EnumMember(Value = "Note")]
-        Note,
-        [EnumMember(Value = "Task")]
-        Task,
-        [EnumMember(Value = "CompleteTasks")]
-        Completetasks,
-        [EnumMember(Value = "Appointment")]
-        Appointment,
-        [EnumMember(Value = "AssignOwner")]
-        Assignowner,
-        [EnumMember(Value = "FieldValue")]
-        Fieldvalue,
-        [EnumMember(Value = "Fulfillment")]
-        Fulfillment,
-        [EnumMember(Value = "CreateOrder")]
-        Createorder,
-        [EnumMember(Value = "Http")]
-        Http,
-        [EnumMember(Value = "CustomerHub")]
-        Customerhub,
-        [EnumMember(Value = "ActionSet")]
-        Actionset
-    }
-
-    public enum Key
-    {
-        [EnumMember(Value = "SUCCESS")]
-        Success,
-        [EnumMember(Value = "DUPLICATE")]
-        Duplicate,
-        [EnumMember(Value = "CONTACT_NOT_FOUND")]
-        Contactnotfound,
-        [EnumMember(Value = "TAG_ID_NOT_FOUND")]
-        Tagidnotfound,
-        [EnumMember(Value = "FAILURE")]
-        Failure,
-        [EnumMember(Value = "NO_PERMISSION")]
-        Nopermission
-    }
-
-    public enum RecordType
-    {
-        [EnumMember(Value = "CONTACT")]
-        Contact,
-        [EnumMember(Value = "REFERRAL_PARTNER")]
-        Referralpartner,
-        [EnumMember(Value = "OPPORTUNITY")]
-        Opportunity,
-        [EnumMember(Value = "TASK_APPOINTMENT")]
-        Taskappointment,
-        [EnumMember(Value = "COMPANY")]
-        Company,
-        [EnumMember(Value = "ORDER")]
-        Order,
-        [EnumMember(Value = "SUBSCRIPTION")]
-        Subscription
-    }
-
-    public enum EmailStatus
-    {
-        [EnumMember(Value = "Unengaged Marketable")]
-        Unengagedmarketable,
-        [EnumMember(Value = "Unconfirmed")]
-        Unconfirmed,
-        [EnumMember(Value = "Confirmed (Legacy)")]
-        Confirmedlegacy,
-        [EnumMember(Value = "Confirmed")]
-        Confirmed,
-        [EnumMember(Value = "Unengaged NonMarketable")]
-        Unengagednonmarketable,
-        [EnumMember(Value = "Non-marketable")]
-        Nonmarketable,
-        [EnumMember(Value = "Lockdown")]
-        Lockdown,
-        [EnumMember(Value = "Soft Bounce")]
-        Softbounce,
-        [EnumMember(Value = "Hard Bounce")]
-        Hardbounce,
-        [EnumMember(Value = "Opt-Out")]
-        Optout,
-        [EnumMember(Value = "Opt-Out: Admin")]
-        Optoutadmin,
-        [EnumMember(Value = "Opt-Out: System")]
-        Optoutsystem,
-        [EnumMember(Value = "List Unsubscribe")]
-        Listunsubscribe,
-        [EnumMember(Value = "Provided Feedback")]
-        Providedfeedback,
-        [EnumMember(Value = "Reported Spam")]
-        Reportedspam,
-        [EnumMember(Value = "Invalid Email")]
-        Invalidemail
-    }
 
     public enum FileAssociation
     {
         [EnumMember(Value = "CONTACT")]
         Contact,
+
         [EnumMember(Value = "USER")]
         User,
+
         [EnumMember(Value = "COMPANY")]
         Company
     }
+
+
+    public enum DuplicateOption
+    {
+        [EnumMember(Value = "Email")]
+        Email,
+
+        [EnumMember(Value = "EmailAndName")]
+        Emailandname
+    }
+
+
+    public enum Status
+    {
+        [EnumMember(Value = "Unverified")]
+        Unverified,
+
+        [EnumMember(Value = "Verified")]
+        Verified,
+
+        [EnumMember(Value = "Inactive")]
+        Inactive
+    }
+
+
+    public enum EmailStatus
+    {
+        [EnumMember(Value = "Unengaged Marketable")]
+        Unengagedmarketable,
+
+        [EnumMember(Value = "Unconfirmed")]
+        Unconfirmed,
+
+        [EnumMember(Value = "Confirmed (Legacy)")]
+        Confirmedlegacy,
+
+        [EnumMember(Value = "Confirmed")]
+        Confirmed,
+
+        [EnumMember(Value = "Unengaged NonMarketable")]
+        Unengagednonmarketable,
+
+        [EnumMember(Value = "Non-marketable")]
+        Nonmarketable,
+
+        [EnumMember(Value = "Lockdown")]
+        Lockdown,
+
+        [EnumMember(Value = "Soft Bounce")]
+        Softbounce,
+
+        [EnumMember(Value = "Hard Bounce")]
+        Hardbounce,
+
+        [EnumMember(Value = "Opt-Out")]
+        Optout,
+
+        [EnumMember(Value = "Opt-Out: Admin")]
+        Optoutadmin,
+
+        [EnumMember(Value = "Opt-Out: System")]
+        Optoutsystem,
+
+        [EnumMember(Value = "List Unsubscribe")]
+        Listunsubscribe,
+
+        [EnumMember(Value = "Provided Feedback")]
+        Providedfeedback,
+
+        [EnumMember(Value = "Reported Spam")]
+        Reportedspam,
+
+        [EnumMember(Value = "Invalid Email")]
+        Invalidemail
+    }
+
+
+    public enum SourceType
+    {
+        [EnumMember(Value = "WEBFORM")]
+        Webform,
+
+        [EnumMember(Value = "LANDINGPAGE")]
+        Landingpage,
+
+        [EnumMember(Value = "IMPORT")]
+        Import,
+
+        [EnumMember(Value = "MANUAL")]
+        Manual,
+
+        [EnumMember(Value = "API")]
+        Api,
+
+        [EnumMember(Value = "OTHER")]
+        Other,
+
+        [EnumMember(Value = "UNKNOWN")]
+        Unknown
+    }
+
+
+    public enum RecordType
+    {
+        [EnumMember(Value = "CONTACT")]
+        Contact,
+
+        [EnumMember(Value = "REFERRAL_PARTNER")]
+        Referralpartner,
+
+        [EnumMember(Value = "OPPORTUNITY")]
+        Opportunity,
+
+        [EnumMember(Value = "TASK_APPOINTMENT")]
+        Taskappointment,
+
+        [EnumMember(Value = "COMPANY")]
+        Company,
+
+        [EnumMember(Value = "ORDER")]
+        Order,
+
+        [EnumMember(Value = "SUBSCRIPTION")]
+        Subscription
+    }
+
+
+    public enum FieldType
+    {
+        [EnumMember(Value = "Currency")]
+        Currency,
+
+        [EnumMember(Value = "Date")]
+        Date,
+
+        [EnumMember(Value = "DateTime")]
+        Datetime,
+
+        [EnumMember(Value = "DayOfWeek")]
+        Dayofweek,
+
+        [EnumMember(Value = "Drilldown")]
+        Drilldown,
+
+        [EnumMember(Value = "Email")]
+        Email,
+
+        [EnumMember(Value = "Month")]
+        Month,
+
+        [EnumMember(Value = "ListBox")]
+        Listbox,
+
+        [EnumMember(Value = "Name")]
+        Name,
+
+        [EnumMember(Value = "WholeNumber")]
+        Wholenumber,
+
+        [EnumMember(Value = "DecimalNumber")]
+        Decimalnumber,
+
+        [EnumMember(Value = "Percent")]
+        Percent,
+
+        [EnumMember(Value = "PhoneNumber")]
+        Phonenumber,
+
+        [EnumMember(Value = "Radio")]
+        Radio,
+
+        [EnumMember(Value = "Dropdown")]
+        Dropdown,
+
+        [EnumMember(Value = "SocialSecurityNumber")]
+        Socialsecuritynumber,
+
+        [EnumMember(Value = "State")]
+        State,
+
+        [EnumMember(Value = "Text")]
+        Text,
+
+        [EnumMember(Value = "TextArea")]
+        Textarea,
+
+        [EnumMember(Value = "User")]
+        User,
+
+        [EnumMember(Value = "UserListBox")]
+        Userlistbox,
+
+        [EnumMember(Value = "Website")]
+        Website,
+
+        [EnumMember(Value = "Year")]
+        Year,
+
+        [EnumMember(Value = "YesNo")]
+        Yesno
+    }
+
+
+    public enum Field
+    {
+        [EnumMember(Value = "BILLING")]
+        Billing,
+
+        [EnumMember(Value = "SHIPPING")]
+        Shipping,
+
+        [EnumMember(Value = "OTHER")]
+        Other
+    }
+
+
+    public enum Type
+    {
+        [EnumMember(Value = "NULL")]
+        Null,
+
+        [EnumMember(Value = "Start")]
+        Start,
+
+        [EnumMember(Value = "Wait")]
+        Wait,
+
+        [EnumMember(Value = "DelayTimer")]
+        Delaytimer,
+
+        [EnumMember(Value = "ContactTimer")]
+        Contacttimer,
+
+        [EnumMember(Value = "DateTimer")]
+        Datetimer,
+
+        [EnumMember(Value = "Email")]
+        Email,
+
+        [EnumMember(Value = "BardEmail")]
+        Bardemail,
+
+        [EnumMember(Value = "EmailConfirm")]
+        Emailconfirm,
+
+        [EnumMember(Value = "Voice")]
+        Voice,
+
+        [EnumMember(Value = "Fax")]
+        Fax,
+
+        [EnumMember(Value = "Letter")]
+        Letter,
+
+        [EnumMember(Value = "Tag")]
+        Tag,
+
+        [EnumMember(Value = "Opportunity")]
+        Opportunity,
+
+        [EnumMember(Value = "Note")]
+        Note,
+
+        [EnumMember(Value = "Task")]
+        Task,
+
+        [EnumMember(Value = "CompleteTasks")]
+        Completetasks,
+
+        [EnumMember(Value = "Appointment")]
+        Appointment,
+
+        [EnumMember(Value = "AssignOwner")]
+        Assignowner,
+
+        [EnumMember(Value = "FieldValue")]
+        Fieldvalue,
+
+        [EnumMember(Value = "Fulfillment")]
+        Fulfillment,
+
+        [EnumMember(Value = "CreateOrder")]
+        Createorder,
+
+        [EnumMember(Value = "Http")]
+        Http,
+
+        [EnumMember(Value = "CustomerHub")]
+        Customerhub,
+
+        [EnumMember(Value = "ActionSet")]
+        Actionset
+    }
+
+
+    public enum Key
+    {
+        [EnumMember(Value = "SUCCESS")]
+        Success,
+
+        [EnumMember(Value = "DUPLICATE")]
+        Duplicate,
+
+        [EnumMember(Value = "CONTACT_NOT_FOUND")]
+        Contactnotfound,
+
+        [EnumMember(Value = "TAG_ID_NOT_FOUND")]
+        Tagidnotfound,
+
+        [EnumMember(Value = "FAILURE")]
+        Failure,
+
+        [EnumMember(Value = "NO_PERMISSION")]
+        Nopermission
+    }
+
 
     public class CustomFieldMetaData : Record<CustomFieldMetaData>
     {
@@ -308,6 +431,7 @@ namespace Infusion.Model
         public readonly Lst<CustomFieldOption> Options;
         [JsonProperty("record_type")]
         public readonly RecordType RecordType;
+
         public CustomFieldMetaData(FieldType fieldType = default, long id = default, string label = default, Lst<CustomFieldOption> options = default, RecordType recordType = default)
         {
             FieldType = fieldType;
@@ -315,9 +439,17 @@ namespace Infusion.Model
             Label = label;
             Options = options;
             RecordType = recordType;
+
         }
 
-        public CustomFieldMetaData Copy(FieldType fieldType = default, long? id = default, string label = default, Lst<CustomFieldOption> options = default, RecordType recordType = default) => new CustomFieldMetaData(fieldType: fieldType == default ? FieldType : fieldType, id: id ?? Id, label: label ?? Label, options: options == default ? Options : options, recordType: recordType == default ? RecordType : recordType);
+        public CustomFieldMetaData Copy(FieldType fieldType = default, long? id = default, string label = default, Lst<CustomFieldOption> options = default, RecordType recordType = default) => new CustomFieldMetaData(
+                    fieldType: fieldType == default ? FieldType : fieldType,
+                          id: id ?? Id,
+                          label: label ?? Label,
+                          options: options == default ? Options : options,
+                          recordType: recordType == default ? RecordType : recordType
+
+        );
     }
 
     public class Appointment : Record<Appointment>
@@ -338,6 +470,7 @@ namespace Infusion.Model
         public readonly string Title;
         [JsonProperty("user")]
         public readonly long User;
+
         public Appointment(long contactId = default, string description = default, string endDate = default, string location = default, int remindTime = default, string startDate = default, string title = default, long user = default)
         {
             ContactId = contactId;
@@ -348,9 +481,20 @@ namespace Infusion.Model
             StartDate = startDate;
             Title = title;
             User = user;
+
         }
 
-        public Appointment Copy(long? contactId = default, string description = default, string endDate = default, string location = default, int? remindTime = default, string startDate = default, string title = default, long? user = default) => new Appointment(contactId: contactId ?? ContactId, description: description ?? Description, endDate: endDate ?? EndDate, location: location ?? Location, remindTime: remindTime ?? RemindTime, startDate: startDate ?? StartDate, title: title ?? Title, user: user ?? User);
+        public Appointment Copy(long? contactId = default, string description = default, string endDate = default, string location = default, int? remindTime = default, string startDate = default, string title = default, long? user = default) => new Appointment(
+                    contactId: contactId ?? ContactId,
+                          description: description ?? Description,
+                          endDate: endDate ?? EndDate,
+                          location: location ?? Location,
+                          remindTime: remindTime ?? RemindTime,
+                          startDate: startDate ?? StartDate,
+                          title: title ?? Title,
+                          user: user ?? User
+
+        );
     }
 
     public class CustomFieldValue : Record<CustomFieldValue>
@@ -359,25 +503,36 @@ namespace Infusion.Model
         public readonly object Content;
         [JsonProperty("id")]
         public readonly long Id;
+
         public CustomFieldValue(object content = default, long id = default)
         {
             Content = content;
             Id = id;
+
         }
 
-        public CustomFieldValue Copy(object content = default, long? id = default) => new CustomFieldValue(content: content ?? Content, id: id ?? Id);
+        public CustomFieldValue Copy(object content = default, long? id = default) => new CustomFieldValue(
+                    content: content ?? Content,
+                          id: id ?? Id
+
+        );
     }
 
     public class EntryLongString : Record<EntryLongString>
     {
         [JsonProperty("key")]
         public readonly Key Key;
+
         public EntryLongString(Key key = default)
         {
             Key = key;
+
         }
 
-        public EntryLongString Copy(Key key = default) => new EntryLongString(key: key == default ? Key : key);
+        public EntryLongString Copy(Key key = default) => new EntryLongString(
+                    key: key == default ? Key : key
+
+        );
     }
 
     public class SubscriptionPlan : Record<SubscriptionPlan>
@@ -400,6 +555,7 @@ namespace Infusion.Model
         public readonly string SubscriptionPlanName;
         [JsonProperty("url")]
         public readonly string Url;
+
         public SubscriptionPlan(bool active = default, int cycle = default, int frequency = default, long id = default, int numberOfCycles = default, int planPrice = default, int subscriptionPlanIndex = default, string subscriptionPlanName = default, string url = default)
         {
             Active = active;
@@ -411,9 +567,21 @@ namespace Infusion.Model
             SubscriptionPlanIndex = subscriptionPlanIndex;
             SubscriptionPlanName = subscriptionPlanName;
             Url = url;
+
         }
 
-        public SubscriptionPlan Copy(bool active = default, int? cycle = default, int? frequency = default, long? id = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default, string subscriptionPlanName = default, string url = default) => new SubscriptionPlan(active: active == default ? Active : active, cycle: cycle ?? Cycle, frequency: frequency ?? Frequency, id: id ?? Id, numberOfCycles: numberOfCycles ?? NumberOfCycles, planPrice: planPrice ?? PlanPrice, subscriptionPlanIndex: subscriptionPlanIndex ?? SubscriptionPlanIndex, subscriptionPlanName: subscriptionPlanName ?? SubscriptionPlanName, url: url ?? Url);
+        public SubscriptionPlan Copy(bool active = default, int? cycle = default, int? frequency = default, long? id = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default, string subscriptionPlanName = default, string url = default) => new SubscriptionPlan(
+                    active: active == default ? Active : active,
+                          cycle: cycle ?? Cycle,
+                          frequency: frequency ?? Frequency,
+                          id: id ?? Id,
+                          numberOfCycles: numberOfCycles ?? NumberOfCycles,
+                          planPrice: planPrice ?? PlanPrice,
+                          subscriptionPlanIndex: subscriptionPlanIndex ?? SubscriptionPlanIndex,
+                          subscriptionPlanName: subscriptionPlanName ?? SubscriptionPlanName,
+                          url: url ?? Url
+
+        );
     }
 
     public class Company : Record<Company>
@@ -440,6 +608,7 @@ namespace Infusion.Model
         public readonly CompanyPhoneNumber PhoneNumber;
         [JsonProperty("website")]
         public readonly string Website;
+
         public Company(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, bool emailOptedIn = default, EmailStatus emailStatus = default, CompanyFaxNumber faxNumber = default, long id = default, string notes = default, CompanyPhoneNumber phoneNumber = default, string website = default)
         {
             Address = address;
@@ -453,9 +622,23 @@ namespace Infusion.Model
             Notes = notes;
             PhoneNumber = phoneNumber;
             Website = website;
+
         }
 
-        public Company Copy(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, bool emailOptedIn = default, EmailStatus emailStatus = default, CompanyFaxNumber faxNumber = default, long? id = default, string notes = default, CompanyPhoneNumber phoneNumber = default, string website = default) => new Company(address: address == default ? Address : address, companyName: companyName ?? CompanyName, customFields: customFields == default ? CustomFields : customFields, emailAddress: emailAddress ?? EmailAddress, emailOptedIn: emailOptedIn == default ? EmailOptedIn : emailOptedIn, emailStatus: emailStatus == default ? EmailStatus : emailStatus, faxNumber: faxNumber == default ? FaxNumber : faxNumber, id: id ?? Id, notes: notes ?? Notes, phoneNumber: phoneNumber == default ? PhoneNumber : phoneNumber, website: website ?? Website);
+        public Company Copy(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, bool emailOptedIn = default, EmailStatus emailStatus = default, CompanyFaxNumber faxNumber = default, long? id = default, string notes = default, CompanyPhoneNumber phoneNumber = default, string website = default) => new Company(
+                    address: address == default ? Address : address,
+                          companyName: companyName ?? CompanyName,
+                          customFields: customFields == default ? CustomFields : customFields,
+                          emailAddress: emailAddress ?? EmailAddress,
+                          emailOptedIn: emailOptedIn == default ? EmailOptedIn : emailOptedIn,
+                          emailStatus: emailStatus == default ? EmailStatus : emailStatus,
+                          faxNumber: faxNumber == default ? FaxNumber : faxNumber,
+                          id: id ?? Id,
+                          notes: notes ?? Notes,
+                          phoneNumber: phoneNumber == default ? PhoneNumber : phoneNumber,
+                          website: website ?? Website
+
+        );
     }
 
     public class InfusionTask : Record<InfusionTask>
@@ -484,6 +667,7 @@ namespace Infusion.Model
         public readonly string Url;
         [JsonProperty("user_id")]
         public readonly long UserId;
+
         public InfusionTask(bool completed = default, string completionDate = default, BasicContact contact = default, string creationDate = default, string description = default, string dueDate = default, string modificationDate = default, int priority = default, string title = default, string type = default, string url = default, long userId = default)
         {
             Completed = completed;
@@ -498,9 +682,24 @@ namespace Infusion.Model
             Type = type;
             Url = url;
             UserId = userId;
+
         }
 
-        public InfusionTask Copy(bool completed = default, string completionDate = default, BasicContact contact = default, string creationDate = default, string description = default, string dueDate = default, string modificationDate = default, int? priority = default, string title = default, string type = default, string url = default, long? userId = default) => new InfusionTask(completed: completed == default ? Completed : completed, completionDate: completionDate ?? CompletionDate, contact: contact == default ? Contact : contact, creationDate: creationDate ?? CreationDate, description: description ?? Description, dueDate: dueDate ?? DueDate, modificationDate: modificationDate ?? ModificationDate, priority: priority ?? Priority, title: title ?? Title, type: type ?? Type, url: url ?? Url, userId: userId ?? UserId);
+        public InfusionTask Copy(bool completed = default, string completionDate = default, BasicContact contact = default, string creationDate = default, string description = default, string dueDate = default, string modificationDate = default, int? priority = default, string title = default, string type = default, string url = default, long? userId = default) => new InfusionTask(
+                    completed: completed == default ? Completed : completed,
+                          completionDate: completionDate ?? CompletionDate,
+                          contact: contact == default ? Contact : contact,
+                          creationDate: creationDate ?? CreationDate,
+                          description: description ?? Description,
+                          dueDate: dueDate ?? DueDate,
+                          modificationDate: modificationDate ?? ModificationDate,
+                          priority: priority ?? Priority,
+                          title: title ?? Title,
+                          type: type ?? Type,
+                          url: url ?? Url,
+                          userId: userId ?? UserId
+
+        );
     }
 
     public class CompanyList : Record<CompanyList>
@@ -513,15 +712,23 @@ namespace Infusion.Model
         public readonly string Next;
         [JsonProperty("previous")]
         public readonly string Previous;
+
         public CompanyList(Lst<Company> companies = default, int count = default, string next = default, string previous = default)
         {
             Companies = companies;
             Count = count;
             Next = next;
             Previous = previous;
+
         }
 
-        public CompanyList Copy(Lst<Company> companies = default, int? count = default, string next = default, string previous = default) => new CompanyList(companies: companies == default ? Companies : companies, count: count ?? Count, next: next ?? Next, previous: previous ?? Previous);
+        public CompanyList Copy(Lst<Company> companies = default, int? count = default, string next = default, string previous = default) => new CompanyList(
+                    companies: companies == default ? Companies : companies,
+                          count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous
+
+        );
     }
 
     public class Address : Record<Address>
@@ -544,6 +751,7 @@ namespace Infusion.Model
         public readonly string ZipCode;
         [JsonProperty("zip_four")]
         public readonly string ZipFour;
+
         public Address(string countryCode = default, Field field = default, string line1 = default, string line2 = default, string locality = default, string postalCode = default, string region = default, string zipCode = default, string zipFour = default)
         {
             CountryCode = countryCode;
@@ -555,9 +763,21 @@ namespace Infusion.Model
             Region = region;
             ZipCode = zipCode;
             ZipFour = zipFour;
+
         }
 
-        public Address Copy(string countryCode = default, Field field = default, string line1 = default, string line2 = default, string locality = default, string postalCode = default, string region = default, string zipCode = default, string zipFour = default) => new Address(countryCode: countryCode ?? CountryCode, field: field == default ? Field : field, line1: line1 ?? Line1, line2: line2 ?? Line2, locality: locality ?? Locality, postalCode: postalCode ?? PostalCode, region: region ?? Region, zipCode: zipCode ?? ZipCode, zipFour: zipFour ?? ZipFour);
+        public Address Copy(string countryCode = default, Field field = default, string line1 = default, string line2 = default, string locality = default, string postalCode = default, string region = default, string zipCode = default, string zipFour = default) => new Address(
+                    countryCode: countryCode ?? CountryCode,
+                          field: field == default ? Field : field,
+                          line1: line1 ?? Line1,
+                          line2: line2 ?? Line2,
+                          locality: locality ?? Locality,
+                          postalCode: postalCode ?? PostalCode,
+                          region: region ?? Region,
+                          zipCode: zipCode ?? ZipCode,
+                          zipFour: zipFour ?? ZipFour
+
+        );
     }
 
     public class SalesPipeline : Record<SalesPipeline>
@@ -574,6 +794,7 @@ namespace Infusion.Model
         public readonly string StageName;
         [JsonProperty("stage_order")]
         public readonly int StageOrder;
+
         public SalesPipeline(bool endStage = default, bool isDefault = default, int stageCount = default, long stageId = default, string stageName = default, int stageOrder = default)
         {
             EndStage = endStage;
@@ -582,9 +803,18 @@ namespace Infusion.Model
             StageId = stageId;
             StageName = stageName;
             StageOrder = stageOrder;
+
         }
 
-        public SalesPipeline Copy(bool endStage = default, bool isDefault = default, int? stageCount = default, long? stageId = default, string stageName = default, int? stageOrder = default) => new SalesPipeline(endStage: endStage == default ? EndStage : endStage, isDefault: isDefault == default ? IsDefault : isDefault, stageCount: stageCount ?? StageCount, stageId: stageId ?? StageId, stageName: stageName ?? StageName, stageOrder: stageOrder ?? StageOrder);
+        public SalesPipeline Copy(bool endStage = default, bool isDefault = default, int? stageCount = default, long? stageId = default, string stageName = default, int? stageOrder = default) => new SalesPipeline(
+                    endStage: endStage == default ? EndStage : endStage,
+                          isDefault: isDefault == default ? IsDefault : isDefault,
+                          stageCount: stageCount ?? StageCount,
+                          stageId: stageId ?? StageId,
+                          stageName: stageName ?? StageName,
+                          stageOrder: stageOrder ?? StageOrder
+
+        );
     }
 
     public class ShippingInformation : Record<ShippingInformation>
@@ -613,6 +843,7 @@ namespace Infusion.Model
         public readonly string Street2;
         [JsonProperty("zip")]
         public readonly string Zip;
+
         public ShippingInformation(string city = default, string company = default, string country = default, string firstName = default, long id = default, string lastName = default, string middleName = default, string phone = default, string state = default, string street1 = default, string street2 = default, string zip = default)
         {
             City = city;
@@ -627,9 +858,24 @@ namespace Infusion.Model
             Street1 = street1;
             Street2 = street2;
             Zip = zip;
+
         }
 
-        public ShippingInformation Copy(string city = default, string company = default, string country = default, string firstName = default, long? id = default, string lastName = default, string middleName = default, string phone = default, string state = default, string street1 = default, string street2 = default, string zip = default) => new ShippingInformation(city: city ?? City, company: company ?? Company, country: country ?? Country, firstName: firstName ?? FirstName, id: id ?? Id, lastName: lastName ?? LastName, middleName: middleName ?? MiddleName, phone: phone ?? Phone, state: state ?? State, street1: street1 ?? Street1, street2: street2 ?? Street2, zip: zip ?? Zip);
+        public ShippingInformation Copy(string city = default, string company = default, string country = default, string firstName = default, long? id = default, string lastName = default, string middleName = default, string phone = default, string state = default, string street1 = default, string street2 = default, string zip = default) => new ShippingInformation(
+                    city: city ?? City,
+                          company: company ?? Company,
+                          country: country ?? Country,
+                          firstName: firstName ?? FirstName,
+                          id: id ?? Id,
+                          lastName: lastName ?? LastName,
+                          middleName: middleName ?? MiddleName,
+                          phone: phone ?? Phone,
+                          state: state ?? State,
+                          street1: street1 ?? Street1,
+                          street2: street2 ?? Street2,
+                          zip: zip ?? Zip
+
+        );
     }
 
     public class CheckListItemDetails : Record<CheckListItemDetails>
@@ -646,6 +892,7 @@ namespace Infusion.Model
         public readonly int ItemOrder;
         [JsonProperty("required")]
         public readonly bool Required;
+
         public CheckListItemDetails(string description = default, string doneDate = default, long id = default, long instanceId = default, int itemOrder = default, bool required = default)
         {
             Description = description;
@@ -654,9 +901,18 @@ namespace Infusion.Model
             InstanceId = instanceId;
             ItemOrder = itemOrder;
             Required = required;
+
         }
 
-        public CheckListItemDetails Copy(string description = default, string doneDate = default, long? id = default, long? instanceId = default, int? itemOrder = default, bool required = default) => new CheckListItemDetails(description: description ?? Description, doneDate: doneDate ?? DoneDate, id: id ?? Id, instanceId: instanceId ?? InstanceId, itemOrder: itemOrder ?? ItemOrder, required: required == default ? Required : required);
+        public CheckListItemDetails Copy(string description = default, string doneDate = default, long? id = default, long? instanceId = default, int? itemOrder = default, bool required = default) => new CheckListItemDetails(
+                    description: description ?? Description,
+                          doneDate: doneDate ?? DoneDate,
+                          id: id ?? Id,
+                          instanceId: instanceId ?? InstanceId,
+                          itemOrder: itemOrder ?? ItemOrder,
+                          required: required == default ? Required : required
+
+        );
     }
 
     public class TaskList : Record<TaskList>
@@ -671,6 +927,7 @@ namespace Infusion.Model
         public readonly string SyncToken;
         [JsonProperty("tasks")]
         public readonly Lst<InfusionTask> Tasks;
+
         public TaskList(int count = default, string next = default, string previous = default, string syncToken = default, Lst<InfusionTask> tasks = default)
         {
             Count = count;
@@ -678,9 +935,17 @@ namespace Infusion.Model
             Previous = previous;
             SyncToken = syncToken;
             Tasks = tasks;
+
         }
 
-        public TaskList Copy(int? count = default, string next = default, string previous = default, string syncToken = default, Lst<InfusionTask> tasks = default) => new TaskList(count: count ?? Count, next: next ?? Next, previous: previous ?? Previous, syncToken: syncToken ?? SyncToken, tasks: tasks == default ? Tasks : tasks);
+        public TaskList Copy(int? count = default, string next = default, string previous = default, string syncToken = default, Lst<InfusionTask> tasks = default) => new TaskList(
+                    count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous,
+                          syncToken: syncToken ?? SyncToken,
+                          tasks: tasks == default ? Tasks : tasks
+
+        );
     }
 
     public class Product : Record<Product>
@@ -709,6 +974,7 @@ namespace Infusion.Model
         public readonly Lst<SubscriptionPlan> SubscriptionPlans;
         [JsonProperty("url")]
         public readonly string Url;
+
         public Product(long id = default, string productDesc = default, string productName = default, Lst<ProductOption> productOptions = default, int productPrice = default, string productShortDesc = default, string sku = default, int status = default, long subCategoryId = default, bool subscriptionOnly = default, Lst<SubscriptionPlan> subscriptionPlans = default, string url = default)
         {
             Id = id;
@@ -723,9 +989,24 @@ namespace Infusion.Model
             SubscriptionOnly = subscriptionOnly;
             SubscriptionPlans = subscriptionPlans;
             Url = url;
+
         }
 
-        public Product Copy(long? id = default, string productDesc = default, string productName = default, Lst<ProductOption> productOptions = default, int? productPrice = default, string productShortDesc = default, string sku = default, int? status = default, long? subCategoryId = default, bool subscriptionOnly = default, Lst<SubscriptionPlan> subscriptionPlans = default, string url = default) => new Product(id: id ?? Id, productDesc: productDesc ?? ProductDesc, productName: productName ?? ProductName, productOptions: productOptions == default ? ProductOptions : productOptions, productPrice: productPrice ?? ProductPrice, productShortDesc: productShortDesc ?? ProductShortDesc, sku: sku ?? Sku, status: status ?? Status, subCategoryId: subCategoryId ?? SubCategoryId, subscriptionOnly: subscriptionOnly == default ? SubscriptionOnly : subscriptionOnly, subscriptionPlans: subscriptionPlans == default ? SubscriptionPlans : subscriptionPlans, url: url ?? Url);
+        public Product Copy(long? id = default, string productDesc = default, string productName = default, Lst<ProductOption> productOptions = default, int? productPrice = default, string productShortDesc = default, string sku = default, int? status = default, long? subCategoryId = default, bool subscriptionOnly = default, Lst<SubscriptionPlan> subscriptionPlans = default, string url = default) => new Product(
+                    id: id ?? Id,
+                          productDesc: productDesc ?? ProductDesc,
+                          productName: productName ?? ProductName,
+                          productOptions: productOptions == default ? ProductOptions : productOptions,
+                          productPrice: productPrice ?? ProductPrice,
+                          productShortDesc: productShortDesc ?? ProductShortDesc,
+                          sku: sku ?? Sku,
+                          status: status ?? Status,
+                          subCategoryId: subCategoryId ?? SubCategoryId,
+                          subscriptionOnly: subscriptionOnly == default ? SubscriptionOnly : subscriptionOnly,
+                          subscriptionPlans: subscriptionPlans == default ? SubscriptionPlans : subscriptionPlans,
+                          url: url ?? Url
+
+        );
     }
 
     public class OpportunityContact : Record<OpportunityContact>
@@ -744,6 +1025,7 @@ namespace Infusion.Model
         public readonly string LastName;
         [JsonProperty("phone_number")]
         public readonly string PhoneNumber;
+
         public OpportunityContact(string companyName = default, string email = default, string firstName = default, long id = default, string jobTitle = default, string lastName = default, string phoneNumber = default)
         {
             CompanyName = companyName;
@@ -753,9 +1035,19 @@ namespace Infusion.Model
             JobTitle = jobTitle;
             LastName = lastName;
             PhoneNumber = phoneNumber;
+
         }
 
-        public OpportunityContact Copy(string companyName = default, string email = default, string firstName = default, long? id = default, string jobTitle = default, string lastName = default, string phoneNumber = default) => new OpportunityContact(companyName: companyName ?? CompanyName, email: email ?? Email, firstName: firstName ?? FirstName, id: id ?? Id, jobTitle: jobTitle ?? JobTitle, lastName: lastName ?? LastName, phoneNumber: phoneNumber ?? PhoneNumber);
+        public OpportunityContact Copy(string companyName = default, string email = default, string firstName = default, long? id = default, string jobTitle = default, string lastName = default, string phoneNumber = default) => new OpportunityContact(
+                    companyName: companyName ?? CompanyName,
+                          email: email ?? Email,
+                          firstName: firstName ?? FirstName,
+                          id: id ?? Id,
+                          jobTitle: jobTitle ?? JobTitle,
+                          lastName: lastName ?? LastName,
+                          phoneNumber: phoneNumber ?? PhoneNumber
+
+        );
     }
 
     public class OrderContactDetails : Record<OrderContactDetails>
@@ -772,6 +1064,7 @@ namespace Infusion.Model
         public readonly string JobTitle;
         [JsonProperty("last_name")]
         public readonly string LastName;
+
         public OrderContactDetails(string companyName = default, string email = default, string firstName = default, long id = default, string jobTitle = default, string lastName = default)
         {
             CompanyName = companyName;
@@ -780,21 +1073,35 @@ namespace Infusion.Model
             Id = id;
             JobTitle = jobTitle;
             LastName = lastName;
+
         }
 
-        public OrderContactDetails Copy(string companyName = default, string email = default, string firstName = default, long? id = default, string jobTitle = default, string lastName = default) => new OrderContactDetails(companyName: companyName ?? CompanyName, email: email ?? Email, firstName: firstName ?? FirstName, id: id ?? Id, jobTitle: jobTitle ?? JobTitle, lastName: lastName ?? LastName);
+        public OrderContactDetails Copy(string companyName = default, string email = default, string firstName = default, long? id = default, string jobTitle = default, string lastName = default) => new OrderContactDetails(
+                    companyName: companyName ?? CompanyName,
+                          email: email ?? Email,
+                          firstName: firstName ?? FirstName,
+                          id: id ?? Id,
+                          jobTitle: jobTitle ?? JobTitle,
+                          lastName: lastName ?? LastName
+
+        );
     }
 
     public class CategoryReference : Record<CategoryReference>
     {
         [JsonProperty("id")]
         public readonly long Id;
+
         public CategoryReference(long id = default)
         {
             Id = id;
+
         }
 
-        public CategoryReference Copy(long? id = default) => new CategoryReference(id: id ?? Id);
+        public CategoryReference Copy(long? id = default) => new CategoryReference(
+                    id: id ?? Id
+
+        );
     }
 
     public class RestHook : Record<RestHook>
@@ -807,15 +1114,23 @@ namespace Infusion.Model
         public readonly string Key;
         [JsonProperty("status")]
         public readonly Status Status;
+
         public RestHook(string eventKey = default, string hookUrl = default, string key = default, Status status = default)
         {
             EventKey = eventKey;
             HookUrl = hookUrl;
             Key = key;
             Status = status;
+
         }
 
-        public RestHook Copy(string eventKey = default, string hookUrl = default, string key = default, Status status = default) => new RestHook(eventKey: eventKey ?? EventKey, hookUrl: hookUrl ?? HookUrl, key: key ?? Key, status: status == default ? Status : status);
+        public RestHook Copy(string eventKey = default, string hookUrl = default, string key = default, Status status = default) => new RestHook(
+                    eventKey: eventKey ?? EventKey,
+                          hookUrl: hookUrl ?? HookUrl,
+                          key: key ?? Key,
+                          status: status == default ? Status : status
+
+        );
     }
 
     public class ProductOptionValue : Record<ProductOptionValue>
@@ -832,6 +1147,7 @@ namespace Infusion.Model
         public readonly int PriceAdjustment;
         [JsonProperty("sku")]
         public readonly string Sku;
+
         public ProductOptionValue(long id = default, long index = default, bool isDefault = default, string label = default, int priceAdjustment = default, string sku = default)
         {
             Id = id;
@@ -840,9 +1156,18 @@ namespace Infusion.Model
             Label = label;
             PriceAdjustment = priceAdjustment;
             Sku = sku;
+
         }
 
-        public ProductOptionValue Copy(long? id = default, long? index = default, bool isDefault = default, string label = default, int? priceAdjustment = default, string sku = default) => new ProductOptionValue(id: id ?? Id, index: index ?? Index, isDefault: isDefault == default ? IsDefault : isDefault, label: label ?? Label, priceAdjustment: priceAdjustment ?? PriceAdjustment, sku: sku ?? Sku);
+        public ProductOptionValue Copy(long? id = default, long? index = default, bool isDefault = default, string label = default, int? priceAdjustment = default, string sku = default) => new ProductOptionValue(
+                    id: id ?? Id,
+                          index: index ?? Index,
+                          isDefault: isDefault == default ? IsDefault : isDefault,
+                          label: label ?? Label,
+                          priceAdjustment: priceAdjustment ?? PriceAdjustment,
+                          sku: sku ?? Sku
+
+        );
     }
 
     public class Item : Record<Item>
@@ -857,6 +1182,7 @@ namespace Infusion.Model
         public readonly long PreviousItemId;
         [JsonProperty("type")]
         public readonly Type Type;
+
         public Item(long id = default, string name = default, long nextItemId = default, long previousItemId = default, Type type = default)
         {
             Id = id;
@@ -864,9 +1190,17 @@ namespace Infusion.Model
             NextItemId = nextItemId;
             PreviousItemId = previousItemId;
             Type = type;
+
         }
 
-        public Item Copy(long? id = default, string name = default, long? nextItemId = default, long? previousItemId = default, Type type = default) => new Item(id: id ?? Id, name: name ?? Name, nextItemId: nextItemId ?? NextItemId, previousItemId: previousItemId ?? PreviousItemId, type: type == default ? Type : type);
+        public Item Copy(long? id = default, string name = default, long? nextItemId = default, long? previousItemId = default, Type type = default) => new Item(
+                    id: id ?? Id,
+                          name: name ?? Name,
+                          nextItemId: nextItemId ?? NextItemId,
+                          previousItemId: previousItemId ?? PreviousItemId,
+                          type: type == default ? Type : type
+
+        );
     }
 
     public class EmailSentQueryResultWithContent : Record<EmailSentQueryResultWithContent>
@@ -899,6 +1233,7 @@ namespace Infusion.Model
         public readonly string SentToCcAddresses;
         [JsonProperty("subject")]
         public readonly string Subject;
+
         public EmailSentQueryResultWithContent(long contactId = default, string headers = default, string htmlContent = default, long id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default)
         {
             ContactId = contactId;
@@ -915,9 +1250,26 @@ namespace Infusion.Model
             SentToBccAddresses = sentToBccAddresses;
             SentToCcAddresses = sentToCcAddresses;
             Subject = subject;
+
         }
 
-        public EmailSentQueryResultWithContent Copy(long? contactId = default, string headers = default, string htmlContent = default, long? id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default) => new EmailSentQueryResultWithContent(contactId: contactId ?? ContactId, headers: headers ?? Headers, htmlContent: htmlContent ?? HtmlContent, id: id ?? Id, openedDate: openedDate ?? OpenedDate, plainContent: plainContent ?? PlainContent, receivedDate: receivedDate ?? ReceivedDate, sentDate: sentDate ?? SentDate, sentFromAddress: sentFromAddress ?? SentFromAddress, sentFromReplyAddress: sentFromReplyAddress ?? SentFromReplyAddress, sentToAddress: sentToAddress ?? SentToAddress, sentToBccAddresses: sentToBccAddresses ?? SentToBccAddresses, sentToCcAddresses: sentToCcAddresses ?? SentToCcAddresses, subject: subject ?? Subject);
+        public EmailSentQueryResultWithContent Copy(long? contactId = default, string headers = default, string htmlContent = default, long? id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default) => new EmailSentQueryResultWithContent(
+                    contactId: contactId ?? ContactId,
+                          headers: headers ?? Headers,
+                          htmlContent: htmlContent ?? HtmlContent,
+                          id: id ?? Id,
+                          openedDate: openedDate ?? OpenedDate,
+                          plainContent: plainContent ?? PlainContent,
+                          receivedDate: receivedDate ?? ReceivedDate,
+                          sentDate: sentDate ?? SentDate,
+                          sentFromAddress: sentFromAddress ?? SentFromAddress,
+                          sentFromReplyAddress: sentFromReplyAddress ?? SentFromReplyAddress,
+                          sentToAddress: sentToAddress ?? SentToAddress,
+                          sentToBccAddresses: sentToBccAddresses ?? SentToBccAddresses,
+                          sentToCcAddresses: sentToCcAddresses ?? SentToCcAddresses,
+                          subject: subject ?? Subject
+
+        );
     }
 
     public class Goal : Record<Goal>
@@ -934,6 +1286,7 @@ namespace Infusion.Model
         public readonly Lst<long> PreviousSequenceIds;
         [JsonProperty("type")]
         public readonly Type Type;
+
         public Goal(HistoricalCounts historicalContactCounts = default, long id = default, string name = default, Lst<long> nextSequenceIds = default, Lst<long> previousSequenceIds = default, Type type = default)
         {
             HistoricalContactCounts = historicalContactCounts;
@@ -942,9 +1295,18 @@ namespace Infusion.Model
             NextSequenceIds = nextSequenceIds;
             PreviousSequenceIds = previousSequenceIds;
             Type = type;
+
         }
 
-        public Goal Copy(HistoricalCounts historicalContactCounts = default, long? id = default, string name = default, Lst<long> nextSequenceIds = default, Lst<long> previousSequenceIds = default, Type type = default) => new Goal(historicalContactCounts: historicalContactCounts == default ? HistoricalContactCounts : historicalContactCounts, id: id ?? Id, name: name ?? Name, nextSequenceIds: nextSequenceIds == default ? NextSequenceIds : nextSequenceIds, previousSequenceIds: previousSequenceIds == default ? PreviousSequenceIds : previousSequenceIds, type: type == default ? Type : type);
+        public Goal Copy(HistoricalCounts historicalContactCounts = default, long? id = default, string name = default, Lst<long> nextSequenceIds = default, Lst<long> previousSequenceIds = default, Type type = default) => new Goal(
+                    historicalContactCounts: historicalContactCounts == default ? HistoricalContactCounts : historicalContactCounts,
+                          id: id ?? Id,
+                          name: name ?? Name,
+                          nextSequenceIds: nextSequenceIds == default ? NextSequenceIds : nextSequenceIds,
+                          previousSequenceIds: previousSequenceIds == default ? PreviousSequenceIds : previousSequenceIds,
+                          type: type == default ? Type : type
+
+        );
     }
 
     public class FullContact : Record<FullContact>
@@ -1015,6 +1377,7 @@ namespace Infusion.Model
         public readonly string TimeZone;
         [JsonProperty("website")]
         public readonly string Website;
+
         public FullContact(Lst<Address> addresses = default, string anniversary = default, string birthday = default, CompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, string dateCreated = default, Lst<EmailAddress> emailAddresses = default, bool emailOptedIn = default, EmailStatus emailStatus = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, long id = default, string jobTitle = default, string lastUpdated = default, long leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<Relationship> relationships = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, Lst<long> tagIds = default, string timeZone = default, string website = default)
         {
             Addresses = addresses;
@@ -1050,9 +1413,45 @@ namespace Infusion.Model
             TagIds = tagIds;
             TimeZone = timeZone;
             Website = website;
+
         }
 
-        public FullContact Copy(Lst<Address> addresses = default, string anniversary = default, string birthday = default, CompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, string dateCreated = default, Lst<EmailAddress> emailAddresses = default, bool emailOptedIn = default, EmailStatus emailStatus = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, long? id = default, string jobTitle = default, string lastUpdated = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<Relationship> relationships = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, Lst<long> tagIds = default, string timeZone = default, string website = default) => new FullContact(addresses: addresses == default ? Addresses : addresses, anniversary: anniversary ?? Anniversary, birthday: birthday ?? Birthday, company: company == default ? Company : company, contactType: contactType ?? ContactType, customFields: customFields == default ? CustomFields : customFields, dateCreated: dateCreated ?? DateCreated, emailAddresses: emailAddresses == default ? EmailAddresses : emailAddresses, emailOptedIn: emailOptedIn == default ? EmailOptedIn : emailOptedIn, emailStatus: emailStatus == default ? EmailStatus : emailStatus, familyName: familyName ?? FamilyName, faxNumbers: faxNumbers == default ? FaxNumbers : faxNumbers, givenName: givenName ?? GivenName, id: id ?? Id, jobTitle: jobTitle ?? JobTitle, lastUpdated: lastUpdated ?? LastUpdated, leadSourceId: leadSourceId ?? LeadSourceId, middleName: middleName ?? MiddleName, notes: notes ?? Notes, optInReason: optInReason ?? OptInReason, ownerId: ownerId ?? OwnerId, phoneNumbers: phoneNumbers == default ? PhoneNumbers : phoneNumbers, preferredLocale: preferredLocale ?? PreferredLocale, preferredName: preferredName ?? PreferredName, prefix: prefix ?? Prefix, relationships: relationships == default ? Relationships : relationships, socialAccounts: socialAccounts == default ? SocialAccounts : socialAccounts, sourceType: sourceType == default ? SourceType : sourceType, spouseName: spouseName ?? SpouseName, suffix: suffix ?? Suffix, tagIds: tagIds == default ? TagIds : tagIds, timeZone: timeZone ?? TimeZone, website: website ?? Website);
+        public FullContact Copy(Lst<Address> addresses = default, string anniversary = default, string birthday = default, CompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, string dateCreated = default, Lst<EmailAddress> emailAddresses = default, bool emailOptedIn = default, EmailStatus emailStatus = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, long? id = default, string jobTitle = default, string lastUpdated = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<Relationship> relationships = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, Lst<long> tagIds = default, string timeZone = default, string website = default) => new FullContact(
+                    addresses: addresses == default ? Addresses : addresses,
+                          anniversary: anniversary ?? Anniversary,
+                          birthday: birthday ?? Birthday,
+                          company: company == default ? Company : company,
+                          contactType: contactType ?? ContactType,
+                          customFields: customFields == default ? CustomFields : customFields,
+                          dateCreated: dateCreated ?? DateCreated,
+                          emailAddresses: emailAddresses == default ? EmailAddresses : emailAddresses,
+                          emailOptedIn: emailOptedIn == default ? EmailOptedIn : emailOptedIn,
+                          emailStatus: emailStatus == default ? EmailStatus : emailStatus,
+                          familyName: familyName ?? FamilyName,
+                          faxNumbers: faxNumbers == default ? FaxNumbers : faxNumbers,
+                          givenName: givenName ?? GivenName,
+                          id: id ?? Id,
+                          jobTitle: jobTitle ?? JobTitle,
+                          lastUpdated: lastUpdated ?? LastUpdated,
+                          leadSourceId: leadSourceId ?? LeadSourceId,
+                          middleName: middleName ?? MiddleName,
+                          notes: notes ?? Notes,
+                          optInReason: optInReason ?? OptInReason,
+                          ownerId: ownerId ?? OwnerId,
+                          phoneNumbers: phoneNumbers == default ? PhoneNumbers : phoneNumbers,
+                          preferredLocale: preferredLocale ?? PreferredLocale,
+                          preferredName: preferredName ?? PreferredName,
+                          prefix: prefix ?? Prefix,
+                          relationships: relationships == default ? Relationships : relationships,
+                          socialAccounts: socialAccounts == default ? SocialAccounts : socialAccounts,
+                          sourceType: sourceType == default ? SourceType : sourceType,
+                          spouseName: spouseName ?? SpouseName,
+                          suffix: suffix ?? Suffix,
+                          tagIds: tagIds == default ? TagIds : tagIds,
+                          timeZone: timeZone ?? TimeZone,
+                          website: website ?? Website
+
+        );
     }
 
     public class FaxNumber : Record<FaxNumber>
@@ -1063,14 +1462,21 @@ namespace Infusion.Model
         public readonly string Number;
         [JsonProperty("type")]
         public readonly string Type;
+
         public FaxNumber(Field field = default, string number = default, string type = default)
         {
             Field = field;
             Number = number;
             Type = type;
+
         }
 
-        public FaxNumber Copy(Field field = default, string number = default, string type = default) => new FaxNumber(field: field == default ? Field : field, number: number ?? Number, type: type ?? Type);
+        public FaxNumber Copy(Field field = default, string number = default, string type = default) => new FaxNumber(
+                    field: field == default ? Field : field,
+                          number: number ?? Number,
+                          type: type ?? Type
+
+        );
     }
 
     public class OpportunityList : Record<OpportunityList>
@@ -1083,15 +1489,23 @@ namespace Infusion.Model
         public readonly Lst<Opportunity> Opportunities;
         [JsonProperty("previous")]
         public readonly string Previous;
+
         public OpportunityList(int count = default, string next = default, Lst<Opportunity> opportunities = default, string previous = default)
         {
             Count = count;
             Next = next;
             Opportunities = opportunities;
             Previous = previous;
+
         }
 
-        public OpportunityList Copy(int? count = default, string next = default, Lst<Opportunity> opportunities = default, string previous = default) => new OpportunityList(count: count ?? Count, next: next ?? Next, opportunities: opportunities == default ? Opportunities : opportunities, previous: previous ?? Previous);
+        public OpportunityList Copy(int? count = default, string next = default, Lst<Opportunity> opportunities = default, string previous = default) => new OpportunityList(
+                    count: count ?? Count,
+                          next: next ?? Next,
+                          opportunities: opportunities == default ? Opportunities : opportunities,
+                          previous: previous ?? Previous
+
+        );
     }
 
     public class Tags : Record<Tags>
@@ -1104,15 +1518,23 @@ namespace Infusion.Model
         public readonly string Previous;
         [JsonProperty("tags")]
         public readonly Lst<Tag> InnerTags;
+
         public Tags(int count = default, string next = default, string previous = default, Lst<Tag> innerTags = default)
         {
             Count = count;
             Next = next;
             Previous = previous;
             InnerTags = innerTags;
+
         }
 
-        public Tags Copy(int? count = default, string next = default, string previous = default, Lst<Tag> innerTags = default) => new Tags(count: count ?? Count, next: next ?? Next, previous: previous ?? Previous, innerTags: innerTags == default ? InnerTags : innerTags);
+        public Tags Copy(int? count = default, string next = default, string previous = default, Lst<Tag> innerTags = default) => new Tags(
+                    count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous,
+                          innerTags: innerTags == default ? InnerTags : innerTags
+
+        );
     }
 
     public class Order : Record<Order>
@@ -1149,6 +1571,7 @@ namespace Infusion.Model
         public readonly int TotalDue;
         [JsonProperty("total_paid")]
         public readonly int TotalPaid;
+
         public Order(OrderContactDetails contact = default, string creationDate = default, long id = default, long leadAffiliateId = default, string modificationDate = default, string orderDate = default, Lst<OrderItem> orderItems = default, bool recurring = default, int refundTotal = default, long salesAffiliateId = default, ShippingInformation shippingInformation = default, string status = default, string title = default, int total = default, int totalDue = default, int totalPaid = default)
         {
             Contact = contact;
@@ -1167,9 +1590,28 @@ namespace Infusion.Model
             Total = total;
             TotalDue = totalDue;
             TotalPaid = totalPaid;
+
         }
 
-        public Order Copy(OrderContactDetails contact = default, string creationDate = default, long? id = default, long? leadAffiliateId = default, string modificationDate = default, string orderDate = default, Lst<OrderItem> orderItems = default, bool recurring = default, int? refundTotal = default, long? salesAffiliateId = default, ShippingInformation shippingInformation = default, string status = default, string title = default, int? total = default, int? totalDue = default, int? totalPaid = default) => new Order(contact: contact == default ? Contact : contact, creationDate: creationDate ?? CreationDate, id: id ?? Id, leadAffiliateId: leadAffiliateId ?? LeadAffiliateId, modificationDate: modificationDate ?? ModificationDate, orderDate: orderDate ?? OrderDate, orderItems: orderItems == default ? OrderItems : orderItems, recurring: recurring == default ? Recurring : recurring, refundTotal: refundTotal ?? RefundTotal, salesAffiliateId: salesAffiliateId ?? SalesAffiliateId, shippingInformation: shippingInformation == default ? ShippingInformation : shippingInformation, status: status ?? Status, title: title ?? Title, total: total ?? Total, totalDue: totalDue ?? TotalDue, totalPaid: totalPaid ?? TotalPaid);
+        public Order Copy(OrderContactDetails contact = default, string creationDate = default, long? id = default, long? leadAffiliateId = default, string modificationDate = default, string orderDate = default, Lst<OrderItem> orderItems = default, bool recurring = default, int? refundTotal = default, long? salesAffiliateId = default, ShippingInformation shippingInformation = default, string status = default, string title = default, int? total = default, int? totalDue = default, int? totalPaid = default) => new Order(
+                    contact: contact == default ? Contact : contact,
+                          creationDate: creationDate ?? CreationDate,
+                          id: id ?? Id,
+                          leadAffiliateId: leadAffiliateId ?? LeadAffiliateId,
+                          modificationDate: modificationDate ?? ModificationDate,
+                          orderDate: orderDate ?? OrderDate,
+                          orderItems: orderItems == default ? OrderItems : orderItems,
+                          recurring: recurring == default ? Recurring : recurring,
+                          refundTotal: refundTotal ?? RefundTotal,
+                          salesAffiliateId: salesAffiliateId ?? SalesAffiliateId,
+                          shippingInformation: shippingInformation == default ? ShippingInformation : shippingInformation,
+                          status: status ?? Status,
+                          title: title ?? Title,
+                          total: total ?? Total,
+                          totalDue: totalDue ?? TotalDue,
+                          totalPaid: totalPaid ?? TotalPaid
+
+        );
     }
 
     public class FileList : Record<FileList>
@@ -1182,27 +1624,40 @@ namespace Infusion.Model
         public readonly string Next;
         [JsonProperty("previous")]
         public readonly string Previous;
+
         public FileList(int count = default, Lst<FileDescriptor> files = default, string next = default, string previous = default)
         {
             Count = count;
             Files = files;
             Next = next;
             Previous = previous;
+
         }
 
-        public FileList Copy(int? count = default, Lst<FileDescriptor> files = default, string next = default, string previous = default) => new FileList(count: count ?? Count, files: files == default ? Files : files, next: next ?? Next, previous: previous ?? Previous);
+        public FileList Copy(int? count = default, Lst<FileDescriptor> files = default, string next = default, string previous = default) => new FileList(
+                    count: count ?? Count,
+                          files: files == default ? Files : files,
+                          next: next ?? Next,
+                          previous: previous ?? Previous
+
+        );
     }
 
     public class Setting : Record<Setting>
     {
         [JsonProperty("value")]
         public readonly string Value;
+
         public Setting(string value = default)
         {
             Value = value;
+
         }
 
-        public Setting Copy(string value = default) => new Setting(value: value ?? Value);
+        public Setting Copy(string value = default) => new Setting(
+                    value: value ?? Value
+
+        );
     }
 
     public class AffiliateCommission : Record<AffiliateCommission>
@@ -1229,6 +1684,7 @@ namespace Infusion.Model
         public readonly string SoldByFirstName;
         [JsonProperty("sold_by_last_name")]
         public readonly string SoldByLastName;
+
         public AffiliateCommission(int amountEarned = default, string contactFirstName = default, long contactId = default, string contactLastName = default, string dateEarned = default, string description = default, long invoiceId = default, string productName = default, long salesAffiliateId = default, string soldByFirstName = default, string soldByLastName = default)
         {
             AmountEarned = amountEarned;
@@ -1242,9 +1698,23 @@ namespace Infusion.Model
             SalesAffiliateId = salesAffiliateId;
             SoldByFirstName = soldByFirstName;
             SoldByLastName = soldByLastName;
+
         }
 
-        public AffiliateCommission Copy(int? amountEarned = default, string contactFirstName = default, long? contactId = default, string contactLastName = default, string dateEarned = default, string description = default, long? invoiceId = default, string productName = default, long? salesAffiliateId = default, string soldByFirstName = default, string soldByLastName = default) => new AffiliateCommission(amountEarned: amountEarned ?? AmountEarned, contactFirstName: contactFirstName ?? ContactFirstName, contactId: contactId ?? ContactId, contactLastName: contactLastName ?? ContactLastName, dateEarned: dateEarned ?? DateEarned, description: description ?? Description, invoiceId: invoiceId ?? InvoiceId, productName: productName ?? ProductName, salesAffiliateId: salesAffiliateId ?? SalesAffiliateId, soldByFirstName: soldByFirstName ?? SoldByFirstName, soldByLastName: soldByLastName ?? SoldByLastName);
+        public AffiliateCommission Copy(int? amountEarned = default, string contactFirstName = default, long? contactId = default, string contactLastName = default, string dateEarned = default, string description = default, long? invoiceId = default, string productName = default, long? salesAffiliateId = default, string soldByFirstName = default, string soldByLastName = default) => new AffiliateCommission(
+                    amountEarned: amountEarned ?? AmountEarned,
+                          contactFirstName: contactFirstName ?? ContactFirstName,
+                          contactId: contactId ?? ContactId,
+                          contactLastName: contactLastName ?? ContactLastName,
+                          dateEarned: dateEarned ?? DateEarned,
+                          description: description ?? Description,
+                          invoiceId: invoiceId ?? InvoiceId,
+                          productName: productName ?? ProductName,
+                          salesAffiliateId: salesAffiliateId ?? SalesAffiliateId,
+                          soldByFirstName: soldByFirstName ?? SoldByFirstName,
+                          soldByLastName: soldByLastName ?? SoldByLastName
+
+        );
     }
 
     public class Sequence : Record<Sequence>
@@ -1261,6 +1731,7 @@ namespace Infusion.Model
         public readonly string Name;
         [JsonProperty("paths")]
         public readonly Lst<SequencePath> Paths;
+
         public Sequence(int activeContactCount = default, int activeContactCountCompleted = default, HistoricalCounts historicalContactCount = default, long id = default, string name = default, Lst<SequencePath> paths = default)
         {
             ActiveContactCount = activeContactCount;
@@ -1269,9 +1740,18 @@ namespace Infusion.Model
             Id = id;
             Name = name;
             Paths = paths;
+
         }
 
-        public Sequence Copy(int? activeContactCount = default, int? activeContactCountCompleted = default, HistoricalCounts historicalContactCount = default, long? id = default, string name = default, Lst<SequencePath> paths = default) => new Sequence(activeContactCount: activeContactCount ?? ActiveContactCount, activeContactCountCompleted: activeContactCountCompleted ?? ActiveContactCountCompleted, historicalContactCount: historicalContactCount == default ? HistoricalContactCount : historicalContactCount, id: id ?? Id, name: name ?? Name, paths: paths == default ? Paths : paths);
+        public Sequence Copy(int? activeContactCount = default, int? activeContactCountCompleted = default, HistoricalCounts historicalContactCount = default, long? id = default, string name = default, Lst<SequencePath> paths = default) => new Sequence(
+                    activeContactCount: activeContactCount ?? ActiveContactCount,
+                          activeContactCountCompleted: activeContactCountCompleted ?? ActiveContactCountCompleted,
+                          historicalContactCount: historicalContactCount == default ? HistoricalContactCount : historicalContactCount,
+                          id: id ?? Id,
+                          name: name ?? Name,
+                          paths: paths == default ? Paths : paths
+
+        );
     }
 
     public class TransactionList : Record<TransactionList>
@@ -1284,15 +1764,23 @@ namespace Infusion.Model
         public readonly string Previous;
         [JsonProperty("transactions")]
         public readonly Lst<Transaction> Transactions;
+
         public TransactionList(int count = default, string next = default, string previous = default, Lst<Transaction> transactions = default)
         {
             Count = count;
             Next = next;
             Previous = previous;
             Transactions = transactions;
+
         }
 
-        public TransactionList Copy(int? count = default, string next = default, string previous = default, Lst<Transaction> transactions = default) => new TransactionList(count: count ?? Count, next: next ?? Next, previous: previous ?? Previous, transactions: transactions == default ? Transactions : transactions);
+        public TransactionList Copy(int? count = default, string next = default, string previous = default, Lst<Transaction> transactions = default) => new TransactionList(
+                    count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous,
+                          transactions: transactions == default ? Transactions : transactions
+
+        );
     }
 
     public class EmailAddress : Record<EmailAddress>
@@ -1301,13 +1789,19 @@ namespace Infusion.Model
         public readonly string Email;
         [JsonProperty("field")]
         public readonly Field Field;
+
         public EmailAddress(string email = default, Field field = default)
         {
             Email = email;
             Field = field;
+
         }
 
-        public EmailAddress Copy(string email = default, Field field = default) => new EmailAddress(email: email ?? Email, field: field == default ? Field : field);
+        public EmailAddress Copy(string email = default, Field field = default) => new EmailAddress(
+                    email: email ?? Email,
+                          field: field == default ? Field : field
+
+        );
     }
 
     public class CompanyPhoneNumber : Record<CompanyPhoneNumber>
@@ -1318,14 +1812,21 @@ namespace Infusion.Model
         public readonly string Number;
         [JsonProperty("type")]
         public readonly string Type;
+
         public CompanyPhoneNumber(string extension = default, string number = default, string type = default)
         {
             Extension = extension;
             Number = number;
             Type = type;
+
         }
 
-        public CompanyPhoneNumber Copy(string extension = default, string number = default, string type = default) => new CompanyPhoneNumber(extension: extension ?? Extension, number: number ?? Number, type: type ?? Type);
+        public CompanyPhoneNumber Copy(string extension = default, string number = default, string type = default) => new CompanyPhoneNumber(
+                    extension: extension ?? Extension,
+                          number: number ?? Number,
+                          type: type ?? Type
+
+        );
     }
 
     public class UpsertContact : Record<UpsertContact>
@@ -1384,6 +1885,7 @@ namespace Infusion.Model
         public readonly string TimeZone;
         [JsonProperty("website")]
         public readonly string Website;
+
         public UpsertContact(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, DuplicateOption duplicateOption = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default)
         {
             Addresses = addresses;
@@ -1413,9 +1915,39 @@ namespace Infusion.Model
             Suffix = suffix;
             TimeZone = timeZone;
             Website = website;
+
         }
 
-        public UpsertContact Copy(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, DuplicateOption duplicateOption = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default) => new UpsertContact(addresses: addresses == default ? Addresses : addresses, anniversary: anniversary ?? Anniversary, birthday: birthday ?? Birthday, company: company == default ? Company : company, contactType: contactType ?? ContactType, customFields: customFields == default ? CustomFields : customFields, duplicateOption: duplicateOption == default ? DuplicateOption : duplicateOption, emailAddresses: emailAddresses == default ? EmailAddresses : emailAddresses, familyName: familyName ?? FamilyName, faxNumbers: faxNumbers == default ? FaxNumbers : faxNumbers, givenName: givenName ?? GivenName, jobTitle: jobTitle ?? JobTitle, leadSourceId: leadSourceId ?? LeadSourceId, middleName: middleName ?? MiddleName, notes: notes ?? Notes, optInReason: optInReason ?? OptInReason, ownerId: ownerId ?? OwnerId, phoneNumbers: phoneNumbers == default ? PhoneNumbers : phoneNumbers, preferredLocale: preferredLocale ?? PreferredLocale, preferredName: preferredName ?? PreferredName, prefix: prefix ?? Prefix, socialAccounts: socialAccounts == default ? SocialAccounts : socialAccounts, sourceType: sourceType == default ? SourceType : sourceType, spouseName: spouseName ?? SpouseName, suffix: suffix ?? Suffix, timeZone: timeZone ?? TimeZone, website: website ?? Website);
+        public UpsertContact Copy(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, DuplicateOption duplicateOption = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default) => new UpsertContact(
+                    addresses: addresses == default ? Addresses : addresses,
+                          anniversary: anniversary ?? Anniversary,
+                          birthday: birthday ?? Birthday,
+                          company: company == default ? Company : company,
+                          contactType: contactType ?? ContactType,
+                          customFields: customFields == default ? CustomFields : customFields,
+                          duplicateOption: duplicateOption == default ? DuplicateOption : duplicateOption,
+                          emailAddresses: emailAddresses == default ? EmailAddresses : emailAddresses,
+                          familyName: familyName ?? FamilyName,
+                          faxNumbers: faxNumbers == default ? FaxNumbers : faxNumbers,
+                          givenName: givenName ?? GivenName,
+                          jobTitle: jobTitle ?? JobTitle,
+                          leadSourceId: leadSourceId ?? LeadSourceId,
+                          middleName: middleName ?? MiddleName,
+                          notes: notes ?? Notes,
+                          optInReason: optInReason ?? OptInReason,
+                          ownerId: ownerId ?? OwnerId,
+                          phoneNumbers: phoneNumbers == default ? PhoneNumbers : phoneNumbers,
+                          preferredLocale: preferredLocale ?? PreferredLocale,
+                          preferredName: preferredName ?? PreferredName,
+                          prefix: prefix ?? Prefix,
+                          socialAccounts: socialAccounts == default ? SocialAccounts : socialAccounts,
+                          sourceType: sourceType == default ? SourceType : sourceType,
+                          spouseName: spouseName ?? SpouseName,
+                          suffix: suffix ?? Suffix,
+                          timeZone: timeZone ?? TimeZone,
+                          website: website ?? Website
+
+        );
     }
 
     public class Campaign : Record<Campaign>
@@ -1448,6 +1980,7 @@ namespace Infusion.Model
         public readonly Lst<Sequence> Sequences;
         [JsonProperty("time_zone")]
         public readonly string TimeZone;
+
         public Campaign(int activeContactCount = default, int completedContactCount = default, long createdByGlobalId = default, string dateCreated = default, string errorMessage = default, Lst<Goal> goals = default, long id = default, bool locked = default, string name = default, string publishedDate = default, bool publishedStatus = default, string publishedTimeZone = default, Lst<Sequence> sequences = default, string timeZone = default)
         {
             ActiveContactCount = activeContactCount;
@@ -1464,9 +1997,26 @@ namespace Infusion.Model
             PublishedTimeZone = publishedTimeZone;
             Sequences = sequences;
             TimeZone = timeZone;
+
         }
 
-        public Campaign Copy(int? activeContactCount = default, int? completedContactCount = default, long? createdByGlobalId = default, string dateCreated = default, string errorMessage = default, Lst<Goal> goals = default, long? id = default, bool locked = default, string name = default, string publishedDate = default, bool publishedStatus = default, string publishedTimeZone = default, Lst<Sequence> sequences = default, string timeZone = default) => new Campaign(activeContactCount: activeContactCount ?? ActiveContactCount, completedContactCount: completedContactCount ?? CompletedContactCount, createdByGlobalId: createdByGlobalId ?? CreatedByGlobalId, dateCreated: dateCreated ?? DateCreated, errorMessage: errorMessage ?? ErrorMessage, goals: goals == default ? Goals : goals, id: id ?? Id, locked: locked == default ? Locked : locked, name: name ?? Name, publishedDate: publishedDate ?? PublishedDate, publishedStatus: publishedStatus == default ? PublishedStatus : publishedStatus, publishedTimeZone: publishedTimeZone ?? PublishedTimeZone, sequences: sequences == default ? Sequences : sequences, timeZone: timeZone ?? TimeZone);
+        public Campaign Copy(int? activeContactCount = default, int? completedContactCount = default, long? createdByGlobalId = default, string dateCreated = default, string errorMessage = default, Lst<Goal> goals = default, long? id = default, bool locked = default, string name = default, string publishedDate = default, bool publishedStatus = default, string publishedTimeZone = default, Lst<Sequence> sequences = default, string timeZone = default) => new Campaign(
+                    activeContactCount: activeContactCount ?? ActiveContactCount,
+                          completedContactCount: completedContactCount ?? CompletedContactCount,
+                          createdByGlobalId: createdByGlobalId ?? CreatedByGlobalId,
+                          dateCreated: dateCreated ?? DateCreated,
+                          errorMessage: errorMessage ?? ErrorMessage,
+                          goals: goals == default ? Goals : goals,
+                          id: id ?? Id,
+                          locked: locked == default ? Locked : locked,
+                          name: name ?? Name,
+                          publishedDate: publishedDate ?? PublishedDate,
+                          publishedStatus: publishedStatus == default ? PublishedStatus : publishedStatus,
+                          publishedTimeZone: publishedTimeZone ?? PublishedTimeZone,
+                          sequences: sequences == default ? Sequences : sequences,
+                          timeZone: timeZone ?? TimeZone
+
+        );
     }
 
     public class CreditCardAdded : Record<CreditCardAdded>
@@ -1497,6 +2047,7 @@ namespace Infusion.Model
         public readonly string ValidationMessage;
         [JsonProperty("validation_status")]
         public readonly string ValidationStatus;
+
         public CreditCardAdded(Address address = default, string cardType = default, long contactId = default, string emailAddress = default, string expirationMonth = default, string expirationYear = default, long id = default, string maestroIssueNumber = default, string maestroStartDateMonth = default, string maestroStartDateYear = default, string nameOnCard = default, string validationMessage = default, string validationStatus = default)
         {
             Address = address;
@@ -1512,9 +2063,25 @@ namespace Infusion.Model
             NameOnCard = nameOnCard;
             ValidationMessage = validationMessage;
             ValidationStatus = validationStatus;
+
         }
 
-        public CreditCardAdded Copy(Address address = default, string cardType = default, long? contactId = default, string emailAddress = default, string expirationMonth = default, string expirationYear = default, long? id = default, string maestroIssueNumber = default, string maestroStartDateMonth = default, string maestroStartDateYear = default, string nameOnCard = default, string validationMessage = default, string validationStatus = default) => new CreditCardAdded(address: address == default ? Address : address, cardType: cardType ?? CardType, contactId: contactId ?? ContactId, emailAddress: emailAddress ?? EmailAddress, expirationMonth: expirationMonth ?? ExpirationMonth, expirationYear: expirationYear ?? ExpirationYear, id: id ?? Id, maestroIssueNumber: maestroIssueNumber ?? MaestroIssueNumber, maestroStartDateMonth: maestroStartDateMonth ?? MaestroStartDateMonth, maestroStartDateYear: maestroStartDateYear ?? MaestroStartDateYear, nameOnCard: nameOnCard ?? NameOnCard, validationMessage: validationMessage ?? ValidationMessage, validationStatus: validationStatus ?? ValidationStatus);
+        public CreditCardAdded Copy(Address address = default, string cardType = default, long? contactId = default, string emailAddress = default, string expirationMonth = default, string expirationYear = default, long? id = default, string maestroIssueNumber = default, string maestroStartDateMonth = default, string maestroStartDateYear = default, string nameOnCard = default, string validationMessage = default, string validationStatus = default) => new CreditCardAdded(
+                    address: address == default ? Address : address,
+                          cardType: cardType ?? CardType,
+                          contactId: contactId ?? ContactId,
+                          emailAddress: emailAddress ?? EmailAddress,
+                          expirationMonth: expirationMonth ?? ExpirationMonth,
+                          expirationYear: expirationYear ?? ExpirationYear,
+                          id: id ?? Id,
+                          maestroIssueNumber: maestroIssueNumber ?? MaestroIssueNumber,
+                          maestroStartDateMonth: maestroStartDateMonth ?? MaestroStartDateMonth,
+                          maestroStartDateYear: maestroStartDateYear ?? MaestroStartDateYear,
+                          nameOnCard: nameOnCard ?? NameOnCard,
+                          validationMessage: validationMessage ?? ValidationMessage,
+                          validationStatus: validationStatus ?? ValidationStatus
+
+        );
     }
 
     public class Transaction : Record<Transaction>
@@ -1547,6 +2114,7 @@ namespace Infusion.Model
         public readonly string TransactionDate;
         [JsonProperty("type")]
         public readonly string Type;
+
         public Transaction(int amount = default, string collectionMethod = default, long contactId = default, string currency = default, string errors = default, string gateway = default, string gatewayAccountName = default, long id = default, string orderIds = default, Lst<Order> orders = default, string status = default, bool test = default, string transactionDate = default, string type = default)
         {
             Amount = amount;
@@ -1563,9 +2131,26 @@ namespace Infusion.Model
             Test = test;
             TransactionDate = transactionDate;
             Type = type;
+
         }
 
-        public Transaction Copy(int? amount = default, string collectionMethod = default, long? contactId = default, string currency = default, string errors = default, string gateway = default, string gatewayAccountName = default, long? id = default, string orderIds = default, Lst<Order> orders = default, string status = default, bool test = default, string transactionDate = default, string type = default) => new Transaction(amount: amount ?? Amount, collectionMethod: collectionMethod ?? CollectionMethod, contactId: contactId ?? ContactId, currency: currency ?? Currency, errors: errors ?? Errors, gateway: gateway ?? Gateway, gatewayAccountName: gatewayAccountName ?? GatewayAccountName, id: id ?? Id, orderIds: orderIds ?? OrderIds, orders: orders == default ? Orders : orders, status: status ?? Status, test: test == default ? Test : test, transactionDate: transactionDate ?? TransactionDate, type: type ?? Type);
+        public Transaction Copy(int? amount = default, string collectionMethod = default, long? contactId = default, string currency = default, string errors = default, string gateway = default, string gatewayAccountName = default, long? id = default, string orderIds = default, Lst<Order> orders = default, string status = default, bool test = default, string transactionDate = default, string type = default) => new Transaction(
+                    amount: amount ?? Amount,
+                          collectionMethod: collectionMethod ?? CollectionMethod,
+                          contactId: contactId ?? ContactId,
+                          currency: currency ?? Currency,
+                          errors: errors ?? Errors,
+                          gateway: gateway ?? Gateway,
+                          gatewayAccountName: gatewayAccountName ?? GatewayAccountName,
+                          id: id ?? Id,
+                          orderIds: orderIds ?? OrderIds,
+                          orders: orders == default ? Orders : orders,
+                          status: status ?? Status,
+                          test: test == default ? Test : test,
+                          transactionDate: transactionDate ?? TransactionDate,
+                          type: type ?? Type
+
+        );
     }
 
     public class BasicContact : Record<BasicContact>
@@ -1578,15 +2163,23 @@ namespace Infusion.Model
         public readonly long Id;
         [JsonProperty("last_name")]
         public readonly string LastName;
+
         public BasicContact(string email = default, string firstName = default, long id = default, string lastName = default)
         {
             Email = email;
             FirstName = firstName;
             Id = id;
             LastName = lastName;
+
         }
 
-        public BasicContact Copy(string email = default, string firstName = default, long? id = default, string lastName = default) => new BasicContact(email: email ?? Email, firstName: firstName ?? FirstName, id: id ?? Id, lastName: lastName ?? LastName);
+        public BasicContact Copy(string email = default, string firstName = default, long? id = default, string lastName = default) => new BasicContact(
+                    email: email ?? Email,
+                          firstName: firstName ?? FirstName,
+                          id: id ?? Id,
+                          lastName: lastName ?? LastName
+
+        );
     }
 
     public class TaggedContact : Record<TaggedContact>
@@ -1595,13 +2188,19 @@ namespace Infusion.Model
         public readonly BasicContact Contact;
         [JsonProperty("date_applied")]
         public readonly string DateApplied;
+
         public TaggedContact(BasicContact contact = default, string dateApplied = default)
         {
             Contact = contact;
             DateApplied = dateApplied;
+
         }
 
-        public TaggedContact Copy(BasicContact contact = default, string dateApplied = default) => new TaggedContact(contact: contact == default ? Contact : contact, dateApplied: dateApplied ?? DateApplied);
+        public TaggedContact Copy(BasicContact contact = default, string dateApplied = default) => new TaggedContact(
+                    contact: contact == default ? Contact : contact,
+                          dateApplied: dateApplied ?? DateApplied
+
+        );
     }
 
     public class Throwable : Record<Throwable>
@@ -1616,6 +2215,7 @@ namespace Infusion.Model
         public readonly Lst<StackTraceElement> StackTrace;
         [JsonProperty("suppressed")]
         public readonly Lst<Throwable> Suppressed;
+
         public Throwable(Throwable cause = default, string localizedMessage = default, string message = default, Lst<StackTraceElement> stackTrace = default, Lst<Throwable> suppressed = default)
         {
             Cause = cause;
@@ -1623,9 +2223,17 @@ namespace Infusion.Model
             Message = message;
             StackTrace = stackTrace;
             Suppressed = suppressed;
+
         }
 
-        public Throwable Copy(Throwable cause = default, string localizedMessage = default, string message = default, Lst<StackTraceElement> stackTrace = default, Lst<Throwable> suppressed = default) => new Throwable(cause: cause == default ? Cause : cause, localizedMessage: localizedMessage ?? LocalizedMessage, message: message ?? Message, stackTrace: stackTrace == default ? StackTrace : stackTrace, suppressed: suppressed == default ? Suppressed : suppressed);
+        public Throwable Copy(Throwable cause = default, string localizedMessage = default, string message = default, Lst<StackTraceElement> stackTrace = default, Lst<Throwable> suppressed = default) => new Throwable(
+                    cause: cause == default ? Cause : cause,
+                          localizedMessage: localizedMessage ?? LocalizedMessage,
+                          message: message ?? Message,
+                          stackTrace: stackTrace == default ? StackTrace : stackTrace,
+                          suppressed: suppressed == default ? Suppressed : suppressed
+
+        );
     }
 
     public class UserInfoDTO : Record<UserInfoDTO>
@@ -1646,6 +2254,7 @@ namespace Infusion.Model
         public readonly string PreferredName;
         [JsonProperty("sub")]
         public readonly string Sub;
+
         public UserInfoDTO(string email = default, string familyName = default, string givenName = default, long globalUserId = default, string infusionsoftId = default, string middleName = default, string preferredName = default, string sub = default)
         {
             Email = email;
@@ -1656,9 +2265,20 @@ namespace Infusion.Model
             MiddleName = middleName;
             PreferredName = preferredName;
             Sub = sub;
+
         }
 
-        public UserInfoDTO Copy(string email = default, string familyName = default, string givenName = default, long? globalUserId = default, string infusionsoftId = default, string middleName = default, string preferredName = default, string sub = default) => new UserInfoDTO(email: email ?? Email, familyName: familyName ?? FamilyName, givenName: givenName ?? GivenName, globalUserId: globalUserId ?? GlobalUserId, infusionsoftId: infusionsoftId ?? InfusionsoftId, middleName: middleName ?? MiddleName, preferredName: preferredName ?? PreferredName, sub: sub ?? Sub);
+        public UserInfoDTO Copy(string email = default, string familyName = default, string givenName = default, long? globalUserId = default, string infusionsoftId = default, string middleName = default, string preferredName = default, string sub = default) => new UserInfoDTO(
+                    email: email ?? Email,
+                          familyName: familyName ?? FamilyName,
+                          givenName: givenName ?? GivenName,
+                          globalUserId: globalUserId ?? GlobalUserId,
+                          infusionsoftId: infusionsoftId ?? InfusionsoftId,
+                          middleName: middleName ?? MiddleName,
+                          preferredName: preferredName ?? PreferredName,
+                          sub: sub ?? Sub
+
+        );
     }
 
     public class SimpleTag : Record<SimpleTag>
@@ -1669,14 +2289,21 @@ namespace Infusion.Model
         public readonly long Id;
         [JsonProperty("name")]
         public readonly string Name;
+
         public SimpleTag(string category = default, long id = default, string name = default)
         {
             Category = category;
             Id = id;
             Name = name;
+
         }
 
-        public SimpleTag Copy(string category = default, long? id = default, string name = default) => new SimpleTag(category: category ?? Category, id: id ?? Id, name: name ?? Name);
+        public SimpleTag Copy(string category = default, long? id = default, string name = default) => new SimpleTag(
+                    category: category ?? Category,
+                          id: id ?? Id,
+                          name: name ?? Name
+
+        );
     }
 
     public class ContactTagList : Record<ContactTagList>
@@ -1689,15 +2316,23 @@ namespace Infusion.Model
         public readonly string Previous;
         [JsonProperty("tags")]
         public readonly Lst<ContactTag> Tags;
+
         public ContactTagList(int count = default, string next = default, string previous = default, Lst<ContactTag> tags = default)
         {
             Count = count;
             Next = next;
             Previous = previous;
             Tags = tags;
+
         }
 
-        public ContactTagList Copy(int? count = default, string next = default, string previous = default, Lst<ContactTag> tags = default) => new ContactTagList(count: count ?? Count, next: next ?? Next, previous: previous ?? Previous, tags: tags == default ? Tags : tags);
+        public ContactTagList Copy(int? count = default, string next = default, string previous = default, Lst<ContactTag> tags = default) => new ContactTagList(
+                    count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous,
+                          tags: tags == default ? Tags : tags
+
+        );
     }
 
     public class CreateTagCategory : Record<CreateTagCategory>
@@ -1706,13 +2341,19 @@ namespace Infusion.Model
         public readonly string Description;
         [JsonProperty("name")]
         public readonly string Name;
+
         public CreateTagCategory(string description = default, string name = default)
         {
             Description = description;
             Name = name;
+
         }
 
-        public CreateTagCategory Copy(string description = default, string name = default) => new CreateTagCategory(description: description ?? Description, name: name ?? Name);
+        public CreateTagCategory Copy(string description = default, string name = default) => new CreateTagCategory(
+                    description: description ?? Description,
+                          name: name ?? Name
+
+        );
     }
 
     public class CreateTag : Record<CreateTag>
@@ -1723,14 +2364,21 @@ namespace Infusion.Model
         public readonly string Description;
         [JsonProperty("name")]
         public readonly string Name;
+
         public CreateTag(CategoryReference category = default, string description = default, string name = default)
         {
             Category = category;
             Description = description;
             Name = name;
+
         }
 
-        public CreateTag Copy(CategoryReference category = default, string description = default, string name = default) => new CreateTag(category: category == default ? Category : category, description: description ?? Description, name: name ?? Name);
+        public CreateTag Copy(CategoryReference category = default, string description = default, string name = default) => new CreateTag(
+                    category: category == default ? Category : category,
+                          description: description ?? Description,
+                          name: name ?? Name
+
+        );
     }
 
     public class ProductStatusList : Record<ProductStatusList>
@@ -1745,6 +2393,7 @@ namespace Infusion.Model
         public readonly Lst<ProductStatus> ProductStatuses;
         [JsonProperty("sync_token")]
         public readonly string SyncToken;
+
         public ProductStatusList(int count = default, string next = default, string previous = default, Lst<ProductStatus> productStatuses = default, string syncToken = default)
         {
             Count = count;
@@ -1752,9 +2401,17 @@ namespace Infusion.Model
             Previous = previous;
             ProductStatuses = productStatuses;
             SyncToken = syncToken;
+
         }
 
-        public ProductStatusList Copy(int? count = default, string next = default, string previous = default, Lst<ProductStatus> productStatuses = default, string syncToken = default) => new ProductStatusList(count: count ?? Count, next: next ?? Next, previous: previous ?? Previous, productStatuses: productStatuses == default ? ProductStatuses : productStatuses, syncToken: syncToken ?? SyncToken);
+        public ProductStatusList Copy(int? count = default, string next = default, string previous = default, Lst<ProductStatus> productStatuses = default, string syncToken = default) => new ProductStatusList(
+                    count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous,
+                          productStatuses: productStatuses == default ? ProductStatuses : productStatuses,
+                          syncToken: syncToken ?? SyncToken
+
+        );
     }
 
     public class ObjectModel : Record<ObjectModel>
@@ -1763,13 +2420,19 @@ namespace Infusion.Model
         public readonly Lst<CustomFieldMetaData> CustomFields;
         [JsonProperty("optional_properties")]
         public readonly Lst<string> OptionalProperties;
+
         public ObjectModel(Lst<CustomFieldMetaData> customFields = default, Lst<string> optionalProperties = default)
         {
             CustomFields = customFields;
             OptionalProperties = optionalProperties;
+
         }
 
-        public ObjectModel Copy(Lst<CustomFieldMetaData> customFields = default, Lst<string> optionalProperties = default) => new ObjectModel(customFields: customFields == default ? CustomFields : customFields, optionalProperties: optionalProperties == default ? OptionalProperties : optionalProperties);
+        public ObjectModel Copy(Lst<CustomFieldMetaData> customFields = default, Lst<string> optionalProperties = default) => new ObjectModel(
+                    customFields: customFields == default ? CustomFields : customFields,
+                          optionalProperties: optionalProperties == default ? OptionalProperties : optionalProperties
+
+        );
     }
 
     public class SimpleUser : Record<SimpleUser>
@@ -1780,14 +2443,21 @@ namespace Infusion.Model
         public readonly long Id;
         [JsonProperty("last_name")]
         public readonly string LastName;
+
         public SimpleUser(string firstName = default, long id = default, string lastName = default)
         {
             FirstName = firstName;
             Id = id;
             LastName = lastName;
+
         }
 
-        public SimpleUser Copy(string firstName = default, long? id = default, string lastName = default) => new SimpleUser(firstName: firstName ?? FirstName, id: id ?? Id, lastName: lastName ?? LastName);
+        public SimpleUser Copy(string firstName = default, long? id = default, string lastName = default) => new SimpleUser(
+                    firstName: firstName ?? FirstName,
+                          id: id ?? Id,
+                          lastName: lastName ?? LastName
+
+        );
     }
 
     public class TaggedContactList : Record<TaggedContactList>
@@ -1800,15 +2470,23 @@ namespace Infusion.Model
         public readonly string Next;
         [JsonProperty("previous")]
         public readonly string Previous;
+
         public TaggedContactList(Lst<TaggedContact> contacts = default, int count = default, string next = default, string previous = default)
         {
             Contacts = contacts;
             Count = count;
             Next = next;
             Previous = previous;
+
         }
 
-        public TaggedContactList Copy(Lst<TaggedContact> contacts = default, int? count = default, string next = default, string previous = default) => new TaggedContactList(contacts: contacts == default ? Contacts : contacts, count: count ?? Count, next: next ?? Next, previous: previous ?? Previous);
+        public TaggedContactList Copy(Lst<TaggedContact> contacts = default, int? count = default, string next = default, string previous = default) => new TaggedContactList(
+                    contacts: contacts == default ? Contacts : contacts,
+                          count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous
+
+        );
     }
 
     public class CompanyReference : Record<CompanyReference>
@@ -1817,13 +2495,19 @@ namespace Infusion.Model
         public readonly string CompanyName;
         [JsonProperty("id")]
         public readonly long Id;
+
         public CompanyReference(string companyName = default, long id = default)
         {
             CompanyName = companyName;
             Id = id;
+
         }
 
-        public CompanyReference Copy(string companyName = default, long? id = default) => new CompanyReference(companyName: companyName ?? CompanyName, id: id ?? Id);
+        public CompanyReference Copy(string companyName = default, long? id = default) => new CompanyReference(
+                    companyName: companyName ?? CompanyName,
+                          id: id ?? Id
+
+        );
     }
 
     public class AccountProfile : Record<AccountProfile>
@@ -1852,6 +2536,7 @@ namespace Infusion.Model
         public readonly string TimeZone;
         [JsonProperty("website")]
         public readonly string Website;
+
         public AccountProfile(Address address = default, Lst<string> businessGoals = default, string businessType = default, string currencyCode = default, string email = default, string languageTag = default, string logoUrl = default, string name = default, string phone = default, string phoneExt = default, string timeZone = default, string website = default)
         {
             Address = address;
@@ -1866,9 +2551,24 @@ namespace Infusion.Model
             PhoneExt = phoneExt;
             TimeZone = timeZone;
             Website = website;
+
         }
 
-        public AccountProfile Copy(Address address = default, Lst<string> businessGoals = default, string businessType = default, string currencyCode = default, string email = default, string languageTag = default, string logoUrl = default, string name = default, string phone = default, string phoneExt = default, string timeZone = default, string website = default) => new AccountProfile(address: address == default ? Address : address, businessGoals: businessGoals == default ? BusinessGoals : businessGoals, businessType: businessType ?? BusinessType, currencyCode: currencyCode ?? CurrencyCode, email: email ?? Email, languageTag: languageTag ?? LanguageTag, logoUrl: logoUrl ?? LogoUrl, name: name ?? Name, phone: phone ?? Phone, phoneExt: phoneExt ?? PhoneExt, timeZone: timeZone ?? TimeZone, website: website ?? Website);
+        public AccountProfile Copy(Address address = default, Lst<string> businessGoals = default, string businessType = default, string currencyCode = default, string email = default, string languageTag = default, string logoUrl = default, string name = default, string phone = default, string phoneExt = default, string timeZone = default, string website = default) => new AccountProfile(
+                    address: address == default ? Address : address,
+                          businessGoals: businessGoals == default ? BusinessGoals : businessGoals,
+                          businessType: businessType ?? BusinessType,
+                          currencyCode: currencyCode ?? CurrencyCode,
+                          email: email ?? Email,
+                          languageTag: languageTag ?? LanguageTag,
+                          logoUrl: logoUrl ?? LogoUrl,
+                          name: name ?? Name,
+                          phone: phone ?? Phone,
+                          phoneExt: phoneExt ?? PhoneExt,
+                          timeZone: timeZone ?? TimeZone,
+                          website: website ?? Website
+
+        );
     }
 
     public class SimpleOpportunityStage : Record<SimpleOpportunityStage>
@@ -1881,15 +2581,23 @@ namespace Infusion.Model
         public readonly string Name;
         [JsonProperty("reasons")]
         public readonly Lst<string> Reasons;
+
         public SimpleOpportunityStage(StageDetails details = default, long id = default, string name = default, Lst<string> reasons = default)
         {
             Details = details;
             Id = id;
             Name = name;
             Reasons = reasons;
+
         }
 
-        public SimpleOpportunityStage Copy(StageDetails details = default, long? id = default, string name = default, Lst<string> reasons = default) => new SimpleOpportunityStage(details: details == default ? Details : details, id: id ?? Id, name: name ?? Name, reasons: reasons == default ? Reasons : reasons);
+        public SimpleOpportunityStage Copy(StageDetails details = default, long? id = default, string name = default, Lst<string> reasons = default) => new SimpleOpportunityStage(
+                    details: details == default ? Details : details,
+                          id: id ?? Id,
+                          name: name ?? Name,
+                          reasons: reasons == default ? Reasons : reasons
+
+        );
     }
 
     public class RestHookRequest : Record<RestHookRequest>
@@ -1898,25 +2606,36 @@ namespace Infusion.Model
         public readonly string EventKey;
         [JsonProperty("hookUrl")]
         public readonly string HookUrl;
+
         public RestHookRequest(string eventKey = default, string hookUrl = default)
         {
             EventKey = eventKey;
             HookUrl = hookUrl;
+
         }
 
-        public RestHookRequest Copy(string eventKey = default, string hookUrl = default) => new RestHookRequest(eventKey: eventKey ?? EventKey, hookUrl: hookUrl ?? HookUrl);
+        public RestHookRequest Copy(string eventKey = default, string hookUrl = default) => new RestHookRequest(
+                    eventKey: eventKey ?? EventKey,
+                          hookUrl: hookUrl ?? HookUrl
+
+        );
     }
 
     public class EmailSentCreateList : Record<EmailSentCreateList>
     {
         [JsonProperty("emails")]
         public readonly Lst<EmailSentCreate> Emails;
+
         public EmailSentCreateList(Lst<EmailSentCreate> emails = default)
         {
             Emails = emails;
+
         }
 
-        public EmailSentCreateList Copy(Lst<EmailSentCreate> emails = default) => new EmailSentCreateList(emails: emails == default ? Emails : emails);
+        public EmailSentCreateList Copy(Lst<EmailSentCreate> emails = default) => new EmailSentCreateList(
+                    emails: emails == default ? Emails : emails
+
+        );
     }
 
     public class StackTraceElement : Record<StackTraceElement>
@@ -1931,6 +2650,7 @@ namespace Infusion.Model
         public readonly string MethodName;
         [JsonProperty("nativeMethod")]
         public readonly bool NativeMethod;
+
         public StackTraceElement(string className = default, string fileName = default, int lineNumber = default, string methodName = default, bool nativeMethod = default)
         {
             ClassName = className;
@@ -1938,9 +2658,17 @@ namespace Infusion.Model
             LineNumber = lineNumber;
             MethodName = methodName;
             NativeMethod = nativeMethod;
+
         }
 
-        public StackTraceElement Copy(string className = default, string fileName = default, int? lineNumber = default, string methodName = default, bool nativeMethod = default) => new StackTraceElement(className: className ?? ClassName, fileName: fileName ?? FileName, lineNumber: lineNumber ?? LineNumber, methodName: methodName ?? MethodName, nativeMethod: nativeMethod == default ? NativeMethod : nativeMethod);
+        public StackTraceElement Copy(string className = default, string fileName = default, int? lineNumber = default, string methodName = default, bool nativeMethod = default) => new StackTraceElement(
+                    className: className ?? ClassName,
+                          fileName: fileName ?? FileName,
+                          lineNumber: lineNumber ?? LineNumber,
+                          methodName: methodName ?? MethodName,
+                          nativeMethod: nativeMethod == default ? NativeMethod : nativeMethod
+
+        );
     }
 
     public class SequencePath : Record<SequencePath>
@@ -1949,13 +2677,19 @@ namespace Infusion.Model
         public readonly long Id;
         [JsonProperty("items")]
         public readonly Lst<Item> Items;
+
         public SequencePath(long id = default, Lst<Item> items = default)
         {
             Id = id;
             Items = items;
+
         }
 
-        public SequencePath Copy(long? id = default, Lst<Item> items = default) => new SequencePath(id: id ?? Id, items: items == default ? Items : items);
+        public SequencePath Copy(long? id = default, Lst<Item> items = default) => new SequencePath(
+                    id: id ?? Id,
+                          items: items == default ? Items : items
+
+        );
     }
 
     public class CompanyAddress : Record<CompanyAddress>
@@ -1974,6 +2708,7 @@ namespace Infusion.Model
         public readonly string ZipCode;
         [JsonProperty("zip_four")]
         public readonly string ZipFour;
+
         public CompanyAddress(string countryCode = default, string line1 = default, string line2 = default, string locality = default, string region = default, string zipCode = default, string zipFour = default)
         {
             CountryCode = countryCode;
@@ -1983,9 +2718,19 @@ namespace Infusion.Model
             Region = region;
             ZipCode = zipCode;
             ZipFour = zipFour;
+
         }
 
-        public CompanyAddress Copy(string countryCode = default, string line1 = default, string line2 = default, string locality = default, string region = default, string zipCode = default, string zipFour = default) => new CompanyAddress(countryCode: countryCode ?? CountryCode, line1: line1 ?? Line1, line2: line2 ?? Line2, locality: locality ?? Locality, region: region ?? Region, zipCode: zipCode ?? ZipCode, zipFour: zipFour ?? ZipFour);
+        public CompanyAddress Copy(string countryCode = default, string line1 = default, string line2 = default, string locality = default, string region = default, string zipCode = default, string zipFour = default) => new CompanyAddress(
+                    countryCode: countryCode ?? CountryCode,
+                          line1: line1 ?? Line1,
+                          line2: line2 ?? Line2,
+                          locality: locality ?? Locality,
+                          region: region ?? Region,
+                          zipCode: zipCode ?? ZipCode,
+                          zipFour: zipFour ?? ZipFour
+
+        );
     }
 
     public class ContactTag : Record<ContactTag>
@@ -1994,13 +2739,19 @@ namespace Infusion.Model
         public readonly string DateApplied;
         [JsonProperty("tag")]
         public readonly SimpleTag Tag;
+
         public ContactTag(string dateApplied = default, SimpleTag tag = default)
         {
             DateApplied = dateApplied;
             Tag = tag;
+
         }
 
-        public ContactTag Copy(string dateApplied = default, SimpleTag tag = default) => new ContactTag(dateApplied: dateApplied ?? DateApplied, tag: tag == default ? Tag : tag);
+        public ContactTag Copy(string dateApplied = default, SimpleTag tag = default) => new ContactTag(
+                    dateApplied: dateApplied ?? DateApplied,
+                          tag: tag == default ? Tag : tag
+
+        );
     }
 
     public class CustomFieldOption : Record<CustomFieldOption>
@@ -2011,14 +2762,21 @@ namespace Infusion.Model
         public readonly string Label;
         [JsonProperty("options")]
         public readonly Lst<CustomFieldOption> Options;
+
         public CustomFieldOption(string id = default, string label = default, Lst<CustomFieldOption> options = default)
         {
             Id = id;
             Label = label;
             Options = options;
+
         }
 
-        public CustomFieldOption Copy(string id = default, string label = default, Lst<CustomFieldOption> options = default) => new CustomFieldOption(id: id ?? Id, label: label ?? Label, options: options == default ? Options : options);
+        public CustomFieldOption Copy(string id = default, string label = default, Lst<CustomFieldOption> options = default) => new CustomFieldOption(
+                    id: id ?? Id,
+                          label: label ?? Label,
+                          options: options == default ? Options : options
+
+        );
     }
 
     public class Opportunity : Record<Opportunity>
@@ -2053,6 +2811,7 @@ namespace Infusion.Model
         public readonly SimpleOpportunityStage Stage;
         [JsonProperty("user")]
         public readonly SimpleUser User;
+
         public Opportunity(OpportunityContact contact = default, Lst<CustomFieldValue> customFields = default, string dateCreated = default, string estimatedCloseDate = default, long id = default, int includeInForecast = default, string lastUpdated = default, string nextActionDate = default, string nextActionNotes = default, string opportunityNotes = default, string opportunityTitle = default, int projectedRevenueHigh = default, int projectedRevenueLow = default, SimpleOpportunityStage stage = default, SimpleUser user = default)
         {
             Contact = contact;
@@ -2070,9 +2829,27 @@ namespace Infusion.Model
             ProjectedRevenueLow = projectedRevenueLow;
             Stage = stage;
             User = user;
+
         }
 
-        public Opportunity Copy(OpportunityContact contact = default, Lst<CustomFieldValue> customFields = default, string dateCreated = default, string estimatedCloseDate = default, long? id = default, int? includeInForecast = default, string lastUpdated = default, string nextActionDate = default, string nextActionNotes = default, string opportunityNotes = default, string opportunityTitle = default, int? projectedRevenueHigh = default, int? projectedRevenueLow = default, SimpleOpportunityStage stage = default, SimpleUser user = default) => new Opportunity(contact: contact == default ? Contact : contact, customFields: customFields == default ? CustomFields : customFields, dateCreated: dateCreated ?? DateCreated, estimatedCloseDate: estimatedCloseDate ?? EstimatedCloseDate, id: id ?? Id, includeInForecast: includeInForecast ?? IncludeInForecast, lastUpdated: lastUpdated ?? LastUpdated, nextActionDate: nextActionDate ?? NextActionDate, nextActionNotes: nextActionNotes ?? NextActionNotes, opportunityNotes: opportunityNotes ?? OpportunityNotes, opportunityTitle: opportunityTitle ?? OpportunityTitle, projectedRevenueHigh: projectedRevenueHigh ?? ProjectedRevenueHigh, projectedRevenueLow: projectedRevenueLow ?? ProjectedRevenueLow, stage: stage == default ? Stage : stage, user: user == default ? User : user);
+        public Opportunity Copy(OpportunityContact contact = default, Lst<CustomFieldValue> customFields = default, string dateCreated = default, string estimatedCloseDate = default, long? id = default, int? includeInForecast = default, string lastUpdated = default, string nextActionDate = default, string nextActionNotes = default, string opportunityNotes = default, string opportunityTitle = default, int? projectedRevenueHigh = default, int? projectedRevenueLow = default, SimpleOpportunityStage stage = default, SimpleUser user = default) => new Opportunity(
+                    contact: contact == default ? Contact : contact,
+                          customFields: customFields == default ? CustomFields : customFields,
+                          dateCreated: dateCreated ?? DateCreated,
+                          estimatedCloseDate: estimatedCloseDate ?? EstimatedCloseDate,
+                          id: id ?? Id,
+                          includeInForecast: includeInForecast ?? IncludeInForecast,
+                          lastUpdated: lastUpdated ?? LastUpdated,
+                          nextActionDate: nextActionDate ?? NextActionDate,
+                          nextActionNotes: nextActionNotes ?? NextActionNotes,
+                          opportunityNotes: opportunityNotes ?? OpportunityNotes,
+                          opportunityTitle: opportunityTitle ?? OpportunityTitle,
+                          projectedRevenueHigh: projectedRevenueHigh ?? ProjectedRevenueHigh,
+                          projectedRevenueLow: projectedRevenueLow ?? ProjectedRevenueLow,
+                          stage: stage == default ? Stage : stage,
+                          user: user == default ? User : user
+
+        );
     }
 
     public class CampaignLandingPageNodeDTO : Record<CampaignLandingPageNodeDTO>
@@ -2093,6 +2870,7 @@ namespace Infusion.Model
         public readonly bool Ready;
         [JsonProperty("type")]
         public readonly Type Type;
+
         public CampaignLandingPageNodeDTO(string formId = default, string id = default, string landingPageId = default, Lst<string> leadBucketIds = default, string name = default, object properties = default, bool ready = default, Type type = default)
         {
             FormId = formId;
@@ -2103,21 +2881,37 @@ namespace Infusion.Model
             Properties = properties;
             Ready = ready;
             Type = type;
+
         }
 
-        public CampaignLandingPageNodeDTO Copy(string formId = default, string id = default, string landingPageId = default, Lst<string> leadBucketIds = default, string name = default, object properties = default, bool ready = default, Type type = default) => new CampaignLandingPageNodeDTO(formId: formId ?? FormId, id: id ?? Id, landingPageId: landingPageId ?? LandingPageId, leadBucketIds: leadBucketIds == default ? LeadBucketIds : leadBucketIds, name: name ?? Name, properties: properties ?? Properties, ready: ready == default ? Ready : ready, type: type == default ? Type : type);
+        public CampaignLandingPageNodeDTO Copy(string formId = default, string id = default, string landingPageId = default, Lst<string> leadBucketIds = default, string name = default, object properties = default, bool ready = default, Type type = default) => new CampaignLandingPageNodeDTO(
+                    formId: formId ?? FormId,
+                          id: id ?? Id,
+                          landingPageId: landingPageId ?? LandingPageId,
+                          leadBucketIds: leadBucketIds == default ? LeadBucketIds : leadBucketIds,
+                          name: name ?? Name,
+                          properties: properties ?? Properties,
+                          ready: ready == default ? Ready : ready,
+                          type: type == default ? Type : type
+
+        );
     }
 
     public class RequestCompanyReference : Record<RequestCompanyReference>
     {
         [JsonProperty("id")]
         public readonly long Id;
+
         public RequestCompanyReference(long id = default)
         {
             Id = id;
+
         }
 
-        public RequestCompanyReference Copy(long? id = default) => new RequestCompanyReference(id: id ?? Id);
+        public RequestCompanyReference Copy(long? id = default) => new RequestCompanyReference(
+                    id: id ?? Id
+
+        );
     }
 
     public class AppointmentList : Record<AppointmentList>
@@ -2132,6 +2926,7 @@ namespace Infusion.Model
         public readonly string Previous;
         [JsonProperty("sync_token")]
         public readonly string SyncToken;
+
         public AppointmentList(Lst<Appointment> appointments = default, int count = default, string next = default, string previous = default, string syncToken = default)
         {
             Appointments = appointments;
@@ -2139,9 +2934,17 @@ namespace Infusion.Model
             Next = next;
             Previous = previous;
             SyncToken = syncToken;
+
         }
 
-        public AppointmentList Copy(Lst<Appointment> appointments = default, int? count = default, string next = default, string previous = default, string syncToken = default) => new AppointmentList(appointments: appointments == default ? Appointments : appointments, count: count ?? Count, next: next ?? Next, previous: previous ?? Previous, syncToken: syncToken ?? SyncToken);
+        public AppointmentList Copy(Lst<Appointment> appointments = default, int? count = default, string next = default, string previous = default, string syncToken = default) => new AppointmentList(
+                    appointments: appointments == default ? Appointments : appointments,
+                          count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous,
+                          syncToken: syncToken ?? SyncToken
+
+        );
     }
 
     public class HistoricalCounts : Record<HistoricalCounts>
@@ -2150,13 +2953,19 @@ namespace Infusion.Model
         public readonly int TwentyFourHours;
         [JsonProperty("30_days")]
         public readonly int ThirtyDays;
+
         public HistoricalCounts(int twentyFourHours = default, int thirtyDays = default)
         {
             TwentyFourHours = twentyFourHours;
             ThirtyDays = thirtyDays;
+
         }
 
-        public HistoricalCounts Copy(int? twentyFourHours = default, int? thirtyDays = default) => new HistoricalCounts(twentyFourHours: twentyFourHours ?? TwentyFourHours, thirtyDays: thirtyDays ?? ThirtyDays);
+        public HistoricalCounts Copy(int? twentyFourHours = default, int? thirtyDays = default) => new HistoricalCounts(
+                    twentyFourHours: twentyFourHours ?? TwentyFourHours,
+                          thirtyDays: thirtyDays ?? ThirtyDays
+
+        );
     }
 
     public class TagCategory : Record<TagCategory>
@@ -2167,14 +2976,21 @@ namespace Infusion.Model
         public readonly long Id;
         [JsonProperty("name")]
         public readonly string Name;
+
         public TagCategory(string description = default, long id = default, string name = default)
         {
             Description = description;
             Id = id;
             Name = name;
+
         }
 
-        public TagCategory Copy(string description = default, long? id = default, string name = default) => new TagCategory(description: description ?? Description, id: id ?? Id, name: name ?? Name);
+        public TagCategory Copy(string description = default, long? id = default, string name = default) => new TagCategory(
+                    description: description ?? Description,
+                          id: id ?? Id,
+                          name: name ?? Name
+
+        );
     }
 
     public class FileUpload : Record<FileUpload>
@@ -2189,6 +3005,7 @@ namespace Infusion.Model
         public readonly bool IsPublic;
         [JsonProperty("file_association")]
         public readonly FileAssociation FileAssociation;
+
         public FileUpload(string fileName = default, string fileData = default, long contactId = default, bool isPublic = default, FileAssociation fileAssociation = default)
         {
             FileName = fileName;
@@ -2196,9 +3013,17 @@ namespace Infusion.Model
             ContactId = contactId;
             IsPublic = isPublic;
             FileAssociation = fileAssociation;
+
         }
 
-        public FileUpload Copy(string fileName = default, string fileData = default, long? contactId = default, bool isPublic = default, FileAssociation fileAssociation = default) => new FileUpload(fileName: fileName ?? FileName, fileData: fileData ?? FileData, contactId: contactId ?? ContactId, isPublic: isPublic == default ? IsPublic : isPublic, fileAssociation: fileAssociation == default ? FileAssociation : fileAssociation);
+        public FileUpload Copy(string fileName = default, string fileData = default, long? contactId = default, bool isPublic = default, FileAssociation fileAssociation = default) => new FileUpload(
+                    fileName: fileName ?? FileName,
+                          fileData: fileData ?? FileData,
+                          contactId: contactId ?? ContactId,
+                          isPublic: isPublic == default ? IsPublic : isPublic,
+                          fileAssociation: fileAssociation == default ? FileAssociation : fileAssociation
+
+        );
     }
 
     public class ProductOption : Record<ProductOption>
@@ -2237,6 +3062,7 @@ namespace Infusion.Model
         public readonly Type Type;
         [JsonProperty("values")]
         public readonly Lst<ProductOptionValue> Values;
+
         public ProductOption(bool allowSpaces = default, bool canContainCharacter = default, bool canContainNumber = default, bool canEndWithCharacter = default, bool canEndWithNumber = default, bool canStartWithCharacter = default, bool canStartWithNumber = default, int displayIndex = default, long id = default, string label = default, int maxChars = default, int minChars = default, string name = default, bool required = default, string textMessage = default, Type type = default, Lst<ProductOptionValue> values = default)
         {
             AllowSpaces = allowSpaces;
@@ -2256,9 +3082,29 @@ namespace Infusion.Model
             TextMessage = textMessage;
             Type = type;
             Values = values;
+
         }
 
-        public ProductOption Copy(bool allowSpaces = default, bool canContainCharacter = default, bool canContainNumber = default, bool canEndWithCharacter = default, bool canEndWithNumber = default, bool canStartWithCharacter = default, bool canStartWithNumber = default, int? displayIndex = default, long? id = default, string label = default, int? maxChars = default, int? minChars = default, string name = default, bool required = default, string textMessage = default, Type type = default, Lst<ProductOptionValue> values = default) => new ProductOption(allowSpaces: allowSpaces == default ? AllowSpaces : allowSpaces, canContainCharacter: canContainCharacter == default ? CanContainCharacter : canContainCharacter, canContainNumber: canContainNumber == default ? CanContainNumber : canContainNumber, canEndWithCharacter: canEndWithCharacter == default ? CanEndWithCharacter : canEndWithCharacter, canEndWithNumber: canEndWithNumber == default ? CanEndWithNumber : canEndWithNumber, canStartWithCharacter: canStartWithCharacter == default ? CanStartWithCharacter : canStartWithCharacter, canStartWithNumber: canStartWithNumber == default ? CanStartWithNumber : canStartWithNumber, displayIndex: displayIndex ?? DisplayIndex, id: id ?? Id, label: label ?? Label, maxChars: maxChars ?? MaxChars, minChars: minChars ?? MinChars, name: name ?? Name, required: required == default ? Required : required, textMessage: textMessage ?? TextMessage, type: type == default ? Type : type, values: values == default ? Values : values);
+        public ProductOption Copy(bool allowSpaces = default, bool canContainCharacter = default, bool canContainNumber = default, bool canEndWithCharacter = default, bool canEndWithNumber = default, bool canStartWithCharacter = default, bool canStartWithNumber = default, int? displayIndex = default, long? id = default, string label = default, int? maxChars = default, int? minChars = default, string name = default, bool required = default, string textMessage = default, Type type = default, Lst<ProductOptionValue> values = default) => new ProductOption(
+                    allowSpaces: allowSpaces == default ? AllowSpaces : allowSpaces,
+                          canContainCharacter: canContainCharacter == default ? CanContainCharacter : canContainCharacter,
+                          canContainNumber: canContainNumber == default ? CanContainNumber : canContainNumber,
+                          canEndWithCharacter: canEndWithCharacter == default ? CanEndWithCharacter : canEndWithCharacter,
+                          canEndWithNumber: canEndWithNumber == default ? CanEndWithNumber : canEndWithNumber,
+                          canStartWithCharacter: canStartWithCharacter == default ? CanStartWithCharacter : canStartWithCharacter,
+                          canStartWithNumber: canStartWithNumber == default ? CanStartWithNumber : canStartWithNumber,
+                          displayIndex: displayIndex ?? DisplayIndex,
+                          id: id ?? Id,
+                          label: label ?? Label,
+                          maxChars: maxChars ?? MaxChars,
+                          minChars: minChars ?? MinChars,
+                          name: name ?? Name,
+                          required: required == default ? Required : required,
+                          textMessage: textMessage ?? TextMessage,
+                          type: type == default ? Type : type,
+                          values: values == default ? Values : values
+
+        );
     }
 
     public class FileInformation : Record<FileInformation>
@@ -2267,13 +3113,19 @@ namespace Infusion.Model
         public readonly string FileData;
         [JsonProperty("file_descriptor")]
         public readonly FileDescriptor FileDescriptor;
+
         public FileInformation(string fileData = default, FileDescriptor fileDescriptor = default)
         {
             FileData = fileData;
             FileDescriptor = fileDescriptor;
+
         }
 
-        public FileInformation Copy(string fileData = default, FileDescriptor fileDescriptor = default) => new FileInformation(fileData: fileData ?? FileData, fileDescriptor: fileDescriptor == default ? FileDescriptor : fileDescriptor);
+        public FileInformation Copy(string fileData = default, FileDescriptor fileDescriptor = default) => new FileInformation(
+                    fileData: fileData ?? FileData,
+                          fileDescriptor: fileDescriptor == default ? FileDescriptor : fileDescriptor
+
+        );
     }
 
     public class CampaignNodeDTO : Record<CampaignNodeDTO>
@@ -2288,6 +3140,7 @@ namespace Infusion.Model
         public readonly bool Ready;
         [JsonProperty("type")]
         public readonly Type Type;
+
         public CampaignNodeDTO(string id = default, string name = default, object properties = default, bool ready = default, Type type = default)
         {
             Id = id;
@@ -2295,9 +3148,17 @@ namespace Infusion.Model
             Properties = properties;
             Ready = ready;
             Type = type;
+
         }
 
-        public CampaignNodeDTO Copy(string id = default, string name = default, object properties = default, bool ready = default, Type type = default) => new CampaignNodeDTO(id: id ?? Id, name: name ?? Name, properties: properties ?? Properties, ready: ready == default ? Ready : ready, type: type == default ? Type : type);
+        public CampaignNodeDTO Copy(string id = default, string name = default, object properties = default, bool ready = default, Type type = default) => new CampaignNodeDTO(
+                    id: id ?? Id,
+                          name: name ?? Name,
+                          properties: properties ?? Properties,
+                          ready: ready == default ? Ready : ready,
+                          type: type == default ? Type : type
+
+        );
     }
 
     public class CompanyFaxNumber : Record<CompanyFaxNumber>
@@ -2306,13 +3167,19 @@ namespace Infusion.Model
         public readonly string Number;
         [JsonProperty("type")]
         public readonly string Type;
+
         public CompanyFaxNumber(string number = default, string type = default)
         {
             Number = number;
             Type = type;
+
         }
 
-        public CompanyFaxNumber Copy(string number = default, string type = default) => new CompanyFaxNumber(number: number ?? Number, type: type ?? Type);
+        public CompanyFaxNumber Copy(string number = default, string type = default) => new CompanyFaxNumber(
+                    number: number ?? Number,
+                          type: type ?? Type
+
+        );
     }
 
     public class AffiliateCommissionList : Record<AffiliateCommissionList>
@@ -2325,15 +3192,23 @@ namespace Infusion.Model
         public readonly string Next;
         [JsonProperty("previous")]
         public readonly string Previous;
+
         public AffiliateCommissionList(Lst<AffiliateCommission> commissions = default, int count = default, string next = default, string previous = default)
         {
             Commissions = commissions;
             Count = count;
             Next = next;
             Previous = previous;
+
         }
 
-        public AffiliateCommissionList Copy(Lst<AffiliateCommission> commissions = default, int? count = default, string next = default, string previous = default) => new AffiliateCommissionList(commissions: commissions == default ? Commissions : commissions, count: count ?? Count, next: next ?? Next, previous: previous ?? Previous);
+        public AffiliateCommissionList Copy(Lst<AffiliateCommission> commissions = default, int? count = default, string next = default, string previous = default) => new AffiliateCommissionList(
+                    commissions: commissions == default ? Commissions : commissions,
+                          count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous
+
+        );
     }
 
     public class SimpleProduct : Record<SimpleProduct>
@@ -2350,6 +3225,7 @@ namespace Infusion.Model
         public readonly string Sku;
         [JsonProperty("taxable")]
         public readonly bool Taxable;
+
         public SimpleProduct(string description = default, long id = default, string name = default, bool shippable = default, string sku = default, bool taxable = default)
         {
             Description = description;
@@ -2358,9 +3234,18 @@ namespace Infusion.Model
             Shippable = shippable;
             Sku = sku;
             Taxable = taxable;
+
         }
 
-        public SimpleProduct Copy(string description = default, long? id = default, string name = default, bool shippable = default, string sku = default, bool taxable = default) => new SimpleProduct(description: description ?? Description, id: id ?? Id, name: name ?? Name, shippable: shippable == default ? Shippable : shippable, sku: sku ?? Sku, taxable: taxable == default ? Taxable : taxable);
+        public SimpleProduct Copy(string description = default, long? id = default, string name = default, bool shippable = default, string sku = default, bool taxable = default) => new SimpleProduct(
+                    description: description ?? Description,
+                          id: id ?? Id,
+                          name: name ?? Name,
+                          shippable: shippable == default ? Shippable : shippable,
+                          sku: sku ?? Sku,
+                          taxable: taxable == default ? Taxable : taxable
+
+        );
     }
 
     public class Error : Record<Error>
@@ -2375,6 +3260,7 @@ namespace Infusion.Model
         public readonly Lst<StackTraceElement> StackTrace;
         [JsonProperty("suppressed")]
         public readonly Lst<Throwable> Suppressed;
+
         public Error(Throwable cause = default, string localizedMessage = default, string message = default, Lst<StackTraceElement> stackTrace = default, Lst<Throwable> suppressed = default)
         {
             Cause = cause;
@@ -2382,9 +3268,17 @@ namespace Infusion.Model
             Message = message;
             StackTrace = stackTrace;
             Suppressed = suppressed;
+
         }
 
-        public Error Copy(Throwable cause = default, string localizedMessage = default, string message = default, Lst<StackTraceElement> stackTrace = default, Lst<Throwable> suppressed = default) => new Error(cause: cause == default ? Cause : cause, localizedMessage: localizedMessage ?? LocalizedMessage, message: message ?? Message, stackTrace: stackTrace == default ? StackTrace : stackTrace, suppressed: suppressed == default ? Suppressed : suppressed);
+        public Error Copy(Throwable cause = default, string localizedMessage = default, string message = default, Lst<StackTraceElement> stackTrace = default, Lst<Throwable> suppressed = default) => new Error(
+                    cause: cause == default ? Cause : cause,
+                          localizedMessage: localizedMessage ?? LocalizedMessage,
+                          message: message ?? Message,
+                          stackTrace: stackTrace == default ? StackTrace : stackTrace,
+                          suppressed: suppressed == default ? Suppressed : suppressed
+
+        );
     }
 
     public class ProductStatus : Record<ProductStatus>
@@ -2393,13 +3287,19 @@ namespace Infusion.Model
         public readonly Product Product;
         [JsonProperty("status")]
         public readonly Status Status;
+
         public ProductStatus(Product product = default, Status status = default)
         {
             Product = product;
             Status = status;
+
         }
 
-        public ProductStatus Copy(Product product = default, Status status = default) => new ProductStatus(product: product == default ? Product : product, status: status == default ? Status : status);
+        public ProductStatus Copy(Product product = default, Status status = default) => new ProductStatus(
+                    product: product == default ? Product : product,
+                          status: status == default ? Status : status
+
+        );
     }
 
     public class RequestContact : Record<RequestContact>
@@ -2456,6 +3356,7 @@ namespace Infusion.Model
         public readonly string TimeZone;
         [JsonProperty("website")]
         public readonly string Website;
+
         public RequestContact(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default)
         {
             Addresses = addresses;
@@ -2484,9 +3385,38 @@ namespace Infusion.Model
             Suffix = suffix;
             TimeZone = timeZone;
             Website = website;
+
         }
 
-        public RequestContact Copy(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default) => new RequestContact(addresses: addresses == default ? Addresses : addresses, anniversary: anniversary ?? Anniversary, birthday: birthday ?? Birthday, company: company == default ? Company : company, contactType: contactType ?? ContactType, customFields: customFields == default ? CustomFields : customFields, emailAddresses: emailAddresses == default ? EmailAddresses : emailAddresses, familyName: familyName ?? FamilyName, faxNumbers: faxNumbers == default ? FaxNumbers : faxNumbers, givenName: givenName ?? GivenName, jobTitle: jobTitle ?? JobTitle, leadSourceId: leadSourceId ?? LeadSourceId, middleName: middleName ?? MiddleName, notes: notes ?? Notes, optInReason: optInReason ?? OptInReason, ownerId: ownerId ?? OwnerId, phoneNumbers: phoneNumbers == default ? PhoneNumbers : phoneNumbers, preferredLocale: preferredLocale ?? PreferredLocale, preferredName: preferredName ?? PreferredName, prefix: prefix ?? Prefix, socialAccounts: socialAccounts == default ? SocialAccounts : socialAccounts, sourceType: sourceType == default ? SourceType : sourceType, spouseName: spouseName ?? SpouseName, suffix: suffix ?? Suffix, timeZone: timeZone ?? TimeZone, website: website ?? Website);
+        public RequestContact Copy(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default) => new RequestContact(
+                    addresses: addresses == default ? Addresses : addresses,
+                          anniversary: anniversary ?? Anniversary,
+                          birthday: birthday ?? Birthday,
+                          company: company == default ? Company : company,
+                          contactType: contactType ?? ContactType,
+                          customFields: customFields == default ? CustomFields : customFields,
+                          emailAddresses: emailAddresses == default ? EmailAddresses : emailAddresses,
+                          familyName: familyName ?? FamilyName,
+                          faxNumbers: faxNumbers == default ? FaxNumbers : faxNumbers,
+                          givenName: givenName ?? GivenName,
+                          jobTitle: jobTitle ?? JobTitle,
+                          leadSourceId: leadSourceId ?? LeadSourceId,
+                          middleName: middleName ?? MiddleName,
+                          notes: notes ?? Notes,
+                          optInReason: optInReason ?? OptInReason,
+                          ownerId: ownerId ?? OwnerId,
+                          phoneNumbers: phoneNumbers == default ? PhoneNumbers : phoneNumbers,
+                          preferredLocale: preferredLocale ?? PreferredLocale,
+                          preferredName: preferredName ?? PreferredName,
+                          prefix: prefix ?? Prefix,
+                          socialAccounts: socialAccounts == default ? SocialAccounts : socialAccounts,
+                          sourceType: sourceType == default ? SourceType : sourceType,
+                          spouseName: spouseName ?? SpouseName,
+                          suffix: suffix ?? Suffix,
+                          timeZone: timeZone ?? TimeZone,
+                          website: website ?? Website
+
+        );
     }
 
     public class SocialAccount : Record<SocialAccount>
@@ -2495,13 +3425,19 @@ namespace Infusion.Model
         public readonly string Name;
         [JsonProperty("type")]
         public readonly Type Type;
+
         public SocialAccount(string name = default, Type type = default)
         {
             Name = name;
             Type = type;
+
         }
 
-        public SocialAccount Copy(string name = default, Type type = default) => new SocialAccount(name: name ?? Name, type: type == default ? Type : type);
+        public SocialAccount Copy(string name = default, Type type = default) => new SocialAccount(
+                    name: name ?? Name,
+                          type: type == default ? Type : type
+
+        );
     }
 
     public class ContactList : Record<ContactList>
@@ -2514,15 +3450,23 @@ namespace Infusion.Model
         public readonly string Next;
         [JsonProperty("previous")]
         public readonly string Previous;
+
         public ContactList(Lst<FullContact> contacts = default, int count = default, string next = default, string previous = default)
         {
             Contacts = contacts;
             Count = count;
             Next = next;
             Previous = previous;
+
         }
 
-        public ContactList Copy(Lst<FullContact> contacts = default, int? count = default, string next = default, string previous = default) => new ContactList(contacts: contacts == default ? Contacts : contacts, count: count ?? Count, next: next ?? Next, previous: previous ?? Previous);
+        public ContactList Copy(Lst<FullContact> contacts = default, int? count = default, string next = default, string previous = default) => new ContactList(
+                    contacts: contacts == default ? Contacts : contacts,
+                          count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous
+
+        );
     }
 
     public class CreateCompany : Record<CreateCompany>
@@ -2545,6 +3489,7 @@ namespace Infusion.Model
         public readonly CompanyPhoneNumber PhoneNumber;
         [JsonProperty("website")]
         public readonly string Website;
+
         public CreateCompany(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, CompanyFaxNumber faxNumber = default, string notes = default, string optInReason = default, CompanyPhoneNumber phoneNumber = default, string website = default)
         {
             Address = address;
@@ -2556,9 +3501,21 @@ namespace Infusion.Model
             OptInReason = optInReason;
             PhoneNumber = phoneNumber;
             Website = website;
+
         }
 
-        public CreateCompany Copy(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, CompanyFaxNumber faxNumber = default, string notes = default, string optInReason = default, CompanyPhoneNumber phoneNumber = default, string website = default) => new CreateCompany(address: address == default ? Address : address, companyName: companyName ?? CompanyName, customFields: customFields == default ? CustomFields : customFields, emailAddress: emailAddress ?? EmailAddress, faxNumber: faxNumber == default ? FaxNumber : faxNumber, notes: notes ?? Notes, optInReason: optInReason ?? OptInReason, phoneNumber: phoneNumber == default ? PhoneNumber : phoneNumber, website: website ?? Website);
+        public CreateCompany Copy(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, CompanyFaxNumber faxNumber = default, string notes = default, string optInReason = default, CompanyPhoneNumber phoneNumber = default, string website = default) => new CreateCompany(
+                    address: address == default ? Address : address,
+                          companyName: companyName ?? CompanyName,
+                          customFields: customFields == default ? CustomFields : customFields,
+                          emailAddress: emailAddress ?? EmailAddress,
+                          faxNumber: faxNumber == default ? FaxNumber : faxNumber,
+                          notes: notes ?? Notes,
+                          optInReason: optInReason ?? OptInReason,
+                          phoneNumber: phoneNumber == default ? PhoneNumber : phoneNumber,
+                          website: website ?? Website
+
+        );
     }
 
     public class EmailSentQueryResultList : Record<EmailSentQueryResultList>
@@ -2571,27 +3528,40 @@ namespace Infusion.Model
         public readonly string Next;
         [JsonProperty("previous")]
         public readonly string Previous;
+
         public EmailSentQueryResultList(int count = default, Lst<EmailSentQueryResult> emails = default, string next = default, string previous = default)
         {
             Count = count;
             Emails = emails;
             Next = next;
             Previous = previous;
+
         }
 
-        public EmailSentQueryResultList Copy(int? count = default, Lst<EmailSentQueryResult> emails = default, string next = default, string previous = default) => new EmailSentQueryResultList(count: count ?? Count, emails: emails == default ? Emails : emails, next: next ?? Next, previous: previous ?? Previous);
+        public EmailSentQueryResultList Copy(int? count = default, Lst<EmailSentQueryResult> emails = default, string next = default, string previous = default) => new EmailSentQueryResultList(
+                    count: count ?? Count,
+                          emails: emails == default ? Emails : emails,
+                          next: next ?? Next,
+                          previous: previous ?? Previous
+
+        );
     }
 
     public class SetOfIds : Record<SetOfIds>
     {
         [JsonProperty("ids")]
         public readonly Lst<long> Ids;
+
         public SetOfIds(Lst<long> ids = default)
         {
             Ids = ids;
+
         }
 
-        public SetOfIds Copy(Lst<long> ids = default) => new SetOfIds(ids: ids == default ? Ids : ids);
+        public SetOfIds Copy(Lst<long> ids = default) => new SetOfIds(
+                    ids: ids == default ? Ids : ids
+
+        );
     }
 
     public class CreditCard : Record<CreditCard>
@@ -2618,6 +3588,7 @@ namespace Infusion.Model
         public readonly string NameOnCard;
         [JsonProperty("verification_code")]
         public readonly string VerificationCode;
+
         public CreditCard(Address address = default, string cardNumber = default, string cardType = default, string emailAddress = default, string expirationMonth = default, string expirationYear = default, string maestroIssueNumber = default, string maestroStartDateMonth = default, string maestroStartDateYear = default, string nameOnCard = default, string verificationCode = default)
         {
             Address = address;
@@ -2631,9 +3602,23 @@ namespace Infusion.Model
             MaestroStartDateYear = maestroStartDateYear;
             NameOnCard = nameOnCard;
             VerificationCode = verificationCode;
+
         }
 
-        public CreditCard Copy(Address address = default, string cardNumber = default, string cardType = default, string emailAddress = default, string expirationMonth = default, string expirationYear = default, string maestroIssueNumber = default, string maestroStartDateMonth = default, string maestroStartDateYear = default, string nameOnCard = default, string verificationCode = default) => new CreditCard(address: address == default ? Address : address, cardNumber: cardNumber ?? CardNumber, cardType: cardType ?? CardType, emailAddress: emailAddress ?? EmailAddress, expirationMonth: expirationMonth ?? ExpirationMonth, expirationYear: expirationYear ?? ExpirationYear, maestroIssueNumber: maestroIssueNumber ?? MaestroIssueNumber, maestroStartDateMonth: maestroStartDateMonth ?? MaestroStartDateMonth, maestroStartDateYear: maestroStartDateYear ?? MaestroStartDateYear, nameOnCard: nameOnCard ?? NameOnCard, verificationCode: verificationCode ?? VerificationCode);
+        public CreditCard Copy(Address address = default, string cardNumber = default, string cardType = default, string emailAddress = default, string expirationMonth = default, string expirationYear = default, string maestroIssueNumber = default, string maestroStartDateMonth = default, string maestroStartDateYear = default, string nameOnCard = default, string verificationCode = default) => new CreditCard(
+                    address: address == default ? Address : address,
+                          cardNumber: cardNumber ?? CardNumber,
+                          cardType: cardType ?? CardType,
+                          emailAddress: emailAddress ?? EmailAddress,
+                          expirationMonth: expirationMonth ?? ExpirationMonth,
+                          expirationYear: expirationYear ?? ExpirationYear,
+                          maestroIssueNumber: maestroIssueNumber ?? MaestroIssueNumber,
+                          maestroStartDateMonth: maestroStartDateMonth ?? MaestroStartDateMonth,
+                          maestroStartDateYear: maestroStartDateYear ?? MaestroStartDateYear,
+                          nameOnCard: nameOnCard ?? NameOnCard,
+                          verificationCode: verificationCode ?? VerificationCode
+
+        );
     }
 
     public class EmailSentCreate : Record<EmailSentCreate>
@@ -2666,6 +3651,7 @@ namespace Infusion.Model
         public readonly string SentToCcAddresses;
         [JsonProperty("subject")]
         public readonly string Subject;
+
         public EmailSentCreate(long contactId = default, string headers = default, string htmlContent = default, long id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default)
         {
             ContactId = contactId;
@@ -2682,9 +3668,26 @@ namespace Infusion.Model
             SentToBccAddresses = sentToBccAddresses;
             SentToCcAddresses = sentToCcAddresses;
             Subject = subject;
+
         }
 
-        public EmailSentCreate Copy(long? contactId = default, string headers = default, string htmlContent = default, long? id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default) => new EmailSentCreate(contactId: contactId ?? ContactId, headers: headers ?? Headers, htmlContent: htmlContent ?? HtmlContent, id: id ?? Id, openedDate: openedDate ?? OpenedDate, plainContent: plainContent ?? PlainContent, receivedDate: receivedDate ?? ReceivedDate, sentDate: sentDate ?? SentDate, sentFromAddress: sentFromAddress ?? SentFromAddress, sentFromReplyAddress: sentFromReplyAddress ?? SentFromReplyAddress, sentToAddress: sentToAddress ?? SentToAddress, sentToBccAddresses: sentToBccAddresses ?? SentToBccAddresses, sentToCcAddresses: sentToCcAddresses ?? SentToCcAddresses, subject: subject ?? Subject);
+        public EmailSentCreate Copy(long? contactId = default, string headers = default, string htmlContent = default, long? id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default) => new EmailSentCreate(
+                    contactId: contactId ?? ContactId,
+                          headers: headers ?? Headers,
+                          htmlContent: htmlContent ?? HtmlContent,
+                          id: id ?? Id,
+                          openedDate: openedDate ?? OpenedDate,
+                          plainContent: plainContent ?? PlainContent,
+                          receivedDate: receivedDate ?? ReceivedDate,
+                          sentDate: sentDate ?? SentDate,
+                          sentFromAddress: sentFromAddress ?? SentFromAddress,
+                          sentFromReplyAddress: sentFromReplyAddress ?? SentFromReplyAddress,
+                          sentToAddress: sentToAddress ?? SentToAddress,
+                          sentToBccAddresses: sentToBccAddresses ?? SentToBccAddresses,
+                          sentToCcAddresses: sentToCcAddresses ?? SentToCcAddresses,
+                          subject: subject ?? Subject
+
+        );
     }
 
     public class FileDescriptor : Record<FileDescriptor>
@@ -2711,6 +3714,7 @@ namespace Infusion.Model
         public readonly bool Public;
         [JsonProperty("remote_file_key")]
         public readonly string RemoteFileKey;
+
         public FileDescriptor(Category category = default, long contactId = default, long createdBy = default, string dateCreated = default, string downloadUrl = default, FileBoxType fileBoxType = default, string fileName = default, long fileSize = default, string lastUpdated = default, bool _public = default, string remoteFileKey = default)
         {
             Category = category;
@@ -2724,9 +3728,23 @@ namespace Infusion.Model
             LastUpdated = lastUpdated;
             Public = _public;
             RemoteFileKey = remoteFileKey;
+
         }
 
-        public FileDescriptor Copy(Category category = default, long? contactId = default, long? createdBy = default, string dateCreated = default, string downloadUrl = default, FileBoxType fileBoxType = default, string fileName = default, long? fileSize = default, string lastUpdated = default, bool _public = default, string remoteFileKey = default) => new FileDescriptor(category: category == default ? Category : category, contactId: contactId ?? ContactId, createdBy: createdBy ?? CreatedBy, dateCreated: dateCreated ?? DateCreated, downloadUrl: downloadUrl ?? DownloadUrl, fileBoxType: fileBoxType == default ? FileBoxType : fileBoxType, fileName: fileName ?? FileName, fileSize: fileSize ?? FileSize, lastUpdated: lastUpdated ?? LastUpdated, _public: _public == default ? Public : _public, remoteFileKey: remoteFileKey ?? RemoteFileKey);
+        public FileDescriptor Copy(Category category = default, long? contactId = default, long? createdBy = default, string dateCreated = default, string downloadUrl = default, FileBoxType fileBoxType = default, string fileName = default, long? fileSize = default, string lastUpdated = default, bool _public = default, string remoteFileKey = default) => new FileDescriptor(
+                    category: category == default ? Category : category,
+                          contactId: contactId ?? ContactId,
+                          createdBy: createdBy ?? CreatedBy,
+                          dateCreated: dateCreated ?? DateCreated,
+                          downloadUrl: downloadUrl ?? DownloadUrl,
+                          fileBoxType: fileBoxType == default ? FileBoxType : fileBoxType,
+                          fileName: fileName ?? FileName,
+                          fileSize: fileSize ?? FileSize,
+                          lastUpdated: lastUpdated ?? LastUpdated,
+                          _public: _public == default ? Public : _public,
+                          remoteFileKey: remoteFileKey ?? RemoteFileKey
+
+        );
     }
 
     public class ProductList : Record<ProductList>
@@ -2741,6 +3759,7 @@ namespace Infusion.Model
         public readonly Lst<Product> Products;
         [JsonProperty("sync_token")]
         public readonly string SyncToken;
+
         public ProductList(int count = default, string next = default, string previous = default, Lst<Product> products = default, string syncToken = default)
         {
             Count = count;
@@ -2748,9 +3767,17 @@ namespace Infusion.Model
             Previous = previous;
             Products = products;
             SyncToken = syncToken;
+
         }
 
-        public ProductList Copy(int? count = default, string next = default, string previous = default, Lst<Product> products = default, string syncToken = default) => new ProductList(count: count ?? Count, next: next ?? Next, previous: previous ?? Previous, products: products == default ? Products : products, syncToken: syncToken ?? SyncToken);
+        public ProductList Copy(int? count = default, string next = default, string previous = default, Lst<Product> products = default, string syncToken = default) => new ProductList(
+                    count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous,
+                          products: products == default ? Products : products,
+                          syncToken: syncToken ?? SyncToken
+
+        );
     }
 
     public class Relationship : Record<Relationship>
@@ -2761,14 +3788,21 @@ namespace Infusion.Model
         public readonly long LinkedContactId;
         [JsonProperty("relationship_type_id")]
         public readonly long RelationshipTypeId;
+
         public Relationship(long id = default, long linkedContactId = default, long relationshipTypeId = default)
         {
             Id = id;
             LinkedContactId = linkedContactId;
             RelationshipTypeId = relationshipTypeId;
+
         }
 
-        public Relationship Copy(long? id = default, long? linkedContactId = default, long? relationshipTypeId = default) => new Relationship(id: id ?? Id, linkedContactId: linkedContactId ?? LinkedContactId, relationshipTypeId: relationshipTypeId ?? RelationshipTypeId);
+        public Relationship Copy(long? id = default, long? linkedContactId = default, long? relationshipTypeId = default) => new Relationship(
+                    id: id ?? Id,
+                          linkedContactId: linkedContactId ?? LinkedContactId,
+                          relationshipTypeId: relationshipTypeId ?? RelationshipTypeId
+
+        );
     }
 
     public class OrderItem : Record<OrderItem>
@@ -2793,6 +3827,7 @@ namespace Infusion.Model
         public readonly int Quantity;
         [JsonProperty("type")]
         public readonly string Type;
+
         public OrderItem(int cost = default, string description = default, int discount = default, long id = default, string name = default, string notes = default, int price = default, SimpleProduct product = default, int quantity = default, string type = default)
         {
             Cost = cost;
@@ -2805,21 +3840,39 @@ namespace Infusion.Model
             Product = product;
             Quantity = quantity;
             Type = type;
+
         }
 
-        public OrderItem Copy(int? cost = default, string description = default, int? discount = default, long? id = default, string name = default, string notes = default, int? price = default, SimpleProduct product = default, int? quantity = default, string type = default) => new OrderItem(cost: cost ?? Cost, description: description ?? Description, discount: discount ?? Discount, id: id ?? Id, name: name ?? Name, notes: notes ?? Notes, price: price ?? Price, product: product == default ? Product : product, quantity: quantity ?? Quantity, type: type ?? Type);
+        public OrderItem Copy(int? cost = default, string description = default, int? discount = default, long? id = default, string name = default, string notes = default, int? price = default, SimpleProduct product = default, int? quantity = default, string type = default) => new OrderItem(
+                    cost: cost ?? Cost,
+                          description: description ?? Description,
+                          discount: discount ?? Discount,
+                          id: id ?? Id,
+                          name: name ?? Name,
+                          notes: notes ?? Notes,
+                          price: price ?? Price,
+                          product: product == default ? Product : product,
+                          quantity: quantity ?? Quantity,
+                          type: type ?? Type
+
+        );
     }
 
     public class TagId : Record<TagId>
     {
         [JsonProperty("tagIds")]
         public readonly Lst<long> TagIds;
+
         public TagId(Lst<long> tagIds = default)
         {
             TagIds = tagIds;
+
         }
 
-        public TagId Copy(Lst<long> tagIds = default) => new TagId(tagIds: tagIds == default ? TagIds : tagIds);
+        public TagId Copy(Lst<long> tagIds = default) => new TagId(
+                    tagIds: tagIds == default ? TagIds : tagIds
+
+        );
     }
 
     public class PhoneNumber : Record<PhoneNumber>
@@ -2832,15 +3885,23 @@ namespace Infusion.Model
         public readonly string Number;
         [JsonProperty("type")]
         public readonly string Type;
+
         public PhoneNumber(string extension = default, Field field = default, string number = default, string type = default)
         {
             Extension = extension;
             Field = field;
             Number = number;
             Type = type;
+
         }
 
-        public PhoneNumber Copy(string extension = default, Field field = default, string number = default, string type = default) => new PhoneNumber(extension: extension ?? Extension, field: field == default ? Field : field, number: number ?? Number, type: type ?? Type);
+        public PhoneNumber Copy(string extension = default, Field field = default, string number = default, string type = default) => new PhoneNumber(
+                    extension: extension ?? Extension,
+                          field: field == default ? Field : field,
+                          number: number ?? Number,
+                          type: type ?? Type
+
+        );
     }
 
     public class StageDetails : Record<StageDetails>
@@ -2853,15 +3914,23 @@ namespace Infusion.Model
         public readonly int StageOrder;
         [JsonProperty("target_num_days")]
         public readonly int TargetNumDays;
+
         public StageDetails(Lst<CheckListItemDetails> checkListItems = default, int probability = default, int stageOrder = default, int targetNumDays = default)
         {
             CheckListItems = checkListItems;
             Probability = probability;
             StageOrder = stageOrder;
             TargetNumDays = targetNumDays;
+
         }
 
-        public StageDetails Copy(Lst<CheckListItemDetails> checkListItems = default, int? probability = default, int? stageOrder = default, int? targetNumDays = default) => new StageDetails(checkListItems: checkListItems == default ? CheckListItems : checkListItems, probability: probability ?? Probability, stageOrder: stageOrder ?? StageOrder, targetNumDays: targetNumDays ?? TargetNumDays);
+        public StageDetails Copy(Lst<CheckListItemDetails> checkListItems = default, int? probability = default, int? stageOrder = default, int? targetNumDays = default) => new StageDetails(
+                    checkListItems: checkListItems == default ? CheckListItems : checkListItems,
+                          probability: probability ?? Probability,
+                          stageOrder: stageOrder ?? StageOrder,
+                          targetNumDays: targetNumDays ?? TargetNumDays
+
+        );
     }
 
     public class OrderList : Record<OrderList>
@@ -2874,15 +3943,23 @@ namespace Infusion.Model
         public readonly Lst<Order> Orders;
         [JsonProperty("previous")]
         public readonly string Previous;
+
         public OrderList(int count = default, string next = default, Lst<Order> orders = default, string previous = default)
         {
             Count = count;
             Next = next;
             Orders = orders;
             Previous = previous;
+
         }
 
-        public OrderList Copy(int? count = default, string next = default, Lst<Order> orders = default, string previous = default) => new OrderList(count: count ?? Count, next: next ?? Next, orders: orders == default ? Orders : orders, previous: previous ?? Previous);
+        public OrderList Copy(int? count = default, string next = default, Lst<Order> orders = default, string previous = default) => new OrderList(
+                    count: count ?? Count,
+                          next: next ?? Next,
+                          orders: orders == default ? Orders : orders,
+                          previous: previous ?? Previous
+
+        );
     }
 
     public class Tag : Record<Tag>
@@ -2895,15 +3972,23 @@ namespace Infusion.Model
         public readonly long Id;
         [JsonProperty("name")]
         public readonly string Name;
+
         public Tag(TagCategory category = default, string description = default, long id = default, string name = default)
         {
             Category = category;
             Description = description;
             Id = id;
             Name = name;
+
         }
 
-        public Tag Copy(TagCategory category = default, string description = default, long? id = default, string name = default) => new Tag(category: category == default ? Category : category, description: description ?? Description, id: id ?? Id, name: name ?? Name);
+        public Tag Copy(TagCategory category = default, string description = default, long? id = default, string name = default) => new Tag(
+                    category: category == default ? Category : category,
+                          description: description ?? Description,
+                          id: id ?? Id,
+                          name: name ?? Name
+
+        );
     }
 
     public class CampaignList : Record<CampaignList>
@@ -2916,15 +4001,23 @@ namespace Infusion.Model
         public readonly string Next;
         [JsonProperty("previous")]
         public readonly string Previous;
+
         public CampaignList(Lst<Campaign> campaigns = default, int count = default, string next = default, string previous = default)
         {
             Campaigns = campaigns;
             Count = count;
             Next = next;
             Previous = previous;
+
         }
 
-        public CampaignList Copy(Lst<Campaign> campaigns = default, int? count = default, string next = default, string previous = default) => new CampaignList(campaigns: campaigns == default ? Campaigns : campaigns, count: count ?? Count, next: next ?? Next, previous: previous ?? Previous);
+        public CampaignList Copy(Lst<Campaign> campaigns = default, int? count = default, string next = default, string previous = default) => new CampaignList(
+                    campaigns: campaigns == default ? Campaigns : campaigns,
+                          count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous
+
+        );
     }
 
     public class EmailSentQueryResult : Record<EmailSentQueryResult>
@@ -2953,6 +4046,7 @@ namespace Infusion.Model
         public readonly string SentToCcAddresses;
         [JsonProperty("subject")]
         public readonly string Subject;
+
         public EmailSentQueryResult(long contactId = default, string headers = default, long id = default, string openedDate = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default)
         {
             ContactId = contactId;
@@ -2967,8 +4061,24 @@ namespace Infusion.Model
             SentToBccAddresses = sentToBccAddresses;
             SentToCcAddresses = sentToCcAddresses;
             Subject = subject;
+
         }
 
-        public EmailSentQueryResult Copy(long? contactId = default, string headers = default, long? id = default, string openedDate = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default) => new EmailSentQueryResult(contactId: contactId ?? ContactId, headers: headers ?? Headers, id: id ?? Id, openedDate: openedDate ?? OpenedDate, receivedDate: receivedDate ?? ReceivedDate, sentDate: sentDate ?? SentDate, sentFromAddress: sentFromAddress ?? SentFromAddress, sentFromReplyAddress: sentFromReplyAddress ?? SentFromReplyAddress, sentToAddress: sentToAddress ?? SentToAddress, sentToBccAddresses: sentToBccAddresses ?? SentToBccAddresses, sentToCcAddresses: sentToCcAddresses ?? SentToCcAddresses, subject: subject ?? Subject);
+        public EmailSentQueryResult Copy(long? contactId = default, string headers = default, long? id = default, string openedDate = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default) => new EmailSentQueryResult(
+                    contactId: contactId ?? ContactId,
+                          headers: headers ?? Headers,
+                          id: id ?? Id,
+                          openedDate: openedDate ?? OpenedDate,
+                          receivedDate: receivedDate ?? ReceivedDate,
+                          sentDate: sentDate ?? SentDate,
+                          sentFromAddress: sentFromAddress ?? SentFromAddress,
+                          sentFromReplyAddress: sentFromReplyAddress ?? SentFromReplyAddress,
+                          sentToAddress: sentToAddress ?? SentToAddress,
+                          sentToBccAddresses: sentToBccAddresses ?? SentToBccAddresses,
+                          sentToCcAddresses: sentToCcAddresses ?? SentToCcAddresses,
+                          subject: subject ?? Subject
+
+        );
     }
+
 }

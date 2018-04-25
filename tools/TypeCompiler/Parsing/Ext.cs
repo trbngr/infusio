@@ -3,10 +3,8 @@ using System.Text;
 using LanguageExt;
 using Newtonsoft.Json.Linq;
 
-namespace DslCompiler.Parsing
+namespace Infusio.Compiler.Parsing
 {
-    using static Prelude;
-
     static class Ext
     {
         public static T Set<T>(this T self, Action<T> act)
@@ -26,6 +24,6 @@ namespace DslCompiler.Parsing
             $"{text.Substring(0, 1).ToLowerInvariant()}{text.Substring(1)}".Replace("_", "");
 
         public static string StringOrNull(this JToken token) =>
-            Optional(token).Map(x => x.Value<string>()).IfNoneUnsafe(() => null);
+            Prelude.Optional(token).Map(x => x.Value<string>()).IfNoneUnsafe(() => null);
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Infusion
+namespace Infusio
 {
-    public sealed class InfusionConfig
+    public sealed class InfusioConfig
     {
         //To generate access/refresh tokens...
         //https://accounts.infusionsoft.com/app/oauth/userToken
@@ -16,7 +16,7 @@ namespace Infusion
         public string ApiKey { get; }
         public static readonly Uri Uri = new Uri("https://api.infusionsoft.com/crm/rest/v1/");
 
-        public InfusionConfig(string apiKey) => ApiKey = apiKey;
+        public InfusioConfig(string apiKey) => ApiKey = apiKey;
 
         public Uri MakeUri(string relativeUri) => new Uri(Uri, relativeUri);
     }

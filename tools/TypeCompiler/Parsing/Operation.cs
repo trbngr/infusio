@@ -4,12 +4,11 @@ using System.Linq;
 using DotLiquid;
 using LanguageExt;
 using Newtonsoft.Json.Linq;
+using static Infusio.Compiler.Parsing.OperationParameter;
+using static LanguageExt.Prelude;
 
-namespace DslCompiler.Parsing
+namespace Infusio.Compiler.Parsing
 {
-    using static Prelude;
-    using static TypeResolver;
-
     class Operation : ILiquidizable
     {
         public string Path { get; set; }
@@ -52,6 +51,7 @@ namespace DslCompiler.Parsing
             (lst, operations) => lst.AddRange(operations)
         );
 
+        //TODO: Read ALL Operations here. Currently only picking up the first one.
         static Lst<Operation> ParseOperations(JToken token, string path, Set<string> definitions) => (
             from obj in Optional(token as JObject)
             from methodNode in Optional(obj.First as JProperty)
@@ -60,31 +60,26 @@ namespace DslCompiler.Parsing
             select ParseOperation(path, method, p, definitions)
         ).FoldT(Lst<Operation>.Empty, (lst, op) => lst.Add(op));
 
-        private static Option<Operation> ParseOperation(string path, string method, JToken token,
-            Set<string> definitions) =>
+        private static Option<Operation> ParseOperation(string path, string method, JToken token, Set<string> definitions) =>
             from opNode in Optional(token as JObject)
             from operationId in Optional(opNode["operationId"])
             let operationName = operationId.Value<string>()
             let responses = opNode["responses"]
-            let parameters = Optional(opNode["parameters"]).Map(pNode => pNode.Children().Map(node =>
-            {
-                var param = node.Deserialize<OperationParameter>()
-                    .Set(x => x.Name = x.Name.UnSnake().CamelCase());
-
-                return (isnull(param.Type)
-                        ? param.Set(p => p.Type = ReadRef(Optional(node["schema"]).Map(x => x["$ref"])))
-                        : param.Set(p => p.Type = ResolveType(p))
-                    ).Set(x => x.Type = definitions.Contains(x.Type) ? $"Model.{x.Type}" : x.Type);
-            })).IfNone(Enumerable.Empty<OperationParameter>())
+            let parameters =
+                Optional(opNode["parameters"])
+                    .Map(node => node
+                        .Children()
+                        .Map(n => ParseOperationParameter(n, definitions))
+                    ).IfNone(Enumerable.Empty<OperationParameter>())
             select new Operation
             {
                 Path = path,
                 HttpMethod = method,
                 Summary = opNode["summary"].StringOrNull(),
                 Description = opNode["description"].StringOrNull(),
-                Name = ResolveOperationName(operationId.Value<string>()),
+                Name = TypeResolver.ResolveOperationName(operationId.Value<string>()),
                 Responses = OperationResponse.ParseResponses(responses),
-                Parameters = OperationParameter.MakeUnique(parameters.OrderBy(p => p.Required).Rev().Freeze())
+                Parameters = MakeUnique(parameters.OrderBy(p => p.Required).Rev().Freeze())
             };
     }
 
@@ -96,8 +91,8 @@ namespace DslCompiler.Parsing
         public bool Required { get; set; }
         public string Type { get; set; }
 
-        public bool IsValueType => ValueTypes.Find(Type).Map(_ => true).IfNone(false);
-        public bool IsOptionalType => OptionalTypes.Find(Type).Map(_ => true).IfNone(Type == "object");
+        public bool IsValueType => TypeResolver.ValueTypes.Find(Type).Map(_ => true).IfNone(false);
+        public bool IsOptionalType => TypeResolver.OptionalTypes.Find(Type).Map(_ => true).IfNone(Type == "object");
         public string OptionalTypeName => IsValueType ? $"{Type}?" : Type;
 
         public string Format { get; set; }
@@ -113,14 +108,15 @@ namespace DslCompiler.Parsing
             Type
         };
 
-        public static OperationParameter ParseOperationParameter(JToken node)
+        public static OperationParameter ParseOperationParameter(JToken node, Set<string> definitions)
         {
             var param = node.Deserialize<OperationParameter>()
                 .Set(x => x.Name = x.Name.UnSnake().CamelCase());
 
-            return isnull(param.Type)
-                ? param.Set(p => p.Type = ReadRef(Optional(node["schema"]).Map(x => x["$ref"])))
-                : param.Set(p => p.Type = ResolveType(p));
+            return (isnull(param.Type)
+                    ? param.Set(p => p.Type = TypeResolver.ReadRef(Optional(node["schema"]).Map(x => x["$ref"])))
+                    : param.Set(p => p.Type = TypeResolver.ResolveType(p))
+                ).Set(x => x.Type = definitions.Contains(x.Type) ? $"Model.{x.Type}" : x.Type);
         }
 
         class NameEq : IEqualityComparer<OperationParameter>
@@ -164,12 +160,12 @@ namespace DslCompiler.Parsing
                 from code in parseInt(statusCode.Name)
                 let data = statusCode.First
                 let description = data["description"]
-                let type = ReadRef(Optional(data["schema"]).Map(x => x["$ref"]))
+                let type = TypeResolver.ReadRef(Optional(data["schema"]).Map(x => x["$ref"]))
                 select new OperationResponse
                 {
                     StatusCode = code,
                     Description = description.StringOrNull(),
-                    Type = type
+                    Type = type ?? "Unit"
                 }).FoldT(Lst<OperationResponse>.Empty, (lst, response) => lst.Add(response));
 
         public object ToLiquid() => new

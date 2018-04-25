@@ -1,9 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Infusion.Client;
-using Infusionsoft;
-using LanguageExt;
+﻿using System.Net.Http;
 
 namespace Infusion
 {

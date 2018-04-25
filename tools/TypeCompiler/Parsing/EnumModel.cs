@@ -3,10 +3,8 @@ using DotLiquid;
 using LanguageExt;
 using LanguageExt.TypeClasses;
 
-namespace DslCompiler.Parsing
+namespace Infusio.Compiler.Parsing
 {
-    using static Prelude;
-
     [DebuggerDisplay("Enum {Name}")]
     public class EnumModel : Record<EnumModel>, ILiquidizable
     {
@@ -20,7 +18,7 @@ namespace DslCompiler.Parsing
         public string Name { get; }
         public Lst<string> Values { get; }
         public string Description { get; }
-        public bool HasDescription => notnull(Description);
+        public bool HasDescription => Prelude.notnull(Description);
 
         public object ToLiquid() => new {Name, Values, Description, HasDescription};
 

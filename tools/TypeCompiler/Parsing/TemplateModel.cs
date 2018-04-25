@@ -1,8 +1,9 @@
-﻿using DotLiquid;
+﻿using System;
+using DotLiquid;
 using LanguageExt;
 using Newtonsoft.Json.Linq;
 
-namespace DslCompiler.Parsing
+namespace Infusio.Compiler.Parsing
 {
     class TemplateModel : ILiquidizable
     {
@@ -36,7 +37,11 @@ namespace DslCompiler.Parsing
                 definitions: definitions,
                 operations: ParseOperations(swagger, definitions.Fold(
                     Set<string>.Empty,
-                    (set, definition) => set.TryAdd(definition.Name))
+                    (set, definition) =>
+                    {
+                        Console.Out.WriteLine($"Op: {definition.Name}");
+                        return set.TryAdd(definition.Name);
+                    })
                 )
             );
         }

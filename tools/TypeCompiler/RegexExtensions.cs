@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using LanguageExt;
 
-namespace DslCompiler
+namespace Infusio.Compiler
 {
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public static class RegexExtensions

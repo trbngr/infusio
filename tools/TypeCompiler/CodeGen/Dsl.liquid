@@ -4,17 +4,17 @@
 //----------------------
 using System;
 using LanguageExt;
-using Infusion.Ops;
-using Infusion.Model;
+using Infusio.Ops;
+using Infusio.Model;
 
-namespace Infusion
+namespace Infusio
 {
   public static class Dsl
   {
-      internal static InfusionOp<A> Return<A>(A value) =>
-          new InfusionOp<A>.Return(value);
+      internal static InfusioOp<A> Return<A>(A value) =>
+          new InfusioOp<A>.Return(value);
 
-      {% for operation in Operations -%}      
+      {% for operation in Operations -%}
         /// <summary>
         /// {{ operation.Summary }}
         /// </summary>
@@ -22,8 +22,8 @@ namespace Infusion
         /// <param name="{{ p.Name }}">{{ p.Description }}</param>
         {% endfor -%}
         /// <returns><see cref="{{ operation.ResponseType | normalize }}"/></returns>
-public static InfusionOp<{{ operation.ResponseType | normalize }}> {{ operation.Name }}({% for parameter in operation.Parameters %}{{ parameter.OptionalTypeName }} {{ parameter.Name }}{% if parameter.Required == false %} = default{% endif %}{% if forloop.last == false %}, {% endif %}{% endfor %}) =>
-          new InfusionOp<{{ operation.ResponseType | normalize}}>.{{ operation.Name }}(Return{% if operation.Parameters.size > 0 %}, {% endif %}{% for parameter in operation.Parameters %}{{ parameter.Name }}{% if forloop.last == false %}, {% endif %}{% endfor %});
+public static InfusioOp<{{ operation.ResponseType | normalize }}> {{ operation.Name }}({% for parameter in operation.Parameters %}{{ parameter.OptionalTypeName }} {{ parameter.Name }}{% if parameter.Required == false %} = default{% endif %}{% if forloop.last == false %}, {% endif %}{% endfor %}) =>
+          new InfusioOp<{{ operation.ResponseType | normalize}}>.{{ operation.Name }}(Return{% if operation.Parameters.size > 0 %}, {% endif %}{% for parameter in operation.Parameters %}{{ parameter.Name }}{% if forloop.last == false %}, {% endif %}{% endfor %});
 
       {% endfor %}
   }

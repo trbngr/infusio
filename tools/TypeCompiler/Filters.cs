@@ -4,13 +4,11 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using DotLiquid;
-using DslCompiler.Parsing;
+using Infusio.Compiler.Parsing;
 using LanguageExt;
 
-namespace DslCompiler
+namespace Infusio.Compiler
 {
-    using static Prelude;
-    
     public static class Filters
     {
         public static string Normalize(string input) =>
@@ -38,8 +36,8 @@ namespace DslCompiler
         {
             base.Render(context, result);
             
-            var code = from temp in Try(() => Template.Parse(File.ReadAllText($"CodeGen/{_name}.liquid")))
-                from res in Try(() => temp.Render(new RenderParameters(new CultureInfo("en"))
+            var code = from temp in Prelude.Try(() => Template.Parse(File.ReadAllText($"CodeGen/{_name}.liquid")))
+                from res in Prelude.Try(() => temp.Render(new RenderParameters(new CultureInfo("en"))
                 {
                     Context = context,
                     Filters = new []{typeof(Filters)},

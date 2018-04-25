@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 using LanguageExt;
 using Newtonsoft.Json;
 
-namespace Infusion.Model
+namespace Infusio.Model
 {
     {% for e in Enums %}
     {% if e.HasDescription -%}
@@ -22,7 +22,7 @@ namespace Infusion.Model
         {% endfor -%}
       }
     {% endfor -%}
-    
+
     {% for def in Definitions %}
     public class {{ def.Name | normalize }} : Record<{{ def.Name | normalize }}>
     {
@@ -30,14 +30,14 @@ namespace Infusion.Model
       [JsonProperty("{{ prop.JsonProperty }}")]
       public readonly {{ prop.Type }} {{ prop.Name | normalize }};
       {% endfor -%}
-    
+
       public {{ def.Name | normalize }}({% for prop in def.Properties -%}{{ prop.Type }} {{ prop.VariableName }} = default{% if forloop.last == false %}, {% endif %}{% endfor %})
       {
         {% for prop in def.Properties -%}
         {{ prop.Name | normalize }} = {{ prop.VariableName }};
         {% endfor %}
       }
-    
+
       public {{ def.Name | normalize }} Copy({% for prop in def.Properties -%}{{ prop.OptionalTypeName }} {{ prop.VariableName }} = default{% if forloop.last == false %}, {% endif %}{% endfor %}) => new {{ def.Name | normalize }}(
       {% for prop in def.Properties -%}
       {% if prop.IsOptionalType -%}

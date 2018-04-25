@@ -1,37 +1,37 @@
 ﻿using System;
-using Infusion;
-using Infusion.Client;
-using Newtonsoft.Json;
-using Task = System.Threading.Tasks.Task;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Infusio;
+using Infusio.Http;
+using Infusio.Model;
+using LanguageExt;
 
 namespace Runner
 {
-    using static InfusionDsl;
-    using static Formatting;
-    using static Interpreter;
-    using static JsonConvert;
+    using static Prelude;
 
     class Program
     {
         static async Task Main()
         {
 
-            var config = new InfusionConfig("8akh7bm2fwvnaezu42hs5gwb");
+            var config = new InfusioConfig("mghcpcq8qwyhary7p33s6pu2");
+            var client = new InfusioClient(new HttpClient(), config);
 
-            var dsl = UpdatePhoneNumber("666-555-5555");
+            var either = await client.GetAccountProfile();
+            AccountProfile profile = either.Match(
+                Left: e => throw new Exception(e.Message),
+                Right: identity
+            );
 
-            var profile = await Interpret(dsl, config);
-            // or
-            var profile2 = await dsl.Run(config);
-
-            Console.Out.WriteLine(SerializeObject(profile, Indented));
+//            await client.Pro
         }
 
-        static InfusionOp<AccountProfile> UpdatePhoneNumber(string phone) =>
-            from prof in GetAccountProfile()
-            from _ in UpdateAccountInfo(prof.With(x => x.Phone = phone))
-            from updated in GetAccountProfile()
-            select updated;
+//        static InfusionOp<AccountProfile> UpdatePhoneNumber(string phone) =>
+//            from prof in GetAccountProfile()
+//            from _ in UpdateAccountInfo(prof.With(x => x.Phone = phone))
+//            from updated in GetAccountProfile()
+//            select updated;
     }
 
     static class Ext
