@@ -33,14 +33,14 @@ namespace Runner
 //                Right: p => client.UpdateAccountInfo(p.Copy(phone: "602-555-8521"))
 //            );
 
-            Func<string, InfusioOp<AccountProfile>> program = phone =>
+            Func<string, InfusioOp<AccountProfile>> updatePhoneNumber = phone =>
                 from prof in GetAccountProfile()
                 from _ in UpdateAccountInfo(prof.Copy(phone: phone))
                 from updated in GetAccountProfile()
                 select updated;
 
-            await Display(program("602-555-8521").RunWith(client));
-            await Display(interpret(program("888-888-8888"), client));
+            await Display(updatePhoneNumber("602-555-8521").RunWith(client));
+            await Display(interpret(updatePhoneNumber("888-888-8888"), client));
 
             Console.Out.WriteLine("");
         }
