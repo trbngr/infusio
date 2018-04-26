@@ -54,7 +54,8 @@ namespace Infusio.Compiler.Parsing
         static Lst<Operation> ParseOperations(JObject swagger, Set<string> definitions) =>
             swagger["paths"].Children()
                 .Map(path => Operation.ParseOperations(path, definitions))
-                .FoldT(Lst<Operation>.Empty, (lst, def) => lst.Add(def));
+                .FoldT(Lst<Operation>.Empty, (lst, def) => lst.Add(def))
+                .MakeUnique();
 
         public object ToLiquid() => new {Definitions, Operations, Enums};
     }

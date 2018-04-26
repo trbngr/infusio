@@ -22,7 +22,7 @@ namespace Infusio
         /// <param name="{{ p.Name }}">{{ p.Description }}</param>
         {% endfor -%}
         /// <returns><see cref="{{ operation.ResponseType | normalize }}"/></returns>
-public static InfusioOp<{{ operation.ResponseType | normalize }}> {{ operation.Name }}({% for parameter in operation.Parameters %}{{ parameter.OptionalTypeName }} {{ parameter.Name }}{% if parameter.Required == false %} = default{% endif %}{% if forloop.last == false %}, {% endif %}{% endfor %}) =>
+public static InfusioOp<{{ operation.ResponseType | normalize }}> {{ operation.Name }}({% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.Name }}{% if parameter.Required == false %} = default{% endif %}{% if forloop.last == false %}, {% endif %}{% endfor %}) =>
           new InfusioOp<{{ operation.ResponseType | normalize}}>.{{ operation.Name }}(Return{% if operation.Parameters.size > 0 %}, {% endif %}{% for parameter in operation.Parameters %}{{ parameter.Name }}{% if forloop.last == false %}, {% endif %}{% endfor %});
 
       {% endfor %}

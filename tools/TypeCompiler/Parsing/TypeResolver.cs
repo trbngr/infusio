@@ -36,7 +36,7 @@ namespace Infusio.Compiler.Parsing
             value == "Task" ? "InfusionTask" : value;
 
         public static string ReadRef(string reference) =>
-            reference.Split("/").Last().RenameTaskIfNeeded();
+            Filters.Normalize(reference.Split("/").Last().RenameTaskIfNeeded());
 
         public static string ReadRef(Option<JToken> token) => ifNoneUnsafe(
             from t in token
@@ -45,12 +45,12 @@ namespace Infusio.Compiler.Parsing
             () => null
         );
 
-        public static string ResolveOperationName(string operationId) => ifNone(
+        public static string ResolveOperationName(string operationId) => Filters.Normalize(ifNone(
             from index in Some(operationId.IndexOf("Using", StringComparison.Ordinal))
             where index > 0
             select $"{operationId.Substring(0, index)}",
             operationId
-        ).UnSnake();
+        ).UnSnake());
 
         public static string ResolveType(Property property) => RenameTaskIfNeeded(
             _typeMap

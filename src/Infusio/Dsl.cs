@@ -22,6 +22,14 @@ namespace Infusio
                   new InfusioOp<AccountProfile>.GetAccountProfile(Return);
 
         /// <summary>
+        /// Updates an account profile
+        /// </summary>
+        /// <param name="accountInfo">accountInfo</param>
+        /// <returns><see cref="AccountProfile"/></returns>
+        public static InfusioOp<AccountProfile> UpdateAccountInfo(AccountProfile accountInfo) =>
+                  new InfusioOp<AccountProfile>.UpdateAccountInfo(Return, accountInfo);
+
+        /// <summary>
         /// Retrieve Commissions
         /// </summary>
         /// <param name="affiliateId">Affiliate to retrieve commissions for</param>
@@ -30,7 +38,7 @@ namespace Infusio
         /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
         /// <returns><see cref="AffiliateCommissionList"/></returns>
-        public static InfusioOp<AffiliateCommissionList> SearchCommissions(long? affiliateId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
+        public static InfusioOp<AffiliateCommissionList> SearchCommissions(long affiliateId = default, int offset = default, int limit = default, string until = default, string since = default) =>
                   new InfusioOp<AffiliateCommissionList>.SearchCommissions(Return, affiliateId, offset, limit, until, since);
 
         /// <summary>
@@ -49,8 +57,16 @@ namespace Infusio
         /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
         /// <returns><see cref="AppointmentList"/></returns>
-        public static InfusioOp<AppointmentList> ListAppointments(long? contactId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
+        public static InfusioOp<AppointmentList> ListAppointments(long contactId = default, int offset = default, int limit = default, string until = default, string since = default) =>
                   new InfusioOp<AppointmentList>.ListAppointments(Return, contactId, offset, limit, until, since);
+
+        /// <summary>
+        /// Create an Appointment
+        /// </summary>
+        /// <param name="appointment">appointment</param>
+        /// <returns><see cref="Appointment"/></returns>
+        public static InfusioOp<Appointment> CreateAppointment(Model.Appointment appointment) =>
+                  new InfusioOp<Appointment>.CreateAppointment(Return, appointment);
 
         /// <summary>
         /// Retrieve Appointment Model
@@ -64,8 +80,34 @@ namespace Infusio
         /// </summary>
         /// <param name="appointmentId">appointmentId</param>
         /// <returns><see cref="Appointment"/></returns>
-        public static InfusioOp<Appointment> GetAppointment(long? appointmentId) =>
+        public static InfusioOp<Appointment> GetAppointment(long appointmentId) =>
                   new InfusioOp<Appointment>.GetAppointment(Return, appointmentId);
+
+        /// <summary>
+        /// Replace an Appointment
+        /// </summary>
+        /// <param name="appointmentDTO">appointmentDTO</param>
+        /// <param name="appointmentId">appointmentId</param>
+        /// <returns><see cref="Appointment"/></returns>
+        public static InfusioOp<Appointment> UpdateAppointment(Model.Appointment appointmentDTO, long appointmentId) =>
+                  new InfusioOp<Appointment>.UpdateAppointment(Return, appointmentDTO, appointmentId);
+
+        /// <summary>
+        /// Delete an Appointment
+        /// </summary>
+        /// <param name="appointmentId">appointmentId</param>
+        /// <returns><see cref="Unit"/></returns>
+        public static InfusioOp<Unit> DeleteAppointment(long appointmentId) =>
+                  new InfusioOp<Unit>.DeleteAppointment(Return, appointmentId);
+
+        /// <summary>
+        /// Update an Appointment
+        /// </summary>
+        /// <param name="appointmentDTO">appointmentDTO</param>
+        /// <param name="appointmentId">appointmentId</param>
+        /// <returns><see cref="Appointment"/></returns>
+        public static InfusioOp<Appointment> UpdatePropertiesOnAppointment(Model.Appointment appointmentDTO, long appointmentId) =>
+                  new InfusioOp<Appointment>.UpdatePropertiesOnAppointment(Return, appointmentDTO, appointmentId);
 
         /// <summary>
         /// List Campaigns
@@ -76,7 +118,7 @@ namespace Infusio
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
         /// <returns><see cref="CampaignList"/></returns>
-        public static InfusioOp<CampaignList> ListCampaigns(string orderDirection = default, string order = default, string searchText = default, int? offset = default, int? limit = default) =>
+        public static InfusioOp<CampaignList> ListCampaigns(string orderDirection = default, string order = default, string searchText = default, int offset = default, int limit = default) =>
                   new InfusioOp<CampaignList>.ListCampaigns(Return, orderDirection, order, searchText, offset, limit);
 
         /// <summary>
@@ -85,7 +127,7 @@ namespace Infusio
         /// <param name="campaignId">campaignId</param>
         /// <param name="optionalProperties">Comma-delimited list of Campaign properties to include in the response. (The fields `goals` and `sequences` aren't included, by default.)</param>
         /// <returns><see cref="Campaign"/></returns>
-        public static InfusioOp<Campaign> GetCampaign(long? campaignId, Lst<string> optionalProperties = default) =>
+        public static InfusioOp<Campaign> GetCampaign(long campaignId, Lst<string> optionalProperties = default) =>
                   new InfusioOp<Campaign>.GetCampaign(Return, campaignId, optionalProperties);
 
         /// <summary>
@@ -95,8 +137,18 @@ namespace Infusio
         /// <param name="sequenceId">sequenceId</param>
         /// <param name="campaignId">campaignId</param>
         /// <returns><see cref="Unit"/></returns>
-        public static InfusioOp<Unit> AddContactsToCampaignSequence(Model.SetOfIds ids, long? sequenceId, long? campaignId) =>
+        public static InfusioOp<Unit> AddContactsToCampaignSequence(Model.SetOfIds ids, long sequenceId, long campaignId) =>
                   new InfusioOp<Unit>.AddContactsToCampaignSequence(Return, ids, sequenceId, campaignId);
+
+        /// <summary>
+        /// Remove Multiple from Campaign Sequence
+        /// </summary>
+        /// <param name="ids">ids</param>
+        /// <param name="sequenceId">sequenceId</param>
+        /// <param name="campaignId">campaignId</param>
+        /// <returns><see cref="Unit"/></returns>
+        public static InfusioOp<Unit> RemoveContactsFromCampaignSequence(Model.SetOfIds ids, long sequenceId, long campaignId) =>
+                  new InfusioOp<Unit>.RemoveContactsFromCampaignSequence(Return, ids, sequenceId, campaignId);
 
         /// <summary>
         /// Add to Campaign Sequence
@@ -105,8 +157,18 @@ namespace Infusio
         /// <param name="sequenceId">sequenceId</param>
         /// <param name="campaignId">campaignId</param>
         /// <returns><see cref="Unit"/></returns>
-        public static InfusioOp<Unit> AddContactToCampaignSequence(long? contactId, long? sequenceId, long? campaignId) =>
+        public static InfusioOp<Unit> AddContactToCampaignSequence(long contactId, long sequenceId, long campaignId) =>
                   new InfusioOp<Unit>.AddContactToCampaignSequence(Return, contactId, sequenceId, campaignId);
+
+        /// <summary>
+        /// Remove from Campaign Sequence
+        /// </summary>
+        /// <param name="contactId">contactId</param>
+        /// <param name="sequenceId">sequenceId</param>
+        /// <param name="campaignId">campaignId</param>
+        /// <returns><see cref="Unit"/></returns>
+        public static InfusioOp<Unit> RemoveContactFromCampaignSequence(long contactId, long sequenceId, long campaignId) =>
+                  new InfusioOp<Unit>.RemoveContactFromCampaignSequence(Return, contactId, sequenceId, campaignId);
 
         /// <summary>
         /// List Companies
@@ -118,8 +180,16 @@ namespace Infusio
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
         /// <returns><see cref="CompanyList"/></returns>
-        public static InfusioOp<CompanyList> ListCompanies(Lst<string> optionalProperties = default, string orderDirection = default, string order = default, string companyName = default, int? offset = default, int? limit = default) =>
+        public static InfusioOp<CompanyList> ListCompanies(Lst<string> optionalProperties = default, string orderDirection = default, string order = default, string companyName = default, int offset = default, int limit = default) =>
                   new InfusioOp<CompanyList>.ListCompanies(Return, optionalProperties, orderDirection, order, companyName, offset, limit);
+
+        /// <summary>
+        /// Create a Company
+        /// </summary>
+        /// <param name="company">company</param>
+        /// <returns><see cref="Company"/></returns>
+        public static InfusioOp<Company> CreateCompany(Model.CreateCompany company = default) =>
+                  new InfusioOp<Company>.CreateCompany(Return, company);
 
         /// <summary>
         /// Retrieve Company Model
@@ -139,8 +209,24 @@ namespace Infusio
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
         /// <returns><see cref="ContactList"/></returns>
-        public static InfusioOp<ContactList> ListContacts(string orderDirection = default, string order = default, string familyName = default, string givenName = default, string email = default, int? offset = default, int? limit = default) =>
+        public static InfusioOp<ContactList> ListContacts(string orderDirection = default, string order = default, string familyName = default, string givenName = default, string email = default, int offset = default, int limit = default) =>
                   new InfusioOp<ContactList>.ListContacts(Return, orderDirection, order, familyName, givenName, email, offset, limit);
+
+        /// <summary>
+        /// Create a Contact
+        /// </summary>
+        /// <param name="contact">contact</param>
+        /// <returns><see cref="FullContact"/></returns>
+        public static InfusioOp<FullContact> CreateContact(Model.RequestContact contact = default) =>
+                  new InfusioOp<FullContact>.CreateContact(Return, contact);
+
+        /// <summary>
+        /// Create or Update a Contact
+        /// </summary>
+        /// <param name="contact">contact</param>
+        /// <returns><see cref="FullContact"/></returns>
+        public static InfusioOp<FullContact> CreateOrUpdateContact(Model.UpsertContact contact = default) =>
+                  new InfusioOp<FullContact>.CreateOrUpdateContact(Return, contact);
 
         /// <summary>
         /// Retrieve Contact Model
@@ -154,8 +240,17 @@ namespace Infusio
         /// </summary>
         /// <param name="contactId">contactId</param>
         /// <returns><see cref="Unit"/></returns>
-        public static InfusioOp<Unit> DeleteContact(long? contactId) =>
+        public static InfusioOp<Unit> DeleteContact(long contactId) =>
                   new InfusioOp<Unit>.DeleteContact(Return, contactId);
+
+        /// <summary>
+        /// Update a Contact
+        /// </summary>
+        /// <param name="contactId">contactId</param>
+        /// <param name="contact">contact</param>
+        /// <returns><see cref="FullContact"/></returns>
+        public static InfusioOp<FullContact> UpdatePropertiesOnContact(long contactId, Model.RequestContact contact = default) =>
+                  new InfusioOp<FullContact>.UpdatePropertiesOnContact(Return, contactId, contact);
 
         /// <summary>
         /// Create a Credit Card
@@ -163,7 +258,7 @@ namespace Infusio
         /// <param name="contactId">contactId</param>
         /// <param name="creditCard">creditCard</param>
         /// <returns><see cref="CreditCardAdded"/></returns>
-        public static InfusioOp<CreditCardAdded> CreateCreditCard(long? contactId, Model.CreditCard creditCard = default) =>
+        public static InfusioOp<CreditCardAdded> CreateCreditCard(long contactId, Model.CreditCard creditCard = default) =>
                   new InfusioOp<CreditCardAdded>.CreateCreditCard(Return, contactId, creditCard);
 
         /// <summary>
@@ -175,8 +270,17 @@ namespace Infusio
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
         /// <returns><see cref="EmailSentQueryResultList"/></returns>
-        public static InfusioOp<EmailSentQueryResultList> ListEmailsForContact(long? contactId, string email = default, long? contactId2 = default, int? offset = default, int? limit = default) =>
+        public static InfusioOp<EmailSentQueryResultList> ListEmailsForContact(long contactId, string email = default, long contactId2 = default, int offset = default, int limit = default) =>
                   new InfusioOp<EmailSentQueryResultList>.ListEmailsForContact(Return, contactId, email, contactId2, offset, limit);
+
+        /// <summary>
+        /// Create an Email Record
+        /// </summary>
+        /// <param name="contactId">contactId</param>
+        /// <param name="emailWithContent">Email records to persist, with content.</param>
+        /// <returns><see cref="EmailSentCreate"/></returns>
+        public static InfusioOp<EmailSentCreate> CreateEmailForContact(long contactId, Model.EmailSentCreate emailWithContent = default) =>
+                  new InfusioOp<EmailSentCreate>.CreateEmailForContact(Return, contactId, emailWithContent);
 
         /// <summary>
         /// List Applied Tags
@@ -185,8 +289,26 @@ namespace Infusio
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
         /// <returns><see cref="ContactTagList"/></returns>
-        public static InfusioOp<ContactTagList> ListAppliedTags(long? contactId, int? offset = default, int? limit = default) =>
+        public static InfusioOp<ContactTagList> ListAppliedTags(long contactId, int offset = default, int limit = default) =>
                   new InfusioOp<ContactTagList>.ListAppliedTags(Return, contactId, offset, limit);
+
+        /// <summary>
+        /// Apply Tags
+        /// </summary>
+        /// <param name="tagIds">tagIds</param>
+        /// <param name="contactId">contactId</param>
+        /// <returns><see cref="Unit"/></returns>
+        public static InfusioOp<Unit> ApplyTagsToContactId(Model.TagId tagIds, long contactId) =>
+                  new InfusioOp<Unit>.ApplyTagsToContactId(Return, tagIds, contactId);
+
+        /// <summary>
+        /// Remove Applied Tags
+        /// </summary>
+        /// <param name="ids">ids</param>
+        /// <param name="contactId">contactId</param>
+        /// <returns><see cref="Unit"/></returns>
+        public static InfusioOp<Unit> RemoveTagsFromContact(string ids, long contactId) =>
+                  new InfusioOp<Unit>.RemoveTagsFromContact(Return, ids, contactId);
 
         /// <summary>
         /// Remove Applied Tag
@@ -194,8 +316,8 @@ namespace Infusio
         /// <param name="tagId">tagId</param>
         /// <param name="contactId">contactId</param>
         /// <returns><see cref="Unit"/></returns>
-        public static InfusioOp<Unit> RemoveTagsFromContact(long? tagId, long? contactId) =>
-                  new InfusioOp<Unit>.RemoveTagsFromContact(Return, tagId, contactId);
+        public static InfusioOp<Unit> RemoveTagsFromContact2(long tagId, long contactId) =>
+                  new InfusioOp<Unit>.RemoveTagsFromContact2(Return, tagId, contactId);
 
         /// <summary>
         /// Retrieve a Contact
@@ -203,7 +325,7 @@ namespace Infusio
         /// <param name="id">id</param>
         /// <param name="optionalProperties">Comma-delimited list of Contact properties to include in the response. (Some fields such as `lead_source_id`, `custom_fields`, and `job_title` aren't included, by default.)</param>
         /// <returns><see cref="FullContact"/></returns>
-        public static InfusioOp<FullContact> GetContact(long? id, Lst<string> optionalProperties = default) =>
+        public static InfusioOp<FullContact> GetContact(long id, Lst<string> optionalProperties = default) =>
                   new InfusioOp<FullContact>.GetContact(Return, id, optionalProperties);
 
         /// <summary>
@@ -214,8 +336,16 @@ namespace Infusio
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
         /// <returns><see cref="EmailSentQueryResultList"/></returns>
-        public static InfusioOp<EmailSentQueryResultList> ListEmails(string email = default, long? contactId = default, int? offset = default, int? limit = default) =>
+        public static InfusioOp<EmailSentQueryResultList> ListEmails(string email = default, long contactId = default, int offset = default, int limit = default) =>
                   new InfusioOp<EmailSentQueryResultList>.ListEmails(Return, email, contactId, offset, limit);
+
+        /// <summary>
+        /// Create an Email Record
+        /// </summary>
+        /// <param name="emailWithContent">Email records to persist, with content.</param>
+        /// <returns><see cref="EmailSentCreate"/></returns>
+        public static InfusioOp<EmailSentCreate> CreateEmail(Model.EmailSentCreate emailWithContent = default) =>
+                  new InfusioOp<EmailSentCreate>.CreateEmail(Return, emailWithContent);
 
         /// <summary>
         /// Create a set of Email Records
@@ -238,8 +368,25 @@ namespace Infusio
         /// </summary>
         /// <param name="id">id</param>
         /// <returns><see cref="EmailSentQueryResultWithContent"/></returns>
-        public static InfusioOp<EmailSentQueryResultWithContent> GetEmail(long? id) =>
+        public static InfusioOp<EmailSentQueryResultWithContent> GetEmail(long id) =>
                   new InfusioOp<EmailSentQueryResultWithContent>.GetEmail(Return, id);
+
+        /// <summary>
+        /// Update an Email Record
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <param name="emailWithContent">Email records to persist, with content.</param>
+        /// <returns><see cref="EmailSentCreate"/></returns>
+        public static InfusioOp<EmailSentCreate> UpdateEmail(long id, Model.EmailSentCreate emailWithContent = default) =>
+                  new InfusioOp<EmailSentCreate>.UpdateEmail(Return, id, emailWithContent);
+
+        /// <summary>
+        /// Delete an Email Record
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns><see cref="Unit"/></returns>
+        public static InfusioOp<Unit> DeleteEmail(long id) =>
+                  new InfusioOp<Unit>.DeleteEmail(Return, id);
 
         /// <summary>
         /// List Files
@@ -251,8 +398,16 @@ namespace Infusio
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
         /// <returns><see cref="FileList"/></returns>
-        public static InfusioOp<FileList> ListFiles(string name = default, string type = default, string permission = default, string viewable = default, int? offset = default, int? limit = default) =>
+        public static InfusioOp<FileList> ListFiles(string name = default, string type = default, string permission = default, string viewable = default, int offset = default, int limit = default) =>
                   new InfusioOp<FileList>.ListFiles(Return, name, type, permission, viewable, offset, limit);
+
+        /// <summary>
+        /// Upload File
+        /// </summary>
+        /// <param name="fileUpload">fileUploadDTO</param>
+        /// <returns><see cref="FileInformation"/></returns>
+        public static InfusioOp<FileInformation> CreateFile(Model.FileUpload fileUpload = default) =>
+                  new InfusioOp<FileInformation>.CreateFile(Return, fileUpload);
 
         /// <summary>
         /// Retrieve File
@@ -260,8 +415,25 @@ namespace Infusio
         /// <param name="fileId">fileId</param>
         /// <param name="optionalProperties">Comma-delimited list of File properties to include in the response. (Some fields such as `file_data` aren't included, by default.)</param>
         /// <returns><see cref="FileInformation"/></returns>
-        public static InfusioOp<FileInformation> GetFile(long? fileId, Lst<string> optionalProperties = default) =>
+        public static InfusioOp<FileInformation> GetFile(long fileId, Lst<string> optionalProperties = default) =>
                   new InfusioOp<FileInformation>.GetFile(Return, fileId, optionalProperties);
+
+        /// <summary>
+        /// Replace File
+        /// </summary>
+        /// <param name="fileId">fileId</param>
+        /// <param name="fileUpload">fileUpload</param>
+        /// <returns><see cref="FileInformation"/></returns>
+        public static InfusioOp<FileInformation> UpdateFile(long fileId, Model.FileUpload fileUpload = default) =>
+                  new InfusioOp<FileInformation>.UpdateFile(Return, fileId, fileUpload);
+
+        /// <summary>
+        /// Delete File
+        /// </summary>
+        /// <param name="fileId">fileId</param>
+        /// <returns><see cref="Unit"/></returns>
+        public static InfusioOp<Unit> DeleteFile(long fileId) =>
+                  new InfusioOp<Unit>.DeleteFile(Return, fileId);
 
         /// <summary>
         /// List Stored Hook Subscriptions
@@ -269,6 +441,14 @@ namespace Infusio
         /// <returns><see cref="Unit"/></returns>
         public static InfusioOp<Unit> ListStoredHookSubscriptions() =>
                   new InfusioOp<Unit>.ListStoredHookSubscriptions(Return);
+
+        /// <summary>
+        /// Create a Hook Subscription
+        /// </summary>
+        /// <param name="restHookRequest">restHookRequest</param>
+        /// <returns><see cref="RestHook"/></returns>
+        public static InfusioOp<RestHook> CreateAHookSubscription(Model.RestHookRequest restHookRequest) =>
+                  new InfusioOp<RestHook>.CreateAHookSubscription(Return, restHookRequest);
 
         /// <summary>
         /// List Hook Event Types
@@ -284,6 +464,23 @@ namespace Infusio
         /// <returns><see cref="RestHook"/></returns>
         public static InfusioOp<RestHook> RetrieveAHookSubscription(string key) =>
                   new InfusioOp<RestHook>.RetrieveAHookSubscription(Return, key);
+
+        /// <summary>
+        /// Update a Hook Subscription
+        /// </summary>
+        /// <param name="restHookRequest">restHookRequest</param>
+        /// <param name="key">key</param>
+        /// <returns><see cref="RestHook"/></returns>
+        public static InfusioOp<RestHook> UpdateAHookSubscription(Model.RestHookRequest restHookRequest, string key) =>
+                  new InfusioOp<RestHook>.UpdateAHookSubscription(Return, restHookRequest, key);
+
+        /// <summary>
+        /// Delete a Hook Subscription
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <returns><see cref="Unit"/></returns>
+        public static InfusioOp<Unit> DeleteAHookSubscription(string key) =>
+                  new InfusioOp<Unit>.DeleteAHookSubscription(Return, key);
 
         /// <summary>
         /// Verify a Hook Subscription, Delayed
@@ -319,8 +516,24 @@ namespace Infusio
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
         /// <returns><see cref="OpportunityList"/></returns>
-        public static InfusioOp<OpportunityList> ListOpportunities(string order = default, string searchTerm = default, long? stageId = default, long? userId = default, int? offset = default, int? limit = default) =>
+        public static InfusioOp<OpportunityList> ListOpportunities(string order = default, string searchTerm = default, long stageId = default, long userId = default, int offset = default, int limit = default) =>
                   new InfusioOp<OpportunityList>.ListOpportunities(Return, order, searchTerm, stageId, userId, offset, limit);
+
+        /// <summary>
+        /// Create an Opportunity
+        /// </summary>
+        /// <param name="opportunity">opportunity</param>
+        /// <returns><see cref="Opportunity"/></returns>
+        public static InfusioOp<Opportunity> CreateOpportunity(Model.Opportunity opportunity = default) =>
+                  new InfusioOp<Opportunity>.CreateOpportunity(Return, opportunity);
+
+        /// <summary>
+        /// Replace an Opportunity
+        /// </summary>
+        /// <param name="opportunity">opportunity</param>
+        /// <returns><see cref="Opportunity"/></returns>
+        public static InfusioOp<Opportunity> UpdateOpportunity(Model.Opportunity opportunity = default) =>
+                  new InfusioOp<Opportunity>.UpdateOpportunity(Return, opportunity);
 
         /// <summary>
         /// Retrieve Opportunity Model
@@ -335,8 +548,17 @@ namespace Infusio
         /// <param name="opportunityId">opportunityId</param>
         /// <param name="optionalProperties">Comma-delimited list of Opportunity properties to include in the response. (Some fields such as `custom_fields` aren't included, by default.)</param>
         /// <returns><see cref="Opportunity"/></returns>
-        public static InfusioOp<Opportunity> GetOpportunity(long? opportunityId, Lst<string> optionalProperties = default) =>
+        public static InfusioOp<Opportunity> GetOpportunity(long opportunityId, Lst<string> optionalProperties = default) =>
                   new InfusioOp<Opportunity>.GetOpportunity(Return, opportunityId, optionalProperties);
+
+        /// <summary>
+        /// Update an Opportunity
+        /// </summary>
+        /// <param name="opportunityId">opportunityId</param>
+        /// <param name="opportunity">opportunity</param>
+        /// <returns><see cref="Opportunity"/></returns>
+        public static InfusioOp<Opportunity> UpdatePropertiesOnOpportunity(long opportunityId, Model.Opportunity opportunity = default) =>
+                  new InfusioOp<Opportunity>.UpdatePropertiesOnOpportunity(Return, opportunityId, opportunity);
 
         /// <summary>
         /// List Opportunity Stage Pipeline
@@ -357,7 +579,7 @@ namespace Infusio
         /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
         /// <returns><see cref="OrderList"/></returns>
-        public static InfusioOp<OrderList> ListOrders(long? productId = default, long? contactId = default, string order = default, bool paid = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
+        public static InfusioOp<OrderList> ListOrders(long productId = default, long contactId = default, string order = default, bool paid = default, int offset = default, int limit = default, string until = default, string since = default) =>
                   new InfusioOp<OrderList>.ListOrders(Return, productId, contactId, order, paid, offset, limit, until, since);
 
         /// <summary>
@@ -372,7 +594,7 @@ namespace Infusio
         /// </summary>
         /// <param name="orderId">orderId</param>
         /// <returns><see cref="Order"/></returns>
-        public static InfusioOp<Order> GetOrder(long? orderId) =>
+        public static InfusioOp<Order> GetOrder(long orderId) =>
                   new InfusioOp<Order>.GetOrder(Return, orderId);
 
         /// <summary>
@@ -385,7 +607,7 @@ namespace Infusio
         /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
         /// <returns><see cref="TransactionList"/></returns>
-        public static InfusioOp<TransactionList> ListTransactionsForOrder(long? orderId, long? contactId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
+        public static InfusioOp<TransactionList> ListTransactionsForOrder(long orderId, long contactId = default, int offset = default, int limit = default, string until = default, string since = default) =>
                   new InfusioOp<TransactionList>.ListTransactionsForOrder(Return, orderId, contactId, offset, limit, until, since);
 
         /// <summary>
@@ -395,7 +617,7 @@ namespace Infusio
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
         /// <returns><see cref="ProductList"/></returns>
-        public static InfusioOp<ProductList> ListProducts(bool active = default, int? offset = default, int? limit = default) =>
+        public static InfusioOp<ProductList> ListProducts(bool active = default, int offset = default, int limit = default) =>
                   new InfusioOp<ProductList>.ListProducts(Return, active, offset, limit);
 
         /// <summary>
@@ -405,7 +627,7 @@ namespace Infusio
         /// <param name="limit">Sets a total of items to return</param>
         /// <param name="syncToken">sync_token</param>
         /// <returns><see cref="ProductStatusList"/></returns>
-        public static InfusioOp<ProductStatusList> ListProductsFromSyncToken(int? offset = default, int? limit = default, string syncToken = default) =>
+        public static InfusioOp<ProductStatusList> ListProductsFromSyncToken(int offset = default, int limit = default, string syncToken = default) =>
                   new InfusioOp<ProductStatusList>.ListProductsFromSyncToken(Return, offset, limit, syncToken);
 
         /// <summary>
@@ -413,7 +635,7 @@ namespace Infusio
         /// </summary>
         /// <param name="productId">productId</param>
         /// <returns><see cref="Product"/></returns>
-        public static InfusioOp<Product> GetProduct(long? productId) =>
+        public static InfusioOp<Product> GetProduct(long productId) =>
                   new InfusioOp<Product>.GetProduct(Return, productId);
 
         /// <summary>
@@ -444,8 +666,16 @@ namespace Infusio
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
         /// <returns><see cref="Tags"/></returns>
-        public static InfusioOp<Tags> ListTags(long? category = default, int? offset = default, int? limit = default) =>
+        public static InfusioOp<Tags> ListTags(long category = default, int offset = default, int limit = default) =>
                   new InfusioOp<Tags>.ListTags(Return, category, offset, limit);
+
+        /// <summary>
+        /// Create Tag
+        /// </summary>
+        /// <param name="tag">tag</param>
+        /// <returns><see cref="Tag"/></returns>
+        public static InfusioOp<Tag> CreateTag(Model.CreateTag tag) =>
+                  new InfusioOp<Tag>.CreateTag(Return, tag);
 
         /// <summary>
         /// Create Tag Category
@@ -460,7 +690,7 @@ namespace Infusio
         /// </summary>
         /// <param name="id">id</param>
         /// <returns><see cref="Tag"/></returns>
-        public static InfusioOp<Tag> GetTag(long? id) =>
+        public static InfusioOp<Tag> GetTag(long id) =>
                   new InfusioOp<Tag>.GetTag(Return, id);
 
         /// <summary>
@@ -470,8 +700,26 @@ namespace Infusio
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
         /// <returns><see cref="TaggedContactList"/></returns>
-        public static InfusioOp<TaggedContactList> ListContactsForTagId(long? tagId, int? offset = default, int? limit = default) =>
+        public static InfusioOp<TaggedContactList> ListContactsForTagId(long tagId, int offset = default, int limit = default) =>
                   new InfusioOp<TaggedContactList>.ListContactsForTagId(Return, tagId, offset, limit);
+
+        /// <summary>
+        /// Apply Tag to Contacts
+        /// </summary>
+        /// <param name="ids">ids</param>
+        /// <param name="tagId">tagId</param>
+        /// <returns><see cref="Unit"/></returns>
+        public static InfusioOp<Unit> ApplyTagToContactIds(Model.SetOfIds ids, long tagId) =>
+                  new InfusioOp<Unit>.ApplyTagToContactIds(Return, ids, tagId);
+
+        /// <summary>
+        /// Remove Tag from Contacts
+        /// </summary>
+        /// <param name="ids">ids</param>
+        /// <param name="tagId">tagId</param>
+        /// <returns><see cref="Unit"/></returns>
+        public static InfusioOp<Unit> RemoveTagFromContactIds(Lst<long> ids, long tagId) =>
+                  new InfusioOp<Unit>.RemoveTagFromContactIds(Return, ids, tagId);
 
         /// <summary>
         /// Remove Tag from Contact
@@ -479,7 +727,7 @@ namespace Infusio
         /// <param name="contactId">contactId</param>
         /// <param name="tagId">tagId</param>
         /// <returns><see cref="Unit"/></returns>
-        public static InfusioOp<Unit> RemoveTagFromContactId(long? contactId, long? tagId) =>
+        public static InfusioOp<Unit> RemoveTagFromContactId(long contactId, long tagId) =>
                   new InfusioOp<Unit>.RemoveTagFromContactId(Return, contactId, tagId);
 
         /// <summary>
@@ -495,8 +743,16 @@ namespace Infusio
         /// <param name="hasDueDate">has_due_date</param>
         /// <param name="contactId">contact_id</param>
         /// <returns><see cref="TaskList"/></returns>
-        public static InfusioOp<TaskList> ListTasks(string order = default, int? offset = default, int? limit = default, bool completed = default, string until = default, string since = default, long? userId = default, bool hasDueDate = default, long? contactId = default) =>
+        public static InfusioOp<TaskList> ListTasks(string order = default, int offset = default, int limit = default, bool completed = default, string until = default, string since = default, long userId = default, bool hasDueDate = default, long contactId = default) =>
                   new InfusioOp<TaskList>.ListTasks(Return, order, offset, limit, completed, until, since, userId, hasDueDate, contactId);
+
+        /// <summary>
+        /// Create a Task
+        /// </summary>
+        /// <param name="task">task</param>
+        /// <returns><see cref="InfusionTask"/></returns>
+        public static InfusioOp<InfusionTask> CreateTask(Model.InfusionTask task) =>
+                  new InfusioOp<InfusionTask>.CreateTask(Return, task);
 
         /// <summary>
         /// Retrieve Task Model
@@ -518,7 +774,7 @@ namespace Infusio
         /// <param name="hasDueDate">Returns tasks that have an 'action date' when set to true</param>
         /// <param name="contactId">Returns tasks for the provided contact id</param>
         /// <returns><see cref="TaskList"/></returns>
-        public static InfusioOp<TaskList> ListTasksForCurrentUser(string order = default, int? offset = default, int? limit = default, bool completed = default, string until = default, string since = default, long? userId = default, bool hasDueDate = default, long? contactId = default) =>
+        public static InfusioOp<TaskList> ListTasksForCurrentUser(string order = default, int offset = default, int limit = default, bool completed = default, string until = default, string since = default, long userId = default, bool hasDueDate = default, long contactId = default) =>
                   new InfusioOp<TaskList>.ListTasksForCurrentUser(Return, order, offset, limit, completed, until, since, userId, hasDueDate, contactId);
 
         /// <summary>
@@ -530,6 +786,32 @@ namespace Infusio
                   new InfusioOp<InfusionTask>.GetTask(Return, taskId);
 
         /// <summary>
+        /// Replace a Task
+        /// </summary>
+        /// <param name="task">task</param>
+        /// <param name="taskId">taskId</param>
+        /// <returns><see cref="InfusionTask"/></returns>
+        public static InfusioOp<InfusionTask> UpdateTask(Model.InfusionTask task, string taskId) =>
+                  new InfusioOp<InfusionTask>.UpdateTask(Return, task, taskId);
+
+        /// <summary>
+        /// Delete a Task
+        /// </summary>
+        /// <param name="taskId">taskId</param>
+        /// <returns><see cref="Unit"/></returns>
+        public static InfusioOp<Unit> DeleteTask(string taskId) =>
+                  new InfusioOp<Unit>.DeleteTask(Return, taskId);
+
+        /// <summary>
+        /// Update a Task
+        /// </summary>
+        /// <param name="task">task</param>
+        /// <param name="taskId">taskId</param>
+        /// <returns><see cref="InfusionTask"/></returns>
+        public static InfusioOp<InfusionTask> UpdatePropertiesOnTask(Model.InfusionTask task, string taskId) =>
+                  new InfusioOp<InfusionTask>.UpdatePropertiesOnTask(Return, task, taskId);
+
+        /// <summary>
         /// List Transactions
         /// </summary>
         /// <param name="contactId">Returns transactions for the provided contact id</param>
@@ -538,7 +820,7 @@ namespace Infusio
         /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
         /// <returns><see cref="TransactionList"/></returns>
-        public static InfusioOp<TransactionList> ListTransactions(long? contactId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
+        public static InfusioOp<TransactionList> ListTransactions(long contactId = default, int offset = default, int limit = default, string until = default, string since = default) =>
                   new InfusioOp<TransactionList>.ListTransactions(Return, contactId, offset, limit, until, since);
 
         /// <summary>
@@ -546,7 +828,7 @@ namespace Infusio
         /// </summary>
         /// <param name="transactionId">transactionId</param>
         /// <returns><see cref="Transaction"/></returns>
-        public static InfusioOp<Transaction> GetTransaction(long? transactionId) =>
+        public static InfusioOp<Transaction> GetTransaction(long transactionId) =>
                   new InfusioOp<Transaction>.GetTransaction(Return, transactionId);
 
 

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using LanguageExt;
 
 namespace Infusionsoft
@@ -8,6 +9,12 @@ namespace Infusionsoft
         public static async Task<Unit> Lift(this Task task)
         {
             await task;
+            return Unit.Default;
+        }
+
+        public static Unit LiftA(Action action)
+        {
+            action();
             return Unit.Default;
         }
     }

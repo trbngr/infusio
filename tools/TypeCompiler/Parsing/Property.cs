@@ -10,6 +10,8 @@ using Newtonsoft.Json.Linq;
 
 namespace Infusio.Compiler.Parsing
 {
+    using static Prelude;
+
     public class Property : ILiquidizable
     {
         public string JsonProperty { get; set; }
@@ -33,7 +35,7 @@ namespace Infusio.Compiler.Parsing
 
         [JsonProperty("$ref")] public string Ref { get; set; }
 
-        public static Set<string> Reserved = Prelude.Set(
+        public static Set<string> Reserved = Set(
             "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue",
             "decimal", "default", "delegate", "do", "double", "else", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float",
             "for", "foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object",
@@ -53,13 +55,13 @@ namespace Infusio.Compiler.Parsing
             {
                 var justWord =
                     from wordMatch in rest
-                    from word in Prelude.Some(wordMatch.Value)
+                    from word in Some(wordMatch.Value)
                     select word;
 
                 var withNums =
                     from numStr in digits
-                    from numVal in Prelude.Some(numStr.Value)
-                    from num in Prelude.parseInt(numVal)
+                    from numVal in Some(numStr.Value)
+                    from num in parseInt(numVal)
                     from word in justWord
                     select $"{num.ToWords(new CultureInfo("en")).UnSnake()}{word}";
 
@@ -67,17 +69,17 @@ namespace Infusio.Compiler.Parsing
             });
 
         static string NormalizeName(string parent, string name) => (
-            from us in Prelude.Some(name.UnSnake())
-            from nt in Prelude.Some(us.RenameTaskIfNeeded())
-            from np in Prelude.Some(NoSameNameAsParent(parent, nt))
-            from nn in Prelude.Some(NoStartWithNumber(np))
+            from us in Some(name.UnSnake())
+            from nt in Some(us.RenameTaskIfNeeded())
+            from np in Some(NoSameNameAsParent(parent, nt))
+            from nn in Some(NoStartWithNumber(np))
             select NoReserved(nn)
         ).ValueUnsafe();
 
         public static Option<Property> Parse(string parentType, JToken token) =>
-            from p in Prelude.Optional(token as JProperty)
+            from p in Optional(token as JProperty)
             let json = p.First.ToString()
-            from prop in Prelude.Some(p.First.Deserialize<Property>())
+            from prop in Some(p.First.Deserialize<Property>())
             select prop
                 .Set(x => x.Source = p.First)
                 .Set(x => x.JsonProperty = p.Name)

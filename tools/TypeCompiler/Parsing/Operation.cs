@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using DotLiquid;
 using LanguageExt;
@@ -9,7 +10,35 @@ using static LanguageExt.Prelude;
 
 namespace Infusio.Compiler.Parsing
 {
-    class Operation : ILiquidizable
+    interface IHaveName
+    {
+        string Name { get; set; }
+    }
+
+    static class Named
+    {
+        class NameEq : IEqualityComparer<IHaveName>
+        {
+            public bool Equals(IHaveName x, IHaveName y) =>
+                x.Name.Equals(y.Name);
+
+            public int GetHashCode(IHaveName x) =>
+                x.Name.GetHashCode();
+        }
+
+        static readonly IEqualityComparer<IHaveName> NameEquality = new NameEq();
+
+        public static Lst<T> MakeUnique<T>(this Lst<T> items) where T : IHaveName =>
+            MakeUnique(items.Cast<IHaveName>().Freeze()).Cast<T>().Freeze();
+
+        static Lst<IHaveName> MakeUnique(Lst<IHaveName> items) => items.Fold(
+            Lst<IHaveName>.Empty,
+            (lst, p) => lst.Add(lst.Contains(p, NameEquality) ? p.Set(x => x.Name = $"{x.Name}2") : p)
+        );
+    }
+
+    [DebuggerDisplay("{HttpMethod} {Name} {Path}")]
+    class Operation : ILiquidizable, IHaveName
     {
         public string Path { get; set; }
         public string Name { get; set; }
@@ -19,6 +48,12 @@ namespace Infusio.Compiler.Parsing
         public Lst<OperationResponse> Responses { get; set; }
         public Lst<OperationParameter> Parameters { get; set; }
         public bool HasParameters => Parameters.Any();
+        public bool HasRequestBodyParameters => RequestBodyParameters.Any();
+        public Lst<OperationParameter> RequestBodyParameters => Parameters.Filter(x => x.In == "body");
+        public bool HasSingleBodyParameter => RequestBodyParameters.Count == 1;
+        public OperationParameter SingleBodyParameter => RequestBodyParameters.SingleOrDefault();
+        public Lst<OperationParameter> QueryParameters => Parameters.Filter(x => x.In == "query");
+        public bool HasQueryParameters => QueryParameters.Any();
 
         public object ToLiquid() => new
         {
@@ -30,7 +65,13 @@ namespace Infusio.Compiler.Parsing
             Responses,
             Parameters,
             HasParameters,
-            ResponseType
+            ResponseType,
+            HasRequestBodyParameters,
+            HasSingleBodyParameter,
+            SingleBodyParameter,
+            RequestBodyParameters,
+            QueryParameters,
+            HasQueryParameters
         };
 
         public string ResponseType => Responses
@@ -54,7 +95,8 @@ namespace Infusio.Compiler.Parsing
         //TODO: Read ALL Operations here. Currently only picking up the first one.
         static Lst<Operation> ParseOperations(JToken token, string path, Set<string> definitions) => (
             from obj in Optional(token as JObject)
-            from methodNode in Optional(obj.First as JProperty)
+            from child in obj.Children()
+            from methodNode in Optional(child as JProperty)
             let method = methodNode.Name.PascalCase()
             from p in methodNode.Children()
             select ParseOperation(path, method, p, definitions)
@@ -79,11 +121,11 @@ namespace Infusio.Compiler.Parsing
                 Description = opNode["description"].StringOrNull(),
                 Name = TypeResolver.ResolveOperationName(operationId.Value<string>()),
                 Responses = OperationResponse.ParseResponses(responses),
-                Parameters = MakeUnique(parameters.OrderBy(p => p.Required).Rev().Freeze())
+                Parameters = parameters.OrderBy(p => p.Required).Rev().Freeze().MakeUnique()
             };
     }
 
-    class OperationParameter : ILiquidizable
+    class OperationParameter : ILiquidizable, IHaveName
     {
         public string In { get; set; }
         public string Name { get; set; }
@@ -117,24 +159,6 @@ namespace Infusio.Compiler.Parsing
                     ? param.Set(p => p.Type = TypeResolver.ReadRef(Optional(node["schema"]).Map(x => x["$ref"])))
                     : param.Set(p => p.Type = TypeResolver.ResolveType(p))
                 ).Set(x => x.Type = definitions.Contains(x.Type) ? $"Model.{x.Type}" : x.Type);
-        }
-
-        class NameEq : IEqualityComparer<OperationParameter>
-        {
-            public bool Equals(OperationParameter x, OperationParameter y) =>
-                x.Name.Equals(y.Name);
-
-            public int GetHashCode(OperationParameter x) =>
-                x.Name.GetHashCode();
-        }
-
-        public static Lst<OperationParameter> MakeUnique(Lst<OperationParameter> parameters)
-        {
-            var nameEq = new NameEq();
-            return parameters.Fold(
-                Lst<OperationParameter>.Empty,
-                (lst, p) => lst.Add(lst.Contains(p, nameEq) ? p.Set(x => x.Name = $"{x.Name}2") : p)
-            );
         }
 
         public static implicit operator Property(OperationParameter p) => new Property

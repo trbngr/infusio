@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using DotLiquid;
@@ -34,6 +35,9 @@ namespace Infusio.Compiler
         {
             var model = await LoadDocument().Map(TemplateModel.Parse);
 
+            var operations = model.Operations
+                .Filter(x => x.RequestBodyParameters.Count() > 1);
+
             Template.RegisterFilter(typeof(Filters));
             Template.RegisterTag<TemplateTag>("template");
 
@@ -47,13 +51,8 @@ namespace Infusio.Compiler
             List((FileName.New("Dsl"), Render("Dsl", model)))
                 .Add((FileName.New("Dto"), Render("Dto", model)))
                 .Add((FileName.New("Ops"), Render("Ops", model)))
+                .Add((FileName.New("Interpreter"), Render("Interpreter", model)))
                 .Add((FileName.New("Client"), Render("Client", model)));
-
-        static Lst<(OutputDirectory, FileName, Try<GeneratedCode>)> GenerateForMultiFile(TemplateModel model) =>
-            List((OutDir(Dest), FileName.New("Dsl"), Render("Dsl", model)))
-            .AddRange(model.Definitions.Map(def =>(OutDir("Model"), FileName.New(def.Name), Render("Dto.MultiFile", def))))
-            .AddRange(model.Operations.Map(op => (OutDir("Ops"), FileName.New(op.Name), Render("Op", op))))
-            .AddRange(model.Enums.Map(en => (OutDir("Dto"), FileName.New(en.Name), Render("Enum", en))));
 
         static Unit WriteToDisc(OutputDirectory directory, (FileName Name, Try<GeneratedCode> Attemp) result) =>
             WriteToDisc((directory, result.Name, result.Attemp));
