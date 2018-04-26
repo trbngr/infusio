@@ -4,6 +4,11 @@
     <LangVersion>7.1</LangVersion>
     <AssemblyName>Infusio</AssemblyName>
     <RootNamespace>Infusio</RootNamespace>
+    <PackageId>infusio</PackageId>
+    <Version>0.1</Version>
+    <Authors>Christopher Martin</Authors>
+    <Title>Infusio</Title>
+    <Description>Infusio is strongly typed Infusionsoft API client with a functional DSL.</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="LanguageExt.Core" Version="3.0.1" />
