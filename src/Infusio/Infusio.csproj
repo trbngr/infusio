@@ -9,6 +9,10 @@
     <Authors>Christopher Martin</Authors>
     <Title>Infusio</Title>
     <Description>Infusio is strongly typed Infusionsoft API client with a functional DSL.</Description>
+    <PackageProjectUrl>https://github.com/trbngr/infusio</PackageProjectUrl>
+    <PackageTags>infusionsoft;functional;functional programming;</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <RepositoryUrl>https://github.com/trbngr/infusio</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="LanguageExt.Core" Version="3.0.1" />

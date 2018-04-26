@@ -17,15 +17,34 @@ namespace Runner
     using static Dsl;
     using static Prelude;
     using static HttpSupport;
+    using static Infusio.Auth.Authorization;
 
     class Program
     {
         static async Task Main()
         {
-            //client_id: tj7a3rtbs5dmsz2sbwxx3phd
-            //client_secret: EEecE6bBYz
-            var config = new InfusioConfig("emry9h3ww39z7j8ghjqcms9n");
-            var client = new InfusioClient(new HttpClient(new LoggingHandler()), config);
+            var httpClient = new HttpClient(new LoggingHandler());
+
+            var accessToken = CreateAccessTokenRequest(
+                httpClient,
+                ClientId("tj7a3rtbs5dmsz2sbwxx3phd"),
+                ClientSecret("EEecE6bBYz"),
+                RedirectUri("http://localhost")
+            );
+
+            var refreshToken = CreateRefreshTokenRequest(
+                httpClient,
+                ClientId("tj7a3rtbs5dmsz2sbwxx3phd"),
+                ClientSecret("EEecE6bBYz")
+            );
+
+            var token = await accessToken(AccessCode("nh4bydyaqsje96dycppue6jj"));
+            var token2 = await refreshToken(token);
+            Console.Out.WriteLine("");
+
+
+            return;
+//            var client = new InfusioClient(new HttpClient(new LoggingHandler()), config);
 
 //            var either = await client.GetAccountProfile();
 //            var result = await either.Match(
@@ -33,16 +52,16 @@ namespace Runner
 //                Right: p => client.UpdateAccountInfo(p.Copy(phone: "602-555-8521"))
 //            );
 
-            Func<string, InfusioOp<AccountProfile>> updatePhoneNumber = phone =>
-                from prof in GetAccountProfile()
-                from _ in UpdateAccountInfo(prof.Copy(phone: phone))
-                from updated in GetAccountProfile()
-                select updated;
-
-            await Display(updatePhoneNumber("602-555-8521").RunWith(client));
-            await Display(interpret(updatePhoneNumber("888-888-8888"), client));
-
-            Console.Out.WriteLine("");
+//            Func<string, InfusioOp<AccountProfile>> updatePhoneNumber = phone =>
+//                from prof in GetAccountProfile()
+//                from _ in UpdateAccountInfo(prof.Copy(phone: phone))
+//                from updated in GetAccountProfile()
+//                select updated;
+//
+//            await Display(updatePhoneNumber("602-555-8521").RunWith(client));
+//            await Display(interpret(updatePhoneNumber("888-888-8888"), client));
+//
+//            Console.Out.WriteLine("");
         }
 
         static async Task<Unit> Display<T>(Task<Either<Error, T>> either) =>
@@ -57,10 +76,12 @@ namespace Runner
     public class LoggingHandler : DelegatingHandler
     {
         public LoggingHandler() : this(new HttpClientHandler())
-        {}
+        {
+        }
 
         public LoggingHandler(HttpMessageHandler innerHandler) : base(innerHandler)
-        {}
+        {
+        }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
