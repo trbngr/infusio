@@ -1,107 +1,125 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
-using DslCompiler.CodeGen;
+using DotLiquid;
+using Infusio.Compiler.Parsing;
 using LanguageExt;
-using NJsonSchema;
-using NJsonSchema.CodeGeneration;
-using NSwag;
-using NSwag.CodeGeneration;
-using NSwag.CodeGeneration.CSharp;
-using NSwag.CodeGeneration.OperationNameGenerators;
-using static LanguageExt.Prelude;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Newtonsoft.Json.Linq;
+using Microsoft.CodeAnalysis.Formatting;
+using Microsoft.CodeAnalysis.Options;
 
-namespace DslCompiler
+namespace Infusio.Compiler
 {
+    using static Prelude;
+
     class Program
     {
-        class CustomTypeNameGenerator : DefaultTypeNameGenerator
-        {
-            protected override string Generate(JsonSchema4 schema, string typeNameHint)
-            {
-                var input = base.Generate(schema, typeNameHint);
-                foreach (char c in new[] {'«', '»'})
-                {
-                    input = input.Replace(c, '_');
-                }
+        static Task<JObject> LoadDocument() => File.Exists("infusion.json")
+            ? File.ReadAllTextAsync("infusion.json").Map(JObject.Parse)
+            : from client in new HttpClient().AsTask()
+            from resp in client.GetAsync("https://developer.infusionsoft.com/docs/rest/infusion.json")
+            from json in resp.Content.ReadAsStringAsync()
+            from save in File.WriteAllTextAsync("infusion.json", json).Lift()
+            select JObject.Parse(json);
 
-                return input;
-            }
-        }
+        static readonly string Dest = Path.GetFullPath("../../src/Infusio");
 
-        class CustomEnumNameGenerator : IEnumNameGenerator
-        {
-            public string Generate(int index, string name, object value, JsonSchema4 schema) =>
-                ConversionUtilities.ConvertToUpperCamelCase(
-                    name.Replace(":", "-").Replace(".", "_").Replace("#", "_").Replace("(", "").Replace(")", ""), true
-                );
-        }
+        static OutputDirectory OutDir(string dir) =>
+            OutputDirectory.New(Path.Combine(Dest, dir));
 
         static async Task Main()
         {
-            var document =
-                await SwaggerDocument.FromUrlAsync("https://developer.infusionsoft.com/docs/rest/infusion.json");
+            var model = await LoadDocument().Map(TemplateModel.Parse);
 
-            var settings = new SwaggerToCSharpClientGeneratorSettings
-            {
-                InjectHttpClient = true,
-                DisposeHttpClient = false,
-                ClassName = "InfusionsoftClient",
-                ExposeJsonSerializerSettings = false,
-                ParameterArrayType = "LanguageExt.Lst",
-                ResponseArrayType = "LanguageExt.Lst",
-                ParameterDictionaryType = "LanguageExt.Map",
-                ResponseDictionaryType = "LanguageExt.Map",
-                OperationNameGenerator = new SingleClientFromOperationIdOperationNameGenerator(),
-                ParameterNameGenerator = new DefaultParameterNameGenerator(),
-                CSharpGeneratorSettings =
-                {
-                    Namespace = "Infusionsoft.Client",
-                    ArrayType = "LanguageExt.Lst"
-                },
-                CodeGeneratorSettings =
-                {
-                    TypeNameGenerator = new CustomTypeNameGenerator(),
-                    EnumNameGenerator = new CustomEnumNameGenerator()
-                }
-            };
+            var operations = model.Operations
+                .Filter(x => x.RequestBodyParameters.Count() > 1);
 
-            var clientGenerator = new SwaggerToCSharpClientGenerator(document, settings);
-            var clientCode = clientGenerator.GenerateFile(ClientGeneratorOutputType.Full);
+            Template.RegisterFilter(typeof(Filters));
+            Template.RegisterTag<TemplateTag>("template");
 
-            var dslGenerator = new FreeMonadGenerator(document, new FreeMonadGeneratorSettings
-                {
-                    DslModuleName = "InfusionDsl",
-                    FreeType = "InfusionOp",
-                    ParameterArrayType = "LanguageExt.Lst",
-                    ResponseArrayType = "LanguageExt.Lst",
-                    ParameterDictionaryType = "LanguageExt.Map",
-                    ResponseDictionaryType = "LanguageExt.Map",
-                    ParameterNameGenerator = new DefaultParameterNameGenerator(),
-                    CSharpGeneratorSettings =
-                    {
-                        Namespace = "Infusionsoft",
-                        ArrayType = "LanguageExt.Lst"
-                    },
-                    CodeGeneratorSettings =
-                    {
-                        TypeNameGenerator = new CustomTypeNameGenerator(),
-                        EnumNameGenerator = new CustomEnumNameGenerator()
-                    }
-                }
-            );
-            var dslCode = dslGenerator.GenerateFile();
-            
-            var dest = Path.GetFullPath("../../src/Infusionsoft");
+            GenerateForSingleFile(model)
+                .Map(result => WriteToDisc(OutputDirectory.New(Dest), result));
 
-            use(new StreamWriter(Path.Combine(dest, "InfusionsoftClient.cs")),
-                writer => writer.Return(x => x.Write(clientCode)));
-
-            use(new StreamWriter(Path.Combine(dest, "Dsl.cs")),
-                writer => writer.Return(x => x.Write(dslCode)));
+            Console.Out.WriteLine("");
         }
+
+        static Lst<(FileName, Try<GeneratedCode>)> GenerateForSingleFile(TemplateModel model) =>
+            List((FileName.New("Dsl"), Render("Dsl", model)))
+                .Add((FileName.New("Dto"), Render("Dto", model)))
+                .Add((FileName.New("Ops"), Render("Ops", model)))
+                .Add((FileName.New("Interpreter"), Render("Interpreter", model)))
+                .Add((FileName.New("Client"), Render("Client", model)));
+
+        static Unit WriteToDisc(OutputDirectory directory, (FileName Name, Try<GeneratedCode> Attemp) result) =>
+            WriteToDisc((directory, result.Name, result.Attemp));
+
+        static Unit WriteToDisc((OutputDirectory Directory, FileName Name, Try<GeneratedCode> Attempt) result) => match(
+            from code in result.Attempt
+            from ast in Try(CSharpSyntaxTree.ParseText(code))
+            let _ = Directory.CreateDirectory(result.Directory)
+            let path = Path.Combine(result.Directory, $"{result.Name}.cs")
+            let writer = new StreamWriter(new FileStream(path, FileMode.Create))
+            let workspace = new AdhocWorkspace()
+            from syntaxNode in Try(ast.GetRoot())
+            let formattedCode = Formatter.Format(syntaxNode, workspace)
+            from end in use(writer, TryAction<TextWriter>(formattedCode.WriteTo))
+            select end,
+            Succ: identity,
+            Fail: e =>
+            {
+                Console.Out.WriteLine($"Error generating file {result.Name}. {e.Message}");
+                return Prelude.unit;
+            }
+        );
+
+        static Try<GeneratedCode> Render(string templateName, ILiquidizable model) =>
+            from temp in Try(() => Template.Parse(File.ReadAllText($"CodeGen/{templateName}.liquid")))
+            from code in Try(() => temp.Render(Hash.FromAnonymousObject(model)))
+            select GeneratedCode.New(code);
+
+        static Func<T, Try<Unit>> TryAction<T>(Action<T> action) => arg =>
+        {
+            action(arg);
+            return Try(Prelude.unit);
+        };
+    }
+
+    class OutputDirectory : NewType<OutputDirectory, string>
+    {
+        OutputDirectory(string value) : base(value)
+        {
+        }
+
+        public static implicit operator string(OutputDirectory d) => d.Value;
+    }
+
+    class GeneratedCode : NewType<GeneratedCode, string>
+    {
+        GeneratedCode(string code) : base(code)
+        {
+        }
+
+        public static implicit operator string(GeneratedCode d) => d.Value;
+    }
+
+    class FileName : NewType<FileName, string>
+    {
+        FileName(string value) : base(value)
+        {
+        }
+
+        public static implicit operator string(FileName d) => d.Value;
+    }
+
+    class CodeGenSettings : Record<CodeGenSettings>
+    {
+        public readonly bool SingleFiles;
+
+        public CodeGenSettings(bool singleFiles = true) => SingleFiles = singleFiles;
     }
 
     static class Ext
@@ -109,36 +127,13 @@ namespace DslCompiler
         public static Unit Return<T>(this T self, Action<T> act)
         {
             act(self);
-            return unit;
+            return Prelude.unit;
         }
 
-        public static StringBuilder AppendLines<T>(this StringBuilder sb, IEnumerable<T> ts, Func<T, string> fn) =>
-            ts.Fold(sb, (builder, t) => builder.AppendLine(fn(t)));
-
-        public static StringBuilder AppendNextOpProp(this StringBuilder b, SwaggerOperation operation,
-            SwaggerToCSharpClientGenerator generator) => ifNone(
-            from resp in Optional(operation.Responses["200"])
-            from rtype in Optional(generator.GetTypeName(resp.ActualResponseSchema, false, resp.Description))
-            select b.Append($"public Func<{rtype}, Op<A>> Next").AppendLine(" { get; }"),
-            b
-        );
-
-        public static StringBuilder AppendNextOpParam(this StringBuilder b, SwaggerOperation operation,
-            SwaggerToCSharpClientGenerator generator) => ifNone(
-            from resp in Optional(operation.Responses["200"])
-            from rtype in Optional(generator.GetTypeName(resp.ActualResponseSchema, false, resp.Description))
-            select b.Append($"Func<{rtype}, Op<A>> next"),
-            b
-        );
-
-        public static string UnSnake(this string text) => text.Split('_')
-            .Fold(new StringBuilder(), (lst, str) => lst.Append(PascalCase(str)))
-            .ToString();
-
-        public static string PascalCase(this string text) =>
-            $"{text.Substring(0, 1).ToUpperInvariant()}{text.Substring(1)}".Replace("_", "");
-
-        public static string CamelCase(this string text) =>
-            $"{text.Substring(0, 1).ToLowerInvariant()}{text.Substring(1)}".Replace("_", "");
+        public static async Task<Unit> Lift(this Task task)
+        {
+            await task;
+            return Unit.Default;
+        }
     }
 }
