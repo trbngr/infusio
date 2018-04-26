@@ -1303,6 +1303,22 @@ namespace Infusio.Ops
         public static InfusioOp<C> SelectMany<A, B, C>(this InfusioOp<A> op, Func<A, InfusioOp<B>> bind, Func<A, B, C> project) =>
             op.Bind(a => bind(a).Select(b => project(a, b)));
 
+        public static InfusioOp<A> Where<A>(this InfusioOp<A> op, Func<A, bool> fn) =>
+            op.Map(a => fn(a) ? a : default);
+
+        public static InfusioOp<B> IfNone<A, B>(this InfusioOp<A> op, Func<InfusioOp<B>> fn)
+        {
+            var lkaj = op.Map(a => Prelude.Optional(a).Match(
+                Some: value => Dsl.Return(value),
+                None: () => fn()
+                ));
+            return lkaj.IfNone<A, B>(fn);
+        }
+
+        public static InfusioOp<B> Match<A, B>(this InfusioOp<A> op, Func<A, B> Some, Func<B> None) =>
+            from a in op.Map(Prelude.Optional)
+            select a.Match(Some, None);
+        
         static InfusioOp<B> Bind<A, B>(this InfusioOp<A> op, Func<A, InfusioOp<B>> fn) =>
             op is InfusioOp<A>.Return rt ? fn(rt.Value) :
             op is InfusioOp<A>.GetAccountProfile _1 ? new InfusioOp<B>.GetAccountProfile(x => _1.Next(x).Bind(fn)) :

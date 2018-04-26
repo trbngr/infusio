@@ -45,7 +45,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve account profile
@@ -70,7 +70,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Updates an account profile
@@ -103,7 +103,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve Commissions
@@ -130,7 +130,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve Affiliate Model
@@ -162,7 +162,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Appointments
@@ -191,7 +191,7 @@ namespace Infusio.Http
                     new KnownResponse(201, "Created", typeof(Appointment)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Create an Appointment
@@ -214,7 +214,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve Appointment Model
@@ -237,7 +237,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve an Appointment
@@ -264,7 +264,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Replace an Appointment
@@ -289,7 +289,7 @@ namespace Infusio.Http
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Delete an Appointment
@@ -317,7 +317,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Update an Appointment
@@ -351,7 +351,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Campaigns
@@ -381,7 +381,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve a Campaign
@@ -409,7 +409,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Add Multiple to Campaign Sequence
@@ -439,7 +439,7 @@ namespace Infusio.Http
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Remove Multiple from Campaign Sequence
@@ -466,7 +466,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Add to Campaign Sequence
@@ -494,7 +494,7 @@ namespace Infusio.Http
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Remove from Campaign Sequence
@@ -531,7 +531,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Companies
@@ -561,7 +561,7 @@ namespace Infusio.Http
                     new KnownResponse(201, "Created", typeof(Company)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Create a Company
@@ -584,7 +584,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve Company Model
@@ -620,7 +620,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Contacts
@@ -651,7 +651,7 @@ namespace Infusio.Http
                     new KnownResponse(201, "Created", typeof(FullContact)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Create a Contact
@@ -677,7 +677,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Create or Update a Contact
@@ -700,7 +700,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve Contact Model
@@ -723,7 +723,7 @@ namespace Infusio.Http
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Delete a Contact
@@ -751,7 +751,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Update a Contact
@@ -778,7 +778,7 @@ namespace Infusio.Http
                     new KnownResponse(201, "Created", typeof(CreditCardAdded)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Create a Credit Card
@@ -811,7 +811,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Emails
@@ -841,7 +841,7 @@ namespace Infusio.Http
                     new KnownResponse(201, "Created", typeof(EmailSentCreate)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Create an Email Record
@@ -870,7 +870,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Applied Tags
@@ -898,7 +898,7 @@ namespace Infusio.Http
                     new KnownResponse(200, "OK", typeof(Unit)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Apply Tags
@@ -925,7 +925,7 @@ namespace Infusio.Http
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Remove Applied Tags
@@ -951,7 +951,7 @@ namespace Infusio.Http
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Remove Applied Tag
@@ -978,7 +978,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve a Contact
@@ -1010,7 +1010,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Emails
@@ -1038,7 +1038,7 @@ namespace Infusio.Http
                     new KnownResponse(201, "Created", typeof(EmailSentCreate)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Create an Email Record
@@ -1063,7 +1063,7 @@ namespace Infusio.Http
                     new KnownResponse(201, "Created", typeof(EmailSentCreateList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Create a set of Email Records
@@ -1088,7 +1088,7 @@ namespace Infusio.Http
                     new KnownResponse(200, "OK", typeof(Unit)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Un-sync a batch of Email Records
@@ -1112,7 +1112,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve an Email
@@ -1139,7 +1139,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Update an Email Record
@@ -1164,7 +1164,7 @@ namespace Infusio.Http
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Delete an Email Record
@@ -1199,7 +1199,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Files
@@ -1229,7 +1229,7 @@ namespace Infusio.Http
                     new KnownResponse(200, "OK", typeof(FileInformation)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Upload File
@@ -1255,7 +1255,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve File
@@ -1283,7 +1283,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Replace File
@@ -1308,7 +1308,7 @@ namespace Infusio.Http
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Delete File
@@ -1331,7 +1331,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Stored Hook Subscriptions
@@ -1355,7 +1355,7 @@ namespace Infusio.Http
                     new KnownResponse(200, "OK", typeof(RestHook)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Create a Hook Subscription
@@ -1378,7 +1378,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Hook Event Types
@@ -1401,7 +1401,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve a Hook Subscription
@@ -1428,7 +1428,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Update a Hook Subscription
@@ -1453,7 +1453,7 @@ namespace Infusio.Http
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Delete a Hook Subscription
@@ -1477,7 +1477,7 @@ namespace Infusio.Http
                     new KnownResponse(200, "OK", typeof(RestHook)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Verify a Hook Subscription, Delayed
@@ -1501,7 +1501,7 @@ namespace Infusio.Http
                     new KnownResponse(200, "OK", typeof(RestHook)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Verify a Hook Subscription
@@ -1524,7 +1524,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve User Info
@@ -1558,7 +1558,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Opportunities
@@ -1588,7 +1588,7 @@ namespace Infusio.Http
                     new KnownResponse(200, "OK", typeof(Opportunity)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Create an Opportunity
@@ -1614,7 +1614,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Replace an Opportunity
@@ -1637,7 +1637,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve Opportunity Model
@@ -1662,7 +1662,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve an Opportunity
@@ -1691,7 +1691,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Update an Opportunity
@@ -1715,7 +1715,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Opportunity Stage Pipeline
@@ -1753,7 +1753,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Orders
@@ -1783,7 +1783,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve Custom Order Model
@@ -1806,7 +1806,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve an Order
@@ -1840,7 +1840,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve Order Transactions
@@ -1874,7 +1874,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Products
@@ -1905,7 +1905,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve Synced Products
@@ -1931,7 +1931,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve a Product
@@ -1954,7 +1954,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve application status
@@ -1976,7 +1976,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Contact types
@@ -1998,7 +1998,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve Subscription Model
@@ -2026,7 +2026,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Tags
@@ -2053,7 +2053,7 @@ namespace Infusio.Http
                     new KnownResponse(200, "OK", typeof(Tag)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Create Tag
@@ -2078,7 +2078,7 @@ namespace Infusio.Http
                     new KnownResponse(200, "OK", typeof(TagCategory)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Create Tag Category
@@ -2102,7 +2102,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve a Tag
@@ -2130,7 +2130,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Tagged Contacts
@@ -2158,7 +2158,7 @@ namespace Infusio.Http
                     new KnownResponse(200, "OK", typeof(Unit)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Apply Tag to Contacts
@@ -2185,7 +2185,7 @@ namespace Infusio.Http
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Remove Tag from Contacts
@@ -2211,7 +2211,7 @@ namespace Infusio.Http
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Remove Tag from Contact
@@ -2253,7 +2253,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Tasks
@@ -2286,7 +2286,7 @@ namespace Infusio.Http
                     new KnownResponse(200, "OK", typeof(InfusionTask)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Create a Task
@@ -2309,7 +2309,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve Task Model
@@ -2349,7 +2349,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Search Tasks
@@ -2381,7 +2381,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve a Task
@@ -2408,7 +2408,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Replace a Task
@@ -2433,7 +2433,7 @@ namespace Infusio.Http
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Delete a Task
@@ -2461,7 +2461,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Update a Task
@@ -2495,7 +2495,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// List Transactions
@@ -2523,7 +2523,7 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            )).ToEither();
+            ));
 
         /// <summary>
         /// Retrieve a Transaction
@@ -2535,16 +2535,18 @@ namespace Infusio.Http
             .IfLeftAsync(e => throw new Exception(e.Message));
 
 
-        EitherAsync<Error, T> HttpWorkflow<T>(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) where T : class =>
-            from httpResponse in SendRequest(message)
-            from responseType in FindResponse(httpResponse, responses)
-            from result in ReadResult<T>(httpResponse, responseType)
-            select result;
+        Task<Either<Error, T>> HttpWorkflow<T>(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) where T : class => (
+            from httpResponse in SendRequest(message).ToAsync()
+            from responseType in FindResponse(httpResponse, responses).ToAsync()
+            from result in ReadResult<T>(httpResponse, responseType).ToAsync()
+            select result
+        ).ToEither();
 
-        EitherAsync<Error, Unit> HttpWorkflow(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) =>
-            from httpResponse in SendRequest(message)
-            from responseType in FindResponse(httpResponse, responses)
-            select unit;
+        Task<Either<Error, Unit>> HttpWorkflow(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) => (
+            from httpResponse in SendRequest(message).ToAsync()
+            from responseType in FindResponse(httpResponse, responses).ToAsync()
+            select unit
+        ).ToEither();
 
         static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
         {
@@ -2586,32 +2588,32 @@ namespace Infusio.Http
                 }
             };
 
-        EitherAsync<Error, KnownResponse> FindResponse(HttpResponseMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) => match(
+        Either<Error, KnownResponse> FindResponse(HttpResponseMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) => match(
             responses.Find(KnownResponse.For(message.StatusCode)),
             None: () => Left(new Error(message: $"Unexpected response: {message.StatusCode}")),
             Some: response => Right<Error, KnownResponse>(response)
-        ).ToAsync();
+        );
 
-        EitherAsync<Error, HttpResponseMessage> SendRequest(HttpRequestMessage message) => match(
+        Task<Either<Error, HttpResponseMessage>> SendRequest(HttpRequestMessage message) => match(
             TryAsync(() => _client.SendAsync(message)),
             Fail: e => Left<Error, HttpResponseMessage>(new Error(message: $"Generic send error: {e.Message}")),
             Succ: x => Right<Error, HttpResponseMessage>(x)
-        ).ToAsync();
+        );
 
-        EitherAsync<Error, T> ReadResult<T>(HttpResponseMessage message, KnownResponse response) where T : class =>
-            !response.IsSuccess ?
-            Left<Error, T>(new Error(message: response.Description)).ToAsync()
+        Task<Either<Error, T>> ReadResult<T>(HttpResponseMessage message, KnownResponse response) where T : class =>
+            !response.IsSuccess
+            ? Left<Error, T>(new Error(message: response.Description)).AsTask()
             : match(
-                    from json in TryAsync(message.Content.ReadAsStringAsync())
-                    from result in Try(DeserializeObject(json, response.Type)).ToAsync()
-                    select result,
-                    Fail: e => Left<Error, T>(new Error(message: $"Generic read error: {e.Message}")),
-                    Succ: t => match(
-                        Optional((T)t),
-                        None: () => Left<Error, T>(new Error(message: $"Unable to read {typeof(T)}")),
-                        Some: x => Right<Error, T>(x)
-                    )
-                ).ToAsync();
+                from json in TryAsync(message.Content.ReadAsStringAsync())
+                from result in Try(DeserializeObject(json, response.Type)).ToAsync()
+                select result,
+                Fail: e => Left<Error, T>(new Error(message: $"Generic read error: {e.Message}")),
+                Succ: t => match(
+                    Optional((T)t),
+                    None: () => Left<Error, T>(new Error(message: $"Unable to read {typeof(T)}")),
+                    Some: x => Right<Error, T>(x)
+                )
+            );
     }
 
     public class KnownResponse : Record<KnownResponse>

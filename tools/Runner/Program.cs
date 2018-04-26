@@ -1,15 +1,14 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Infusio;
 using Infusio.Http;
 using Infusio.Model;
 using Infusio.Ops;
-using Infusionsoft;
 using LanguageExt;
-using LanguageExt.UnsafeValueAccess;
 using Newtonsoft.Json;
 
 namespace Runner
@@ -17,51 +16,60 @@ namespace Runner
     using static Dsl;
     using static Prelude;
     using static HttpSupport;
-    using static Infusio.Auth.Authorization;
 
     class Program
     {
         static async Task Main()
         {
-            var httpClient = new HttpClient(new LoggingHandler());
-
-            var accessToken = CreateAccessTokenRequest(
-                httpClient,
-                ClientId("tj7a3rtbs5dmsz2sbwxx3phd"),
-                ClientSecret("EEecE6bBYz"),
-                RedirectUri("http://localhost")
-            );
-
-            var refreshToken = CreateRefreshTokenRequest(
-                httpClient,
-                ClientId("tj7a3rtbs5dmsz2sbwxx3phd"),
-                ClientSecret("EEecE6bBYz")
-            );
-
-            var token = await accessToken(AccessCode("nh4bydyaqsje96dycppue6jj"));
-            var token2 = await refreshToken(token);
-            Console.Out.WriteLine("");
-
-
-            return;
-//            var client = new InfusioClient(new HttpClient(new LoggingHandler()), config);
-
-//            var either = await client.GetAccountProfile();
-//            var result = await either.Match(
-//                Left: e => Left<Error, AccountProfile>(new Error(message: $"Error: {e.Message}")).AsTask(),
-//                Right: p => client.UpdateAccountInfo(p.Copy(phone: "602-555-8521"))
+            var httpClient = new HttpClient();
+//            var clientId = ClientId("tj7a3rtbs5dmsz2sbwxx3phd");
+//            var clientSecret = ClientSecret("EEecE6bBYz");
+//            var redirectUri = RedirectUri("https://localhost");
+//
+//            var accessToken = CreateAccessTokenRequest(httpClient, clientId, clientSecret, redirectUri);
+//            var refreshToken = CreateRefreshTokenRequest(httpClient, clientId, clientSecret);
+//
+//            var token = await (
+//                from t1 in Log(accessToken(AccessCode("knxmcjvqmge2hpn7uvkwfysf")))
+//                from t2 in Log(refreshToken(t1))
+//                select t2
+//            );
+//            token.Match(
+//                Left: e => { },
+//                Right: _ => Console.WriteLine("Authenticated")
 //            );
 
-//            Func<string, InfusioOp<AccountProfile>> updatePhoneNumber = phone =>
-//                from prof in GetAccountProfile()
-//                from _ in UpdateAccountInfo(prof.Copy(phone: phone))
-//                from updated in GetAccountProfile()
-//                select updated;
-//
-//            await Display(updatePhoneNumber("602-555-8521").RunWith(client));
-//            await Display(interpret(updatePhoneNumber("888-888-8888"), client));
-//
-//            Console.Out.WriteLine("");
+            var client = new InfusioClient(httpClient, new InfusioConfig("d85tpwgubxkrpk52q2pp39d8"));
+
+            InfusioOp<AccountProfile> UpdatePhoneNumber(string phone) =>
+                from prof in GetAccountProfile()
+                from _ in UpdateAccountInfo(prof.Copy(phone: phone))
+                from updated in GetAccountProfile()
+                select updated;
+            
+//            var program = 
+//                from c in ListContacts("chris@caliberweb.com")
+
+            InfusioOp<Tag> GetTag(string tag)
+            {
+                var xxx = GetTag(tag).Match(
+                    Some: Return,
+                    None: () => CreateTag(new CreateTag(name: tag))
+                );
+            }
+
+
+            await Display(UpdatePhoneNumber("602-555-8521").RunWith(client));
+            await Display(interpret(UpdatePhoneNumber("888-888-8888"), client));
+
+            Console.Out.WriteLine("");
+        }
+
+        static async Task<T> Log<T>(Task<T> self)
+        {
+            T value = await self;
+            Console.Out.WriteLine(value);
+            return value;
         }
 
         static async Task<Unit> Display<T>(Task<Either<Error, T>> either) =>
@@ -83,9 +91,19 @@ namespace Runner
         {
         }
 
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
         {
             Console.WriteLine($"Request: {request}");
+            if (request.Content != null)
+            {
+                var stream = new MemoryStream();
+                await request.Content.CopyToAsync(stream);
+                var bytes = stream.ToArray();
+                var content = Encoding.GetEncoding(28591).GetString(bytes);
+                Console.WriteLine($"Request content: {content}");
+            }
+
             try
             {
                 // base.SendAsync calls the inner handler

@@ -57,7 +57,7 @@ namespace Infusio.Http
 {% for res in op.Responses -%}
                             new KnownResponse({{ res.StatusCode }}, "{{ res.Description }}", typeof({{ res.Type | normalize }})){% if forloop.last == false %}, {% endif %}
 {% endfor -%}
-                    )).ToEither();
+                    ));
 
         /// <summary>
         /// {{ op.Summary }}
@@ -73,16 +73,18 @@ namespace Infusio.Http
 
         {% endfor -%}
 
-        EitherAsync<Error, T> HttpWorkflow<T>(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses)  where T : class =>
-            from httpResponse in SendRequest(message)
-            from responseType in FindResponse(httpResponse, responses)
-            from result in ReadResult<T>(httpResponse, responseType)
-            select result;
+        Task<Either<Error, T>> HttpWorkflow<T>(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) where T : class => (
+            from httpResponse in SendRequest(message).ToAsync()
+            from responseType in FindResponse(httpResponse, responses).ToAsync()
+            from result in ReadResult<T>(httpResponse, responseType).ToAsync()
+            select result
+        ).ToEither();
 
-        EitherAsync<Error, Unit> HttpWorkflow(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) =>
-            from httpResponse in SendRequest(message)
-            from responseType in FindResponse(httpResponse, responses)
-            select unit;
+        Task<Either<Error, Unit>> HttpWorkflow(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) => (
+            from httpResponse in SendRequest(message).ToAsync()
+            from responseType in FindResponse(httpResponse, responses).ToAsync()
+            select unit
+        ).ToEither();
 
         static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
         {
@@ -124,32 +126,32 @@ namespace Infusio.Http
                 }
             };
 
-        EitherAsync<Error, KnownResponse> FindResponse(HttpResponseMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) => match(
+        Either<Error, KnownResponse> FindResponse(HttpResponseMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) => match(
             responses.Find(KnownResponse.For(message.StatusCode)),
             None: () => Left(new Error(message: $"Unexpected response: {message.StatusCode}")),
             Some: response => Right<Error, KnownResponse>(response)
-        ).ToAsync();
+        );
 
-        EitherAsync<Error, HttpResponseMessage> SendRequest(HttpRequestMessage message) => match(
+        Task<Either<Error, HttpResponseMessage>> SendRequest(HttpRequestMessage message) => match(
             TryAsync(() => _client.SendAsync(message)),
             Fail: e => Left<Error, HttpResponseMessage>(new Error(message: $"Generic send error: {e.Message}")),
             Succ: x => Right<Error, HttpResponseMessage>(x)
-        ).ToAsync();
+        );
 
-        EitherAsync<Error, T> ReadResult<T>(HttpResponseMessage message, KnownResponse response) where T : class =>
-            !response.IsSuccess ?
-            Left<Error, T>(new Error(message: response.Description)).ToAsync()
+        Task<Either<Error, T>> ReadResult<T>(HttpResponseMessage message, KnownResponse response) where T : class => 
+            !response.IsSuccess
+            ? Left<Error, T>(new Error(message: response.Description)).AsTask()
             : match(
-                    from json in TryAsync(message.Content.ReadAsStringAsync())
-                    from result in Try(DeserializeObject(json, response.Type)).ToAsync()
-                    select result,
-                    Fail: e => Left<Error, T>(new Error(message: $"Generic read error: {e.Message}")),
-                    Succ: t => match(
-                        Optional((T)t),
-                        None: () => Left<Error, T>(new Error(message: $"Unable to read {typeof(T)}")),
-                        Some: x => Right<Error, T>(x)
-                    )
-                ).ToAsync();
+                from json in TryAsync(message.Content.ReadAsStringAsync())
+                from result in Try(DeserializeObject(json, response.Type)).ToAsync()
+                select result,
+                Fail: e => Left<Error, T>(new Error(message: $"Generic read error: {e.Message}")),
+                Succ: t => match(
+                    Optional((T) t),
+                    None: () => Left<Error, T>(new Error(message: $"Unable to read {typeof(T)}")),
+                    Some: x => Right<Error, T>(x)
+                )
+            );
     }
 
     public class KnownResponse : Record<KnownResponse>

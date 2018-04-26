@@ -11,7 +11,7 @@ namespace Infusio
 {
     public static class Dsl
     {
-        internal static InfusioOp<A> Return<A>(A value) =>
+        public static InfusioOp<A> Return<A>(A value) =>
             new InfusioOp<A>.Return(value);
 
         /// <summary>
