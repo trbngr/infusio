@@ -10,14 +10,14 @@ namespace Infusio.Http
 
     public static class HttpSupport
     {
-        public static Task<Either<Error, T>> interpret<T>(InfusioOp<T> op, InfusioClient client) =>
+        public static Task<Either<InfusioError, T>> interpret<T>(InfusioOp<T> op, InfusioClient client) =>
             RunAsync(op, client);
 
-        public static Task<Either<Error, T>> RunWith<T>(this InfusioOp<T> op, InfusioClient client) =>
+        public static Task<Either<InfusioError, T>> RunWith<T>(this InfusioOp<T> op, InfusioClient client) =>
             RunAsync(op, client);
 
-        static Task<Either<Error, T>> RunAsync<T>(InfusioOp<T> op, InfusioClient client) =>
-            op is InfusioOp<T>.Return r ? Right<Error, T>(r.Value).AsTask() :
+        static Task<Either<InfusioError, T>> RunAsync<T>(InfusioOp<T> op, InfusioClient client) =>
+            op is InfusioOp<T>.Return r ? Right<InfusioError, T>(r.Value).AsTask() :
             op is InfusioOp<T>.GetAccountProfile _1 ? Exe(() => client.GetAccountProfile(), _1.Next, client) :
             op is InfusioOp<T>.UpdateAccountInfo _2 ? Exe(() => client.UpdateAccountInfo(_2.AccountInfo), _2.Next, client) :
             op is InfusioOp<T>.SearchCommissions _3 ? Exe(() => client.SearchCommissions(_3.AffiliateId, _3.Offset, _3.Limit, _3.Until, _3.Since), _3.Next, client) :
@@ -110,7 +110,7 @@ namespace Infusio.Http
             op is InfusioOp<T>.GetTransaction _90 ? Exe(() => client.GetTransaction(_90.TransactionId), _90.Next, client) :
             throw new NotSupportedException();
 
-        static Task<Either<Error, B>> Exe<T, B>(Func<Task<Either<Error, T>>> fn, Func<T, InfusioOp<B>> nextOp, InfusioClient client) =>
+        static Task<Either<InfusioError, B>> Exe<T, B>(Func<Task<Either<InfusioError, T>>> fn, Func<T, InfusioOp<B>> nextOp, InfusioClient client) =>
             from profile in fn()
             from next in RunAsync(nextOp(profile), client)
             select next;

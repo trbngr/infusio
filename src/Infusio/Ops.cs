@@ -42,13 +42,13 @@ namespace Infusio.Ops
         internal class SearchCommissions : InfusioOp<A>
         {
             public readonly Func<AffiliateCommissionList, InfusioOp<A>> Next;
-            public readonly long AffiliateId;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly long? AffiliateId;
+            public readonly int? Offset;
+            public readonly int? Limit;
             public readonly string Until;
             public readonly string Since;
 
-            public SearchCommissions(Func<AffiliateCommissionList, InfusioOp<A>> next, long affiliateId, int offset, int limit, string until, string since)
+            public SearchCommissions(Func<AffiliateCommissionList, InfusioOp<A>> next, long? affiliateId, int? offset, int? limit, string until, string since)
             {
                 Next = next;
                 AffiliateId = affiliateId;
@@ -72,13 +72,13 @@ namespace Infusio.Ops
         internal class ListAppointments : InfusioOp<A>
         {
             public readonly Func<AppointmentList, InfusioOp<A>> Next;
-            public readonly long ContactId;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly long? ContactId;
+            public readonly int? Offset;
+            public readonly int? Limit;
             public readonly string Until;
             public readonly string Since;
 
-            public ListAppointments(Func<AppointmentList, InfusioOp<A>> next, long contactId, int offset, int limit, string until, string since)
+            public ListAppointments(Func<AppointmentList, InfusioOp<A>> next, long? contactId, int? offset, int? limit, string until, string since)
             {
                 Next = next;
                 ContactId = contactId;
@@ -114,9 +114,9 @@ namespace Infusio.Ops
         internal class GetAppointment : InfusioOp<A>
         {
             public readonly Func<Appointment, InfusioOp<A>> Next;
-            public readonly long AppointmentId;
+            public readonly long? AppointmentId;
 
-            public GetAppointment(Func<Appointment, InfusioOp<A>> next, long appointmentId)
+            public GetAppointment(Func<Appointment, InfusioOp<A>> next, long? appointmentId)
             {
                 Next = next;
                 AppointmentId = appointmentId;
@@ -127,9 +127,9 @@ namespace Infusio.Ops
         {
             public readonly Func<Appointment, InfusioOp<A>> Next;
             public readonly Model.Appointment AppointmentDTO;
-            public readonly long AppointmentId;
+            public readonly long? AppointmentId;
 
-            public UpdateAppointment(Func<Appointment, InfusioOp<A>> next, Model.Appointment appointmentDTO, long appointmentId)
+            public UpdateAppointment(Func<Appointment, InfusioOp<A>> next, Model.Appointment appointmentDTO, long? appointmentId)
             {
                 Next = next;
                 AppointmentDTO = appointmentDTO;
@@ -140,9 +140,9 @@ namespace Infusio.Ops
         internal class DeleteAppointment : InfusioOp<A>
         {
             public readonly Func<Unit, InfusioOp<A>> Next;
-            public readonly long AppointmentId;
+            public readonly long? AppointmentId;
 
-            public DeleteAppointment(Func<Unit, InfusioOp<A>> next, long appointmentId)
+            public DeleteAppointment(Func<Unit, InfusioOp<A>> next, long? appointmentId)
             {
                 Next = next;
                 AppointmentId = appointmentId;
@@ -153,9 +153,9 @@ namespace Infusio.Ops
         {
             public readonly Func<Appointment, InfusioOp<A>> Next;
             public readonly Model.Appointment AppointmentDTO;
-            public readonly long AppointmentId;
+            public readonly long? AppointmentId;
 
-            public UpdatePropertiesOnAppointment(Func<Appointment, InfusioOp<A>> next, Model.Appointment appointmentDTO, long appointmentId)
+            public UpdatePropertiesOnAppointment(Func<Appointment, InfusioOp<A>> next, Model.Appointment appointmentDTO, long? appointmentId)
             {
                 Next = next;
                 AppointmentDTO = appointmentDTO;
@@ -169,10 +169,10 @@ namespace Infusio.Ops
             public readonly string OrderDirection;
             public readonly string Order;
             public readonly string SearchText;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly int? Offset;
+            public readonly int? Limit;
 
-            public ListCampaigns(Func<CampaignList, InfusioOp<A>> next, string orderDirection, string order, string searchText, int offset, int limit)
+            public ListCampaigns(Func<CampaignList, InfusioOp<A>> next, string orderDirection, string order, string searchText, int? offset, int? limit)
             {
                 Next = next;
                 OrderDirection = orderDirection;
@@ -186,10 +186,10 @@ namespace Infusio.Ops
         internal class GetCampaign : InfusioOp<A>
         {
             public readonly Func<Campaign, InfusioOp<A>> Next;
-            public readonly long CampaignId;
+            public readonly long? CampaignId;
             public readonly Lst<string> OptionalProperties;
 
-            public GetCampaign(Func<Campaign, InfusioOp<A>> next, long campaignId, Lst<string> optionalProperties)
+            public GetCampaign(Func<Campaign, InfusioOp<A>> next, long? campaignId, Lst<string> optionalProperties)
             {
                 Next = next;
                 CampaignId = campaignId;
@@ -201,10 +201,10 @@ namespace Infusio.Ops
         {
             public readonly Func<Unit, InfusioOp<A>> Next;
             public readonly Model.SetOfIds Ids;
-            public readonly long SequenceId;
-            public readonly long CampaignId;
+            public readonly long? SequenceId;
+            public readonly long? CampaignId;
 
-            public AddContactsToCampaignSequence(Func<Unit, InfusioOp<A>> next, Model.SetOfIds ids, long sequenceId, long campaignId)
+            public AddContactsToCampaignSequence(Func<Unit, InfusioOp<A>> next, Model.SetOfIds ids, long? sequenceId, long? campaignId)
             {
                 Next = next;
                 Ids = ids;
@@ -217,10 +217,10 @@ namespace Infusio.Ops
         {
             public readonly Func<Unit, InfusioOp<A>> Next;
             public readonly Model.SetOfIds Ids;
-            public readonly long SequenceId;
-            public readonly long CampaignId;
+            public readonly long? SequenceId;
+            public readonly long? CampaignId;
 
-            public RemoveContactsFromCampaignSequence(Func<Unit, InfusioOp<A>> next, Model.SetOfIds ids, long sequenceId, long campaignId)
+            public RemoveContactsFromCampaignSequence(Func<Unit, InfusioOp<A>> next, Model.SetOfIds ids, long? sequenceId, long? campaignId)
             {
                 Next = next;
                 Ids = ids;
@@ -232,11 +232,11 @@ namespace Infusio.Ops
         internal class AddContactToCampaignSequence : InfusioOp<A>
         {
             public readonly Func<Unit, InfusioOp<A>> Next;
-            public readonly long ContactId;
-            public readonly long SequenceId;
-            public readonly long CampaignId;
+            public readonly long? ContactId;
+            public readonly long? SequenceId;
+            public readonly long? CampaignId;
 
-            public AddContactToCampaignSequence(Func<Unit, InfusioOp<A>> next, long contactId, long sequenceId, long campaignId)
+            public AddContactToCampaignSequence(Func<Unit, InfusioOp<A>> next, long? contactId, long? sequenceId, long? campaignId)
             {
                 Next = next;
                 ContactId = contactId;
@@ -248,11 +248,11 @@ namespace Infusio.Ops
         internal class RemoveContactFromCampaignSequence : InfusioOp<A>
         {
             public readonly Func<Unit, InfusioOp<A>> Next;
-            public readonly long ContactId;
-            public readonly long SequenceId;
-            public readonly long CampaignId;
+            public readonly long? ContactId;
+            public readonly long? SequenceId;
+            public readonly long? CampaignId;
 
-            public RemoveContactFromCampaignSequence(Func<Unit, InfusioOp<A>> next, long contactId, long sequenceId, long campaignId)
+            public RemoveContactFromCampaignSequence(Func<Unit, InfusioOp<A>> next, long? contactId, long? sequenceId, long? campaignId)
             {
                 Next = next;
                 ContactId = contactId;
@@ -268,10 +268,10 @@ namespace Infusio.Ops
             public readonly string OrderDirection;
             public readonly string Order;
             public readonly string CompanyName;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly int? Offset;
+            public readonly int? Limit;
 
-            public ListCompanies(Func<CompanyList, InfusioOp<A>> next, Lst<string> optionalProperties, string orderDirection, string order, string companyName, int offset, int limit)
+            public ListCompanies(Func<CompanyList, InfusioOp<A>> next, Lst<string> optionalProperties, string orderDirection, string order, string companyName, int? offset, int? limit)
             {
                 Next = next;
                 OptionalProperties = optionalProperties;
@@ -313,10 +313,10 @@ namespace Infusio.Ops
             public readonly string FamilyName;
             public readonly string GivenName;
             public readonly string Email;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly int? Offset;
+            public readonly int? Limit;
 
-            public ListContacts(Func<ContactList, InfusioOp<A>> next, string orderDirection, string order, string familyName, string givenName, string email, int offset, int limit)
+            public ListContacts(Func<ContactList, InfusioOp<A>> next, string orderDirection, string order, string familyName, string givenName, string email, int? offset, int? limit)
             {
                 Next = next;
                 OrderDirection = orderDirection;
@@ -366,9 +366,9 @@ namespace Infusio.Ops
         internal class DeleteContact : InfusioOp<A>
         {
             public readonly Func<Unit, InfusioOp<A>> Next;
-            public readonly long ContactId;
+            public readonly long? ContactId;
 
-            public DeleteContact(Func<Unit, InfusioOp<A>> next, long contactId)
+            public DeleteContact(Func<Unit, InfusioOp<A>> next, long? contactId)
             {
                 Next = next;
                 ContactId = contactId;
@@ -378,10 +378,10 @@ namespace Infusio.Ops
         internal class UpdatePropertiesOnContact : InfusioOp<A>
         {
             public readonly Func<FullContact, InfusioOp<A>> Next;
-            public readonly long ContactId;
+            public readonly long? ContactId;
             public readonly Model.RequestContact Contact;
 
-            public UpdatePropertiesOnContact(Func<FullContact, InfusioOp<A>> next, long contactId, Model.RequestContact contact)
+            public UpdatePropertiesOnContact(Func<FullContact, InfusioOp<A>> next, long? contactId, Model.RequestContact contact)
             {
                 Next = next;
                 ContactId = contactId;
@@ -392,10 +392,10 @@ namespace Infusio.Ops
         internal class CreateCreditCard : InfusioOp<A>
         {
             public readonly Func<CreditCardAdded, InfusioOp<A>> Next;
-            public readonly long ContactId;
+            public readonly long? ContactId;
             public readonly Model.CreditCard CreditCard;
 
-            public CreateCreditCard(Func<CreditCardAdded, InfusioOp<A>> next, long contactId, Model.CreditCard creditCard)
+            public CreateCreditCard(Func<CreditCardAdded, InfusioOp<A>> next, long? contactId, Model.CreditCard creditCard)
             {
                 Next = next;
                 ContactId = contactId;
@@ -406,13 +406,13 @@ namespace Infusio.Ops
         internal class ListEmailsForContact : InfusioOp<A>
         {
             public readonly Func<EmailSentQueryResultList, InfusioOp<A>> Next;
-            public readonly long ContactId;
+            public readonly long? ContactId;
             public readonly string Email;
-            public readonly long ContactId2;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly long? ContactId2;
+            public readonly int? Offset;
+            public readonly int? Limit;
 
-            public ListEmailsForContact(Func<EmailSentQueryResultList, InfusioOp<A>> next, long contactId, string email, long contactId2, int offset, int limit)
+            public ListEmailsForContact(Func<EmailSentQueryResultList, InfusioOp<A>> next, long? contactId, string email, long? contactId2, int? offset, int? limit)
             {
                 Next = next;
                 ContactId = contactId;
@@ -426,10 +426,10 @@ namespace Infusio.Ops
         internal class CreateEmailForContact : InfusioOp<A>
         {
             public readonly Func<EmailSentCreate, InfusioOp<A>> Next;
-            public readonly long ContactId;
+            public readonly long? ContactId;
             public readonly Model.EmailSentCreate EmailWithContent;
 
-            public CreateEmailForContact(Func<EmailSentCreate, InfusioOp<A>> next, long contactId, Model.EmailSentCreate emailWithContent)
+            public CreateEmailForContact(Func<EmailSentCreate, InfusioOp<A>> next, long? contactId, Model.EmailSentCreate emailWithContent)
             {
                 Next = next;
                 ContactId = contactId;
@@ -440,11 +440,11 @@ namespace Infusio.Ops
         internal class ListAppliedTags : InfusioOp<A>
         {
             public readonly Func<ContactTagList, InfusioOp<A>> Next;
-            public readonly long ContactId;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly long? ContactId;
+            public readonly int? Offset;
+            public readonly int? Limit;
 
-            public ListAppliedTags(Func<ContactTagList, InfusioOp<A>> next, long contactId, int offset, int limit)
+            public ListAppliedTags(Func<ContactTagList, InfusioOp<A>> next, long? contactId, int? offset, int? limit)
             {
                 Next = next;
                 ContactId = contactId;
@@ -457,9 +457,9 @@ namespace Infusio.Ops
         {
             public readonly Func<Unit, InfusioOp<A>> Next;
             public readonly Model.TagId TagIds;
-            public readonly long ContactId;
+            public readonly long? ContactId;
 
-            public ApplyTagsToContactId(Func<Unit, InfusioOp<A>> next, Model.TagId tagIds, long contactId)
+            public ApplyTagsToContactId(Func<Unit, InfusioOp<A>> next, Model.TagId tagIds, long? contactId)
             {
                 Next = next;
                 TagIds = tagIds;
@@ -471,9 +471,9 @@ namespace Infusio.Ops
         {
             public readonly Func<Unit, InfusioOp<A>> Next;
             public readonly string Ids;
-            public readonly long ContactId;
+            public readonly long? ContactId;
 
-            public RemoveTagsFromContact(Func<Unit, InfusioOp<A>> next, string ids, long contactId)
+            public RemoveTagsFromContact(Func<Unit, InfusioOp<A>> next, string ids, long? contactId)
             {
                 Next = next;
                 Ids = ids;
@@ -484,10 +484,10 @@ namespace Infusio.Ops
         internal class RemoveTagsFromContact2 : InfusioOp<A>
         {
             public readonly Func<Unit, InfusioOp<A>> Next;
-            public readonly long TagId;
-            public readonly long ContactId;
+            public readonly long? TagId;
+            public readonly long? ContactId;
 
-            public RemoveTagsFromContact2(Func<Unit, InfusioOp<A>> next, long tagId, long contactId)
+            public RemoveTagsFromContact2(Func<Unit, InfusioOp<A>> next, long? tagId, long? contactId)
             {
                 Next = next;
                 TagId = tagId;
@@ -498,10 +498,10 @@ namespace Infusio.Ops
         internal class GetContact : InfusioOp<A>
         {
             public readonly Func<FullContact, InfusioOp<A>> Next;
-            public readonly long Id;
+            public readonly long? Id;
             public readonly Lst<string> OptionalProperties;
 
-            public GetContact(Func<FullContact, InfusioOp<A>> next, long id, Lst<string> optionalProperties)
+            public GetContact(Func<FullContact, InfusioOp<A>> next, long? id, Lst<string> optionalProperties)
             {
                 Next = next;
                 Id = id;
@@ -513,11 +513,11 @@ namespace Infusio.Ops
         {
             public readonly Func<EmailSentQueryResultList, InfusioOp<A>> Next;
             public readonly string Email;
-            public readonly long ContactId;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly long? ContactId;
+            public readonly int? Offset;
+            public readonly int? Limit;
 
-            public ListEmails(Func<EmailSentQueryResultList, InfusioOp<A>> next, string email, long contactId, int offset, int limit)
+            public ListEmails(Func<EmailSentQueryResultList, InfusioOp<A>> next, string email, long? contactId, int? offset, int? limit)
             {
                 Next = next;
                 Email = email;
@@ -566,9 +566,9 @@ namespace Infusio.Ops
         internal class GetEmail : InfusioOp<A>
         {
             public readonly Func<EmailSentQueryResultWithContent, InfusioOp<A>> Next;
-            public readonly long Id;
+            public readonly long? Id;
 
-            public GetEmail(Func<EmailSentQueryResultWithContent, InfusioOp<A>> next, long id)
+            public GetEmail(Func<EmailSentQueryResultWithContent, InfusioOp<A>> next, long? id)
             {
                 Next = next;
                 Id = id;
@@ -578,10 +578,10 @@ namespace Infusio.Ops
         internal class UpdateEmail : InfusioOp<A>
         {
             public readonly Func<EmailSentCreate, InfusioOp<A>> Next;
-            public readonly long Id;
+            public readonly long? Id;
             public readonly Model.EmailSentCreate EmailWithContent;
 
-            public UpdateEmail(Func<EmailSentCreate, InfusioOp<A>> next, long id, Model.EmailSentCreate emailWithContent)
+            public UpdateEmail(Func<EmailSentCreate, InfusioOp<A>> next, long? id, Model.EmailSentCreate emailWithContent)
             {
                 Next = next;
                 Id = id;
@@ -592,9 +592,9 @@ namespace Infusio.Ops
         internal class DeleteEmail : InfusioOp<A>
         {
             public readonly Func<Unit, InfusioOp<A>> Next;
-            public readonly long Id;
+            public readonly long? Id;
 
-            public DeleteEmail(Func<Unit, InfusioOp<A>> next, long id)
+            public DeleteEmail(Func<Unit, InfusioOp<A>> next, long? id)
             {
                 Next = next;
                 Id = id;
@@ -608,10 +608,10 @@ namespace Infusio.Ops
             public readonly string Type;
             public readonly string Permission;
             public readonly string Viewable;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly int? Offset;
+            public readonly int? Limit;
 
-            public ListFiles(Func<FileList, InfusioOp<A>> next, string name, string type, string permission, string viewable, int offset, int limit)
+            public ListFiles(Func<FileList, InfusioOp<A>> next, string name, string type, string permission, string viewable, int? offset, int? limit)
             {
                 Next = next;
                 Name = name;
@@ -638,10 +638,10 @@ namespace Infusio.Ops
         internal class GetFile : InfusioOp<A>
         {
             public readonly Func<FileInformation, InfusioOp<A>> Next;
-            public readonly long FileId;
+            public readonly long? FileId;
             public readonly Lst<string> OptionalProperties;
 
-            public GetFile(Func<FileInformation, InfusioOp<A>> next, long fileId, Lst<string> optionalProperties)
+            public GetFile(Func<FileInformation, InfusioOp<A>> next, long? fileId, Lst<string> optionalProperties)
             {
                 Next = next;
                 FileId = fileId;
@@ -652,10 +652,10 @@ namespace Infusio.Ops
         internal class UpdateFile : InfusioOp<A>
         {
             public readonly Func<FileInformation, InfusioOp<A>> Next;
-            public readonly long FileId;
+            public readonly long? FileId;
             public readonly Model.FileUpload FileUpload;
 
-            public UpdateFile(Func<FileInformation, InfusioOp<A>> next, long fileId, Model.FileUpload fileUpload)
+            public UpdateFile(Func<FileInformation, InfusioOp<A>> next, long? fileId, Model.FileUpload fileUpload)
             {
                 Next = next;
                 FileId = fileId;
@@ -666,9 +666,9 @@ namespace Infusio.Ops
         internal class DeleteFile : InfusioOp<A>
         {
             public readonly Func<Unit, InfusioOp<A>> Next;
-            public readonly long FileId;
+            public readonly long? FileId;
 
-            public DeleteFile(Func<Unit, InfusioOp<A>> next, long fileId)
+            public DeleteFile(Func<Unit, InfusioOp<A>> next, long? fileId)
             {
                 Next = next;
                 FileId = fileId;
@@ -786,12 +786,12 @@ namespace Infusio.Ops
             public readonly Func<OpportunityList, InfusioOp<A>> Next;
             public readonly string Order;
             public readonly string SearchTerm;
-            public readonly long StageId;
-            public readonly long UserId;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly long? StageId;
+            public readonly long? UserId;
+            public readonly int? Offset;
+            public readonly int? Limit;
 
-            public ListOpportunities(Func<OpportunityList, InfusioOp<A>> next, string order, string searchTerm, long stageId, long userId, int offset, int limit)
+            public ListOpportunities(Func<OpportunityList, InfusioOp<A>> next, string order, string searchTerm, long? stageId, long? userId, int? offset, int? limit)
             {
                 Next = next;
                 Order = order;
@@ -840,10 +840,10 @@ namespace Infusio.Ops
         internal class GetOpportunity : InfusioOp<A>
         {
             public readonly Func<Opportunity, InfusioOp<A>> Next;
-            public readonly long OpportunityId;
+            public readonly long? OpportunityId;
             public readonly Lst<string> OptionalProperties;
 
-            public GetOpportunity(Func<Opportunity, InfusioOp<A>> next, long opportunityId, Lst<string> optionalProperties)
+            public GetOpportunity(Func<Opportunity, InfusioOp<A>> next, long? opportunityId, Lst<string> optionalProperties)
             {
                 Next = next;
                 OpportunityId = opportunityId;
@@ -854,10 +854,10 @@ namespace Infusio.Ops
         internal class UpdatePropertiesOnOpportunity : InfusioOp<A>
         {
             public readonly Func<Opportunity, InfusioOp<A>> Next;
-            public readonly long OpportunityId;
+            public readonly long? OpportunityId;
             public readonly Model.Opportunity Opportunity;
 
-            public UpdatePropertiesOnOpportunity(Func<Opportunity, InfusioOp<A>> next, long opportunityId, Model.Opportunity opportunity)
+            public UpdatePropertiesOnOpportunity(Func<Opportunity, InfusioOp<A>> next, long? opportunityId, Model.Opportunity opportunity)
             {
                 Next = next;
                 OpportunityId = opportunityId;
@@ -878,16 +878,16 @@ namespace Infusio.Ops
         internal class ListOrders : InfusioOp<A>
         {
             public readonly Func<OrderList, InfusioOp<A>> Next;
-            public readonly long ProductId;
-            public readonly long ContactId;
+            public readonly long? ProductId;
+            public readonly long? ContactId;
             public readonly string Order;
             public readonly bool Paid;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly int? Offset;
+            public readonly int? Limit;
             public readonly string Until;
             public readonly string Since;
 
-            public ListOrders(Func<OrderList, InfusioOp<A>> next, long productId, long contactId, string order, bool paid, int offset, int limit, string until, string since)
+            public ListOrders(Func<OrderList, InfusioOp<A>> next, long? productId, long? contactId, string order, bool paid, int? offset, int? limit, string until, string since)
             {
                 Next = next;
                 ProductId = productId;
@@ -914,9 +914,9 @@ namespace Infusio.Ops
         internal class GetOrder : InfusioOp<A>
         {
             public readonly Func<Order, InfusioOp<A>> Next;
-            public readonly long OrderId;
+            public readonly long? OrderId;
 
-            public GetOrder(Func<Order, InfusioOp<A>> next, long orderId)
+            public GetOrder(Func<Order, InfusioOp<A>> next, long? orderId)
             {
                 Next = next;
                 OrderId = orderId;
@@ -926,14 +926,14 @@ namespace Infusio.Ops
         internal class ListTransactionsForOrder : InfusioOp<A>
         {
             public readonly Func<TransactionList, InfusioOp<A>> Next;
-            public readonly long OrderId;
-            public readonly long ContactId;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly long? OrderId;
+            public readonly long? ContactId;
+            public readonly int? Offset;
+            public readonly int? Limit;
             public readonly string Until;
             public readonly string Since;
 
-            public ListTransactionsForOrder(Func<TransactionList, InfusioOp<A>> next, long orderId, long contactId, int offset, int limit, string until, string since)
+            public ListTransactionsForOrder(Func<TransactionList, InfusioOp<A>> next, long? orderId, long? contactId, int? offset, int? limit, string until, string since)
             {
                 Next = next;
                 OrderId = orderId;
@@ -949,10 +949,10 @@ namespace Infusio.Ops
         {
             public readonly Func<ProductList, InfusioOp<A>> Next;
             public readonly bool Active;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly int? Offset;
+            public readonly int? Limit;
 
-            public ListProducts(Func<ProductList, InfusioOp<A>> next, bool active, int offset, int limit)
+            public ListProducts(Func<ProductList, InfusioOp<A>> next, bool active, int? offset, int? limit)
             {
                 Next = next;
                 Active = active;
@@ -964,11 +964,11 @@ namespace Infusio.Ops
         internal class ListProductsFromSyncToken : InfusioOp<A>
         {
             public readonly Func<ProductStatusList, InfusioOp<A>> Next;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly int? Offset;
+            public readonly int? Limit;
             public readonly string SyncToken;
 
-            public ListProductsFromSyncToken(Func<ProductStatusList, InfusioOp<A>> next, int offset, int limit, string syncToken)
+            public ListProductsFromSyncToken(Func<ProductStatusList, InfusioOp<A>> next, int? offset, int? limit, string syncToken)
             {
                 Next = next;
                 Offset = offset;
@@ -980,9 +980,9 @@ namespace Infusio.Ops
         internal class GetProduct : InfusioOp<A>
         {
             public readonly Func<Product, InfusioOp<A>> Next;
-            public readonly long ProductId;
+            public readonly long? ProductId;
 
-            public GetProduct(Func<Product, InfusioOp<A>> next, long productId)
+            public GetProduct(Func<Product, InfusioOp<A>> next, long? productId)
             {
                 Next = next;
                 ProductId = productId;
@@ -1022,11 +1022,11 @@ namespace Infusio.Ops
         internal class ListTags : InfusioOp<A>
         {
             public readonly Func<Tags, InfusioOp<A>> Next;
-            public readonly long Category;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly long? Category;
+            public readonly int? Offset;
+            public readonly int? Limit;
 
-            public ListTags(Func<Tags, InfusioOp<A>> next, long category, int offset, int limit)
+            public ListTags(Func<Tags, InfusioOp<A>> next, long? category, int? offset, int? limit)
             {
                 Next = next;
                 Category = category;
@@ -1062,9 +1062,9 @@ namespace Infusio.Ops
         internal class GetTag : InfusioOp<A>
         {
             public readonly Func<Tag, InfusioOp<A>> Next;
-            public readonly long Id;
+            public readonly long? Id;
 
-            public GetTag(Func<Tag, InfusioOp<A>> next, long id)
+            public GetTag(Func<Tag, InfusioOp<A>> next, long? id)
             {
                 Next = next;
                 Id = id;
@@ -1074,11 +1074,11 @@ namespace Infusio.Ops
         internal class ListContactsForTagId : InfusioOp<A>
         {
             public readonly Func<TaggedContactList, InfusioOp<A>> Next;
-            public readonly long TagId;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly long? TagId;
+            public readonly int? Offset;
+            public readonly int? Limit;
 
-            public ListContactsForTagId(Func<TaggedContactList, InfusioOp<A>> next, long tagId, int offset, int limit)
+            public ListContactsForTagId(Func<TaggedContactList, InfusioOp<A>> next, long? tagId, int? offset, int? limit)
             {
                 Next = next;
                 TagId = tagId;
@@ -1091,9 +1091,9 @@ namespace Infusio.Ops
         {
             public readonly Func<Unit, InfusioOp<A>> Next;
             public readonly Model.SetOfIds Ids;
-            public readonly long TagId;
+            public readonly long? TagId;
 
-            public ApplyTagToContactIds(Func<Unit, InfusioOp<A>> next, Model.SetOfIds ids, long tagId)
+            public ApplyTagToContactIds(Func<Unit, InfusioOp<A>> next, Model.SetOfIds ids, long? tagId)
             {
                 Next = next;
                 Ids = ids;
@@ -1105,9 +1105,9 @@ namespace Infusio.Ops
         {
             public readonly Func<Unit, InfusioOp<A>> Next;
             public readonly Lst<long> Ids;
-            public readonly long TagId;
+            public readonly long? TagId;
 
-            public RemoveTagFromContactIds(Func<Unit, InfusioOp<A>> next, Lst<long> ids, long tagId)
+            public RemoveTagFromContactIds(Func<Unit, InfusioOp<A>> next, Lst<long> ids, long? tagId)
             {
                 Next = next;
                 Ids = ids;
@@ -1118,10 +1118,10 @@ namespace Infusio.Ops
         internal class RemoveTagFromContactId : InfusioOp<A>
         {
             public readonly Func<Unit, InfusioOp<A>> Next;
-            public readonly long ContactId;
-            public readonly long TagId;
+            public readonly long? ContactId;
+            public readonly long? TagId;
 
-            public RemoveTagFromContactId(Func<Unit, InfusioOp<A>> next, long contactId, long tagId)
+            public RemoveTagFromContactId(Func<Unit, InfusioOp<A>> next, long? contactId, long? tagId)
             {
                 Next = next;
                 ContactId = contactId;
@@ -1133,16 +1133,16 @@ namespace Infusio.Ops
         {
             public readonly Func<TaskList, InfusioOp<A>> Next;
             public readonly string Order;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly int? Offset;
+            public readonly int? Limit;
             public readonly bool Completed;
             public readonly string Until;
             public readonly string Since;
-            public readonly long UserId;
+            public readonly long? UserId;
             public readonly bool HasDueDate;
-            public readonly long ContactId;
+            public readonly long? ContactId;
 
-            public ListTasks(Func<TaskList, InfusioOp<A>> next, string order, int offset, int limit, bool completed, string until, string since, long userId, bool hasDueDate, long contactId)
+            public ListTasks(Func<TaskList, InfusioOp<A>> next, string order, int? offset, int? limit, bool completed, string until, string since, long? userId, bool hasDueDate, long? contactId)
             {
                 Next = next;
                 Order = order;
@@ -1183,16 +1183,16 @@ namespace Infusio.Ops
         {
             public readonly Func<TaskList, InfusioOp<A>> Next;
             public readonly string Order;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly int? Offset;
+            public readonly int? Limit;
             public readonly bool Completed;
             public readonly string Until;
             public readonly string Since;
-            public readonly long UserId;
+            public readonly long? UserId;
             public readonly bool HasDueDate;
-            public readonly long ContactId;
+            public readonly long? ContactId;
 
-            public ListTasksForCurrentUser(Func<TaskList, InfusioOp<A>> next, string order, int offset, int limit, bool completed, string until, string since, long userId, bool hasDueDate, long contactId)
+            public ListTasksForCurrentUser(Func<TaskList, InfusioOp<A>> next, string order, int? offset, int? limit, bool completed, string until, string since, long? userId, bool hasDueDate, long? contactId)
             {
                 Next = next;
                 Order = order;
@@ -1262,13 +1262,13 @@ namespace Infusio.Ops
         internal class ListTransactions : InfusioOp<A>
         {
             public readonly Func<TransactionList, InfusioOp<A>> Next;
-            public readonly long ContactId;
-            public readonly int Offset;
-            public readonly int Limit;
+            public readonly long? ContactId;
+            public readonly int? Offset;
+            public readonly int? Limit;
             public readonly string Until;
             public readonly string Since;
 
-            public ListTransactions(Func<TransactionList, InfusioOp<A>> next, long contactId, int offset, int limit, string until, string since)
+            public ListTransactions(Func<TransactionList, InfusioOp<A>> next, long? contactId, int? offset, int? limit, string until, string since)
             {
                 Next = next;
                 ContactId = contactId;
@@ -1282,9 +1282,9 @@ namespace Infusio.Ops
         internal class GetTransaction : InfusioOp<A>
         {
             public readonly Func<Transaction, InfusioOp<A>> Next;
-            public readonly long TransactionId;
+            public readonly long? TransactionId;
 
-            public GetTransaction(Func<Transaction, InfusioOp<A>> next, long transactionId)
+            public GetTransaction(Func<Transaction, InfusioOp<A>> next, long? transactionId)
             {
                 Next = next;
                 TransactionId = transactionId;
@@ -1295,30 +1295,14 @@ namespace Infusio.Ops
     public static class InfusioOpExtensions
     {
         public static InfusioOp<B> Map<A, B>(this InfusioOp<A> op, Func<A, B> fn) =>
-            op.Bind(a => Dsl.Return(fn(a)));
+            op.Bind(a => InfusioDsl.Return(fn(a)));
 
         public static InfusioOp<B> Select<A, B>(this InfusioOp<A> op, Func<A, B> fn) =>
-            op.Bind(a => Dsl.Return(fn(a)));
+            op.Bind(a => InfusioDsl.Return(fn(a)));
 
         public static InfusioOp<C> SelectMany<A, B, C>(this InfusioOp<A> op, Func<A, InfusioOp<B>> bind, Func<A, B, C> project) =>
             op.Bind(a => bind(a).Select(b => project(a, b)));
 
-        public static InfusioOp<A> Where<A>(this InfusioOp<A> op, Func<A, bool> fn) =>
-            op.Map(a => fn(a) ? a : default);
-
-        public static InfusioOp<B> IfNone<A, B>(this InfusioOp<A> op, Func<InfusioOp<B>> fn)
-        {
-            var lkaj = op.Map(a => Prelude.Optional(a).Match(
-                Some: value => Dsl.Return(value),
-                None: () => fn()
-                ));
-            return lkaj.IfNone<A, B>(fn);
-        }
-
-        public static InfusioOp<B> Match<A, B>(this InfusioOp<A> op, Func<A, B> Some, Func<B> None) =>
-            from a in op.Map(Prelude.Optional)
-            select a.Match(Some, None);
-        
         static InfusioOp<B> Bind<A, B>(this InfusioOp<A> op, Func<A, InfusioOp<B>> fn) =>
             op is InfusioOp<A>.Return rt ? fn(rt.Value) :
             op is InfusioOp<A>.GetAccountProfile _1 ? new InfusioOp<B>.GetAccountProfile(x => _1.Next(x).Bind(fn)) :

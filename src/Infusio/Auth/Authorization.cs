@@ -9,9 +9,9 @@ namespace Infusio.Auth
 {
     using static Prelude;
 
-    public delegate Task<Either<Error, AccessToken>> AccessTokenRequest(AccessCode code);
+    public delegate Task<AuthorizationInfo> AccessTokenRequest(AccessCode code);
 
-    public delegate Task<Either<Error, AccessToken>> RefreshTokenRequest(RefreshToken token);
+    public delegate Task<AuthorizationInfo> RefreshTokenRequest(RefreshToken token);
 
     public static class Authorization
     {
@@ -20,15 +20,15 @@ namespace Infusio.Auth
         public static RedirectUri RedirectUri(string value) => Auth.RedirectUri.New(value);
         public static AccessCode AccessCode(string value) => Auth.AccessCode.New(value);
 
-        public static AccessTokenRequest CreateAccessTokenRequest(HttpClient client, ClientId id, ClientSecret secret,
+        public static AccessTokenRequest AccessTokenRequest(HttpClient client, ClientId id, ClientSecret secret,
             RedirectUri uri) =>
             code => RequestAccessToken(client, id, secret, uri, code);
 
         public static RefreshTokenRequest
-            CreateRefreshTokenRequest(HttpClient client, ClientId id, ClientSecret secret) =>
+            RefreshTokenRequest(HttpClient client, ClientId id, ClientSecret secret) =>
             token => RequestAccessToken(client, id, secret, token);
 
-        public static Task<Either<Error, AccessToken>> RequestAccessToken(HttpClient client, ClientId id,
+        public static Task<AuthorizationInfo> RequestAccessToken(HttpClient client, ClientId id,
             ClientSecret secret,
             RedirectUri uri, AccessCode code) => Post(client, Map(
             ("client_id", id.Value),
@@ -38,7 +38,7 @@ namespace Infusio.Auth
             ("redirect_uri", uri.Value)
         ));
 
-        public static Task<Either<Error, AccessToken>> RequestAccessToken(HttpClient client, ClientId id,
+        public static Task<AuthorizationInfo> RequestAccessToken(HttpClient client, ClientId id,
             ClientSecret secret,
             RefreshToken token) => Post(client, Map(
             ("client_id", id.Value),
@@ -53,16 +53,15 @@ namespace Infusio.Auth
             requestUri: "https://api.infusionsoft.com/token"
         ) {Content = new FormUrlEncodedContent(values.ToDictionary())};
 
-        static Task<Either<Error, AccessToken>> Post(HttpClient client, Map<string, string> values) =>
+        static Task<AuthorizationInfo> Post(HttpClient client, Map<string, string> values) =>
             from message in Request(values).AsTask()
             from resp in client.SendAsync(message)
-            from result in ReadResponse(resp)
+            from result in ReadResponse(resp).Map(x => x.Copy(expiration: DateTime.UtcNow.AddSeconds(x.ExpiresIn)))
             select result;
 
-        static Task<Either<Error, AccessToken>> ReadResponse(HttpResponseMessage response) =>
+        static Task<AuthorizationInfo> ReadResponse(HttpResponseMessage response) =>
             response.IsSuccessStatusCode
-                ? response.Content.ReadAsStringAsync()
-                    .Map(json => Right<Error, AccessToken>(JsonConvert.DeserializeObject<AccessToken>(json)))
-                : Left<Error, AccessToken>(Error.New(response.ReasonPhrase)).AsTask();
+                ? response.Content.ReadAsStringAsync().Map(JsonConvert.DeserializeObject<AuthorizationInfo>)
+                : throw new Exception($"Error retrieving access token: {response.ReasonPhrase}");
     }
 }

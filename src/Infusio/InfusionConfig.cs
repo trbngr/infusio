@@ -2,7 +2,7 @@
 {
     public sealed class InfusioConfig
     {
-        public readonly string ApiKey;
-        public InfusioConfig(string apiKey) => ApiKey = apiKey;
+        public readonly string AccessToken;
+        public InfusioConfig(string accessToken) => AccessToken = accessToken;
     }
 }

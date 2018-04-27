@@ -9,9 +9,9 @@ using Infusio.Model;
 
 namespace Infusio
 {
-  public static class Dsl
+  public static class InfusioDsl
   {
-      internal static InfusioOp<A> Return<A>(A value) =>
+      public static InfusioOp<A> Return<A>(A value) =>
           new InfusioOp<A>.Return(value);
 
       {% for operation in Operations -%}

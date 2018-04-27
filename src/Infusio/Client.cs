@@ -36,9 +36,9 @@ namespace Infusio.Http
         /// <summary>
         /// Retrieve account profile
         /// </summary>
-        public Task<Either<Error, AccountProfile>> GetAccountProfile() =>
+        public Task<Either<InfusioError, AccountProfile>> GetAccountProfile() =>
             HttpWorkflow<AccountProfile>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/account/profile")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(AccountProfile)),
@@ -53,15 +53,15 @@ namespace Infusio.Http
         /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetAccountProfile"/>.</remarks>
         public Task<AccountProfile> GetAccountProfileUnsafe() => GetAccountProfile()
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Updates an account profile
         /// </summary>
         /// <param name="accountInfo">accountInfo</param>
-        public Task<Either<Error, AccountProfile>> UpdateAccountInfo(AccountProfile accountInfo) =>
+        public Task<Either<InfusioError, AccountProfile>> UpdateAccountInfo(AccountProfile accountInfo) =>
             HttpWorkflow<AccountProfile>(
-                message: Request(HttpMethod.Put,
+                Request(HttpMethod.Put,
                     MakeUri($"/account/profile"),
                     accountInfo
                 ),
@@ -79,7 +79,7 @@ namespace Infusio.Http
         /// <param name="accountInfo">accountInfo</param>
         public Task<AccountProfile> UpdateAccountInfoUnsafe(AccountProfile accountInfo) => UpdateAccountInfo(accountInfo)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve Commissions
@@ -89,9 +89,9 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
-        public Task<Either<Error, AffiliateCommissionList>> SearchCommissions(long affiliateId = default, int offset = default, int limit = default, string until = default, string since = default) =>
+        public Task<Either<InfusioError, AffiliateCommissionList>> SearchCommissions(long? affiliateId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
             HttpWorkflow<AffiliateCommissionList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/affiliates/commissions",
                         RequestParameter("affiliateId", affiliateId),
                         RequestParameter("offset", offset),
@@ -116,14 +116,14 @@ namespace Infusio.Http
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
         public Task<AffiliateCommissionList> SearchCommissionsUnsafe(long affiliateId = default, int offset = default, int limit = default, string until = default, string since = default) => SearchCommissions(affiliateId, offset, limit, until, since)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve Affiliate Model
         /// </summary>
-        public Task<Either<Error, ObjectModel>> RetrieveAffiliateModel() =>
+        public Task<Either<InfusioError, ObjectModel>> RetrieveAffiliateModel() =>
             HttpWorkflow<ObjectModel>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/affiliates/model")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
@@ -138,7 +138,7 @@ namespace Infusio.Http
         /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveAffiliateModel"/>.</remarks>
         public Task<ObjectModel> RetrieveAffiliateModelUnsafe() => RetrieveAffiliateModel()
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Appointments
@@ -148,9 +148,9 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
-        public Task<Either<Error, AppointmentList>> ListAppointments(long contactId = default, int offset = default, int limit = default, string until = default, string since = default) =>
+        public Task<Either<InfusioError, AppointmentList>> ListAppointments(long? contactId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
             HttpWorkflow<AppointmentList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/appointments",
                         RequestParameter("contactId", contactId),
                         RequestParameter("offset", offset),
@@ -175,15 +175,15 @@ namespace Infusio.Http
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
         public Task<AppointmentList> ListAppointmentsUnsafe(long contactId = default, int offset = default, int limit = default, string until = default, string since = default) => ListAppointments(contactId, offset, limit, until, since)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create an Appointment
         /// </summary>
         /// <param name="appointment">appointment</param>
-        public Task<Either<Error, Appointment>> CreateAppointment(Model.Appointment appointment) =>
+        public Task<Either<InfusioError, Appointment>> CreateAppointment(Model.Appointment appointment) =>
             HttpWorkflow<Appointment>(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/appointments"),
                     appointment
                 ),
@@ -200,14 +200,14 @@ namespace Infusio.Http
         /// <param name="appointment">appointment</param>
         public Task<Appointment> CreateAppointmentUnsafe(Model.Appointment appointment) => CreateAppointment(appointment)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve Appointment Model
         /// </summary>
-        public Task<Either<Error, ObjectModel>> RetrieveAppointmentModel() =>
+        public Task<Either<InfusioError, ObjectModel>> RetrieveAppointmentModel() =>
             HttpWorkflow<ObjectModel>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/appointments/model")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
@@ -222,15 +222,15 @@ namespace Infusio.Http
         /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveAppointmentModel"/>.</remarks>
         public Task<ObjectModel> RetrieveAppointmentModelUnsafe() => RetrieveAppointmentModel()
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve an Appointment
         /// </summary>
         /// <param name="appointmentId">appointmentId</param>
-        public Task<Either<Error, Appointment>> GetAppointment(long appointmentId) =>
+        public Task<Either<InfusioError, Appointment>> GetAppointment(long? appointmentId) =>
             HttpWorkflow<Appointment>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/appointments/{appointmentId}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Appointment)),
@@ -246,16 +246,16 @@ namespace Infusio.Http
         /// <param name="appointmentId">appointmentId</param>
         public Task<Appointment> GetAppointmentUnsafe(long appointmentId) => GetAppointment(appointmentId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Replace an Appointment
         /// </summary>
         /// <param name="appointmentDTO">appointmentDTO</param>
         /// <param name="appointmentId">appointmentId</param>
-        public Task<Either<Error, Appointment>> UpdateAppointment(Model.Appointment appointmentDTO, long appointmentId) =>
+        public Task<Either<InfusioError, Appointment>> UpdateAppointment(Model.Appointment appointmentDTO, long? appointmentId) =>
             HttpWorkflow<Appointment>(
-                message: Request(HttpMethod.Put,
+                Request(HttpMethod.Put,
                     MakeUri($"/appointments/{appointmentId}"),
                     appointmentDTO
                 ),
@@ -274,15 +274,15 @@ namespace Infusio.Http
         /// <param name="appointmentId">appointmentId</param>
         public Task<Appointment> UpdateAppointmentUnsafe(Model.Appointment appointmentDTO, long appointmentId) => UpdateAppointment(appointmentDTO, appointmentId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Delete an Appointment
         /// </summary>
         /// <param name="appointmentId">appointmentId</param>
-        public Task<Either<Error, Unit>> DeleteAppointment(long appointmentId) =>
+        public Task<Either<InfusioError, Unit>> DeleteAppointment(long? appointmentId) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Delete,
+                Request(HttpMethod.Delete,
                     MakeUri($"/appointments/{appointmentId}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
@@ -298,16 +298,16 @@ namespace Infusio.Http
         /// <param name="appointmentId">appointmentId</param>
         public Task<Unit> DeleteAppointmentUnsafe(long appointmentId) => DeleteAppointment(appointmentId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Update an Appointment
         /// </summary>
         /// <param name="appointmentDTO">appointmentDTO</param>
         /// <param name="appointmentId">appointmentId</param>
-        public Task<Either<Error, Appointment>> UpdatePropertiesOnAppointment(Model.Appointment appointmentDTO, long appointmentId) =>
+        public Task<Either<InfusioError, Appointment>> UpdatePropertiesOnAppointment(Model.Appointment appointmentDTO, long? appointmentId) =>
             HttpWorkflow<Appointment>(
-                message: Request(
+                Request(
                         new HttpMethod("Patch"),
                     MakeUri($"/appointments/{appointmentId}"),
                     appointmentDTO
@@ -327,7 +327,7 @@ namespace Infusio.Http
         /// <param name="appointmentId">appointmentId</param>
         public Task<Appointment> UpdatePropertiesOnAppointmentUnsafe(Model.Appointment appointmentDTO, long appointmentId) => UpdatePropertiesOnAppointment(appointmentDTO, appointmentId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Campaigns
@@ -337,9 +337,9 @@ namespace Infusio.Http
         /// <param name="searchText">Optional text to search</param>
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
-        public Task<Either<Error, CampaignList>> ListCampaigns(string orderDirection = default, string order = default, string searchText = default, int offset = default, int limit = default) =>
+        public Task<Either<InfusioError, CampaignList>> ListCampaigns(string orderDirection = default, string order = default, string searchText = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<CampaignList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/campaigns",
                         RequestParameter("orderDirection", orderDirection),
                         RequestParameter("order", order),
@@ -364,16 +364,16 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<CampaignList> ListCampaignsUnsafe(string orderDirection = default, string order = default, string searchText = default, int offset = default, int limit = default) => ListCampaigns(orderDirection, order, searchText, offset, limit)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve a Campaign
         /// </summary>
         /// <param name="campaignId">campaignId</param>
         /// <param name="optionalProperties">Comma-delimited list of Campaign properties to include in the response. (The fields `goals` and `sequences` aren't included, by default.)</param>
-        public Task<Either<Error, Campaign>> GetCampaign(long campaignId, Lst<string> optionalProperties = default) =>
+        public Task<Either<InfusioError, Campaign>> GetCampaign(long? campaignId, Lst<string> optionalProperties = default) =>
             HttpWorkflow<Campaign>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/campaigns/{campaignId}",
                         RequestParameter("optionalProperties", optionalProperties))),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
@@ -391,7 +391,7 @@ namespace Infusio.Http
         /// <param name="optionalProperties">Comma-delimited list of Campaign properties to include in the response. (The fields `goals` and `sequences` aren't included, by default.)</param>
         public Task<Campaign> GetCampaignUnsafe(long campaignId, Lst<string> optionalProperties = default) => GetCampaign(campaignId, optionalProperties)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Add Multiple to Campaign Sequence
@@ -399,9 +399,9 @@ namespace Infusio.Http
         /// <param name="ids">ids</param>
         /// <param name="sequenceId">sequenceId</param>
         /// <param name="campaignId">campaignId</param>
-        public Task<Either<Error, Unit>> AddContactsToCampaignSequence(Model.SetOfIds ids, long sequenceId, long campaignId) =>
+        public Task<Either<InfusioError, Unit>> AddContactsToCampaignSequence(Model.SetOfIds ids, long? sequenceId, long? campaignId) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/campaigns/{campaignId}/sequences/{sequenceId}/contacts"),
                     ids
                 ),
@@ -420,7 +420,7 @@ namespace Infusio.Http
         /// <param name="campaignId">campaignId</param>
         public Task<Unit> AddContactsToCampaignSequenceUnsafe(Model.SetOfIds ids, long sequenceId, long campaignId) => AddContactsToCampaignSequence(ids, sequenceId, campaignId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Remove Multiple from Campaign Sequence
@@ -428,9 +428,9 @@ namespace Infusio.Http
         /// <param name="ids">ids</param>
         /// <param name="sequenceId">sequenceId</param>
         /// <param name="campaignId">campaignId</param>
-        public Task<Either<Error, Unit>> RemoveContactsFromCampaignSequence(Model.SetOfIds ids, long sequenceId, long campaignId) =>
+        public Task<Either<InfusioError, Unit>> RemoveContactsFromCampaignSequence(Model.SetOfIds ids, long? sequenceId, long? campaignId) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Delete,
+                Request(HttpMethod.Delete,
                     MakeUri($"/campaigns/{campaignId}/sequences/{sequenceId}/contacts"),
                     ids
                 ),
@@ -450,7 +450,7 @@ namespace Infusio.Http
         /// <param name="campaignId">campaignId</param>
         public Task<Unit> RemoveContactsFromCampaignSequenceUnsafe(Model.SetOfIds ids, long sequenceId, long campaignId) => RemoveContactsFromCampaignSequence(ids, sequenceId, campaignId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Add to Campaign Sequence
@@ -458,9 +458,9 @@ namespace Infusio.Http
         /// <param name="contactId">contactId</param>
         /// <param name="sequenceId">sequenceId</param>
         /// <param name="campaignId">campaignId</param>
-        public Task<Either<Error, Unit>> AddContactToCampaignSequence(long contactId, long sequenceId, long campaignId) =>
+        public Task<Either<InfusioError, Unit>> AddContactToCampaignSequence(long? contactId, long? sequenceId, long? campaignId) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/campaigns/{campaignId}/sequences/{sequenceId}/contacts/{contactId}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
@@ -477,7 +477,7 @@ namespace Infusio.Http
         /// <param name="campaignId">campaignId</param>
         public Task<Unit> AddContactToCampaignSequenceUnsafe(long contactId, long sequenceId, long campaignId) => AddContactToCampaignSequence(contactId, sequenceId, campaignId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Remove from Campaign Sequence
@@ -485,9 +485,9 @@ namespace Infusio.Http
         /// <param name="contactId">contactId</param>
         /// <param name="sequenceId">sequenceId</param>
         /// <param name="campaignId">campaignId</param>
-        public Task<Either<Error, Unit>> RemoveContactFromCampaignSequence(long contactId, long sequenceId, long campaignId) =>
+        public Task<Either<InfusioError, Unit>> RemoveContactFromCampaignSequence(long? contactId, long? sequenceId, long? campaignId) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Delete,
+                Request(HttpMethod.Delete,
                     MakeUri($"/campaigns/{campaignId}/sequences/{sequenceId}/contacts/{contactId}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
@@ -505,7 +505,7 @@ namespace Infusio.Http
         /// <param name="campaignId">campaignId</param>
         public Task<Unit> RemoveContactFromCampaignSequenceUnsafe(long contactId, long sequenceId, long campaignId) => RemoveContactFromCampaignSequence(contactId, sequenceId, campaignId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Companies
@@ -516,9 +516,9 @@ namespace Infusio.Http
         /// <param name="companyName">Optional company name to query on</param>
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
-        public Task<Either<Error, CompanyList>> ListCompanies(Lst<string> optionalProperties = default, string orderDirection = default, string order = default, string companyName = default, int offset = default, int limit = default) =>
+        public Task<Either<InfusioError, CompanyList>> ListCompanies(Lst<string> optionalProperties = default, string orderDirection = default, string order = default, string companyName = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<CompanyList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/companies",
                         RequestParameter("optionalProperties", optionalProperties),
                         RequestParameter("orderDirection", orderDirection),
@@ -545,15 +545,15 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<CompanyList> ListCompaniesUnsafe(Lst<string> optionalProperties = default, string orderDirection = default, string order = default, string companyName = default, int offset = default, int limit = default) => ListCompanies(optionalProperties, orderDirection, order, companyName, offset, limit)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create a Company
         /// </summary>
         /// <param name="company">company</param>
-        public Task<Either<Error, Company>> CreateCompany(Model.CreateCompany company = default) =>
+        public Task<Either<InfusioError, Company>> CreateCompany(Model.CreateCompany company = default) =>
             HttpWorkflow<Company>(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/companies"),
                     company
                 ),
@@ -570,14 +570,14 @@ namespace Infusio.Http
         /// <param name="company">company</param>
         public Task<Company> CreateCompanyUnsafe(Model.CreateCompany company = default) => CreateCompany(company)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve Company Model
         /// </summary>
-        public Task<Either<Error, ObjectModel>> RetrieveCompanyModel() =>
+        public Task<Either<InfusioError, ObjectModel>> RetrieveCompanyModel() =>
             HttpWorkflow<ObjectModel>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/companies/model")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
@@ -592,7 +592,7 @@ namespace Infusio.Http
         /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveCompanyModel"/>.</remarks>
         public Task<ObjectModel> RetrieveCompanyModelUnsafe() => RetrieveCompanyModel()
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Contacts
@@ -604,9 +604,9 @@ namespace Infusio.Http
         /// <param name="email">Optional email address to query on</param>
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
-        public Task<Either<Error, ContactList>> ListContacts(string orderDirection = default, string order = default, string familyName = default, string givenName = default, string email = default, int offset = default, int limit = default) =>
+        public Task<Either<InfusioError, ContactList>> ListContacts(string orderDirection = default, string order = default, string familyName = default, string givenName = default, string email = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<ContactList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/contacts",
                         RequestParameter("orderDirection", orderDirection),
                         RequestParameter("order", order),
@@ -635,15 +635,15 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<ContactList> ListContactsUnsafe(string orderDirection = default, string order = default, string familyName = default, string givenName = default, string email = default, int offset = default, int limit = default) => ListContacts(orderDirection, order, familyName, givenName, email, offset, limit)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create a Contact
         /// </summary>
         /// <param name="contact">contact</param>
-        public Task<Either<Error, FullContact>> CreateContact(Model.RequestContact contact = default) =>
+        public Task<Either<InfusioError, FullContact>> CreateContact(Model.RequestContact contact = default) =>
             HttpWorkflow<FullContact>(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/contacts"),
                     contact
                 ),
@@ -660,15 +660,15 @@ namespace Infusio.Http
         /// <param name="contact">contact</param>
         public Task<FullContact> CreateContactUnsafe(Model.RequestContact contact = default) => CreateContact(contact)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create or Update a Contact
         /// </summary>
         /// <param name="contact">contact</param>
-        public Task<Either<Error, FullContact>> CreateOrUpdateContact(Model.UpsertContact contact = default) =>
+        public Task<Either<InfusioError, FullContact>> CreateOrUpdateContact(Model.UpsertContact contact = default) =>
             HttpWorkflow<FullContact>(
-                message: Request(HttpMethod.Put,
+                Request(HttpMethod.Put,
                     MakeUri($"/contacts"),
                     contact
                 ),
@@ -686,14 +686,14 @@ namespace Infusio.Http
         /// <param name="contact">contact</param>
         public Task<FullContact> CreateOrUpdateContactUnsafe(Model.UpsertContact contact = default) => CreateOrUpdateContact(contact)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve Contact Model
         /// </summary>
-        public Task<Either<Error, ObjectModel>> RetrieveContactModel() =>
+        public Task<Either<InfusioError, ObjectModel>> RetrieveContactModel() =>
             HttpWorkflow<ObjectModel>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/contacts/model")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
@@ -708,15 +708,15 @@ namespace Infusio.Http
         /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveContactModel"/>.</remarks>
         public Task<ObjectModel> RetrieveContactModelUnsafe() => RetrieveContactModel()
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Delete a Contact
         /// </summary>
         /// <param name="contactId">contactId</param>
-        public Task<Either<Error, Unit>> DeleteContact(long contactId) =>
+        public Task<Either<InfusioError, Unit>> DeleteContact(long? contactId) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Delete,
+                Request(HttpMethod.Delete,
                     MakeUri($"/contacts/{contactId}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
@@ -732,16 +732,16 @@ namespace Infusio.Http
         /// <param name="contactId">contactId</param>
         public Task<Unit> DeleteContactUnsafe(long contactId) => DeleteContact(contactId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Update a Contact
         /// </summary>
         /// <param name="contactId">contactId</param>
         /// <param name="contact">contact</param>
-        public Task<Either<Error, FullContact>> UpdatePropertiesOnContact(long contactId, Model.RequestContact contact = default) =>
+        public Task<Either<InfusioError, FullContact>> UpdatePropertiesOnContact(long? contactId, Model.RequestContact contact = default) =>
             HttpWorkflow<FullContact>(
-                message: Request(
+                Request(
                         new HttpMethod("Patch"),
                     MakeUri($"/contacts/{contactId}"),
                     contact
@@ -761,16 +761,16 @@ namespace Infusio.Http
         /// <param name="contact">contact</param>
         public Task<FullContact> UpdatePropertiesOnContactUnsafe(long contactId, Model.RequestContact contact = default) => UpdatePropertiesOnContact(contactId, contact)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create a Credit Card
         /// </summary>
         /// <param name="contactId">contactId</param>
         /// <param name="creditCard">creditCard</param>
-        public Task<Either<Error, CreditCardAdded>> CreateCreditCard(long contactId, Model.CreditCard creditCard = default) =>
+        public Task<Either<InfusioError, CreditCardAdded>> CreateCreditCard(long? contactId, Model.CreditCard creditCard = default) =>
             HttpWorkflow<CreditCardAdded>(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/contacts/{contactId}/creditCards"),
                     creditCard
                 ),
@@ -788,7 +788,7 @@ namespace Infusio.Http
         /// <param name="creditCard">creditCard</param>
         public Task<CreditCardAdded> CreateCreditCardUnsafe(long contactId, Model.CreditCard creditCard = default) => CreateCreditCard(contactId, creditCard)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Emails
@@ -798,9 +798,9 @@ namespace Infusio.Http
         /// <param name="contactId2">Optional Contact Id to find Emails for</param>
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
-        public Task<Either<Error, EmailSentQueryResultList>> ListEmailsForContact(long contactId, string email = default, long contactId2 = default, int offset = default, int limit = default) =>
+        public Task<Either<InfusioError, EmailSentQueryResultList>> ListEmailsForContact(long? contactId, string email = default, long? contactId2 = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<EmailSentQueryResultList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/contacts/{contactId}/emails",
                         RequestParameter("email", email),
                         RequestParameter("contactId2", contactId2),
@@ -824,16 +824,16 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<EmailSentQueryResultList> ListEmailsForContactUnsafe(long contactId, string email = default, long contactId2 = default, int offset = default, int limit = default) => ListEmailsForContact(contactId, email, contactId2, offset, limit)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create an Email Record
         /// </summary>
         /// <param name="contactId">contactId</param>
         /// <param name="emailWithContent">Email records to persist, with content.</param>
-        public Task<Either<Error, EmailSentCreate>> CreateEmailForContact(long contactId, Model.EmailSentCreate emailWithContent = default) =>
+        public Task<Either<InfusioError, EmailSentCreate>> CreateEmailForContact(long? contactId, Model.EmailSentCreate emailWithContent = default) =>
             HttpWorkflow<EmailSentCreate>(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/contacts/{contactId}/emails"),
                     emailWithContent
                 ),
@@ -851,7 +851,7 @@ namespace Infusio.Http
         /// <param name="emailWithContent">Email records to persist, with content.</param>
         public Task<EmailSentCreate> CreateEmailForContactUnsafe(long contactId, Model.EmailSentCreate emailWithContent = default) => CreateEmailForContact(contactId, emailWithContent)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Applied Tags
@@ -859,9 +859,9 @@ namespace Infusio.Http
         /// <param name="contactId">contactId</param>
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
-        public Task<Either<Error, ContactTagList>> ListAppliedTags(long contactId, int offset = default, int limit = default) =>
+        public Task<Either<InfusioError, ContactTagList>> ListAppliedTags(long? contactId, int? offset = default, int? limit = default) =>
             HttpWorkflow<ContactTagList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/contacts/{contactId}/tags",
                         RequestParameter("offset", offset),
                         RequestParameter("limit", limit))),
@@ -881,16 +881,16 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<ContactTagList> ListAppliedTagsUnsafe(long contactId, int offset = default, int limit = default) => ListAppliedTags(contactId, offset, limit)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Apply Tags
         /// </summary>
         /// <param name="tagIds">tagIds</param>
         /// <param name="contactId">contactId</param>
-        public Task<Either<Error, Unit>> ApplyTagsToContactId(Model.TagId tagIds, long contactId) =>
+        public Task<Either<InfusioError, Unit>> ApplyTagsToContactId(Model.TagId tagIds, long? contactId) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/contacts/{contactId}/tags"),
                     tagIds
                 ),
@@ -908,16 +908,16 @@ namespace Infusio.Http
         /// <param name="contactId">contactId</param>
         public Task<Unit> ApplyTagsToContactIdUnsafe(Model.TagId tagIds, long contactId) => ApplyTagsToContactId(tagIds, contactId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Remove Applied Tags
         /// </summary>
         /// <param name="ids">ids</param>
         /// <param name="contactId">contactId</param>
-        public Task<Either<Error, Unit>> RemoveTagsFromContact(string ids, long contactId) =>
+        public Task<Either<InfusioError, Unit>> RemoveTagsFromContact(string ids, long? contactId) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Delete,
+                Request(HttpMethod.Delete,
                     MakeUri($"/contacts/{contactId}/tags",
                         RequestParameter("ids", ids))),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
@@ -935,16 +935,16 @@ namespace Infusio.Http
         /// <param name="contactId">contactId</param>
         public Task<Unit> RemoveTagsFromContactUnsafe(string ids, long contactId) => RemoveTagsFromContact(ids, contactId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Remove Applied Tag
         /// </summary>
         /// <param name="tagId">tagId</param>
         /// <param name="contactId">contactId</param>
-        public Task<Either<Error, Unit>> RemoveTagsFromContact2(long tagId, long contactId) =>
+        public Task<Either<InfusioError, Unit>> RemoveTagsFromContact2(long? tagId, long? contactId) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Delete,
+                Request(HttpMethod.Delete,
                     MakeUri($"/contacts/{contactId}/tags/{tagId}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
@@ -961,16 +961,16 @@ namespace Infusio.Http
         /// <param name="contactId">contactId</param>
         public Task<Unit> RemoveTagsFromContact2Unsafe(long tagId, long contactId) => RemoveTagsFromContact2(tagId, contactId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve a Contact
         /// </summary>
         /// <param name="id">id</param>
         /// <param name="optionalProperties">Comma-delimited list of Contact properties to include in the response. (Some fields such as `lead_source_id`, `custom_fields`, and `job_title` aren't included, by default.)</param>
-        public Task<Either<Error, FullContact>> GetContact(long id, Lst<string> optionalProperties = default) =>
+        public Task<Either<InfusioError, FullContact>> GetContact(long? id, Lst<string> optionalProperties = default) =>
             HttpWorkflow<FullContact>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/contacts/{id}",
                         RequestParameter("optionalProperties", optionalProperties))),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
@@ -988,7 +988,7 @@ namespace Infusio.Http
         /// <param name="optionalProperties">Comma-delimited list of Contact properties to include in the response. (Some fields such as `lead_source_id`, `custom_fields`, and `job_title` aren't included, by default.)</param>
         public Task<FullContact> GetContactUnsafe(long id, Lst<string> optionalProperties = default) => GetContact(id, optionalProperties)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Emails
@@ -997,9 +997,9 @@ namespace Infusio.Http
         /// <param name="contactId">Optional Contact Id to find Emails for</param>
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
-        public Task<Either<Error, EmailSentQueryResultList>> ListEmails(string email = default, long contactId = default, int offset = default, int limit = default) =>
+        public Task<Either<InfusioError, EmailSentQueryResultList>> ListEmails(string email = default, long? contactId = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<EmailSentQueryResultList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/emails",
                         RequestParameter("email", email),
                         RequestParameter("contactId", contactId),
@@ -1022,15 +1022,15 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<EmailSentQueryResultList> ListEmailsUnsafe(string email = default, long contactId = default, int offset = default, int limit = default) => ListEmails(email, contactId, offset, limit)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create an Email Record
         /// </summary>
         /// <param name="emailWithContent">Email records to persist, with content.</param>
-        public Task<Either<Error, EmailSentCreate>> CreateEmail(Model.EmailSentCreate emailWithContent = default) =>
+        public Task<Either<InfusioError, EmailSentCreate>> CreateEmail(Model.EmailSentCreate emailWithContent = default) =>
             HttpWorkflow<EmailSentCreate>(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/emails"),
                     emailWithContent
                 ),
@@ -1047,15 +1047,15 @@ namespace Infusio.Http
         /// <param name="emailWithContent">Email records to persist, with content.</param>
         public Task<EmailSentCreate> CreateEmailUnsafe(Model.EmailSentCreate emailWithContent = default) => CreateEmail(emailWithContent)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create a set of Email Records
         /// </summary>
         /// <param name="emailWithContent">Email records to persist, with content.</param>
-        public Task<Either<Error, EmailSentCreateList>> CreateEmails(Model.EmailSentCreateList emailWithContent = default) =>
+        public Task<Either<InfusioError, EmailSentCreateList>> CreateEmails(Model.EmailSentCreateList emailWithContent = default) =>
             HttpWorkflow<EmailSentCreateList>(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/emails/sync"),
                     emailWithContent
                 ),
@@ -1072,15 +1072,15 @@ namespace Infusio.Http
         /// <param name="emailWithContent">Email records to persist, with content.</param>
         public Task<EmailSentCreateList> CreateEmailsUnsafe(Model.EmailSentCreateList emailWithContent = default) => CreateEmails(emailWithContent)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Un-sync a batch of Email Records
         /// </summary>
         /// <param name="emailIds">emailIds</param>
-        public Task<Either<Error, Unit>> DeleteEmails(Model.SetOfIds emailIds) =>
+        public Task<Either<InfusioError, Unit>> DeleteEmails(Model.SetOfIds emailIds) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/emails/unsync"),
                     emailIds
                 ),
@@ -1097,15 +1097,15 @@ namespace Infusio.Http
         /// <param name="emailIds">emailIds</param>
         public Task<Unit> DeleteEmailsUnsafe(Model.SetOfIds emailIds) => DeleteEmails(emailIds)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve an Email
         /// </summary>
         /// <param name="id">id</param>
-        public Task<Either<Error, EmailSentQueryResultWithContent>> GetEmail(long id) =>
+        public Task<Either<InfusioError, EmailSentQueryResultWithContent>> GetEmail(long? id) =>
             HttpWorkflow<EmailSentQueryResultWithContent>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/emails/{id}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(EmailSentQueryResultWithContent)),
@@ -1121,16 +1121,16 @@ namespace Infusio.Http
         /// <param name="id">id</param>
         public Task<EmailSentQueryResultWithContent> GetEmailUnsafe(long id) => GetEmail(id)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Update an Email Record
         /// </summary>
         /// <param name="id">id</param>
         /// <param name="emailWithContent">Email records to persist, with content.</param>
-        public Task<Either<Error, EmailSentCreate>> UpdateEmail(long id, Model.EmailSentCreate emailWithContent = default) =>
+        public Task<Either<InfusioError, EmailSentCreate>> UpdateEmail(long? id, Model.EmailSentCreate emailWithContent = default) =>
             HttpWorkflow<EmailSentCreate>(
-                message: Request(HttpMethod.Put,
+                Request(HttpMethod.Put,
                     MakeUri($"/emails/{id}"),
                     emailWithContent
                 ),
@@ -1149,15 +1149,15 @@ namespace Infusio.Http
         /// <param name="emailWithContent">Email records to persist, with content.</param>
         public Task<EmailSentCreate> UpdateEmailUnsafe(long id, Model.EmailSentCreate emailWithContent = default) => UpdateEmail(id, emailWithContent)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Delete an Email Record
         /// </summary>
         /// <param name="id">id</param>
-        public Task<Either<Error, Unit>> DeleteEmail(long id) =>
+        public Task<Either<InfusioError, Unit>> DeleteEmail(long? id) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Delete,
+                Request(HttpMethod.Delete,
                     MakeUri($"/emails/{id}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
@@ -1173,7 +1173,7 @@ namespace Infusio.Http
         /// <param name="id">id</param>
         public Task<Unit> DeleteEmailUnsafe(long id) => DeleteEmail(id)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Files
@@ -1184,9 +1184,9 @@ namespace Infusio.Http
         /// <param name="viewable">Include public or private files in response (PUBLIC or PRIVATE), defaults to BOTH.</param>
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
-        public Task<Either<Error, FileList>> ListFiles(string name = default, string type = default, string permission = default, string viewable = default, int offset = default, int limit = default) =>
+        public Task<Either<InfusioError, FileList>> ListFiles(string name = default, string type = default, string permission = default, string viewable = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<FileList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/files",
                         RequestParameter("name", name),
                         RequestParameter("type", type),
@@ -1213,15 +1213,15 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<FileList> ListFilesUnsafe(string name = default, string type = default, string permission = default, string viewable = default, int offset = default, int limit = default) => ListFiles(name, type, permission, viewable, offset, limit)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Upload File
         /// </summary>
         /// <param name="fileUpload">fileUploadDTO</param>
-        public Task<Either<Error, FileInformation>> CreateFile(Model.FileUpload fileUpload = default) =>
+        public Task<Either<InfusioError, FileInformation>> CreateFile(Model.FileUpload fileUpload = default) =>
             HttpWorkflow<FileInformation>(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/files"),
                     fileUpload
                 ),
@@ -1238,16 +1238,16 @@ namespace Infusio.Http
         /// <param name="fileUpload">fileUploadDTO</param>
         public Task<FileInformation> CreateFileUnsafe(Model.FileUpload fileUpload = default) => CreateFile(fileUpload)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve File
         /// </summary>
         /// <param name="fileId">fileId</param>
         /// <param name="optionalProperties">Comma-delimited list of File properties to include in the response. (Some fields such as `file_data` aren't included, by default.)</param>
-        public Task<Either<Error, FileInformation>> GetFile(long fileId, Lst<string> optionalProperties = default) =>
+        public Task<Either<InfusioError, FileInformation>> GetFile(long? fileId, Lst<string> optionalProperties = default) =>
             HttpWorkflow<FileInformation>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/files/{fileId}",
                         RequestParameter("optionalProperties", optionalProperties))),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
@@ -1265,16 +1265,16 @@ namespace Infusio.Http
         /// <param name="optionalProperties">Comma-delimited list of File properties to include in the response. (Some fields such as `file_data` aren't included, by default.)</param>
         public Task<FileInformation> GetFileUnsafe(long fileId, Lst<string> optionalProperties = default) => GetFile(fileId, optionalProperties)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Replace File
         /// </summary>
         /// <param name="fileId">fileId</param>
         /// <param name="fileUpload">fileUpload</param>
-        public Task<Either<Error, FileInformation>> UpdateFile(long fileId, Model.FileUpload fileUpload = default) =>
+        public Task<Either<InfusioError, FileInformation>> UpdateFile(long? fileId, Model.FileUpload fileUpload = default) =>
             HttpWorkflow<FileInformation>(
-                message: Request(HttpMethod.Put,
+                Request(HttpMethod.Put,
                     MakeUri($"/files/{fileId}"),
                     fileUpload
                 ),
@@ -1293,15 +1293,15 @@ namespace Infusio.Http
         /// <param name="fileUpload">fileUpload</param>
         public Task<FileInformation> UpdateFileUnsafe(long fileId, Model.FileUpload fileUpload = default) => UpdateFile(fileId, fileUpload)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Delete File
         /// </summary>
         /// <param name="fileId">fileId</param>
-        public Task<Either<Error, Unit>> DeleteFile(long fileId) =>
+        public Task<Either<InfusioError, Unit>> DeleteFile(long? fileId) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Delete,
+                Request(HttpMethod.Delete,
                     MakeUri($"/files/{fileId}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
@@ -1317,14 +1317,14 @@ namespace Infusio.Http
         /// <param name="fileId">fileId</param>
         public Task<Unit> DeleteFileUnsafe(long fileId) => DeleteFile(fileId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Stored Hook Subscriptions
         /// </summary>
-        public Task<Either<Error, Unit>> ListStoredHookSubscriptions() =>
+        public Task<Either<InfusioError, Unit>> ListStoredHookSubscriptions() =>
             HttpWorkflow(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/hooks")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Unit)),
@@ -1339,15 +1339,15 @@ namespace Infusio.Http
         /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListStoredHookSubscriptions"/>.</remarks>
         public Task<Unit> ListStoredHookSubscriptionsUnsafe() => ListStoredHookSubscriptions()
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create a Hook Subscription
         /// </summary>
         /// <param name="restHookRequest">restHookRequest</param>
-        public Task<Either<Error, RestHook>> CreateAHookSubscription(Model.RestHookRequest restHookRequest) =>
+        public Task<Either<InfusioError, RestHook>> CreateAHookSubscription(Model.RestHookRequest restHookRequest) =>
             HttpWorkflow<RestHook>(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/hooks"),
                     restHookRequest
                 ),
@@ -1364,14 +1364,14 @@ namespace Infusio.Http
         /// <param name="restHookRequest">restHookRequest</param>
         public Task<RestHook> CreateAHookSubscriptionUnsafe(Model.RestHookRequest restHookRequest) => CreateAHookSubscription(restHookRequest)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Hook Event Types
         /// </summary>
-        public Task<Either<Error, Unit>> ListHookEventTypes() =>
+        public Task<Either<InfusioError, Unit>> ListHookEventTypes() =>
             HttpWorkflow(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/hooks/event_keys")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Unit)),
@@ -1386,15 +1386,15 @@ namespace Infusio.Http
         /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListHookEventTypes"/>.</remarks>
         public Task<Unit> ListHookEventTypesUnsafe() => ListHookEventTypes()
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve a Hook Subscription
         /// </summary>
         /// <param name="key">key</param>
-        public Task<Either<Error, RestHook>> RetrieveAHookSubscription(string key) =>
+        public Task<Either<InfusioError, RestHook>> RetrieveAHookSubscription(string key) =>
             HttpWorkflow<RestHook>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/hooks/{key}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(RestHook)),
@@ -1410,16 +1410,16 @@ namespace Infusio.Http
         /// <param name="key">key</param>
         public Task<RestHook> RetrieveAHookSubscriptionUnsafe(string key) => RetrieveAHookSubscription(key)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Update a Hook Subscription
         /// </summary>
         /// <param name="restHookRequest">restHookRequest</param>
         /// <param name="key">key</param>
-        public Task<Either<Error, RestHook>> UpdateAHookSubscription(Model.RestHookRequest restHookRequest, string key) =>
+        public Task<Either<InfusioError, RestHook>> UpdateAHookSubscription(Model.RestHookRequest restHookRequest, string key) =>
             HttpWorkflow<RestHook>(
-                message: Request(HttpMethod.Put,
+                Request(HttpMethod.Put,
                     MakeUri($"/hooks/{key}"),
                     restHookRequest
                 ),
@@ -1438,15 +1438,15 @@ namespace Infusio.Http
         /// <param name="key">key</param>
         public Task<RestHook> UpdateAHookSubscriptionUnsafe(Model.RestHookRequest restHookRequest, string key) => UpdateAHookSubscription(restHookRequest, key)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Delete a Hook Subscription
         /// </summary>
         /// <param name="key">key</param>
-        public Task<Either<Error, Unit>> DeleteAHookSubscription(string key) =>
+        public Task<Either<InfusioError, Unit>> DeleteAHookSubscription(string key) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Delete,
+                Request(HttpMethod.Delete,
                     MakeUri($"/hooks/{key}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
@@ -1462,16 +1462,16 @@ namespace Infusio.Http
         /// <param name="key">key</param>
         public Task<Unit> DeleteAHookSubscriptionUnsafe(string key) => DeleteAHookSubscription(key)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Verify a Hook Subscription, Delayed
         /// </summary>
         /// <param name="xHookSecret">X-Hook-Secret</param>
         /// <param name="key">key</param>
-        public Task<Either<Error, RestHook>> VerifyAHookSubscriptionDelayed(string xHookSecret, string key) =>
+        public Task<Either<InfusioError, RestHook>> VerifyAHookSubscriptionDelayed(string xHookSecret, string key) =>
             HttpWorkflow<RestHook>(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/hooks/{key}/delayedVerify")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(RestHook)),
@@ -1487,15 +1487,15 @@ namespace Infusio.Http
         /// <param name="key">key</param>
         public Task<RestHook> VerifyAHookSubscriptionDelayedUnsafe(string xHookSecret, string key) => VerifyAHookSubscriptionDelayed(xHookSecret, key)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Verify a Hook Subscription
         /// </summary>
         /// <param name="key">key</param>
-        public Task<Either<Error, RestHook>> VerifyAHookSubscription(string key) =>
+        public Task<Either<InfusioError, RestHook>> VerifyAHookSubscription(string key) =>
             HttpWorkflow<RestHook>(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/hooks/{key}/verify")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(RestHook)),
@@ -1510,14 +1510,14 @@ namespace Infusio.Http
         /// <param name="key">key</param>
         public Task<RestHook> VerifyAHookSubscriptionUnsafe(string key) => VerifyAHookSubscription(key)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve User Info
         /// </summary>
-        public Task<Either<Error, UserInfoDTO>> GetUserInfo() =>
+        public Task<Either<InfusioError, UserInfoDTO>> GetUserInfo() =>
             HttpWorkflow<UserInfoDTO>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/oauth/connect/userinfo")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(UserInfoDTO)),
@@ -1532,7 +1532,7 @@ namespace Infusio.Http
         /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetUserInfo"/>.</remarks>
         public Task<UserInfoDTO> GetUserInfoUnsafe() => GetUserInfo()
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Opportunities
@@ -1543,9 +1543,9 @@ namespace Infusio.Http
         /// <param name="userId">Returns opportunities for the provided user id</param>
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
-        public Task<Either<Error, OpportunityList>> ListOpportunities(string order = default, string searchTerm = default, long stageId = default, long userId = default, int offset = default, int limit = default) =>
+        public Task<Either<InfusioError, OpportunityList>> ListOpportunities(string order = default, string searchTerm = default, long? stageId = default, long? userId = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<OpportunityList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/opportunities",
                         RequestParameter("order", order),
                         RequestParameter("searchTerm", searchTerm),
@@ -1572,15 +1572,15 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<OpportunityList> ListOpportunitiesUnsafe(string order = default, string searchTerm = default, long stageId = default, long userId = default, int offset = default, int limit = default) => ListOpportunities(order, searchTerm, stageId, userId, offset, limit)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create an Opportunity
         /// </summary>
         /// <param name="opportunity">opportunity</param>
-        public Task<Either<Error, Opportunity>> CreateOpportunity(Model.Opportunity opportunity = default) =>
+        public Task<Either<InfusioError, Opportunity>> CreateOpportunity(Model.Opportunity opportunity = default) =>
             HttpWorkflow<Opportunity>(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/opportunities"),
                     opportunity
                 ),
@@ -1597,15 +1597,15 @@ namespace Infusio.Http
         /// <param name="opportunity">opportunity</param>
         public Task<Opportunity> CreateOpportunityUnsafe(Model.Opportunity opportunity = default) => CreateOpportunity(opportunity)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Replace an Opportunity
         /// </summary>
         /// <param name="opportunity">opportunity</param>
-        public Task<Either<Error, Opportunity>> UpdateOpportunity(Model.Opportunity opportunity = default) =>
+        public Task<Either<InfusioError, Opportunity>> UpdateOpportunity(Model.Opportunity opportunity = default) =>
             HttpWorkflow<Opportunity>(
-                message: Request(HttpMethod.Put,
+                Request(HttpMethod.Put,
                     MakeUri($"/opportunities"),
                     opportunity
                 ),
@@ -1623,14 +1623,14 @@ namespace Infusio.Http
         /// <param name="opportunity">opportunity</param>
         public Task<Opportunity> UpdateOpportunityUnsafe(Model.Opportunity opportunity = default) => UpdateOpportunity(opportunity)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve Opportunity Model
         /// </summary>
-        public Task<Either<Error, ObjectModel>> RetrieveOpportunityModel() =>
+        public Task<Either<InfusioError, ObjectModel>> RetrieveOpportunityModel() =>
             HttpWorkflow<ObjectModel>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/opportunities/model")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
@@ -1645,16 +1645,16 @@ namespace Infusio.Http
         /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveOpportunityModel"/>.</remarks>
         public Task<ObjectModel> RetrieveOpportunityModelUnsafe() => RetrieveOpportunityModel()
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve an Opportunity
         /// </summary>
         /// <param name="opportunityId">opportunityId</param>
         /// <param name="optionalProperties">Comma-delimited list of Opportunity properties to include in the response. (Some fields such as `custom_fields` aren't included, by default.)</param>
-        public Task<Either<Error, Opportunity>> GetOpportunity(long opportunityId, Lst<string> optionalProperties = default) =>
+        public Task<Either<InfusioError, Opportunity>> GetOpportunity(long? opportunityId, Lst<string> optionalProperties = default) =>
             HttpWorkflow<Opportunity>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/opportunities/{opportunityId}",
                         RequestParameter("optionalProperties", optionalProperties))),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
@@ -1672,16 +1672,16 @@ namespace Infusio.Http
         /// <param name="optionalProperties">Comma-delimited list of Opportunity properties to include in the response. (Some fields such as `custom_fields` aren't included, by default.)</param>
         public Task<Opportunity> GetOpportunityUnsafe(long opportunityId, Lst<string> optionalProperties = default) => GetOpportunity(opportunityId, optionalProperties)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Update an Opportunity
         /// </summary>
         /// <param name="opportunityId">opportunityId</param>
         /// <param name="opportunity">opportunity</param>
-        public Task<Either<Error, Opportunity>> UpdatePropertiesOnOpportunity(long opportunityId, Model.Opportunity opportunity = default) =>
+        public Task<Either<InfusioError, Opportunity>> UpdatePropertiesOnOpportunity(long? opportunityId, Model.Opportunity opportunity = default) =>
             HttpWorkflow<Opportunity>(
-                message: Request(
+                Request(
                         new HttpMethod("Patch"),
                     MakeUri($"/opportunities/{opportunityId}"),
                     opportunity
@@ -1701,14 +1701,14 @@ namespace Infusio.Http
         /// <param name="opportunity">opportunity</param>
         public Task<Opportunity> UpdatePropertiesOnOpportunityUnsafe(long opportunityId, Model.Opportunity opportunity = default) => UpdatePropertiesOnOpportunity(opportunityId, opportunity)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Opportunity Stage Pipeline
         /// </summary>
-        public Task<Either<Error, Unit>> ListOpportunityStagePipelines() =>
+        public Task<Either<InfusioError, Unit>> ListOpportunityStagePipelines() =>
             HttpWorkflow(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/opportunity/stage_pipeline")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Unit)),
@@ -1723,7 +1723,7 @@ namespace Infusio.Http
         /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListOpportunityStagePipelines"/>.</remarks>
         public Task<Unit> ListOpportunityStagePipelinesUnsafe() => ListOpportunityStagePipelines()
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Orders
@@ -1736,9 +1736,9 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
-        public Task<Either<Error, OrderList>> ListOrders(long productId = default, long contactId = default, string order = default, bool paid = default, int offset = default, int limit = default, string until = default, string since = default) =>
+        public Task<Either<InfusioError, OrderList>> ListOrders(long? productId = default, long? contactId = default, string order = default, bool paid = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
             HttpWorkflow<OrderList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/orders",
                         RequestParameter("productId", productId),
                         RequestParameter("contactId", contactId),
@@ -1769,14 +1769,14 @@ namespace Infusio.Http
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
         public Task<OrderList> ListOrdersUnsafe(long productId = default, long contactId = default, string order = default, bool paid = default, int offset = default, int limit = default, string until = default, string since = default) => ListOrders(productId, contactId, order, paid, offset, limit, until, since)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve Custom Order Model
         /// </summary>
-        public Task<Either<Error, ObjectModel>> RetrieveOrderModel() =>
+        public Task<Either<InfusioError, ObjectModel>> RetrieveOrderModel() =>
             HttpWorkflow<ObjectModel>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/orders/model")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
@@ -1791,15 +1791,15 @@ namespace Infusio.Http
         /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveOrderModel"/>.</remarks>
         public Task<ObjectModel> RetrieveOrderModelUnsafe() => RetrieveOrderModel()
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve an Order
         /// </summary>
         /// <param name="orderId">orderId</param>
-        public Task<Either<Error, Order>> GetOrder(long orderId) =>
+        public Task<Either<InfusioError, Order>> GetOrder(long? orderId) =>
             HttpWorkflow<Order>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/orders/{orderId}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Order)),
@@ -1815,7 +1815,7 @@ namespace Infusio.Http
         /// <param name="orderId">orderId</param>
         public Task<Order> GetOrderUnsafe(long orderId) => GetOrder(orderId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve Order Transactions
@@ -1826,9 +1826,9 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
-        public Task<Either<Error, TransactionList>> ListTransactionsForOrder(long orderId, long contactId = default, int offset = default, int limit = default, string until = default, string since = default) =>
+        public Task<Either<InfusioError, TransactionList>> ListTransactionsForOrder(long? orderId, long? contactId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
             HttpWorkflow<TransactionList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/orders/{orderId}/transactions",
                         RequestParameter("contactId", contactId),
                         RequestParameter("offset", offset),
@@ -1854,7 +1854,7 @@ namespace Infusio.Http
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
         public Task<TransactionList> ListTransactionsForOrderUnsafe(long orderId, long contactId = default, int offset = default, int limit = default, string until = default, string since = default) => ListTransactionsForOrder(orderId, contactId, offset, limit, until, since)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Products
@@ -1862,9 +1862,9 @@ namespace Infusio.Http
         /// <param name="active">Sets status of items to return</param>
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
-        public Task<Either<Error, ProductList>> ListProducts(bool active = default, int offset = default, int limit = default) =>
+        public Task<Either<InfusioError, ProductList>> ListProducts(bool active = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<ProductList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/products",
                         RequestParameter("active", active),
                         RequestParameter("offset", offset),
@@ -1885,7 +1885,7 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<ProductList> ListProductsUnsafe(bool active = default, int offset = default, int limit = default) => ListProducts(active, offset, limit)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve Synced Products
@@ -1893,9 +1893,9 @@ namespace Infusio.Http
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
         /// <param name="syncToken">sync_token</param>
-        public Task<Either<Error, ProductStatusList>> ListProductsFromSyncToken(int offset = default, int limit = default, string syncToken = default) =>
+        public Task<Either<InfusioError, ProductStatusList>> ListProductsFromSyncToken(int? offset = default, int? limit = default, string syncToken = default) =>
             HttpWorkflow<ProductStatusList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/products/sync",
                         RequestParameter("offset", offset),
                         RequestParameter("limit", limit),
@@ -1916,15 +1916,15 @@ namespace Infusio.Http
         /// <param name="syncToken">sync_token</param>
         public Task<ProductStatusList> ListProductsFromSyncTokenUnsafe(int offset = default, int limit = default, string syncToken = default) => ListProductsFromSyncToken(offset, limit, syncToken)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve a Product
         /// </summary>
         /// <param name="productId">productId</param>
-        public Task<Either<Error, Product>> GetProduct(long productId) =>
+        public Task<Either<InfusioError, Product>> GetProduct(long? productId) =>
             HttpWorkflow<Product>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/products/{productId}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Product)),
@@ -1940,14 +1940,14 @@ namespace Infusio.Http
         /// <param name="productId">productId</param>
         public Task<Product> GetProductUnsafe(long productId) => GetProduct(productId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve application status
         /// </summary>
-        public Task<Either<Error, Setting>> GetApplicationEnabled() =>
+        public Task<Either<InfusioError, Setting>> GetApplicationEnabled() =>
             HttpWorkflow<Setting>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/setting/application/enabled")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Setting)),
@@ -1962,14 +1962,14 @@ namespace Infusio.Http
         /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetApplicationEnabled"/>.</remarks>
         public Task<Setting> GetApplicationEnabledUnsafe() => GetApplicationEnabled()
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Contact types
         /// </summary>
-        public Task<Either<Error, Setting>> GetContactOptionTypes() =>
+        public Task<Either<InfusioError, Setting>> GetContactOptionTypes() =>
             HttpWorkflow<Setting>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/setting/contact/optionTypes")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Setting)),
@@ -1984,14 +1984,14 @@ namespace Infusio.Http
         /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetContactOptionTypes"/>.</remarks>
         public Task<Setting> GetContactOptionTypesUnsafe() => GetContactOptionTypes()
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve Subscription Model
         /// </summary>
-        public Task<Either<Error, ObjectModel>> RetrieveSubscriptionModel() =>
+        public Task<Either<InfusioError, ObjectModel>> RetrieveSubscriptionModel() =>
             HttpWorkflow<ObjectModel>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/subscriptions/model")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
@@ -2006,7 +2006,7 @@ namespace Infusio.Http
         /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveSubscriptionModel"/>.</remarks>
         public Task<ObjectModel> RetrieveSubscriptionModelUnsafe() => RetrieveSubscriptionModel()
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Tags
@@ -2014,9 +2014,9 @@ namespace Infusio.Http
         /// <param name="category">Category Id of tags to filter by</param>
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
-        public Task<Either<Error, Tags>> ListTags(long category = default, int offset = default, int limit = default) =>
+        public Task<Either<InfusioError, Tags>> ListTags(long? category = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<Tags>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/tags",
                         RequestParameter("category", category),
                         RequestParameter("offset", offset),
@@ -2037,15 +2037,15 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<Tags> ListTagsUnsafe(long category = default, int offset = default, int limit = default) => ListTags(category, offset, limit)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create Tag
         /// </summary>
         /// <param name="tag">tag</param>
-        public Task<Either<Error, Tag>> CreateTag(Model.CreateTag tag) =>
+        public Task<Either<InfusioError, Tag>> CreateTag(Model.CreateTag tag) =>
             HttpWorkflow<Tag>(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/tags"),
                     tag
                 ),
@@ -2062,15 +2062,15 @@ namespace Infusio.Http
         /// <param name="tag">tag</param>
         public Task<Tag> CreateTagUnsafe(Model.CreateTag tag) => CreateTag(tag)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create Tag Category
         /// </summary>
         /// <param name="tagCategory">tagCategory</param>
-        public Task<Either<Error, TagCategory>> CreateTagCategory(Model.CreateTagCategory tagCategory) =>
+        public Task<Either<InfusioError, TagCategory>> CreateTagCategory(Model.CreateTagCategory tagCategory) =>
             HttpWorkflow<TagCategory>(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/tags/categories"),
                     tagCategory
                 ),
@@ -2087,15 +2087,15 @@ namespace Infusio.Http
         /// <param name="tagCategory">tagCategory</param>
         public Task<TagCategory> CreateTagCategoryUnsafe(Model.CreateTagCategory tagCategory) => CreateTagCategory(tagCategory)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve a Tag
         /// </summary>
         /// <param name="id">id</param>
-        public Task<Either<Error, Tag>> GetTag(long id) =>
+        public Task<Either<InfusioError, Tag>> GetTag(long? id) =>
             HttpWorkflow<Tag>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/tags/{id}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Tag)),
@@ -2111,7 +2111,7 @@ namespace Infusio.Http
         /// <param name="id">id</param>
         public Task<Tag> GetTagUnsafe(long id) => GetTag(id)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Tagged Contacts
@@ -2119,9 +2119,9 @@ namespace Infusio.Http
         /// <param name="tagId">tagId</param>
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
-        public Task<Either<Error, TaggedContactList>> ListContactsForTagId(long tagId, int offset = default, int limit = default) =>
+        public Task<Either<InfusioError, TaggedContactList>> ListContactsForTagId(long? tagId, int? offset = default, int? limit = default) =>
             HttpWorkflow<TaggedContactList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/tags/{tagId}/contacts",
                         RequestParameter("offset", offset),
                         RequestParameter("limit", limit))),
@@ -2141,16 +2141,16 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<TaggedContactList> ListContactsForTagIdUnsafe(long tagId, int offset = default, int limit = default) => ListContactsForTagId(tagId, offset, limit)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Apply Tag to Contacts
         /// </summary>
         /// <param name="ids">ids</param>
         /// <param name="tagId">tagId</param>
-        public Task<Either<Error, Unit>> ApplyTagToContactIds(Model.SetOfIds ids, long tagId) =>
+        public Task<Either<InfusioError, Unit>> ApplyTagToContactIds(Model.SetOfIds ids, long? tagId) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/tags/{tagId}/contacts"),
                     ids
                 ),
@@ -2168,16 +2168,16 @@ namespace Infusio.Http
         /// <param name="tagId">tagId</param>
         public Task<Unit> ApplyTagToContactIdsUnsafe(Model.SetOfIds ids, long tagId) => ApplyTagToContactIds(ids, tagId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Remove Tag from Contacts
         /// </summary>
         /// <param name="ids">ids</param>
         /// <param name="tagId">tagId</param>
-        public Task<Either<Error, Unit>> RemoveTagFromContactIds(Lst<long> ids, long tagId) =>
+        public Task<Either<InfusioError, Unit>> RemoveTagFromContactIds(Lst<long> ids, long? tagId) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Delete,
+                Request(HttpMethod.Delete,
                     MakeUri($"/tags/{tagId}/contacts",
                         RequestParameter("ids", ids))),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
@@ -2195,16 +2195,16 @@ namespace Infusio.Http
         /// <param name="tagId">tagId</param>
         public Task<Unit> RemoveTagFromContactIdsUnsafe(Lst<long> ids, long tagId) => RemoveTagFromContactIds(ids, tagId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Remove Tag from Contact
         /// </summary>
         /// <param name="contactId">contactId</param>
         /// <param name="tagId">tagId</param>
-        public Task<Either<Error, Unit>> RemoveTagFromContactId(long contactId, long tagId) =>
+        public Task<Either<InfusioError, Unit>> RemoveTagFromContactId(long? contactId, long? tagId) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Delete,
+                Request(HttpMethod.Delete,
                     MakeUri($"/tags/{tagId}/contacts/{contactId}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
@@ -2221,7 +2221,7 @@ namespace Infusio.Http
         /// <param name="tagId">tagId</param>
         public Task<Unit> RemoveTagFromContactIdUnsafe(long contactId, long tagId) => RemoveTagFromContactId(contactId, tagId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Tasks
@@ -2235,9 +2235,9 @@ namespace Infusio.Http
         /// <param name="userId">user_id</param>
         /// <param name="hasDueDate">has_due_date</param>
         /// <param name="contactId">contact_id</param>
-        public Task<Either<Error, TaskList>> ListTasks(string order = default, int offset = default, int limit = default, bool completed = default, string until = default, string since = default, long userId = default, bool hasDueDate = default, long contactId = default) =>
+        public Task<Either<InfusioError, TaskList>> ListTasks(string order = default, int? offset = default, int? limit = default, bool completed = default, string until = default, string since = default, long? userId = default, bool hasDueDate = default, long? contactId = default) =>
             HttpWorkflow<TaskList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/tasks",
                         RequestParameter("order", order),
                         RequestParameter("offset", offset),
@@ -2270,15 +2270,15 @@ namespace Infusio.Http
         /// <param name="contactId">contact_id</param>
         public Task<TaskList> ListTasksUnsafe(string order = default, int offset = default, int limit = default, bool completed = default, string until = default, string since = default, long userId = default, bool hasDueDate = default, long contactId = default) => ListTasks(order, offset, limit, completed, until, since, userId, hasDueDate, contactId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create a Task
         /// </summary>
         /// <param name="task">task</param>
-        public Task<Either<Error, InfusionTask>> CreateTask(Model.InfusionTask task) =>
+        public Task<Either<InfusioError, InfusionTask>> CreateTask(Model.InfusionTask task) =>
             HttpWorkflow<InfusionTask>(
-                message: Request(HttpMethod.Post,
+                Request(HttpMethod.Post,
                     MakeUri($"/tasks"),
                     task
                 ),
@@ -2295,14 +2295,14 @@ namespace Infusio.Http
         /// <param name="task">task</param>
         public Task<InfusionTask> CreateTaskUnsafe(Model.InfusionTask task) => CreateTask(task)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve Task Model
         /// </summary>
-        public Task<Either<Error, ObjectModel>> RetrieveTaskModel() =>
+        public Task<Either<InfusioError, ObjectModel>> RetrieveTaskModel() =>
             HttpWorkflow<ObjectModel>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/tasks/model")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
@@ -2317,7 +2317,7 @@ namespace Infusio.Http
         /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveTaskModel"/>.</remarks>
         public Task<ObjectModel> RetrieveTaskModelUnsafe() => RetrieveTaskModel()
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Search Tasks
@@ -2331,9 +2331,9 @@ namespace Infusio.Http
         /// <param name="userId">Returns tasks for the provided user id</param>
         /// <param name="hasDueDate">Returns tasks that have an 'action date' when set to true</param>
         /// <param name="contactId">Returns tasks for the provided contact id</param>
-        public Task<Either<Error, TaskList>> ListTasksForCurrentUser(string order = default, int offset = default, int limit = default, bool completed = default, string until = default, string since = default, long userId = default, bool hasDueDate = default, long contactId = default) =>
+        public Task<Either<InfusioError, TaskList>> ListTasksForCurrentUser(string order = default, int? offset = default, int? limit = default, bool completed = default, string until = default, string since = default, long? userId = default, bool hasDueDate = default, long? contactId = default) =>
             HttpWorkflow<TaskList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/tasks/search",
                         RequestParameter("order", order),
                         RequestParameter("offset", offset),
@@ -2366,15 +2366,15 @@ namespace Infusio.Http
         /// <param name="contactId">Returns tasks for the provided contact id</param>
         public Task<TaskList> ListTasksForCurrentUserUnsafe(string order = default, int offset = default, int limit = default, bool completed = default, string until = default, string since = default, long userId = default, bool hasDueDate = default, long contactId = default) => ListTasksForCurrentUser(order, offset, limit, completed, until, since, userId, hasDueDate, contactId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve a Task
         /// </summary>
         /// <param name="taskId">taskId</param>
-        public Task<Either<Error, InfusionTask>> GetTask(string taskId) =>
+        public Task<Either<InfusioError, InfusionTask>> GetTask(string taskId) =>
             HttpWorkflow<InfusionTask>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/tasks/{taskId}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(InfusionTask)),
@@ -2390,16 +2390,16 @@ namespace Infusio.Http
         /// <param name="taskId">taskId</param>
         public Task<InfusionTask> GetTaskUnsafe(string taskId) => GetTask(taskId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Replace a Task
         /// </summary>
         /// <param name="task">task</param>
         /// <param name="taskId">taskId</param>
-        public Task<Either<Error, InfusionTask>> UpdateTask(Model.InfusionTask task, string taskId) =>
+        public Task<Either<InfusioError, InfusionTask>> UpdateTask(Model.InfusionTask task, string taskId) =>
             HttpWorkflow<InfusionTask>(
-                message: Request(HttpMethod.Put,
+                Request(HttpMethod.Put,
                     MakeUri($"/tasks/{taskId}"),
                     task
                 ),
@@ -2418,15 +2418,15 @@ namespace Infusio.Http
         /// <param name="taskId">taskId</param>
         public Task<InfusionTask> UpdateTaskUnsafe(Model.InfusionTask task, string taskId) => UpdateTask(task, taskId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Delete a Task
         /// </summary>
         /// <param name="taskId">taskId</param>
-        public Task<Either<Error, Unit>> DeleteTask(string taskId) =>
+        public Task<Either<InfusioError, Unit>> DeleteTask(string taskId) =>
             HttpWorkflow(
-                message: Request(HttpMethod.Delete,
+                Request(HttpMethod.Delete,
                     MakeUri($"/tasks/{taskId}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
@@ -2442,16 +2442,16 @@ namespace Infusio.Http
         /// <param name="taskId">taskId</param>
         public Task<Unit> DeleteTaskUnsafe(string taskId) => DeleteTask(taskId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Update a Task
         /// </summary>
         /// <param name="task">task</param>
         /// <param name="taskId">taskId</param>
-        public Task<Either<Error, InfusionTask>> UpdatePropertiesOnTask(Model.InfusionTask task, string taskId) =>
+        public Task<Either<InfusioError, InfusionTask>> UpdatePropertiesOnTask(Model.InfusionTask task, string taskId) =>
             HttpWorkflow<InfusionTask>(
-                message: Request(
+                Request(
                         new HttpMethod("Patch"),
                     MakeUri($"/tasks/{taskId}"),
                     task
@@ -2471,7 +2471,7 @@ namespace Infusio.Http
         /// <param name="taskId">taskId</param>
         public Task<InfusionTask> UpdatePropertiesOnTaskUnsafe(Model.InfusionTask task, string taskId) => UpdatePropertiesOnTask(task, taskId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Transactions
@@ -2481,9 +2481,9 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
-        public Task<Either<Error, TransactionList>> ListTransactions(long contactId = default, int offset = default, int limit = default, string until = default, string since = default) =>
+        public Task<Either<InfusioError, TransactionList>> ListTransactions(long? contactId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
             HttpWorkflow<TransactionList>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/transactions",
                         RequestParameter("contactId", contactId),
                         RequestParameter("offset", offset),
@@ -2508,15 +2508,15 @@ namespace Infusio.Http
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
         public Task<TransactionList> ListTransactionsUnsafe(long contactId = default, int offset = default, int limit = default, string until = default, string since = default) => ListTransactions(contactId, offset, limit, until, since)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve a Transaction
         /// </summary>
         /// <param name="transactionId">transactionId</param>
-        public Task<Either<Error, Transaction>> GetTransaction(long transactionId) =>
+        public Task<Either<InfusioError, Transaction>> GetTransaction(long? transactionId) =>
             HttpWorkflow<Transaction>(
-                message: Request(HttpMethod.Get,
+                Request(HttpMethod.Get,
                     MakeUri($"/transactions/{transactionId}")),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Transaction)),
@@ -2532,21 +2532,19 @@ namespace Infusio.Http
         /// <param name="transactionId">transactionId</param>
         public Task<Transaction> GetTransactionUnsafe(long transactionId) => GetTransaction(transactionId)
             .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Message));
+            .IfLeftAsync(e => throw new Exception(e.Value));
 
 
-        Task<Either<Error, T>> HttpWorkflow<T>(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) where T : class => (
-            from httpResponse in SendRequest(message).ToAsync()
-            from responseType in FindResponse(httpResponse, responses).ToAsync()
-            from result in ReadResult<T>(httpResponse, responseType).ToAsync()
-            select result
-        ).ToEither();
+        Task<Either<InfusioError, T>> HttpWorkflow<T>(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) where T : class =>
+            from httpResponse in SendRequest(message)
+            from responseType in FindResponse(httpResponse, responses)
+            from result in ReadResult<T>(httpResponse, responseType)
+            select result;
 
-        Task<Either<Error, Unit>> HttpWorkflow(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) => (
-            from httpResponse in SendRequest(message).ToAsync()
-            from responseType in FindResponse(httpResponse, responses).ToAsync()
-            select unit
-        ).ToEither();
+        Task<Either<InfusioError, Unit>> HttpWorkflow(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) =>
+            from httpResponse in SendRequest(message)
+            from responseType in FindResponse(httpResponse, responses)
+            select unit;
 
         static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
         {
@@ -2567,7 +2565,8 @@ namespace Infusio.Http
         string MakeUri(string relative, params Option<(string name, object value)>[] values) => ifNone(
             from pair in Some(values.FoldT(HashMap<string, object>(), (acc, x) => acc.Add(x.name, x.value)))
             where !pair.IsEmpty
-            select $"{relative}?{string.Join("&", pair.Map((key, value) => $"{key}={value}"))}",
+            let qs = pair.Map((key, value) => $"{key}={value}").Values
+            select $"{relative}?{string.Join("&", qs)}",
             relative
         );
 
@@ -2578,40 +2577,41 @@ namespace Infusio.Http
             Request(method, relativeUrl, new StringContent(SerializeObject(body), Encoding.UTF8, "application/json"));
 
         HttpRequestMessage Request(HttpMethod method, string relativeUrl, HttpContent content) =>
-            new HttpRequestMessage(method, $"https://api.infusionsoft.com/crm/rest/v1/{relativeUrl}")
+            new HttpRequestMessage(method, $"https://api.infusionsoft.com/crm/rest/v1{relativeUrl}")
             {
                 Content = content,
                 Headers =
                 {
                     Accept = { MediaTypeWithQualityHeaderValue.Parse("application/json")},
-                    Authorization = new AuthenticationHeaderValue("Bearer", _config.ApiKey)
+                    Authorization = new AuthenticationHeaderValue("Bearer", _config.AccessToken)
                 }
             };
 
-        Either<Error, KnownResponse> FindResponse(HttpResponseMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) => match(
+        Task<Either<InfusioError, KnownResponse>> FindResponse(HttpResponseMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) => match(
             responses.Find(KnownResponse.For(message.StatusCode)),
-            None: () => Left(new Error(message: $"Unexpected response: {message.StatusCode}")),
-            Some: response => Right<Error, KnownResponse>(response)
+            None: () => message.Content.ReadAsStringAsync()
+                .Map(x => Left<InfusioError, KnownResponse>(new InfusioError($"Unexpected response: {message.StatusCode} {x}"))),
+            Some: response => Right<InfusioError, KnownResponse>(response).AsTask()
         );
 
-        Task<Either<Error, HttpResponseMessage>> SendRequest(HttpRequestMessage message) => match(
+        Task<Either<InfusioError, HttpResponseMessage>> SendRequest(HttpRequestMessage message) => match(
             TryAsync(() => _client.SendAsync(message)),
-            Fail: e => Left<Error, HttpResponseMessage>(new Error(message: $"Generic send error: {e.Message}")),
-            Succ: x => Right<Error, HttpResponseMessage>(x)
+            Fail: e => Left<InfusioError, HttpResponseMessage>(new InfusioError($"Generic send InfusioError: {e.Message}")),
+            Succ: x => Right<InfusioError, HttpResponseMessage>(x)
         );
 
-        Task<Either<Error, T>> ReadResult<T>(HttpResponseMessage message, KnownResponse response) where T : class =>
+        Task<Either<InfusioError, T>> ReadResult<T>(HttpResponseMessage message, KnownResponse response) where T : class =>
             !response.IsSuccess
-            ? Left<Error, T>(new Error(message: response.Description)).AsTask()
+            ? Left<InfusioError, T>(new InfusioError(response.Description)).AsTask()
             : match(
                 from json in TryAsync(message.Content.ReadAsStringAsync())
                 from result in Try(DeserializeObject(json, response.Type)).ToAsync()
                 select result,
-                Fail: e => Left<Error, T>(new Error(message: $"Generic read error: {e.Message}")),
+                Fail: e => Left<InfusioError, T>(new InfusioError($"Generic read InfusioError: {e.Message}")),
                 Succ: t => match(
                     Optional((T)t),
-                    None: () => Left<Error, T>(new Error(message: $"Unable to read {typeof(T)}")),
-                    Some: x => Right<Error, T>(x)
+                    None: () => Left<InfusioError, T>(new InfusioError($"Unable to read {typeof(T)}")),
+                    Some: x => Right<InfusioError, T>(x)
                 )
             );
     }

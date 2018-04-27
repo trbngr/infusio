@@ -9,7 +9,7 @@ using Infusio.Model;
 
 namespace Infusio
 {
-    public static class Dsl
+    public static class InfusioDsl
     {
         public static InfusioOp<A> Return<A>(A value) =>
             new InfusioOp<A>.Return(value);

@@ -21,10 +21,10 @@ namespace Infusio.Ops
         {
             public readonly Func<{{ op.ResponseType | normalize }}, InfusioOp<A>> Next;
             {% for p in op.Parameters -%}
-            public readonly {{ p.Type }} {{ p.Name | capitalize }};
+            public readonly {{ p.OptionalTypeName }} {{ p.Name | capitalize }};
             {% endfor -%}
 
-            public {{ op.Name }}(Func<{{ op.ResponseType | normalize }}, InfusioOp<A>> next{% if op.HasParameters %}, {% endif %}{% for p in op.Parameters %}{{ p.Type }} {{ p.Name }}{% if forloop.last == false %}, {% endif %}{% endfor %})
+            public {{ op.Name }}(Func<{{ op.ResponseType | normalize }}, InfusioOp<A>> next{% if op.HasParameters %}, {% endif %}{% for p in op.Parameters %}{{ p.OptionalTypeName }} {{ p.Name }}{% if forloop.last == false %}, {% endif %}{% endfor %})
             {
                 Next = next;
               {% for p in op.Parameters -%}
@@ -38,10 +38,10 @@ namespace Infusio.Ops
     public static class InfusioOpExtensions
     {
         public static InfusioOp<B> Map<A, B>(this InfusioOp<A> op, Func<A, B> fn) =>
-            op.Bind(a => Dsl.Return(fn(a)));
+            op.Bind(a => InfusioDsl.Return(fn(a)));
 
         public static InfusioOp<B> Select<A, B>(this InfusioOp<A> op, Func<A, B> fn) =>
-            op.Bind(a => Dsl.Return(fn(a)));
+            op.Bind(a => InfusioDsl.Return(fn(a)));
 
         public static InfusioOp<C> SelectMany<A, B, C>(this InfusioOp<A> op, Func<A, InfusioOp<B>> bind, Func<A, B, C> project) =>
             op.Bind(a => bind(a).Select(b => project(a, b)));
