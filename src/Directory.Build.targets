@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <GitSemVerDashLabel>-beta</GitSemVerDashLabel>
+        <GitInfoReportImportance Condition="$(Configuration) == 'Release'">high</GitInfoReportImportance>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="GitInfo" Version="*" />
+    </ItemGroup>
+
+    <Target Name="Version" DependsOnTargets="SetVersion">
+        <Message Importance="high" Text="PackageVersion=$(PackageVersion) AssemblyVersion=$(AssemblyVersion)"/>
+    </Target>
+
+    <Target Name="_SetLocalCommits" BeforeTargets="_GitPopulateVersionInfo" Condition="'$(CI)' != 'true'">
+        <PropertyGroup>
+            <!-- Local builds should always be commit count +1, since we'll be always working on the next version to be published. -->
+            <GitCommits>$([MSBuild]::Add('$(GitCommits)', '1'))</GitCommits>
+        </PropertyGroup>
+    </Target>
+
+    <Target Name="SetVersion" BeforeTargets="GetAssemblyVersion;GetPackageVersion" DependsOnTargets="GitVersion" Condition="'$(ExcludeRestorePackageImports)' != 'true'">
+        <PropertyGroup>
+            <Version>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(GitSemVerDashLabel)</Version>
+            <PackageVersion>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(GitSemVerDashLabel)</PackageVersion>
+        </PropertyGroup>
+    </Target>
+
+</Project>

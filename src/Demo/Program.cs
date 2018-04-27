@@ -1,19 +1,14 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Demo.Demos;
 using Infusio;
 using Infusio.Auth;
 using Infusio.Http;
-using Infusio.Model;
-using Infusio.Ops;
-using Newtonsoft.Json;
 
 namespace Demo
 {
     using static TokenCache;
     using static Authorization;
-
 
     class Program
     {
