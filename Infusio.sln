@@ -13,6 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compiler", "tools\Compiler\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "src\Demo\Demo.csproj", "{1298280E-5AEB-4A6B-A62B-C14958876D2B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{4BA03FA8-87EE-484F-A056-633FAC0D7FBF}"
+ProjectSection(SolutionItems) = preProject
+	src\Directory.Build.targets = src\Directory.Build.targets
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
