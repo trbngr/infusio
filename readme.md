@@ -16,5 +16,5 @@ or
 
 `paket add infusio`
 
-## Configuration
-Currently you must provide an API key which can generate [here](https://accounts.infusionsoft.com/app/central/home)
+## Usage
+See the [demo project](src/Demo/Program.cs)
