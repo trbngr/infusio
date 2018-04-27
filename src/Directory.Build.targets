@@ -2,9 +2,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
     <PropertyGroup>
-        <GitSkipCache>true</GitSkipCache>
-        <GitIgnoreTagVersion>true</GitIgnoreTagVersion>
         <GitSemVerDashLabel>-beta</GitSemVerDashLabel>
+        <GitInfoReportImportance Condition="$(Configuration) == 'Release'">high</GitInfoReportImportance>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,16 +21,9 @@
         </PropertyGroup>
     </Target>
 
-    <!-- '$(ExcludeRestorePackageImports)' == 'true' when invoking /t:Restore -->
     <Target Name="SetVersion" BeforeTargets="GetAssemblyVersion;GetPackageVersion" DependsOnTargets="GitVersion" Condition="'$(ExcludeRestorePackageImports)' != 'true'">
         <PropertyGroup>
-            <!-- CI checkouts may be against a specific commit, not a branch, so add -pr as label -->
-            <GitSemVerDashLabel Condition="'$(GitBranch)' == 'undefined'">$(GitSemVerDashLabel)-pr</GitSemVerDashLabel>
-            <!-- If there's no label, but we're not at the tip of the base version, add a -pre because this is not the base build -->
-            <GitSemVerDashLabel Condition="'$(GitSemVerDashLabel)' == '' And '$(GitCommits)' != '0'">-pre</GitSemVerDashLabel>
-            <PackageVersion Condition="'$(GitSemVerDashLabel)' == ''">$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)</PackageVersion>
-            <PackageVersion Condition="'$(GitSemVerDashLabel)' != ''">$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)$(GitSemVerDashLabel).$(GitCommits)</PackageVersion>
-            <AssemblyVersion>$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)</AssemblyVersion>
+            <Version>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(GitSemVerDashLabel)</Version>
         </PropertyGroup>
     </Target>
 
