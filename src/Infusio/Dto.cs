@@ -11,142 +11,124 @@ namespace Infusio.Model
 {
 
 
-    public enum Field
+    public enum Category
     {
-        [EnumMember(Value = "BILLING")]
-        Billing,
+        [EnumMember(Value = "Attachments")]
+        Attachments,
 
-        [EnumMember(Value = "SHIPPING")]
-        Shipping,
+        [EnumMember(Value = "Cart")]
+        Cart,
+
+        [EnumMember(Value = "Documents")]
+        Documents,
+
+        [EnumMember(Value = "Hidden")]
+        Hidden,
+
+        [EnumMember(Value = "Invoice")]
+        Invoice,
+
+        [EnumMember(Value = "Logo")]
+        Logo,
+
+        [EnumMember(Value = "Tickets")]
+        Tickets,
+
+        [EnumMember(Value = "WebForm")]
+        Webform,
+
+        [EnumMember(Value = "Funnel")]
+        Funnel
+    }
+
+
+    public enum SourceType
+    {
+        [EnumMember(Value = "WEBFORM")]
+        Webform,
+
+        [EnumMember(Value = "LANDINGPAGE")]
+        Landingpage,
+
+        [EnumMember(Value = "IMPORT")]
+        Import,
+
+        [EnumMember(Value = "MANUAL")]
+        Manual,
+
+        [EnumMember(Value = "API")]
+        Api,
 
         [EnumMember(Value = "OTHER")]
-        Other
+        Other,
+
+        [EnumMember(Value = "UNKNOWN")]
+        Unknown
     }
 
 
-    public enum Key
+    public enum EmailStatus
     {
-        [EnumMember(Value = "SUCCESS")]
-        Success,
+        [EnumMember(Value = "Unengaged Marketable")]
+        Unengagedmarketable,
 
-        [EnumMember(Value = "DUPLICATE")]
-        Duplicate,
+        [EnumMember(Value = "Unconfirmed")]
+        Unconfirmed,
 
-        [EnumMember(Value = "CONTACT_NOT_FOUND")]
-        Contactnotfound,
+        [EnumMember(Value = "Confirmed (Legacy)")]
+        Confirmedlegacy,
 
-        [EnumMember(Value = "TAG_ID_NOT_FOUND")]
-        Tagidnotfound,
+        [EnumMember(Value = "Confirmed")]
+        Confirmed,
 
-        [EnumMember(Value = "FAILURE")]
-        Failure,
+        [EnumMember(Value = "Unengaged NonMarketable")]
+        Unengagednonmarketable,
 
-        [EnumMember(Value = "NO_PERMISSION")]
-        Nopermission
+        [EnumMember(Value = "Non-marketable")]
+        Nonmarketable,
+
+        [EnumMember(Value = "Lockdown")]
+        Lockdown,
+
+        [EnumMember(Value = "Soft Bounce")]
+        Softbounce,
+
+        [EnumMember(Value = "Hard Bounce")]
+        Hardbounce,
+
+        [EnumMember(Value = "Opt-Out")]
+        Optout,
+
+        [EnumMember(Value = "Opt-Out: Admin")]
+        Optoutadmin,
+
+        [EnumMember(Value = "Opt-Out: System")]
+        Optoutsystem,
+
+        [EnumMember(Value = "List Unsubscribe")]
+        Listunsubscribe,
+
+        [EnumMember(Value = "Provided Feedback")]
+        Providedfeedback,
+
+        [EnumMember(Value = "Reported Spam")]
+        Reportedspam,
+
+        [EnumMember(Value = "Invalid Email")]
+        Invalidemail
     }
 
 
-    public enum Type
-    {
-        [EnumMember(Value = "NULL")]
-        Null,
-
-        [EnumMember(Value = "Start")]
-        Start,
-
-        [EnumMember(Value = "Wait")]
-        Wait,
-
-        [EnumMember(Value = "DelayTimer")]
-        Delaytimer,
-
-        [EnumMember(Value = "ContactTimer")]
-        Contacttimer,
-
-        [EnumMember(Value = "DateTimer")]
-        Datetimer,
-
-        [EnumMember(Value = "Email")]
-        Email,
-
-        [EnumMember(Value = "BardEmail")]
-        Bardemail,
-
-        [EnumMember(Value = "EmailConfirm")]
-        Emailconfirm,
-
-        [EnumMember(Value = "Voice")]
-        Voice,
-
-        [EnumMember(Value = "Fax")]
-        Fax,
-
-        [EnumMember(Value = "Letter")]
-        Letter,
-
-        [EnumMember(Value = "Tag")]
-        Tag,
-
-        [EnumMember(Value = "Opportunity")]
-        Opportunity,
-
-        [EnumMember(Value = "Note")]
-        Note,
-
-        [EnumMember(Value = "Task")]
-        Task,
-
-        [EnumMember(Value = "CompleteTasks")]
-        Completetasks,
-
-        [EnumMember(Value = "Appointment")]
-        Appointment,
-
-        [EnumMember(Value = "AssignOwner")]
-        Assignowner,
-
-        [EnumMember(Value = "FieldValue")]
-        Fieldvalue,
-
-        [EnumMember(Value = "Fulfillment")]
-        Fulfillment,
-
-        [EnumMember(Value = "CreateOrder")]
-        Createorder,
-
-        [EnumMember(Value = "Http")]
-        Http,
-
-        [EnumMember(Value = "CustomerHub")]
-        Customerhub,
-
-        [EnumMember(Value = "ActionSet")]
-        Actionset
-    }
-
-
-    public enum RecordType
+    public enum FileAssociation
     {
         [EnumMember(Value = "CONTACT")]
         Contact,
 
-        [EnumMember(Value = "REFERRAL_PARTNER")]
-        Referralpartner,
-
-        [EnumMember(Value = "OPPORTUNITY")]
-        Opportunity,
-
-        [EnumMember(Value = "TASK_APPOINTMENT")]
-        Taskappointment,
+        [EnumMember(Value = "USER")]
+        User,
 
         [EnumMember(Value = "COMPANY")]
-        Company,
-
-        [EnumMember(Value = "ORDER")]
-        Order,
-
-        [EnumMember(Value = "SUBSCRIPTION")]
-        Subscription
+        Company
     }
 
 
@@ -236,55 +218,104 @@ namespace Infusio.Model
     }
 
 
-    public enum EmailStatus
+    public enum Type
     {
-        [EnumMember(Value = "Unengaged Marketable")]
-        Unengagedmarketable,
+        [EnumMember(Value = "NULL")]
+        Null,
 
-        [EnumMember(Value = "Unconfirmed")]
-        Unconfirmed,
+        [EnumMember(Value = "Start")]
+        Start,
 
-        [EnumMember(Value = "Confirmed (Legacy)")]
-        Confirmedlegacy,
+        [EnumMember(Value = "Wait")]
+        Wait,
 
-        [EnumMember(Value = "Confirmed")]
-        Confirmed,
+        [EnumMember(Value = "DelayTimer")]
+        Delaytimer,
 
-        [EnumMember(Value = "Unengaged NonMarketable")]
-        Unengagednonmarketable,
+        [EnumMember(Value = "ContactTimer")]
+        Contacttimer,
 
-        [EnumMember(Value = "Non-marketable")]
-        Nonmarketable,
+        [EnumMember(Value = "DateTimer")]
+        Datetimer,
 
-        [EnumMember(Value = "Lockdown")]
-        Lockdown,
+        [EnumMember(Value = "Email")]
+        Email,
 
-        [EnumMember(Value = "Soft Bounce")]
-        Softbounce,
+        [EnumMember(Value = "BardEmail")]
+        Bardemail,
 
-        [EnumMember(Value = "Hard Bounce")]
-        Hardbounce,
+        [EnumMember(Value = "EmailConfirm")]
+        Emailconfirm,
 
-        [EnumMember(Value = "Opt-Out")]
-        Optout,
+        [EnumMember(Value = "Voice")]
+        Voice,
 
-        [EnumMember(Value = "Opt-Out: Admin")]
-        Optoutadmin,
+        [EnumMember(Value = "Fax")]
+        Fax,
 
-        [EnumMember(Value = "Opt-Out: System")]
-        Optoutsystem,
+        [EnumMember(Value = "Letter")]
+        Letter,
 
-        [EnumMember(Value = "List Unsubscribe")]
-        Listunsubscribe,
+        [EnumMember(Value = "Tag")]
+        Tag,
 
-        [EnumMember(Value = "Provided Feedback")]
-        Providedfeedback,
+        [EnumMember(Value = "Opportunity")]
+        Opportunity,
 
-        [EnumMember(Value = "Reported Spam")]
-        Reportedspam,
+        [EnumMember(Value = "Note")]
+        Note,
 
-        [EnumMember(Value = "Invalid Email")]
-        Invalidemail
+        [EnumMember(Value = "Task")]
+        Task,
+
+        [EnumMember(Value = "CompleteTasks")]
+        Completetasks,
+
+        [EnumMember(Value = "Appointment")]
+        Appointment,
+
+        [EnumMember(Value = "AssignOwner")]
+        Assignowner,
+
+        [EnumMember(Value = "FieldValue")]
+        Fieldvalue,
+
+        [EnumMember(Value = "Fulfillment")]
+        Fulfillment,
+
+        [EnumMember(Value = "CreateOrder")]
+        Createorder,
+
+        [EnumMember(Value = "Http")]
+        Http,
+
+        [EnumMember(Value = "CustomerHub")]
+        Customerhub,
+
+        [EnumMember(Value = "ActionSet")]
+        Actionset
+    }
+
+
+    public enum Key
+    {
+        [EnumMember(Value = "SUCCESS")]
+        Success,
+
+        [EnumMember(Value = "DUPLICATE")]
+        Duplicate,
+
+        [EnumMember(Value = "CONTACT_NOT_FOUND")]
+        Contactnotfound,
+
+        [EnumMember(Value = "TAG_ID_NOT_FOUND")]
+        Tagidnotfound,
+
+        [EnumMember(Value = "FAILURE")]
+        Failure,
+
+        [EnumMember(Value = "NO_PERMISSION")]
+        Nopermission
     }
 
 
@@ -350,72 +381,44 @@ namespace Infusio.Model
     }
 
 
-    public enum Category
-    {
-        [EnumMember(Value = "Attachments")]
-        Attachments,
-
-        [EnumMember(Value = "Cart")]
-        Cart,
-
-        [EnumMember(Value = "Documents")]
-        Documents,
-
-        [EnumMember(Value = "Hidden")]
-        Hidden,
-
-        [EnumMember(Value = "Invoice")]
-        Invoice,
-
-        [EnumMember(Value = "Logo")]
-        Logo,
-
-        [EnumMember(Value = "Tickets")]
-        Tickets,
-
-        [EnumMember(Value = "WebForm")]
-        Webform,
-
-        [EnumMember(Value = "Funnel")]
-        Funnel
-    }
-
-
-    public enum FileAssociation
+    public enum RecordType
     {
         [EnumMember(Value = "CONTACT")]
         Contact,
 
-        [EnumMember(Value = "USER")]
-        User,
+        [EnumMember(Value = "REFERRAL_PARTNER")]
+        Referralpartner,
+
+        [EnumMember(Value = "OPPORTUNITY")]
+        Opportunity,
+
+        [EnumMember(Value = "TASK_APPOINTMENT")]
+        Taskappointment,
 
         [EnumMember(Value = "COMPANY")]
-        Company
+        Company,
+
+        [EnumMember(Value = "ORDER")]
+        Order,
+
+        [EnumMember(Value = "SUBSCRIPTION")]
+        Subscription
     }
 
 
-    public enum SourceType
+    public enum Field
     {
-        [EnumMember(Value = "WEBFORM")]
-        Webform,
+        [EnumMember(Value = "BILLING")]
+        Billing,
 
-        [EnumMember(Value = "LANDINGPAGE")]
-        Landingpage,
-
-        [EnumMember(Value = "IMPORT")]
-        Import,
-
-        [EnumMember(Value = "MANUAL")]
-        Manual,
-
-        [EnumMember(Value = "API")]
-        Api,
+        [EnumMember(Value = "SHIPPING")]
+        Shipping,
 
         [EnumMember(Value = "OTHER")]
         Other,
 
-        [EnumMember(Value = "UNKNOWN")]
-        Unknown
+        [EnumMember(Value = "EMAIL1")]
+        Email1
     }
 
 
@@ -424,7 +427,7 @@ namespace Infusio.Model
         [JsonProperty("field_type")]
         public readonly FieldType FieldType;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("label")]
         public readonly string Label;
         [JsonProperty("options")]
@@ -432,7 +435,7 @@ namespace Infusio.Model
         [JsonProperty("record_type")]
         public readonly RecordType RecordType;
 
-        public CustomFieldMetaData(FieldType fieldType = default, long id = default, string label = default, Lst<CustomFieldOption> options = default, RecordType recordType = default)
+        public CustomFieldMetaData(FieldType fieldType = default, long? id = default, string label = default, Lst<CustomFieldOption> options = default, RecordType recordType = default)
         {
             FieldType = fieldType;
             Id = id;
@@ -455,7 +458,7 @@ namespace Infusio.Model
     public class Appointment : Record<Appointment>
     {
         [JsonProperty("contact_id")]
-        public readonly long ContactId;
+        public readonly long? ContactId;
         [JsonProperty("description")]
         public readonly string Description;
         [JsonProperty("end_date")]
@@ -463,15 +466,15 @@ namespace Infusio.Model
         [JsonProperty("location")]
         public readonly string Location;
         [JsonProperty("remind_time")]
-        public readonly int RemindTime;
+        public readonly int? RemindTime;
         [JsonProperty("start_date")]
         public readonly string StartDate;
         [JsonProperty("title")]
         public readonly string Title;
         [JsonProperty("user")]
-        public readonly long User;
+        public readonly long? User;
 
-        public Appointment(long contactId = default, string description = default, string endDate = default, string location = default, int remindTime = default, string startDate = default, string title = default, long user = default)
+        public Appointment(long? contactId = default, string description = default, string endDate = default, string location = default, int? remindTime = default, string startDate = default, string title = default, long? user = default)
         {
             ContactId = contactId;
             Description = description;
@@ -502,9 +505,9 @@ namespace Infusio.Model
         [JsonProperty("content")]
         public readonly object Content;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
 
-        public CustomFieldValue(object content = default, long id = default)
+        public CustomFieldValue(object content = default, long? id = default)
         {
             Content = content;
             Id = id;
@@ -540,23 +543,23 @@ namespace Infusio.Model
         [JsonProperty("active")]
         public readonly bool Active;
         [JsonProperty("cycle")]
-        public readonly int Cycle;
+        public readonly int? Cycle;
         [JsonProperty("frequency")]
-        public readonly int Frequency;
+        public readonly int? Frequency;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("number_of_cycles")]
-        public readonly int NumberOfCycles;
+        public readonly int? NumberOfCycles;
         [JsonProperty("plan_price")]
-        public readonly int PlanPrice;
+        public readonly int? PlanPrice;
         [JsonProperty("subscription_plan_index")]
-        public readonly int SubscriptionPlanIndex;
+        public readonly int? SubscriptionPlanIndex;
         [JsonProperty("subscription_plan_name")]
         public readonly string SubscriptionPlanName;
         [JsonProperty("url")]
         public readonly string Url;
 
-        public SubscriptionPlan(bool active = default, int cycle = default, int frequency = default, long id = default, int numberOfCycles = default, int planPrice = default, int subscriptionPlanIndex = default, string subscriptionPlanName = default, string url = default)
+        public SubscriptionPlan(bool active = default, int? cycle = default, int? frequency = default, long? id = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default, string subscriptionPlanName = default, string url = default)
         {
             Active = active;
             Cycle = cycle;
@@ -601,7 +604,7 @@ namespace Infusio.Model
         [JsonProperty("fax_number")]
         public readonly CompanyFaxNumber FaxNumber;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("notes")]
         public readonly string Notes;
         [JsonProperty("phone_number")]
@@ -609,7 +612,7 @@ namespace Infusio.Model
         [JsonProperty("website")]
         public readonly string Website;
 
-        public Company(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, bool emailOptedIn = default, EmailStatus emailStatus = default, CompanyFaxNumber faxNumber = default, long id = default, string notes = default, CompanyPhoneNumber phoneNumber = default, string website = default)
+        public Company(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, bool emailOptedIn = default, EmailStatus emailStatus = default, CompanyFaxNumber faxNumber = default, long? id = default, string notes = default, CompanyPhoneNumber phoneNumber = default, string website = default)
         {
             Address = address;
             CompanyName = companyName;
@@ -658,7 +661,7 @@ namespace Infusio.Model
         [JsonProperty("modification_date")]
         public readonly string ModificationDate;
         [JsonProperty("priority")]
-        public readonly int Priority;
+        public readonly int? Priority;
         [JsonProperty("title")]
         public readonly string Title;
         [JsonProperty("type")]
@@ -666,9 +669,9 @@ namespace Infusio.Model
         [JsonProperty("url")]
         public readonly string Url;
         [JsonProperty("user_id")]
-        public readonly long UserId;
+        public readonly long? UserId;
 
-        public InfusionTask(bool completed = default, string completionDate = default, BasicContact contact = default, string creationDate = default, string description = default, string dueDate = default, string modificationDate = default, int priority = default, string title = default, string type = default, string url = default, long userId = default)
+        public InfusionTask(bool completed = default, string completionDate = default, BasicContact contact = default, string creationDate = default, string description = default, string dueDate = default, string modificationDate = default, int? priority = default, string title = default, string type = default, string url = default, long? userId = default)
         {
             Completed = completed;
             CompletionDate = completionDate;
@@ -707,13 +710,13 @@ namespace Infusio.Model
         [JsonProperty("companies")]
         public readonly Lst<Company> Companies;
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("next")]
         public readonly string Next;
         [JsonProperty("previous")]
         public readonly string Previous;
 
-        public CompanyList(Lst<Company> companies = default, int count = default, string next = default, string previous = default)
+        public CompanyList(Lst<Company> companies = default, int? count = default, string next = default, string previous = default)
         {
             Companies = companies;
             Count = count;
@@ -787,15 +790,15 @@ namespace Infusio.Model
         [JsonProperty("is_default")]
         public readonly bool IsDefault;
         [JsonProperty("stage_count")]
-        public readonly int StageCount;
+        public readonly int? StageCount;
         [JsonProperty("stage_id")]
-        public readonly long StageId;
+        public readonly long? StageId;
         [JsonProperty("stage_name")]
         public readonly string StageName;
         [JsonProperty("stage_order")]
-        public readonly int StageOrder;
+        public readonly int? StageOrder;
 
-        public SalesPipeline(bool endStage = default, bool isDefault = default, int stageCount = default, long stageId = default, string stageName = default, int stageOrder = default)
+        public SalesPipeline(bool endStage = default, bool isDefault = default, int? stageCount = default, long? stageId = default, string stageName = default, int? stageOrder = default)
         {
             EndStage = endStage;
             IsDefault = isDefault;
@@ -828,7 +831,7 @@ namespace Infusio.Model
         [JsonProperty("first_name")]
         public readonly string FirstName;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("last_name")]
         public readonly string LastName;
         [JsonProperty("middle_name")]
@@ -844,7 +847,7 @@ namespace Infusio.Model
         [JsonProperty("zip")]
         public readonly string Zip;
 
-        public ShippingInformation(string city = default, string company = default, string country = default, string firstName = default, long id = default, string lastName = default, string middleName = default, string phone = default, string state = default, string street1 = default, string street2 = default, string zip = default)
+        public ShippingInformation(string city = default, string company = default, string country = default, string firstName = default, long? id = default, string lastName = default, string middleName = default, string phone = default, string state = default, string street1 = default, string street2 = default, string zip = default)
         {
             City = city;
             Company = company;
@@ -885,15 +888,15 @@ namespace Infusio.Model
         [JsonProperty("done_date")]
         public readonly string DoneDate;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("instance_id")]
-        public readonly long InstanceId;
+        public readonly long? InstanceId;
         [JsonProperty("item_order")]
-        public readonly int ItemOrder;
+        public readonly int? ItemOrder;
         [JsonProperty("required")]
         public readonly bool Required;
 
-        public CheckListItemDetails(string description = default, string doneDate = default, long id = default, long instanceId = default, int itemOrder = default, bool required = default)
+        public CheckListItemDetails(string description = default, string doneDate = default, long? id = default, long? instanceId = default, int? itemOrder = default, bool required = default)
         {
             Description = description;
             DoneDate = doneDate;
@@ -918,7 +921,7 @@ namespace Infusio.Model
     public class TaskList : Record<TaskList>
     {
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("next")]
         public readonly string Next;
         [JsonProperty("previous")]
@@ -928,7 +931,7 @@ namespace Infusio.Model
         [JsonProperty("tasks")]
         public readonly Lst<InfusionTask> Tasks;
 
-        public TaskList(int count = default, string next = default, string previous = default, string syncToken = default, Lst<InfusionTask> tasks = default)
+        public TaskList(int? count = default, string next = default, string previous = default, string syncToken = default, Lst<InfusionTask> tasks = default)
         {
             Count = count;
             Next = next;
@@ -951,7 +954,7 @@ namespace Infusio.Model
     public class Product : Record<Product>
     {
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("product_desc")]
         public readonly string ProductDesc;
         [JsonProperty("product_name")]
@@ -959,15 +962,15 @@ namespace Infusio.Model
         [JsonProperty("product_options")]
         public readonly Lst<ProductOption> ProductOptions;
         [JsonProperty("product_price")]
-        public readonly int ProductPrice;
+        public readonly int? ProductPrice;
         [JsonProperty("product_short_desc")]
         public readonly string ProductShortDesc;
         [JsonProperty("sku")]
         public readonly string Sku;
         [JsonProperty("status")]
-        public readonly int Status;
+        public readonly int? Status;
         [JsonProperty("sub_category_id")]
-        public readonly long SubCategoryId;
+        public readonly long? SubCategoryId;
         [JsonProperty("subscription_only")]
         public readonly bool SubscriptionOnly;
         [JsonProperty("subscription_plans")]
@@ -975,7 +978,7 @@ namespace Infusio.Model
         [JsonProperty("url")]
         public readonly string Url;
 
-        public Product(long id = default, string productDesc = default, string productName = default, Lst<ProductOption> productOptions = default, int productPrice = default, string productShortDesc = default, string sku = default, int status = default, long subCategoryId = default, bool subscriptionOnly = default, Lst<SubscriptionPlan> subscriptionPlans = default, string url = default)
+        public Product(long? id = default, string productDesc = default, string productName = default, Lst<ProductOption> productOptions = default, int? productPrice = default, string productShortDesc = default, string sku = default, int? status = default, long? subCategoryId = default, bool subscriptionOnly = default, Lst<SubscriptionPlan> subscriptionPlans = default, string url = default)
         {
             Id = id;
             ProductDesc = productDesc;
@@ -1018,7 +1021,7 @@ namespace Infusio.Model
         [JsonProperty("first_name")]
         public readonly string FirstName;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("job_title")]
         public readonly string JobTitle;
         [JsonProperty("last_name")]
@@ -1026,7 +1029,7 @@ namespace Infusio.Model
         [JsonProperty("phone_number")]
         public readonly string PhoneNumber;
 
-        public OpportunityContact(string companyName = default, string email = default, string firstName = default, long id = default, string jobTitle = default, string lastName = default, string phoneNumber = default)
+        public OpportunityContact(string companyName = default, string email = default, string firstName = default, long? id = default, string jobTitle = default, string lastName = default, string phoneNumber = default)
         {
             CompanyName = companyName;
             Email = email;
@@ -1059,13 +1062,13 @@ namespace Infusio.Model
         [JsonProperty("first_name")]
         public readonly string FirstName;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("job_title")]
         public readonly string JobTitle;
         [JsonProperty("last_name")]
         public readonly string LastName;
 
-        public OrderContactDetails(string companyName = default, string email = default, string firstName = default, long id = default, string jobTitle = default, string lastName = default)
+        public OrderContactDetails(string companyName = default, string email = default, string firstName = default, long? id = default, string jobTitle = default, string lastName = default)
         {
             CompanyName = companyName;
             Email = email;
@@ -1090,9 +1093,9 @@ namespace Infusio.Model
     public class CategoryReference : Record<CategoryReference>
     {
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
 
-        public CategoryReference(long id = default)
+        public CategoryReference(long? id = default)
         {
             Id = id;
 
@@ -1136,19 +1139,19 @@ namespace Infusio.Model
     public class ProductOptionValue : Record<ProductOptionValue>
     {
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("index")]
-        public readonly long Index;
+        public readonly long? Index;
         [JsonProperty("is_default")]
         public readonly bool IsDefault;
         [JsonProperty("label")]
         public readonly string Label;
         [JsonProperty("price_adjustment")]
-        public readonly int PriceAdjustment;
+        public readonly int? PriceAdjustment;
         [JsonProperty("sku")]
         public readonly string Sku;
 
-        public ProductOptionValue(long id = default, long index = default, bool isDefault = default, string label = default, int priceAdjustment = default, string sku = default)
+        public ProductOptionValue(long? id = default, long? index = default, bool isDefault = default, string label = default, int? priceAdjustment = default, string sku = default)
         {
             Id = id;
             Index = index;
@@ -1173,17 +1176,17 @@ namespace Infusio.Model
     public class Item : Record<Item>
     {
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("name")]
         public readonly string Name;
         [JsonProperty("next_item_id")]
-        public readonly long NextItemId;
+        public readonly long? NextItemId;
         [JsonProperty("previous_item_id")]
-        public readonly long PreviousItemId;
+        public readonly long? PreviousItemId;
         [JsonProperty("type")]
         public readonly Type Type;
 
-        public Item(long id = default, string name = default, long nextItemId = default, long previousItemId = default, Type type = default)
+        public Item(long? id = default, string name = default, long? nextItemId = default, long? previousItemId = default, Type type = default)
         {
             Id = id;
             Name = name;
@@ -1206,13 +1209,13 @@ namespace Infusio.Model
     public class EmailSentQueryResultWithContent : Record<EmailSentQueryResultWithContent>
     {
         [JsonProperty("contact_id")]
-        public readonly long ContactId;
+        public readonly long? ContactId;
         [JsonProperty("headers")]
         public readonly string Headers;
         [JsonProperty("html_content")]
         public readonly string HtmlContent;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("opened_date")]
         public readonly string OpenedDate;
         [JsonProperty("plain_content")]
@@ -1234,7 +1237,7 @@ namespace Infusio.Model
         [JsonProperty("subject")]
         public readonly string Subject;
 
-        public EmailSentQueryResultWithContent(long contactId = default, string headers = default, string htmlContent = default, long id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default)
+        public EmailSentQueryResultWithContent(long? contactId = default, string headers = default, string htmlContent = default, long? id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default)
         {
             ContactId = contactId;
             Headers = headers;
@@ -1277,7 +1280,7 @@ namespace Infusio.Model
         [JsonProperty("historical_contact_counts")]
         public readonly HistoricalCounts HistoricalContactCounts;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("name")]
         public readonly string Name;
         [JsonProperty("next_sequence_ids")]
@@ -1287,7 +1290,7 @@ namespace Infusio.Model
         [JsonProperty("type")]
         public readonly Type Type;
 
-        public Goal(HistoricalCounts historicalContactCounts = default, long id = default, string name = default, Lst<long> nextSequenceIds = default, Lst<long> previousSequenceIds = default, Type type = default)
+        public Goal(HistoricalCounts historicalContactCounts = default, long? id = default, string name = default, Lst<long> nextSequenceIds = default, Lst<long> previousSequenceIds = default, Type type = default)
         {
             HistoricalContactCounts = historicalContactCounts;
             Id = id;
@@ -1338,13 +1341,13 @@ namespace Infusio.Model
         [JsonProperty("given_name")]
         public readonly string GivenName;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("job_title")]
         public readonly string JobTitle;
         [JsonProperty("last_updated")]
         public readonly string LastUpdated;
         [JsonProperty("lead_source_id")]
-        public readonly long LeadSourceId;
+        public readonly long? LeadSourceId;
         [JsonProperty("middle_name")]
         public readonly string MiddleName;
         [JsonProperty("notes")]
@@ -1352,7 +1355,7 @@ namespace Infusio.Model
         [JsonProperty("opt_in_reason")]
         public readonly string OptInReason;
         [JsonProperty("owner_id")]
-        public readonly long OwnerId;
+        public readonly long? OwnerId;
         [JsonProperty("phone_numbers")]
         public readonly Lst<PhoneNumber> PhoneNumbers;
         [JsonProperty("preferred_locale")]
@@ -1378,7 +1381,7 @@ namespace Infusio.Model
         [JsonProperty("website")]
         public readonly string Website;
 
-        public FullContact(Lst<Address> addresses = default, string anniversary = default, string birthday = default, CompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, string dateCreated = default, Lst<EmailAddress> emailAddresses = default, bool emailOptedIn = default, EmailStatus emailStatus = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, long id = default, string jobTitle = default, string lastUpdated = default, long leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<Relationship> relationships = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, Lst<long> tagIds = default, string timeZone = default, string website = default)
+        public FullContact(Lst<Address> addresses = default, string anniversary = default, string birthday = default, CompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, string dateCreated = default, Lst<EmailAddress> emailAddresses = default, bool emailOptedIn = default, EmailStatus emailStatus = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, long? id = default, string jobTitle = default, string lastUpdated = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<Relationship> relationships = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, Lst<long> tagIds = default, string timeZone = default, string website = default)
         {
             Addresses = addresses;
             Anniversary = anniversary;
@@ -1482,7 +1485,7 @@ namespace Infusio.Model
     public class OpportunityList : Record<OpportunityList>
     {
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("next")]
         public readonly string Next;
         [JsonProperty("opportunities")]
@@ -1490,7 +1493,7 @@ namespace Infusio.Model
         [JsonProperty("previous")]
         public readonly string Previous;
 
-        public OpportunityList(int count = default, string next = default, Lst<Opportunity> opportunities = default, string previous = default)
+        public OpportunityList(int? count = default, string next = default, Lst<Opportunity> opportunities = default, string previous = default)
         {
             Count = count;
             Next = next;
@@ -1511,7 +1514,7 @@ namespace Infusio.Model
     public class Tags : Record<Tags>
     {
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("next")]
         public readonly string Next;
         [JsonProperty("previous")]
@@ -1519,7 +1522,7 @@ namespace Infusio.Model
         [JsonProperty("tags")]
         public readonly Lst<Tag> InnerTags;
 
-        public Tags(int count = default, string next = default, string previous = default, Lst<Tag> innerTags = default)
+        public Tags(int? count = default, string next = default, string previous = default, Lst<Tag> innerTags = default)
         {
             Count = count;
             Next = next;
@@ -1544,9 +1547,9 @@ namespace Infusio.Model
         [JsonProperty("creation_date")]
         public readonly string CreationDate;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("lead_affiliate_id")]
-        public readonly long LeadAffiliateId;
+        public readonly long? LeadAffiliateId;
         [JsonProperty("modification_date")]
         public readonly string ModificationDate;
         [JsonProperty("order_date")]
@@ -1556,9 +1559,9 @@ namespace Infusio.Model
         [JsonProperty("recurring")]
         public readonly bool Recurring;
         [JsonProperty("refund_total")]
-        public readonly int RefundTotal;
+        public readonly int? RefundTotal;
         [JsonProperty("sales_affiliate_id")]
-        public readonly long SalesAffiliateId;
+        public readonly long? SalesAffiliateId;
         [JsonProperty("shipping_information")]
         public readonly ShippingInformation ShippingInformation;
         [JsonProperty("status")]
@@ -1566,13 +1569,13 @@ namespace Infusio.Model
         [JsonProperty("title")]
         public readonly string Title;
         [JsonProperty("total")]
-        public readonly int Total;
+        public readonly int? Total;
         [JsonProperty("total_due")]
-        public readonly int TotalDue;
+        public readonly int? TotalDue;
         [JsonProperty("total_paid")]
-        public readonly int TotalPaid;
+        public readonly int? TotalPaid;
 
-        public Order(OrderContactDetails contact = default, string creationDate = default, long id = default, long leadAffiliateId = default, string modificationDate = default, string orderDate = default, Lst<OrderItem> orderItems = default, bool recurring = default, int refundTotal = default, long salesAffiliateId = default, ShippingInformation shippingInformation = default, string status = default, string title = default, int total = default, int totalDue = default, int totalPaid = default)
+        public Order(OrderContactDetails contact = default, string creationDate = default, long? id = default, long? leadAffiliateId = default, string modificationDate = default, string orderDate = default, Lst<OrderItem> orderItems = default, bool recurring = default, int? refundTotal = default, long? salesAffiliateId = default, ShippingInformation shippingInformation = default, string status = default, string title = default, int? total = default, int? totalDue = default, int? totalPaid = default)
         {
             Contact = contact;
             CreationDate = creationDate;
@@ -1617,7 +1620,7 @@ namespace Infusio.Model
     public class FileList : Record<FileList>
     {
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("files")]
         public readonly Lst<FileDescriptor> Files;
         [JsonProperty("next")]
@@ -1625,7 +1628,7 @@ namespace Infusio.Model
         [JsonProperty("previous")]
         public readonly string Previous;
 
-        public FileList(int count = default, Lst<FileDescriptor> files = default, string next = default, string previous = default)
+        public FileList(int? count = default, Lst<FileDescriptor> files = default, string next = default, string previous = default)
         {
             Count = count;
             Files = files;
@@ -1663,11 +1666,11 @@ namespace Infusio.Model
     public class AffiliateCommission : Record<AffiliateCommission>
     {
         [JsonProperty("amount_earned")]
-        public readonly int AmountEarned;
+        public readonly int? AmountEarned;
         [JsonProperty("contact_first_name")]
         public readonly string ContactFirstName;
         [JsonProperty("contact_id")]
-        public readonly long ContactId;
+        public readonly long? ContactId;
         [JsonProperty("contact_last_name")]
         public readonly string ContactLastName;
         [JsonProperty("date_earned")]
@@ -1675,17 +1678,17 @@ namespace Infusio.Model
         [JsonProperty("description")]
         public readonly string Description;
         [JsonProperty("invoice_id")]
-        public readonly long InvoiceId;
+        public readonly long? InvoiceId;
         [JsonProperty("product_name")]
         public readonly string ProductName;
         [JsonProperty("sales_affiliate_id")]
-        public readonly long SalesAffiliateId;
+        public readonly long? SalesAffiliateId;
         [JsonProperty("sold_by_first_name")]
         public readonly string SoldByFirstName;
         [JsonProperty("sold_by_last_name")]
         public readonly string SoldByLastName;
 
-        public AffiliateCommission(int amountEarned = default, string contactFirstName = default, long contactId = default, string contactLastName = default, string dateEarned = default, string description = default, long invoiceId = default, string productName = default, long salesAffiliateId = default, string soldByFirstName = default, string soldByLastName = default)
+        public AffiliateCommission(int? amountEarned = default, string contactFirstName = default, long? contactId = default, string contactLastName = default, string dateEarned = default, string description = default, long? invoiceId = default, string productName = default, long? salesAffiliateId = default, string soldByFirstName = default, string soldByLastName = default)
         {
             AmountEarned = amountEarned;
             ContactFirstName = contactFirstName;
@@ -1720,19 +1723,19 @@ namespace Infusio.Model
     public class Sequence : Record<Sequence>
     {
         [JsonProperty("active_contact_count")]
-        public readonly int ActiveContactCount;
+        public readonly int? ActiveContactCount;
         [JsonProperty("active_contact_count_completed")]
-        public readonly int ActiveContactCountCompleted;
+        public readonly int? ActiveContactCountCompleted;
         [JsonProperty("historical_contact_count")]
         public readonly HistoricalCounts HistoricalContactCount;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("name")]
         public readonly string Name;
         [JsonProperty("paths")]
         public readonly Lst<SequencePath> Paths;
 
-        public Sequence(int activeContactCount = default, int activeContactCountCompleted = default, HistoricalCounts historicalContactCount = default, long id = default, string name = default, Lst<SequencePath> paths = default)
+        public Sequence(int? activeContactCount = default, int? activeContactCountCompleted = default, HistoricalCounts historicalContactCount = default, long? id = default, string name = default, Lst<SequencePath> paths = default)
         {
             ActiveContactCount = activeContactCount;
             ActiveContactCountCompleted = activeContactCountCompleted;
@@ -1757,7 +1760,7 @@ namespace Infusio.Model
     public class TransactionList : Record<TransactionList>
     {
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("next")]
         public readonly string Next;
         [JsonProperty("previous")]
@@ -1765,7 +1768,7 @@ namespace Infusio.Model
         [JsonProperty("transactions")]
         public readonly Lst<Transaction> Transactions;
 
-        public TransactionList(int count = default, string next = default, string previous = default, Lst<Transaction> transactions = default)
+        public TransactionList(int? count = default, string next = default, string previous = default, Lst<Transaction> transactions = default)
         {
             Count = count;
             Next = next;
@@ -1856,7 +1859,7 @@ namespace Infusio.Model
         [JsonProperty("job_title")]
         public readonly string JobTitle;
         [JsonProperty("lead_source_id")]
-        public readonly long LeadSourceId;
+        public readonly long? LeadSourceId;
         [JsonProperty("middle_name")]
         public readonly string MiddleName;
         [JsonProperty("notes")]
@@ -1864,7 +1867,7 @@ namespace Infusio.Model
         [JsonProperty("opt_in_reason")]
         public readonly string OptInReason;
         [JsonProperty("owner_id")]
-        public readonly long OwnerId;
+        public readonly long? OwnerId;
         [JsonProperty("phone_numbers")]
         public readonly Lst<PhoneNumber> PhoneNumbers;
         [JsonProperty("preferred_locale")]
@@ -1886,7 +1889,7 @@ namespace Infusio.Model
         [JsonProperty("website")]
         public readonly string Website;
 
-        public UpsertContact(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, DuplicateOption duplicateOption = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default)
+        public UpsertContact(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, DuplicateOption duplicateOption = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default)
         {
             Addresses = addresses;
             Anniversary = anniversary;
@@ -1953,11 +1956,11 @@ namespace Infusio.Model
     public class Campaign : Record<Campaign>
     {
         [JsonProperty("active_contact_count")]
-        public readonly int ActiveContactCount;
+        public readonly int? ActiveContactCount;
         [JsonProperty("completed_contact_count")]
-        public readonly int CompletedContactCount;
+        public readonly int? CompletedContactCount;
         [JsonProperty("created_by_global_id")]
-        public readonly long CreatedByGlobalId;
+        public readonly long? CreatedByGlobalId;
         [JsonProperty("date_created")]
         public readonly string DateCreated;
         [JsonProperty("error_message")]
@@ -1965,7 +1968,7 @@ namespace Infusio.Model
         [JsonProperty("goals")]
         public readonly Lst<Goal> Goals;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("locked")]
         public readonly bool Locked;
         [JsonProperty("name")]
@@ -1981,7 +1984,7 @@ namespace Infusio.Model
         [JsonProperty("time_zone")]
         public readonly string TimeZone;
 
-        public Campaign(int activeContactCount = default, int completedContactCount = default, long createdByGlobalId = default, string dateCreated = default, string errorMessage = default, Lst<Goal> goals = default, long id = default, bool locked = default, string name = default, string publishedDate = default, bool publishedStatus = default, string publishedTimeZone = default, Lst<Sequence> sequences = default, string timeZone = default)
+        public Campaign(int? activeContactCount = default, int? completedContactCount = default, long? createdByGlobalId = default, string dateCreated = default, string errorMessage = default, Lst<Goal> goals = default, long? id = default, bool locked = default, string name = default, string publishedDate = default, bool publishedStatus = default, string publishedTimeZone = default, Lst<Sequence> sequences = default, string timeZone = default)
         {
             ActiveContactCount = activeContactCount;
             CompletedContactCount = completedContactCount;
@@ -2026,7 +2029,7 @@ namespace Infusio.Model
         [JsonProperty("card_type")]
         public readonly string CardType;
         [JsonProperty("contact_id")]
-        public readonly long ContactId;
+        public readonly long? ContactId;
         [JsonProperty("email_address")]
         public readonly string EmailAddress;
         [JsonProperty("expiration_month")]
@@ -2034,7 +2037,7 @@ namespace Infusio.Model
         [JsonProperty("expiration_year")]
         public readonly string ExpirationYear;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("maestro_issue_number")]
         public readonly string MaestroIssueNumber;
         [JsonProperty("maestro_start_date_month")]
@@ -2048,7 +2051,7 @@ namespace Infusio.Model
         [JsonProperty("validation_status")]
         public readonly string ValidationStatus;
 
-        public CreditCardAdded(Address address = default, string cardType = default, long contactId = default, string emailAddress = default, string expirationMonth = default, string expirationYear = default, long id = default, string maestroIssueNumber = default, string maestroStartDateMonth = default, string maestroStartDateYear = default, string nameOnCard = default, string validationMessage = default, string validationStatus = default)
+        public CreditCardAdded(Address address = default, string cardType = default, long? contactId = default, string emailAddress = default, string expirationMonth = default, string expirationYear = default, long? id = default, string maestroIssueNumber = default, string maestroStartDateMonth = default, string maestroStartDateYear = default, string nameOnCard = default, string validationMessage = default, string validationStatus = default)
         {
             Address = address;
             CardType = cardType;
@@ -2087,11 +2090,11 @@ namespace Infusio.Model
     public class Transaction : Record<Transaction>
     {
         [JsonProperty("amount")]
-        public readonly int Amount;
+        public readonly int? Amount;
         [JsonProperty("collection_method")]
         public readonly string CollectionMethod;
         [JsonProperty("contact_id")]
-        public readonly long ContactId;
+        public readonly long? ContactId;
         [JsonProperty("currency")]
         public readonly string Currency;
         [JsonProperty("errors")]
@@ -2101,7 +2104,7 @@ namespace Infusio.Model
         [JsonProperty("gateway_account_name")]
         public readonly string GatewayAccountName;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("order_ids")]
         public readonly string OrderIds;
         [JsonProperty("orders")]
@@ -2115,7 +2118,7 @@ namespace Infusio.Model
         [JsonProperty("type")]
         public readonly string Type;
 
-        public Transaction(int amount = default, string collectionMethod = default, long contactId = default, string currency = default, string errors = default, string gateway = default, string gatewayAccountName = default, long id = default, string orderIds = default, Lst<Order> orders = default, string status = default, bool test = default, string transactionDate = default, string type = default)
+        public Transaction(int? amount = default, string collectionMethod = default, long? contactId = default, string currency = default, string errors = default, string gateway = default, string gatewayAccountName = default, long? id = default, string orderIds = default, Lst<Order> orders = default, string status = default, bool test = default, string transactionDate = default, string type = default)
         {
             Amount = amount;
             CollectionMethod = collectionMethod;
@@ -2160,11 +2163,11 @@ namespace Infusio.Model
         [JsonProperty("first_name")]
         public readonly string FirstName;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("last_name")]
         public readonly string LastName;
 
-        public BasicContact(string email = default, string firstName = default, long id = default, string lastName = default)
+        public BasicContact(string email = default, string firstName = default, long? id = default, string lastName = default)
         {
             Email = email;
             FirstName = firstName;
@@ -2245,7 +2248,7 @@ namespace Infusio.Model
         [JsonProperty("given_name")]
         public readonly string GivenName;
         [JsonProperty("global_user_id")]
-        public readonly long GlobalUserId;
+        public readonly long? GlobalUserId;
         [JsonProperty("infusionsoft_id")]
         public readonly string InfusionsoftId;
         [JsonProperty("middle_name")]
@@ -2255,7 +2258,7 @@ namespace Infusio.Model
         [JsonProperty("sub")]
         public readonly string Sub;
 
-        public UserInfoDTO(string email = default, string familyName = default, string givenName = default, long globalUserId = default, string infusionsoftId = default, string middleName = default, string preferredName = default, string sub = default)
+        public UserInfoDTO(string email = default, string familyName = default, string givenName = default, long? globalUserId = default, string infusionsoftId = default, string middleName = default, string preferredName = default, string sub = default)
         {
             Email = email;
             FamilyName = familyName;
@@ -2286,11 +2289,11 @@ namespace Infusio.Model
         [JsonProperty("category")]
         public readonly string Category;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("name")]
         public readonly string Name;
 
-        public SimpleTag(string category = default, long id = default, string name = default)
+        public SimpleTag(string category = default, long? id = default, string name = default)
         {
             Category = category;
             Id = id;
@@ -2309,7 +2312,7 @@ namespace Infusio.Model
     public class ContactTagList : Record<ContactTagList>
     {
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("next")]
         public readonly string Next;
         [JsonProperty("previous")]
@@ -2317,7 +2320,7 @@ namespace Infusio.Model
         [JsonProperty("tags")]
         public readonly Lst<ContactTag> Tags;
 
-        public ContactTagList(int count = default, string next = default, string previous = default, Lst<ContactTag> tags = default)
+        public ContactTagList(int? count = default, string next = default, string previous = default, Lst<ContactTag> tags = default)
         {
             Count = count;
             Next = next;
@@ -2384,7 +2387,7 @@ namespace Infusio.Model
     public class ProductStatusList : Record<ProductStatusList>
     {
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("next")]
         public readonly string Next;
         [JsonProperty("previous")]
@@ -2394,7 +2397,7 @@ namespace Infusio.Model
         [JsonProperty("sync_token")]
         public readonly string SyncToken;
 
-        public ProductStatusList(int count = default, string next = default, string previous = default, Lst<ProductStatus> productStatuses = default, string syncToken = default)
+        public ProductStatusList(int? count = default, string next = default, string previous = default, Lst<ProductStatus> productStatuses = default, string syncToken = default)
         {
             Count = count;
             Next = next;
@@ -2440,11 +2443,11 @@ namespace Infusio.Model
         [JsonProperty("first_name")]
         public readonly string FirstName;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("last_name")]
         public readonly string LastName;
 
-        public SimpleUser(string firstName = default, long id = default, string lastName = default)
+        public SimpleUser(string firstName = default, long? id = default, string lastName = default)
         {
             FirstName = firstName;
             Id = id;
@@ -2465,13 +2468,13 @@ namespace Infusio.Model
         [JsonProperty("contacts")]
         public readonly Lst<TaggedContact> Contacts;
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("next")]
         public readonly string Next;
         [JsonProperty("previous")]
         public readonly string Previous;
 
-        public TaggedContactList(Lst<TaggedContact> contacts = default, int count = default, string next = default, string previous = default)
+        public TaggedContactList(Lst<TaggedContact> contacts = default, int? count = default, string next = default, string previous = default)
         {
             Contacts = contacts;
             Count = count;
@@ -2494,9 +2497,9 @@ namespace Infusio.Model
         [JsonProperty("company_name")]
         public readonly string CompanyName;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
 
-        public CompanyReference(string companyName = default, long id = default)
+        public CompanyReference(string companyName = default, long? id = default)
         {
             CompanyName = companyName;
             Id = id;
@@ -2576,13 +2579,13 @@ namespace Infusio.Model
         [JsonProperty("details")]
         public readonly StageDetails Details;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("name")]
         public readonly string Name;
         [JsonProperty("reasons")]
         public readonly Lst<string> Reasons;
 
-        public SimpleOpportunityStage(StageDetails details = default, long id = default, string name = default, Lst<string> reasons = default)
+        public SimpleOpportunityStage(StageDetails details = default, long? id = default, string name = default, Lst<string> reasons = default)
         {
             Details = details;
             Id = id;
@@ -2645,13 +2648,13 @@ namespace Infusio.Model
         [JsonProperty("fileName")]
         public readonly string FileName;
         [JsonProperty("lineNumber")]
-        public readonly int LineNumber;
+        public readonly int? LineNumber;
         [JsonProperty("methodName")]
         public readonly string MethodName;
         [JsonProperty("nativeMethod")]
         public readonly bool NativeMethod;
 
-        public StackTraceElement(string className = default, string fileName = default, int lineNumber = default, string methodName = default, bool nativeMethod = default)
+        public StackTraceElement(string className = default, string fileName = default, int? lineNumber = default, string methodName = default, bool nativeMethod = default)
         {
             ClassName = className;
             FileName = fileName;
@@ -2674,11 +2677,11 @@ namespace Infusio.Model
     public class SequencePath : Record<SequencePath>
     {
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("items")]
         public readonly Lst<Item> Items;
 
-        public SequencePath(long id = default, Lst<Item> items = default)
+        public SequencePath(long? id = default, Lst<Item> items = default)
         {
             Id = id;
             Items = items;
@@ -2790,9 +2793,9 @@ namespace Infusio.Model
         [JsonProperty("estimated_close_date")]
         public readonly string EstimatedCloseDate;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("include_in_forecast")]
-        public readonly int IncludeInForecast;
+        public readonly int? IncludeInForecast;
         [JsonProperty("last_updated")]
         public readonly string LastUpdated;
         [JsonProperty("next_action_date")]
@@ -2804,15 +2807,15 @@ namespace Infusio.Model
         [JsonProperty("opportunity_title")]
         public readonly string OpportunityTitle;
         [JsonProperty("projected_revenue_high")]
-        public readonly int ProjectedRevenueHigh;
+        public readonly int? ProjectedRevenueHigh;
         [JsonProperty("projected_revenue_low")]
-        public readonly int ProjectedRevenueLow;
+        public readonly int? ProjectedRevenueLow;
         [JsonProperty("stage")]
         public readonly SimpleOpportunityStage Stage;
         [JsonProperty("user")]
         public readonly SimpleUser User;
 
-        public Opportunity(OpportunityContact contact = default, Lst<CustomFieldValue> customFields = default, string dateCreated = default, string estimatedCloseDate = default, long id = default, int includeInForecast = default, string lastUpdated = default, string nextActionDate = default, string nextActionNotes = default, string opportunityNotes = default, string opportunityTitle = default, int projectedRevenueHigh = default, int projectedRevenueLow = default, SimpleOpportunityStage stage = default, SimpleUser user = default)
+        public Opportunity(OpportunityContact contact = default, Lst<CustomFieldValue> customFields = default, string dateCreated = default, string estimatedCloseDate = default, long? id = default, int? includeInForecast = default, string lastUpdated = default, string nextActionDate = default, string nextActionNotes = default, string opportunityNotes = default, string opportunityTitle = default, int? projectedRevenueHigh = default, int? projectedRevenueLow = default, SimpleOpportunityStage stage = default, SimpleUser user = default)
         {
             Contact = contact;
             CustomFields = customFields;
@@ -2900,9 +2903,9 @@ namespace Infusio.Model
     public class RequestCompanyReference : Record<RequestCompanyReference>
     {
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
 
-        public RequestCompanyReference(long id = default)
+        public RequestCompanyReference(long? id = default)
         {
             Id = id;
 
@@ -2919,7 +2922,7 @@ namespace Infusio.Model
         [JsonProperty("appointments")]
         public readonly Lst<Appointment> Appointments;
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("next")]
         public readonly string Next;
         [JsonProperty("previous")]
@@ -2927,7 +2930,7 @@ namespace Infusio.Model
         [JsonProperty("sync_token")]
         public readonly string SyncToken;
 
-        public AppointmentList(Lst<Appointment> appointments = default, int count = default, string next = default, string previous = default, string syncToken = default)
+        public AppointmentList(Lst<Appointment> appointments = default, int? count = default, string next = default, string previous = default, string syncToken = default)
         {
             Appointments = appointments;
             Count = count;
@@ -2950,11 +2953,11 @@ namespace Infusio.Model
     public class HistoricalCounts : Record<HistoricalCounts>
     {
         [JsonProperty("24_hours")]
-        public readonly int TwentyFourHours;
+        public readonly int? TwentyFourHours;
         [JsonProperty("30_days")]
-        public readonly int ThirtyDays;
+        public readonly int? ThirtyDays;
 
-        public HistoricalCounts(int twentyFourHours = default, int thirtyDays = default)
+        public HistoricalCounts(int? twentyFourHours = default, int? thirtyDays = default)
         {
             TwentyFourHours = twentyFourHours;
             ThirtyDays = thirtyDays;
@@ -2973,11 +2976,11 @@ namespace Infusio.Model
         [JsonProperty("description")]
         public readonly string Description;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("name")]
         public readonly string Name;
 
-        public TagCategory(string description = default, long id = default, string name = default)
+        public TagCategory(string description = default, long? id = default, string name = default)
         {
             Description = description;
             Id = id;
@@ -3000,13 +3003,13 @@ namespace Infusio.Model
         [JsonProperty("file_data")]
         public readonly string FileData;
         [JsonProperty("contact_id")]
-        public readonly long ContactId;
+        public readonly long? ContactId;
         [JsonProperty("is_public")]
         public readonly bool IsPublic;
         [JsonProperty("file_association")]
         public readonly FileAssociation FileAssociation;
 
-        public FileUpload(string fileName = default, string fileData = default, long contactId = default, bool isPublic = default, FileAssociation fileAssociation = default)
+        public FileUpload(string fileName = default, string fileData = default, long? contactId = default, bool isPublic = default, FileAssociation fileAssociation = default)
         {
             FileName = fileName;
             FileData = fileData;
@@ -3043,15 +3046,15 @@ namespace Infusio.Model
         [JsonProperty("can_start_with_number")]
         public readonly bool CanStartWithNumber;
         [JsonProperty("display_index")]
-        public readonly int DisplayIndex;
+        public readonly int? DisplayIndex;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("label")]
         public readonly string Label;
         [JsonProperty("max_chars")]
-        public readonly int MaxChars;
+        public readonly int? MaxChars;
         [JsonProperty("min_chars")]
-        public readonly int MinChars;
+        public readonly int? MinChars;
         [JsonProperty("name")]
         public readonly string Name;
         [JsonProperty("required")]
@@ -3063,7 +3066,7 @@ namespace Infusio.Model
         [JsonProperty("values")]
         public readonly Lst<ProductOptionValue> Values;
 
-        public ProductOption(bool allowSpaces = default, bool canContainCharacter = default, bool canContainNumber = default, bool canEndWithCharacter = default, bool canEndWithNumber = default, bool canStartWithCharacter = default, bool canStartWithNumber = default, int displayIndex = default, long id = default, string label = default, int maxChars = default, int minChars = default, string name = default, bool required = default, string textMessage = default, Type type = default, Lst<ProductOptionValue> values = default)
+        public ProductOption(bool allowSpaces = default, bool canContainCharacter = default, bool canContainNumber = default, bool canEndWithCharacter = default, bool canEndWithNumber = default, bool canStartWithCharacter = default, bool canStartWithNumber = default, int? displayIndex = default, long? id = default, string label = default, int? maxChars = default, int? minChars = default, string name = default, bool required = default, string textMessage = default, Type type = default, Lst<ProductOptionValue> values = default)
         {
             AllowSpaces = allowSpaces;
             CanContainCharacter = canContainCharacter;
@@ -3187,13 +3190,13 @@ namespace Infusio.Model
         [JsonProperty("commissions")]
         public readonly Lst<AffiliateCommission> Commissions;
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("next")]
         public readonly string Next;
         [JsonProperty("previous")]
         public readonly string Previous;
 
-        public AffiliateCommissionList(Lst<AffiliateCommission> commissions = default, int count = default, string next = default, string previous = default)
+        public AffiliateCommissionList(Lst<AffiliateCommission> commissions = default, int? count = default, string next = default, string previous = default)
         {
             Commissions = commissions;
             Count = count;
@@ -3216,7 +3219,7 @@ namespace Infusio.Model
         [JsonProperty("description")]
         public readonly string Description;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("name")]
         public readonly string Name;
         [JsonProperty("shippable")]
@@ -3226,7 +3229,7 @@ namespace Infusio.Model
         [JsonProperty("taxable")]
         public readonly bool Taxable;
 
-        public SimpleProduct(string description = default, long id = default, string name = default, bool shippable = default, string sku = default, bool taxable = default)
+        public SimpleProduct(string description = default, long? id = default, string name = default, bool shippable = default, string sku = default, bool taxable = default)
         {
             Description = description;
             Id = id;
@@ -3327,7 +3330,7 @@ namespace Infusio.Model
         [JsonProperty("job_title")]
         public readonly string JobTitle;
         [JsonProperty("lead_source_id")]
-        public readonly long LeadSourceId;
+        public readonly long? LeadSourceId;
         [JsonProperty("middle_name")]
         public readonly string MiddleName;
         [JsonProperty("notes")]
@@ -3335,7 +3338,7 @@ namespace Infusio.Model
         [JsonProperty("opt_in_reason")]
         public readonly string OptInReason;
         [JsonProperty("owner_id")]
-        public readonly long OwnerId;
+        public readonly long? OwnerId;
         [JsonProperty("phone_numbers")]
         public readonly Lst<PhoneNumber> PhoneNumbers;
         [JsonProperty("preferred_locale")]
@@ -3357,7 +3360,7 @@ namespace Infusio.Model
         [JsonProperty("website")]
         public readonly string Website;
 
-        public RequestContact(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default)
+        public RequestContact(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default)
         {
             Addresses = addresses;
             Anniversary = anniversary;
@@ -3445,13 +3448,13 @@ namespace Infusio.Model
         [JsonProperty("contacts")]
         public readonly Lst<FullContact> Contacts;
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("next")]
         public readonly string Next;
         [JsonProperty("previous")]
         public readonly string Previous;
 
-        public ContactList(Lst<FullContact> contacts = default, int count = default, string next = default, string previous = default)
+        public ContactList(Lst<FullContact> contacts = default, int? count = default, string next = default, string previous = default)
         {
             Contacts = contacts;
             Count = count;
@@ -3521,7 +3524,7 @@ namespace Infusio.Model
     public class EmailSentQueryResultList : Record<EmailSentQueryResultList>
     {
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("emails")]
         public readonly Lst<EmailSentQueryResult> Emails;
         [JsonProperty("next")]
@@ -3529,7 +3532,7 @@ namespace Infusio.Model
         [JsonProperty("previous")]
         public readonly string Previous;
 
-        public EmailSentQueryResultList(int count = default, Lst<EmailSentQueryResult> emails = default, string next = default, string previous = default)
+        public EmailSentQueryResultList(int? count = default, Lst<EmailSentQueryResult> emails = default, string next = default, string previous = default)
         {
             Count = count;
             Emails = emails;
@@ -3624,13 +3627,13 @@ namespace Infusio.Model
     public class EmailSentCreate : Record<EmailSentCreate>
     {
         [JsonProperty("contact_id")]
-        public readonly long ContactId;
+        public readonly long? ContactId;
         [JsonProperty("headers")]
         public readonly string Headers;
         [JsonProperty("html_content")]
         public readonly string HtmlContent;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("opened_date")]
         public readonly string OpenedDate;
         [JsonProperty("plain_content")]
@@ -3652,7 +3655,7 @@ namespace Infusio.Model
         [JsonProperty("subject")]
         public readonly string Subject;
 
-        public EmailSentCreate(long contactId = default, string headers = default, string htmlContent = default, long id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default)
+        public EmailSentCreate(long? contactId = default, string headers = default, string htmlContent = default, long? id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default)
         {
             ContactId = contactId;
             Headers = headers;
@@ -3695,9 +3698,9 @@ namespace Infusio.Model
         [JsonProperty("category")]
         public readonly Category Category;
         [JsonProperty("contact_id")]
-        public readonly long ContactId;
+        public readonly long? ContactId;
         [JsonProperty("created_by")]
-        public readonly long CreatedBy;
+        public readonly long? CreatedBy;
         [JsonProperty("date_created")]
         public readonly string DateCreated;
         [JsonProperty("download_url")]
@@ -3707,7 +3710,7 @@ namespace Infusio.Model
         [JsonProperty("file_name")]
         public readonly string FileName;
         [JsonProperty("file_size")]
-        public readonly long FileSize;
+        public readonly long? FileSize;
         [JsonProperty("last_updated")]
         public readonly string LastUpdated;
         [JsonProperty("public")]
@@ -3715,7 +3718,7 @@ namespace Infusio.Model
         [JsonProperty("remote_file_key")]
         public readonly string RemoteFileKey;
 
-        public FileDescriptor(Category category = default, long contactId = default, long createdBy = default, string dateCreated = default, string downloadUrl = default, FileBoxType fileBoxType = default, string fileName = default, long fileSize = default, string lastUpdated = default, bool _public = default, string remoteFileKey = default)
+        public FileDescriptor(Category category = default, long? contactId = default, long? createdBy = default, string dateCreated = default, string downloadUrl = default, FileBoxType fileBoxType = default, string fileName = default, long? fileSize = default, string lastUpdated = default, bool _public = default, string remoteFileKey = default)
         {
             Category = category;
             ContactId = contactId;
@@ -3750,7 +3753,7 @@ namespace Infusio.Model
     public class ProductList : Record<ProductList>
     {
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("next")]
         public readonly string Next;
         [JsonProperty("previous")]
@@ -3760,7 +3763,7 @@ namespace Infusio.Model
         [JsonProperty("sync_token")]
         public readonly string SyncToken;
 
-        public ProductList(int count = default, string next = default, string previous = default, Lst<Product> products = default, string syncToken = default)
+        public ProductList(int? count = default, string next = default, string previous = default, Lst<Product> products = default, string syncToken = default)
         {
             Count = count;
             Next = next;
@@ -3783,13 +3786,13 @@ namespace Infusio.Model
     public class Relationship : Record<Relationship>
     {
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("linked_contact_id")]
-        public readonly long LinkedContactId;
+        public readonly long? LinkedContactId;
         [JsonProperty("relationship_type_id")]
-        public readonly long RelationshipTypeId;
+        public readonly long? RelationshipTypeId;
 
-        public Relationship(long id = default, long linkedContactId = default, long relationshipTypeId = default)
+        public Relationship(long? id = default, long? linkedContactId = default, long? relationshipTypeId = default)
         {
             Id = id;
             LinkedContactId = linkedContactId;
@@ -3808,27 +3811,27 @@ namespace Infusio.Model
     public class OrderItem : Record<OrderItem>
     {
         [JsonProperty("cost")]
-        public readonly int Cost;
+        public readonly int? Cost;
         [JsonProperty("description")]
         public readonly string Description;
         [JsonProperty("discount")]
-        public readonly int Discount;
+        public readonly int? Discount;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("name")]
         public readonly string Name;
         [JsonProperty("notes")]
         public readonly string Notes;
         [JsonProperty("price")]
-        public readonly int Price;
+        public readonly int? Price;
         [JsonProperty("product")]
         public readonly SimpleProduct Product;
         [JsonProperty("quantity")]
-        public readonly int Quantity;
+        public readonly int? Quantity;
         [JsonProperty("type")]
         public readonly string Type;
 
-        public OrderItem(int cost = default, string description = default, int discount = default, long id = default, string name = default, string notes = default, int price = default, SimpleProduct product = default, int quantity = default, string type = default)
+        public OrderItem(int? cost = default, string description = default, int? discount = default, long? id = default, string name = default, string notes = default, int? price = default, SimpleProduct product = default, int? quantity = default, string type = default)
         {
             Cost = cost;
             Description = description;
@@ -3909,13 +3912,13 @@ namespace Infusio.Model
         [JsonProperty("check_list_items")]
         public readonly Lst<CheckListItemDetails> CheckListItems;
         [JsonProperty("probability")]
-        public readonly int Probability;
+        public readonly int? Probability;
         [JsonProperty("stage_order")]
-        public readonly int StageOrder;
+        public readonly int? StageOrder;
         [JsonProperty("target_num_days")]
-        public readonly int TargetNumDays;
+        public readonly int? TargetNumDays;
 
-        public StageDetails(Lst<CheckListItemDetails> checkListItems = default, int probability = default, int stageOrder = default, int targetNumDays = default)
+        public StageDetails(Lst<CheckListItemDetails> checkListItems = default, int? probability = default, int? stageOrder = default, int? targetNumDays = default)
         {
             CheckListItems = checkListItems;
             Probability = probability;
@@ -3936,7 +3939,7 @@ namespace Infusio.Model
     public class OrderList : Record<OrderList>
     {
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("next")]
         public readonly string Next;
         [JsonProperty("orders")]
@@ -3944,7 +3947,7 @@ namespace Infusio.Model
         [JsonProperty("previous")]
         public readonly string Previous;
 
-        public OrderList(int count = default, string next = default, Lst<Order> orders = default, string previous = default)
+        public OrderList(int? count = default, string next = default, Lst<Order> orders = default, string previous = default)
         {
             Count = count;
             Next = next;
@@ -3969,11 +3972,11 @@ namespace Infusio.Model
         [JsonProperty("description")]
         public readonly string Description;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("name")]
         public readonly string Name;
 
-        public Tag(TagCategory category = default, string description = default, long id = default, string name = default)
+        public Tag(TagCategory category = default, string description = default, long? id = default, string name = default)
         {
             Category = category;
             Description = description;
@@ -3996,13 +3999,13 @@ namespace Infusio.Model
         [JsonProperty("campaigns")]
         public readonly Lst<Campaign> Campaigns;
         [JsonProperty("count")]
-        public readonly int Count;
+        public readonly int? Count;
         [JsonProperty("next")]
         public readonly string Next;
         [JsonProperty("previous")]
         public readonly string Previous;
 
-        public CampaignList(Lst<Campaign> campaigns = default, int count = default, string next = default, string previous = default)
+        public CampaignList(Lst<Campaign> campaigns = default, int? count = default, string next = default, string previous = default)
         {
             Campaigns = campaigns;
             Count = count;
@@ -4023,11 +4026,11 @@ namespace Infusio.Model
     public class EmailSentQueryResult : Record<EmailSentQueryResult>
     {
         [JsonProperty("contact_id")]
-        public readonly long ContactId;
+        public readonly long? ContactId;
         [JsonProperty("headers")]
         public readonly string Headers;
         [JsonProperty("id")]
-        public readonly long Id;
+        public readonly long? Id;
         [JsonProperty("opened_date")]
         public readonly string OpenedDate;
         [JsonProperty("received_date")]
@@ -4047,7 +4050,7 @@ namespace Infusio.Model
         [JsonProperty("subject")]
         public readonly string Subject;
 
-        public EmailSentQueryResult(long contactId = default, string headers = default, long id = default, string openedDate = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default)
+        public EmailSentQueryResult(long? contactId = default, string headers = default, long? id = default, string openedDate = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default)
         {
             ContactId = contactId;
             Headers = headers;

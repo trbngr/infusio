@@ -40,9 +40,9 @@ namespace Infusio.Http
         {% for p in op.Parameters -%}
         /// <param name="{{ p.Name }}">{{ p.Description }}</param>
         {% endfor -%}
-        public Task<Either<Error, {{ op.ResponseType | normalize }}>> {{ op.Name }}({% for p in op.Parameters %}{{ p.Type }} {{ p.Name }}{% if p.Required == false %} = default{% endif %}{% if forloop.last == false %}, {% endif %}{% endfor %}) =>
+        public Task<Either<InfusioError, {{ op.ResponseType | normalize }}>> {{ op.Name }}({% for p in op.Parameters %}{{ p.OptionalTypeName }} {{ p.Name }}{% if p.Required == false %} = default{% endif %}{% if forloop.last == false %}, {% endif %}{% endfor %}) =>
                     HttpWorkflow{% if op.ResponseType != 'Unit' %}<{{ op.ResponseType | normalize }}>{% endif %}(
-                        message: Request({% if op.HttpMethod == 'Patch' %}
+                        Request({% if op.HttpMethod == 'Patch' %}
                                 new HttpMethod("{{ op.HttpMethod }}"){% else %}HttpMethod.{{ op.HttpMethod }}{% endif -%},
                             MakeUri($"{{ op.Path }}"{% if op.HasQueryParameters %}, {% endif %}{% for p in op.QueryParameters %}
                                 RequestParameter("{{ p.Name }}", {{ p.Name }}){% if forloop.last == false %}, {% endif %}{% endfor %}){% if op.HasRequestBodyParameters -%}, {% endif -%}
@@ -57,7 +57,7 @@ namespace Infusio.Http
 {% for res in op.Responses -%}
                             new KnownResponse({{ res.StatusCode }}, "{{ res.Description }}", typeof({{ res.Type | normalize }})){% if forloop.last == false %}, {% endif %}
 {% endfor -%}
-                    )).ToEither();
+                    ));
 
         /// <summary>
         /// {{ op.Summary }}
@@ -69,17 +69,17 @@ namespace Infusio.Http
         public Task<{{ op.ResponseType | normalize }}> {{ op.Name }}Unsafe({% for p in op.Parameters %}{{ p.Type }} {{ p.Name }}{% if p.Required == false %} = default{% endif %}{% if forloop.last == false %}, {% endif %}{% endfor %}) => {{ op.Name }}({% for p in op.Parameters -%}
             {{ p.Name }}{% if forloop.last == false %}, {% endif -%}{% endfor -%})
                     .ToAsync()
-                    .IfLeftAsync(e => throw new Exception(e.Message));
+                    .IfLeftAsync(e => throw new Exception(e.Value));
 
         {% endfor -%}
 
-        EitherAsync<Error, T> HttpWorkflow<T>(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses)  where T : class =>
+        Task<Either<InfusioError, T>> HttpWorkflow<T>(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) where T : class =>
             from httpResponse in SendRequest(message)
             from responseType in FindResponse(httpResponse, responses)
             from result in ReadResult<T>(httpResponse, responseType)
             select result;
 
-        EitherAsync<Error, Unit> HttpWorkflow(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) =>
+        Task<Either<InfusioError, Unit>> HttpWorkflow(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) =>
             from httpResponse in SendRequest(message)
             from responseType in FindResponse(httpResponse, responses)
             select unit;
@@ -103,7 +103,8 @@ namespace Infusio.Http
         string MakeUri(string relative, params Option<(string name, object value)>[] values) => ifNone(
             from pair in Some(values.FoldT(HashMap<string, object>(), (acc, x) => acc.Add(x.name, x.value)))
             where !pair.IsEmpty
-            select $"{relative}?{string.Join("&", pair.Map((key, value) => $"{key}={value}"))}",
+            let qs = pair.Map((key, value) => $"{key}={value}").Values
+            select $"{relative}?{string.Join("&", qs)}",
             relative
         );
 
@@ -114,42 +115,43 @@ namespace Infusio.Http
             Request(method, relativeUrl, new StringContent(SerializeObject(body), Encoding.UTF8, "application/json"));
 
         HttpRequestMessage Request(HttpMethod method, string relativeUrl, HttpContent content) =>
-            new HttpRequestMessage(method, $"https://api.infusionsoft.com/crm/rest/v1/{relativeUrl}")
+            new HttpRequestMessage(method, $"https://api.infusionsoft.com/crm/rest/v1{relativeUrl}")
             {
                 Content = content,
                 Headers =
                 {
                     Accept = { MediaTypeWithQualityHeaderValue.Parse("application/json")},
-                    Authorization = new AuthenticationHeaderValue("Bearer", _config.ApiKey)
+                    Authorization = new AuthenticationHeaderValue("Bearer", _config.AccessToken)
                 }
             };
 
-        EitherAsync<Error, KnownResponse> FindResponse(HttpResponseMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) => match(
+        Task<Either<InfusioError, KnownResponse>> FindResponse(HttpResponseMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) => match(
             responses.Find(KnownResponse.For(message.StatusCode)),
-            None: () => Left(new Error(message: $"Unexpected response: {message.StatusCode}")),
-            Some: response => Right<Error, KnownResponse>(response)
-        ).ToAsync();
+            None: () => message.Content.ReadAsStringAsync()
+                .Map(x => Left<InfusioError, KnownResponse>(new InfusioError($"Unexpected response: {message.StatusCode} {x}"))),
+            Some: response => Right<InfusioError, KnownResponse>(response).AsTask()
+        );
 
-        EitherAsync<Error, HttpResponseMessage> SendRequest(HttpRequestMessage message) => match(
+        Task<Either<InfusioError, HttpResponseMessage>> SendRequest(HttpRequestMessage message) => match(
             TryAsync(() => _client.SendAsync(message)),
-            Fail: e => Left<Error, HttpResponseMessage>(new Error(message: $"Generic send error: {e.Message}")),
-            Succ: x => Right<Error, HttpResponseMessage>(x)
-        ).ToAsync();
+            Fail: e => Left<InfusioError, HttpResponseMessage>(new InfusioError($"Generic send InfusioError: {e.Message}")),
+            Succ: x => Right<InfusioError, HttpResponseMessage>(x)
+        );
 
-        EitherAsync<Error, T> ReadResult<T>(HttpResponseMessage message, KnownResponse response) where T : class =>
-            !response.IsSuccess ?
-            Left<Error, T>(new Error(message: response.Description)).ToAsync()
+        Task<Either<InfusioError, T>> ReadResult<T>(HttpResponseMessage message, KnownResponse response) where T : class =>
+            !response.IsSuccess
+            ? Left<InfusioError, T>(new InfusioError(response.Description)).AsTask()
             : match(
-                    from json in TryAsync(message.Content.ReadAsStringAsync())
-                    from result in Try(DeserializeObject(json, response.Type)).ToAsync()
-                    select result,
-                    Fail: e => Left<Error, T>(new Error(message: $"Generic read error: {e.Message}")),
-                    Succ: t => match(
-                        Optional((T)t),
-                        None: () => Left<Error, T>(new Error(message: $"Unable to read {typeof(T)}")),
-                        Some: x => Right<Error, T>(x)
-                    )
-                ).ToAsync();
+                from json in TryAsync(message.Content.ReadAsStringAsync())
+                from result in Try(DeserializeObject(json, response.Type)).ToAsync()
+                select result,
+                Fail: e => Left<InfusioError, T>(new InfusioError($"Generic read InfusioError: {e.Message}")),
+                Succ: t => match(
+                    Optional((T) t),
+                    None: () => Left<InfusioError, T>(new InfusioError($"Unable to read {typeof(T)}")),
+                    Some: x => Right<InfusioError, T>(x)
+                )
+            );
     }
 
     public class KnownResponse : Record<KnownResponse>

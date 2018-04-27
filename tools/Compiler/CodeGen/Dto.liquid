@@ -28,10 +28,10 @@ namespace Infusio.Model
     {
       {% for prop in def.Properties -%}
       [JsonProperty("{{ prop.JsonProperty }}")]
-      public readonly {{ prop.Type }} {{ prop.Name | normalize }};
+      public readonly {{ prop.OptionalTypeName }} {{ prop.Name | normalize }};
       {% endfor -%}
 
-      public {{ def.Name | normalize }}({% for prop in def.Properties -%}{{ prop.Type }} {{ prop.VariableName }} = default{% if forloop.last == false %}, {% endif %}{% endfor %})
+      public {{ def.Name | normalize }}({% for prop in def.Properties -%}{{ prop.OptionalTypeName }} {{ prop.VariableName }} = default{% if forloop.last == false %}, {% endif %}{% endfor %})
       {
         {% for prop in def.Properties -%}
         {{ prop.Name | normalize }} = {{ prop.VariableName }};

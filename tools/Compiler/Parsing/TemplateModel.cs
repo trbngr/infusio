@@ -5,10 +5,17 @@ using Newtonsoft.Json.Linq;
 
 namespace Infusio.Compiler.Parsing
 {
+    using static Prelude;
+
     class TemplateModel : ILiquidizable
     {
         public Lst<Definition> Definitions { get; }
         public Lst<Operation> Operations { get; set; }
+
+        //FullContact is returning EMAIL1 which is not documented in the swagger doc.
+        private Map<string, Lst<string>> extraEnumMembers = Map(
+            ("Field", List("EMAIL1"))
+        );
 
         public Seq<EnumModel> Enums => (
                 from def in Definitions
@@ -16,8 +23,8 @@ namespace Infusio.Compiler.Parsing
                 select prop
             )
             .Filter(x => x.IsEnum)
-            .Map(x => new EnumModel(x.Name, x.Enum, x.Description))
-            .Fold(HashSet<EnumModel.NameEq, EnumModel>.Empty, (set, model) => set.TryAdd(model))
+            .Map(x => new EnumModel(x.Name, x.Enum.Append(extraEnumMembers.Find(x.Name).IfNone(Lst<string>.Empty)), x.Description))
+            .Fold(HashSet<EnumModel.NameEq, EnumModel>(), (set, model) => set.TryAdd(model))
             .ToSeq();
 
         TemplateModel(Lst<Definition> definitions, Lst<Operation> operations)
@@ -36,7 +43,7 @@ namespace Infusio.Compiler.Parsing
             return new TemplateModel(
                 definitions: definitions,
                 operations: ParseOperations(swagger, definitions.Fold(
-                    Set<string>.Empty,
+                    Set<string>(),
                     (set, definition) =>
                     {
                         Console.Out.WriteLine($"Op: {definition.Name}");
