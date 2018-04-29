@@ -1,11 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" InitialTargets="SetVersion">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>7.1</LangVersion>
         <AssemblyName>Infusio</AssemblyName>
         <RootNamespace>Infusio</RootNamespace>
         <PackageId>infusio</PackageId>
-        <Version>0.1</Version>
         <Authors>Christopher Martin</Authors>
         <Title>Infusio</Title>
         <Description>Infusio is strongly typed Infusionsoft API client with a functional DSL.</Description>
