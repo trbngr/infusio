@@ -16,6 +16,16 @@ namespace Infusio.Ops
             public Return(A value) => Value = value;
         }
 
+        internal class Log : InfusioOp<A>
+        {
+            public readonly string Message;
+            public readonly Func<Unit, InfusioOp<A>> Next;
+            public Log(string message, Func<Unit, InfusioOp<A>> next)
+            {
+                Message = message;
+                Next = next;
+            }
+        }
 
         internal class GetAccountProfile : InfusioOp<A>
         {
