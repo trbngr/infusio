@@ -11,12 +11,14 @@ namespace Demo.Demos
     public static class CustomOperations
     {
         public static InfusioOp<FullContact> AddTagToContact(Tag tag, EmailAddress email) =>
+            from _1 in Log("Add tag to contact")
             from contact in GetOrCreateContact(email)
             from remoteTag in GetOrCreateTag(tag)
             from _ in ApplyTagsToContactId(new TagId(List(remoteTag.Id ?? 0)), contact.Id ?? 0)
             select contact.Copy(tagIds: contact.TagIds.Add(remoteTag.Id ?? 0));
 
         static InfusioOp<Tag> GetOrCreateTag(Tag tag) =>
+            from _1 in Log("Get tags")
             from tags in ListTags()
             from t in tags.InnerTags
                 .Find(x => x.Name == tag.Name)

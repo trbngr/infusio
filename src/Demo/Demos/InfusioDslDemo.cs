@@ -42,7 +42,7 @@ namespace Demo.Demos
              * ===============
              */
 
-            var result = await operation.RunWith(client);
+            var result = await operation.RunWith(client, InterpreterState.Empty);
 
             return result.Match(
                 Left: error => Console.WriteLine($"error: {error.Value}"),

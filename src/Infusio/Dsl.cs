@@ -14,6 +14,9 @@ namespace Infusio
         public static InfusioOp<A> Return<A>(A value) =>
             new InfusioOp<A>.Return(value);
 
+        public static InfusioOp<Unit> Log(string message) =>
+            new InfusioOp<Unit>.Log(message, Return);
+
         /// <summary>
         /// Retrieve account profile
         /// </summary>
