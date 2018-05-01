@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Infusio;
-using Infusio.Auth;
 using Infusio.Http;
 using Infusio.Model;
-using Infusio.Ops;
 using LanguageExt;
 using Newtonsoft.Json;
 
@@ -46,8 +43,11 @@ namespace Demo.Demos
 
             return result.Match(
                 Left: error => Console.WriteLine($"error: {error.Value}"),
-                Right: contact => Console.WriteLine($"contact: {JsonConvert.SerializeObject(contact, Formatting.Indented)}")
-            );
+                Right: res =>
+                {
+                    res.Logs.Iter(Console.WriteLine);
+                    Console.WriteLine($"contact: {JsonConvert.SerializeObject(res.Value, Formatting.Indented)}");
+                });
         }
     }
 }

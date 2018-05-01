@@ -17,7 +17,7 @@ namespace Demo
             // These credentials are a test account.
             // I don't care about the data.
             // of course, you would provide your own.
-            var httpClient = new HttpClient(new HttpLogger());
+            var httpClient = new HttpClient();
             var clientId = ClientId("tj7a3rtbs5dmsz2sbwxx3phd");
             var clientSecret = ClientSecret("EEecE6bBYz");
             var redirectUri = RedirectUri("https://localhost");
@@ -45,11 +45,9 @@ namespace Demo
 
             // Utilize cache so we can run this program many times without the above hassle.
             // This is not part of the core library.
-            var authorization = await AuthorizationInfoFromCache()
-                .IfNoneAsync(() =>
-                    requestAccessToken(AccessCode("PASTE CODE HERE"))
-                        .Map(CacheAuthorizationInfo)
-                );
+            var authorization = await AuthorizationInfoFromCache().IfNoneAsync(() =>
+                requestAccessToken(AccessCode("PASTE CODE HERE")).Map(CacheAuthorizationInfo)
+            );
 
             var client = new InfusioClient(httpClient, new InfusioConfig(authorization.Token));
 
@@ -57,7 +55,7 @@ namespace Demo
             await InfusioDslDemo.Run(client);
 
             // Api Client Demo
-            await ClassicApiClientDemo.Run(client);
+//            await ClassicApiClientDemo.Run(client);
         }
     }
 }

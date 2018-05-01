@@ -1,31 +1,59 @@
 using System;
 using System.Threading.Tasks;
-using Infusio.Model;
-using Infusio.Ops;
 using LanguageExt;
+using Newtonsoft.Json;
 
 namespace Infusio.Http
 {
     using static Prelude;
+    using static Formatting;
+    using static JsonConvert;
 
     public static class HttpSupport
     {
-        public static Task<Either<InfusioError, T>> interpret<T>(InfusioOp<T> op, InfusioClient client) =>
-            RunAsync(op, client);
+        public static Task<Either<InfusioError, InfusioResult<T>>> interpret<T>(InfusioOp<T> op, InfusioClient client) =>
+            RunWith(op, new InterpreterState(Seq<string>()), client);
 
-        public static Task<Either<InfusioError, T>> RunWith<T>(this InfusioOp<T> op, InfusioClient client) =>
-            RunAsync(op, client);
+        public static Task<Either<InfusioError, InfusioResult<T>>> RunWith<T>(this InfusioOp<T> op, InfusioClient client) =>
+            RunWith(op, new InterpreterState(Seq<string>()), client);
 
-        static Task<Either<InfusioError, T>> RunAsync<T>(InfusioOp<T> op, InfusioClient client) =>
-            op is InfusioOp<T>.Return r ? Right<InfusioError, T>(r.Value).AsTask() :
+        public static Task<Either<InfusioError, InfusioResult<T>>> interpret<T>(InfusioOp<T> op, InterpreterState state, InfusioClient client) =>
+            RunAsync(op, new InterpreterState(Seq<string>()), client).ToEither();
+
+        public static Task<Either<InfusioError, InfusioResult<T>>> RunWith<T>(this InfusioOp<T> op, InterpreterState state, InfusioClient client) =>
+            RunAsync(op, new InterpreterState(Seq<string>()), client).ToEither();
+
+        static EitherAsync<InfusioError, InfusioResult<T>> RunAsync<T>(InfusioOp<T> op, InterpreterState state, InfusioClient client) =>
+            op is InfusioOp<T>.Return r ? Right<InfusioError, InfusioResult<T>>(new InfusioResult<T>(r.Value, state.Logs)).ToAsync() :
+            op is InfusioOp<T>.Log l ? Right<InfusioError, InfusioResult<T>>(new InfusioResult<T>(default, state.Log(l.Message).Logs)).ToAsync() :
 {% for op in Operations -%}
-            op is InfusioOp<T>.{{ op.Name }}{% assign op_name = forloop.index %} _{{ op_name }} ? Exe(() => client.{{ op.Name }}({% for p in op.Parameters -%}_{{ op_name }}.{{ p.Name | capitalize }}{% if forloop.last == false %}, {% endif %}{% endfor %}), _{{ op_name }}.Next, client) :
+            op is InfusioOp<T>.{{ op.Name }}{% assign op_name = forloop.index %} _{{ op_name }} ? Exe(op.ToString(), () => client.{{ op.Name }}({% for p in op.Parameters -%}_{{ op_name }}.{{ p.Name | capitalize }}{% if forloop.last == false %}, {% endif %}{% endfor %}), _{{ op_name }}.Next, state, client) :
 {% endfor -%}
             throw new NotSupportedException();
 
-        static Task<Either<InfusioError, B>> Exe<T, B>(Func<Task<Either<InfusioError, T>>> fn, Func<T, InfusioOp<B>> nextOp, InfusioClient client) =>
-            from profile in fn()
-            from next in RunAsync(nextOp(profile), client)
-            select next;
+        static EitherAsync<InfusioError, InfusioResult<B>> Exe<T, B>(string describe, Func<Task<Either<InfusioError, T>>> fn, Func<T, InfusioOp<B>> nextOp, InterpreterState state, InfusioClient client) =>
+            from a in LogOperation(describe, state, fn).ToAsync()
+            from n in RunAsync(nextOp(a.Item2), a.Item1, client)
+            select n;
+
+        static Task<Either<InfusioError, (InterpreterState, T)>> LogOperation<T>(string describe, InterpreterState state, Func<Task<Either<InfusioError, T>>> fn) =>
+            from st in Right<InfusioError, (InterpreterState, Unit)>((state.Log(describe), unit)).AsTask()
+            from r in fn().ToAsync().Match(
+                Left: e => Left<InfusioError, (InterpreterState, T)>(e),
+                Right: t => Right<InfusioError, (InterpreterState, T)>((st.Item1.Log($" -> {SerializeObject(t, Indented)}"), t))
+            )
+            select r;
+    }
+
+    public class InterpreterState
+    {
+        public static readonly InterpreterState Empty = new InterpreterState(Seq<string>());
+        public readonly Seq<string> Logs;
+
+        public InterpreterState(Seq<string> logs) =>
+            Logs = logs;
+
+        public InterpreterState Log(string message) =>
+            new InterpreterState(Logs.Append(Seq1(message)));
     }
 }

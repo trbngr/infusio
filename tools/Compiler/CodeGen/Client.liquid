@@ -142,8 +142,8 @@ namespace Infusio.Http
             !response.IsSuccess
             ? Left<InfusioError, T>(new InfusioError(response.Description)).AsTask()
             : match(
-                from json in TryAsync(message.Content.ReadAsStringAsync())
-                from result in Try(DeserializeObject(json, response.Type)).ToAsync()
+                from json in TryAsync(() => message.Content.ReadAsStringAsync())
+                from result in Try(() => DeserializeObject(json, response.Type)).ToAsync()
                 select result,
                 Fail: e => Left<InfusioError, T>(new InfusioError($"Generic read InfusioError: {e.Message}")),
                 Succ: t => match(
