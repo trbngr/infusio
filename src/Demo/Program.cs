@@ -45,11 +45,9 @@ namespace Demo
 
             // Utilize cache so we can run this program many times without the above hassle.
             // This is not part of the core library.
-            var authorization = await AuthorizationInfoFromCache()
-                .IfNoneAsync(() =>
-                    requestAccessToken(AccessCode("a7mfqg58a5y8uxgx7zy94td7"))
-                        .Map(CacheAuthorizationInfo)
-                );
+            var authorization = await AuthorizationInfoFromCache().IfNoneAsync(() =>
+                requestAccessToken(AccessCode("PASTE CODE HERE")).Map(CacheAuthorizationInfo)
+            );
 
             var client = new InfusioClient(httpClient, new InfusioConfig(authorization.Token));
 
