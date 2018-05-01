@@ -6,7 +6,7 @@ using System;
 using LanguageExt;
 using Infusio.Model;
 
-namespace Infusio.Ops
+namespace Infusio
 {
     public abstract class InfusioOp<A>
     {
@@ -14,6 +14,17 @@ namespace Infusio.Ops
         {
             public readonly A Value;
             public Return(A value) => Value = value;
+        }
+
+        internal class Log : InfusioOp<A>
+        {
+            public readonly string Message;
+            public readonly Func<Unit, InfusioOp<A>> Next;
+            public Log(string message, Func<Unit, InfusioOp<A>> next)
+            {
+                Message = message;
+                Next = next;
+            }
         }
 
         {% for op in Operations %}
@@ -31,6 +42,8 @@ namespace Infusio.Ops
               {{ p.Name | capitalize }} = {{ p.Name }};
               {% endfor -%}
             }
+
+            public override string ToString() => $"{{ op.HttpMethod | upcase }}: {{ op.Path | operationpath }}";
         }
         {% endfor -%}
     }

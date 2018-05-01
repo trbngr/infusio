@@ -6,7 +6,7 @@ using System;
 using LanguageExt;
 using Infusio.Model;
 
-namespace Infusio.Ops
+namespace Infusio
 {
     public abstract class InfusioOp<A>
     {
@@ -14,6 +14,17 @@ namespace Infusio.Ops
         {
             public readonly A Value;
             public Return(A value) => Value = value;
+        }
+
+        internal class Log : InfusioOp<A>
+        {
+            public readonly string Message;
+            public readonly Func<Unit, InfusioOp<A>> Next;
+            public Log(string message, Func<Unit, InfusioOp<A>> next)
+            {
+                Message = message;
+                Next = next;
+            }
         }
 
 
@@ -25,6 +36,8 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public override string ToString() => $"GET: /account/profile";
         }
 
         internal class UpdateAccountInfo : InfusioOp<A>
@@ -37,6 +50,8 @@ namespace Infusio.Ops
                 Next = next;
                 AccountInfo = accountInfo;
             }
+
+            public override string ToString() => $"PUT: /account/profile";
         }
 
         internal class SearchCommissions : InfusioOp<A>
@@ -57,6 +72,8 @@ namespace Infusio.Ops
                 Until = until;
                 Since = since;
             }
+
+            public override string ToString() => $"GET: /affiliates/commissions";
         }
 
         internal class RetrieveAffiliateModel : InfusioOp<A>
@@ -67,6 +84,8 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public override string ToString() => $"GET: /affiliates/model";
         }
 
         internal class ListAppointments : InfusioOp<A>
@@ -87,6 +106,8 @@ namespace Infusio.Ops
                 Until = until;
                 Since = since;
             }
+
+            public override string ToString() => $"GET: /appointments";
         }
 
         internal class CreateAppointment : InfusioOp<A>
@@ -99,6 +120,8 @@ namespace Infusio.Ops
                 Next = next;
                 Appointment = appointment;
             }
+
+            public override string ToString() => $"POST: /appointments";
         }
 
         internal class RetrieveAppointmentModel : InfusioOp<A>
@@ -109,6 +132,8 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public override string ToString() => $"GET: /appointments/model";
         }
 
         internal class GetAppointment : InfusioOp<A>
@@ -121,6 +146,8 @@ namespace Infusio.Ops
                 Next = next;
                 AppointmentId = appointmentId;
             }
+
+            public override string ToString() => $"GET: /appointments/{AppointmentId}";
         }
 
         internal class UpdateAppointment : InfusioOp<A>
@@ -135,6 +162,8 @@ namespace Infusio.Ops
                 AppointmentDTO = appointmentDTO;
                 AppointmentId = appointmentId;
             }
+
+            public override string ToString() => $"PUT: /appointments/{AppointmentId}";
         }
 
         internal class DeleteAppointment : InfusioOp<A>
@@ -147,6 +176,8 @@ namespace Infusio.Ops
                 Next = next;
                 AppointmentId = appointmentId;
             }
+
+            public override string ToString() => $"DELETE: /appointments/{AppointmentId}";
         }
 
         internal class UpdatePropertiesOnAppointment : InfusioOp<A>
@@ -161,6 +192,8 @@ namespace Infusio.Ops
                 AppointmentDTO = appointmentDTO;
                 AppointmentId = appointmentId;
             }
+
+            public override string ToString() => $"PATCH: /appointments/{AppointmentId}";
         }
 
         internal class ListCampaigns : InfusioOp<A>
@@ -181,6 +214,8 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public override string ToString() => $"GET: /campaigns";
         }
 
         internal class GetCampaign : InfusioOp<A>
@@ -195,6 +230,8 @@ namespace Infusio.Ops
                 CampaignId = campaignId;
                 OptionalProperties = optionalProperties;
             }
+
+            public override string ToString() => $"GET: /campaigns/{CampaignId}";
         }
 
         internal class AddContactsToCampaignSequence : InfusioOp<A>
@@ -211,6 +248,8 @@ namespace Infusio.Ops
                 SequenceId = sequenceId;
                 CampaignId = campaignId;
             }
+
+            public override string ToString() => $"POST: /campaigns/{CampaignId}/sequences/{SequenceId}/contacts";
         }
 
         internal class RemoveContactsFromCampaignSequence : InfusioOp<A>
@@ -227,6 +266,8 @@ namespace Infusio.Ops
                 SequenceId = sequenceId;
                 CampaignId = campaignId;
             }
+
+            public override string ToString() => $"DELETE: /campaigns/{CampaignId}/sequences/{SequenceId}/contacts";
         }
 
         internal class AddContactToCampaignSequence : InfusioOp<A>
@@ -243,6 +284,8 @@ namespace Infusio.Ops
                 SequenceId = sequenceId;
                 CampaignId = campaignId;
             }
+
+            public override string ToString() => $"POST: /campaigns/{CampaignId}/sequences/{SequenceId}/contacts/{ContactId}";
         }
 
         internal class RemoveContactFromCampaignSequence : InfusioOp<A>
@@ -259,6 +302,8 @@ namespace Infusio.Ops
                 SequenceId = sequenceId;
                 CampaignId = campaignId;
             }
+
+            public override string ToString() => $"DELETE: /campaigns/{CampaignId}/sequences/{SequenceId}/contacts/{ContactId}";
         }
 
         internal class ListCompanies : InfusioOp<A>
@@ -281,6 +326,8 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public override string ToString() => $"GET: /companies";
         }
 
         internal class CreateCompany : InfusioOp<A>
@@ -293,6 +340,8 @@ namespace Infusio.Ops
                 Next = next;
                 Company = company;
             }
+
+            public override string ToString() => $"POST: /companies";
         }
 
         internal class RetrieveCompanyModel : InfusioOp<A>
@@ -303,6 +352,8 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public override string ToString() => $"GET: /companies/model";
         }
 
         internal class ListContacts : InfusioOp<A>
@@ -327,6 +378,8 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public override string ToString() => $"GET: /contacts";
         }
 
         internal class CreateContact : InfusioOp<A>
@@ -339,6 +392,8 @@ namespace Infusio.Ops
                 Next = next;
                 Contact = contact;
             }
+
+            public override string ToString() => $"POST: /contacts";
         }
 
         internal class CreateOrUpdateContact : InfusioOp<A>
@@ -351,6 +406,8 @@ namespace Infusio.Ops
                 Next = next;
                 Contact = contact;
             }
+
+            public override string ToString() => $"PUT: /contacts";
         }
 
         internal class RetrieveContactModel : InfusioOp<A>
@@ -361,6 +418,8 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public override string ToString() => $"GET: /contacts/model";
         }
 
         internal class DeleteContact : InfusioOp<A>
@@ -373,6 +432,8 @@ namespace Infusio.Ops
                 Next = next;
                 ContactId = contactId;
             }
+
+            public override string ToString() => $"DELETE: /contacts/{ContactId}";
         }
 
         internal class UpdatePropertiesOnContact : InfusioOp<A>
@@ -387,6 +448,8 @@ namespace Infusio.Ops
                 ContactId = contactId;
                 Contact = contact;
             }
+
+            public override string ToString() => $"PATCH: /contacts/{ContactId}";
         }
 
         internal class CreateCreditCard : InfusioOp<A>
@@ -401,6 +464,8 @@ namespace Infusio.Ops
                 ContactId = contactId;
                 CreditCard = creditCard;
             }
+
+            public override string ToString() => $"POST: /contacts/{ContactId}/creditCards";
         }
 
         internal class ListEmailsForContact : InfusioOp<A>
@@ -421,6 +486,8 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public override string ToString() => $"GET: /contacts/{ContactId}/emails";
         }
 
         internal class CreateEmailForContact : InfusioOp<A>
@@ -435,6 +502,8 @@ namespace Infusio.Ops
                 ContactId = contactId;
                 EmailWithContent = emailWithContent;
             }
+
+            public override string ToString() => $"POST: /contacts/{ContactId}/emails";
         }
 
         internal class ListAppliedTags : InfusioOp<A>
@@ -451,6 +520,8 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public override string ToString() => $"GET: /contacts/{ContactId}/tags";
         }
 
         internal class ApplyTagsToContactId : InfusioOp<A>
@@ -465,6 +536,8 @@ namespace Infusio.Ops
                 TagIds = tagIds;
                 ContactId = contactId;
             }
+
+            public override string ToString() => $"POST: /contacts/{ContactId}/tags";
         }
 
         internal class RemoveTagsFromContact : InfusioOp<A>
@@ -479,6 +552,8 @@ namespace Infusio.Ops
                 Ids = ids;
                 ContactId = contactId;
             }
+
+            public override string ToString() => $"DELETE: /contacts/{ContactId}/tags";
         }
 
         internal class RemoveTagsFromContact2 : InfusioOp<A>
@@ -493,6 +568,8 @@ namespace Infusio.Ops
                 TagId = tagId;
                 ContactId = contactId;
             }
+
+            public override string ToString() => $"DELETE: /contacts/{ContactId}/tags/{TagId}";
         }
 
         internal class GetContact : InfusioOp<A>
@@ -507,6 +584,8 @@ namespace Infusio.Ops
                 Id = id;
                 OptionalProperties = optionalProperties;
             }
+
+            public override string ToString() => $"GET: /contacts/{Id}";
         }
 
         internal class ListEmails : InfusioOp<A>
@@ -525,6 +604,8 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public override string ToString() => $"GET: /emails";
         }
 
         internal class CreateEmail : InfusioOp<A>
@@ -537,6 +618,8 @@ namespace Infusio.Ops
                 Next = next;
                 EmailWithContent = emailWithContent;
             }
+
+            public override string ToString() => $"POST: /emails";
         }
 
         internal class CreateEmails : InfusioOp<A>
@@ -549,6 +632,8 @@ namespace Infusio.Ops
                 Next = next;
                 EmailWithContent = emailWithContent;
             }
+
+            public override string ToString() => $"POST: /emails/sync";
         }
 
         internal class DeleteEmails : InfusioOp<A>
@@ -561,6 +646,8 @@ namespace Infusio.Ops
                 Next = next;
                 EmailIds = emailIds;
             }
+
+            public override string ToString() => $"POST: /emails/unsync";
         }
 
         internal class GetEmail : InfusioOp<A>
@@ -573,6 +660,8 @@ namespace Infusio.Ops
                 Next = next;
                 Id = id;
             }
+
+            public override string ToString() => $"GET: /emails/{Id}";
         }
 
         internal class UpdateEmail : InfusioOp<A>
@@ -587,6 +676,8 @@ namespace Infusio.Ops
                 Id = id;
                 EmailWithContent = emailWithContent;
             }
+
+            public override string ToString() => $"PUT: /emails/{Id}";
         }
 
         internal class DeleteEmail : InfusioOp<A>
@@ -599,6 +690,8 @@ namespace Infusio.Ops
                 Next = next;
                 Id = id;
             }
+
+            public override string ToString() => $"DELETE: /emails/{Id}";
         }
 
         internal class ListFiles : InfusioOp<A>
@@ -621,6 +714,8 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public override string ToString() => $"GET: /files";
         }
 
         internal class CreateFile : InfusioOp<A>
@@ -633,6 +728,8 @@ namespace Infusio.Ops
                 Next = next;
                 FileUpload = fileUpload;
             }
+
+            public override string ToString() => $"POST: /files";
         }
 
         internal class GetFile : InfusioOp<A>
@@ -647,6 +744,8 @@ namespace Infusio.Ops
                 FileId = fileId;
                 OptionalProperties = optionalProperties;
             }
+
+            public override string ToString() => $"GET: /files/{FileId}";
         }
 
         internal class UpdateFile : InfusioOp<A>
@@ -661,6 +760,8 @@ namespace Infusio.Ops
                 FileId = fileId;
                 FileUpload = fileUpload;
             }
+
+            public override string ToString() => $"PUT: /files/{FileId}";
         }
 
         internal class DeleteFile : InfusioOp<A>
@@ -673,6 +774,8 @@ namespace Infusio.Ops
                 Next = next;
                 FileId = fileId;
             }
+
+            public override string ToString() => $"DELETE: /files/{FileId}";
         }
 
         internal class ListStoredHookSubscriptions : InfusioOp<A>
@@ -683,6 +786,8 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public override string ToString() => $"GET: /hooks";
         }
 
         internal class CreateAHookSubscription : InfusioOp<A>
@@ -695,6 +800,8 @@ namespace Infusio.Ops
                 Next = next;
                 RestHookRequest = restHookRequest;
             }
+
+            public override string ToString() => $"POST: /hooks";
         }
 
         internal class ListHookEventTypes : InfusioOp<A>
@@ -705,6 +812,8 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public override string ToString() => $"GET: /hooks/event_keys";
         }
 
         internal class RetrieveAHookSubscription : InfusioOp<A>
@@ -717,6 +826,8 @@ namespace Infusio.Ops
                 Next = next;
                 Key = key;
             }
+
+            public override string ToString() => $"GET: /hooks/{Key}";
         }
 
         internal class UpdateAHookSubscription : InfusioOp<A>
@@ -731,6 +842,8 @@ namespace Infusio.Ops
                 RestHookRequest = restHookRequest;
                 Key = key;
             }
+
+            public override string ToString() => $"PUT: /hooks/{Key}";
         }
 
         internal class DeleteAHookSubscription : InfusioOp<A>
@@ -743,6 +856,8 @@ namespace Infusio.Ops
                 Next = next;
                 Key = key;
             }
+
+            public override string ToString() => $"DELETE: /hooks/{Key}";
         }
 
         internal class VerifyAHookSubscriptionDelayed : InfusioOp<A>
@@ -757,6 +872,8 @@ namespace Infusio.Ops
                 XHookSecret = xHookSecret;
                 Key = key;
             }
+
+            public override string ToString() => $"POST: /hooks/{Key}/delayedVerify";
         }
 
         internal class VerifyAHookSubscription : InfusioOp<A>
@@ -769,6 +886,8 @@ namespace Infusio.Ops
                 Next = next;
                 Key = key;
             }
+
+            public override string ToString() => $"POST: /hooks/{Key}/verify";
         }
 
         internal class GetUserInfo : InfusioOp<A>
@@ -779,6 +898,8 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public override string ToString() => $"GET: /oauth/connect/userinfo";
         }
 
         internal class ListOpportunities : InfusioOp<A>
@@ -801,6 +922,8 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public override string ToString() => $"GET: /opportunities";
         }
 
         internal class CreateOpportunity : InfusioOp<A>
@@ -813,6 +936,8 @@ namespace Infusio.Ops
                 Next = next;
                 Opportunity = opportunity;
             }
+
+            public override string ToString() => $"POST: /opportunities";
         }
 
         internal class UpdateOpportunity : InfusioOp<A>
@@ -825,6 +950,8 @@ namespace Infusio.Ops
                 Next = next;
                 Opportunity = opportunity;
             }
+
+            public override string ToString() => $"PUT: /opportunities";
         }
 
         internal class RetrieveOpportunityModel : InfusioOp<A>
@@ -835,6 +962,8 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public override string ToString() => $"GET: /opportunities/model";
         }
 
         internal class GetOpportunity : InfusioOp<A>
@@ -849,6 +978,8 @@ namespace Infusio.Ops
                 OpportunityId = opportunityId;
                 OptionalProperties = optionalProperties;
             }
+
+            public override string ToString() => $"GET: /opportunities/{OpportunityId}";
         }
 
         internal class UpdatePropertiesOnOpportunity : InfusioOp<A>
@@ -863,6 +994,8 @@ namespace Infusio.Ops
                 OpportunityId = opportunityId;
                 Opportunity = opportunity;
             }
+
+            public override string ToString() => $"PATCH: /opportunities/{OpportunityId}";
         }
 
         internal class ListOpportunityStagePipelines : InfusioOp<A>
@@ -873,6 +1006,8 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public override string ToString() => $"GET: /opportunity/stage_pipeline";
         }
 
         internal class ListOrders : InfusioOp<A>
@@ -899,6 +1034,8 @@ namespace Infusio.Ops
                 Until = until;
                 Since = since;
             }
+
+            public override string ToString() => $"GET: /orders";
         }
 
         internal class RetrieveOrderModel : InfusioOp<A>
@@ -909,6 +1046,8 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public override string ToString() => $"GET: /orders/model";
         }
 
         internal class GetOrder : InfusioOp<A>
@@ -921,6 +1060,8 @@ namespace Infusio.Ops
                 Next = next;
                 OrderId = orderId;
             }
+
+            public override string ToString() => $"GET: /orders/{OrderId}";
         }
 
         internal class ListTransactionsForOrder : InfusioOp<A>
@@ -943,6 +1084,8 @@ namespace Infusio.Ops
                 Until = until;
                 Since = since;
             }
+
+            public override string ToString() => $"GET: /orders/{OrderId}/transactions";
         }
 
         internal class ListProducts : InfusioOp<A>
@@ -959,6 +1102,8 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public override string ToString() => $"GET: /products";
         }
 
         internal class ListProductsFromSyncToken : InfusioOp<A>
@@ -975,6 +1120,8 @@ namespace Infusio.Ops
                 Limit = limit;
                 SyncToken = syncToken;
             }
+
+            public override string ToString() => $"GET: /products/sync";
         }
 
         internal class GetProduct : InfusioOp<A>
@@ -987,6 +1134,8 @@ namespace Infusio.Ops
                 Next = next;
                 ProductId = productId;
             }
+
+            public override string ToString() => $"GET: /products/{ProductId}";
         }
 
         internal class GetApplicationEnabled : InfusioOp<A>
@@ -997,6 +1146,8 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public override string ToString() => $"GET: /setting/application/enabled";
         }
 
         internal class GetContactOptionTypes : InfusioOp<A>
@@ -1007,6 +1158,8 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public override string ToString() => $"GET: /setting/contact/optionTypes";
         }
 
         internal class RetrieveSubscriptionModel : InfusioOp<A>
@@ -1017,6 +1170,8 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public override string ToString() => $"GET: /subscriptions/model";
         }
 
         internal class ListTags : InfusioOp<A>
@@ -1033,6 +1188,8 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public override string ToString() => $"GET: /tags";
         }
 
         internal class CreateTag : InfusioOp<A>
@@ -1045,6 +1202,8 @@ namespace Infusio.Ops
                 Next = next;
                 Tag = tag;
             }
+
+            public override string ToString() => $"POST: /tags";
         }
 
         internal class CreateTagCategory : InfusioOp<A>
@@ -1057,6 +1216,8 @@ namespace Infusio.Ops
                 Next = next;
                 TagCategory = tagCategory;
             }
+
+            public override string ToString() => $"POST: /tags/categories";
         }
 
         internal class GetTag : InfusioOp<A>
@@ -1069,6 +1230,8 @@ namespace Infusio.Ops
                 Next = next;
                 Id = id;
             }
+
+            public override string ToString() => $"GET: /tags/{Id}";
         }
 
         internal class ListContactsForTagId : InfusioOp<A>
@@ -1085,6 +1248,8 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public override string ToString() => $"GET: /tags/{TagId}/contacts";
         }
 
         internal class ApplyTagToContactIds : InfusioOp<A>
@@ -1099,6 +1264,8 @@ namespace Infusio.Ops
                 Ids = ids;
                 TagId = tagId;
             }
+
+            public override string ToString() => $"POST: /tags/{TagId}/contacts";
         }
 
         internal class RemoveTagFromContactIds : InfusioOp<A>
@@ -1113,6 +1280,8 @@ namespace Infusio.Ops
                 Ids = ids;
                 TagId = tagId;
             }
+
+            public override string ToString() => $"DELETE: /tags/{TagId}/contacts";
         }
 
         internal class RemoveTagFromContactId : InfusioOp<A>
@@ -1127,6 +1296,8 @@ namespace Infusio.Ops
                 ContactId = contactId;
                 TagId = tagId;
             }
+
+            public override string ToString() => $"DELETE: /tags/{TagId}/contacts/{ContactId}";
         }
 
         internal class ListTasks : InfusioOp<A>
@@ -1155,6 +1326,8 @@ namespace Infusio.Ops
                 HasDueDate = hasDueDate;
                 ContactId = contactId;
             }
+
+            public override string ToString() => $"GET: /tasks";
         }
 
         internal class CreateTask : InfusioOp<A>
@@ -1167,6 +1340,8 @@ namespace Infusio.Ops
                 Next = next;
                 Task = task;
             }
+
+            public override string ToString() => $"POST: /tasks";
         }
 
         internal class RetrieveTaskModel : InfusioOp<A>
@@ -1177,6 +1352,8 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public override string ToString() => $"GET: /tasks/model";
         }
 
         internal class ListTasksForCurrentUser : InfusioOp<A>
@@ -1205,6 +1382,8 @@ namespace Infusio.Ops
                 HasDueDate = hasDueDate;
                 ContactId = contactId;
             }
+
+            public override string ToString() => $"GET: /tasks/search";
         }
 
         internal class GetTask : InfusioOp<A>
@@ -1217,6 +1396,8 @@ namespace Infusio.Ops
                 Next = next;
                 TaskId = taskId;
             }
+
+            public override string ToString() => $"GET: /tasks/{TaskId}";
         }
 
         internal class UpdateTask : InfusioOp<A>
@@ -1231,6 +1412,8 @@ namespace Infusio.Ops
                 Task = task;
                 TaskId = taskId;
             }
+
+            public override string ToString() => $"PUT: /tasks/{TaskId}";
         }
 
         internal class DeleteTask : InfusioOp<A>
@@ -1243,6 +1426,8 @@ namespace Infusio.Ops
                 Next = next;
                 TaskId = taskId;
             }
+
+            public override string ToString() => $"DELETE: /tasks/{TaskId}";
         }
 
         internal class UpdatePropertiesOnTask : InfusioOp<A>
@@ -1257,6 +1442,8 @@ namespace Infusio.Ops
                 Task = task;
                 TaskId = taskId;
             }
+
+            public override string ToString() => $"PATCH: /tasks/{TaskId}";
         }
 
         internal class ListTransactions : InfusioOp<A>
@@ -1277,6 +1464,8 @@ namespace Infusio.Ops
                 Until = until;
                 Since = since;
             }
+
+            public override string ToString() => $"GET: /transactions";
         }
 
         internal class GetTransaction : InfusioOp<A>
@@ -1289,6 +1478,8 @@ namespace Infusio.Ops
                 Next = next;
                 TransactionId = transactionId;
             }
+
+            public override string ToString() => $"GET: /transactions/{TransactionId}";
         }
     }
 

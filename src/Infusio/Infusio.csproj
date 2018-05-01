@@ -1,21 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <LangVersion>7.1</LangVersion>
-        <AssemblyName>Infusio</AssemblyName>
-        <RootNamespace>Infusio</RootNamespace>
-        <PackageId>infusio</PackageId>
-        <Authors>Christopher Martin</Authors>
-        <Title>Infusio</Title>
-        <Description>Infusio is strongly typed Infusionsoft API client with a functional DSL.</Description>
-        <PackageProjectUrl>https://github.com/trbngr/infusio</PackageProjectUrl>
-        <PackageTags>infusionsoft;functional;functional programming;</PackageTags>
-        <IncludeSymbols>true</IncludeSymbols>
-        <RepositoryUrl>https://github.com/trbngr/infusio</RepositoryUrl>
-    </PropertyGroup>
-    <ItemGroup>
-        <PackageReference Include="LanguageExt.Core" Version="3.0.1"/>
-        <PackageReference Include="Newtonsoft.Json" Version="11.0.2"/>
-        <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1"/>
-    </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>7.1</LangVersion>
+    <AssemblyName>Infusio</AssemblyName>
+    <RootNamespace>Infusio</RootNamespace>
+    <PackageId>infusio</PackageId>
+    <Authors>Christopher Martin</Authors>
+    <Title>Infusio</Title>
+    <Description>Infusio is strongly typed Infusionsoft API client with a functional DSL.</Description>
+    <PackageProjectUrl>https://github.com/trbngr/infusio</PackageProjectUrl>
+    <PackageTags>infusionsoft;functional;functional programming;</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <RepositoryUrl>https://github.com/trbngr/infusio</RepositoryUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="LanguageExt.Core" Version="3.0.*" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
+  </ItemGroup>
 </Project>

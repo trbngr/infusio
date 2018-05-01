@@ -1,6 +1,5 @@
 ﻿using Infusio;
 using Infusio.Model;
-using Infusio.Ops;
 using LanguageExt;
 
 namespace Demo.Demos

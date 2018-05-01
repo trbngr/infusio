@@ -21,6 +21,9 @@ namespace Infusio.Compiler
 
         public static string Firstupper(string input) =>
             input.ToLowerInvariant().PascalCase();
+
+        public static string Operationpath(string input) =>
+            Regex.Replace(input, @"{(\w+)}", match => $"{{{match.Groups[1].Value.PascalCase()}}}");
     }
 
     public class TemplateTag : Tag
@@ -35,7 +38,7 @@ namespace Infusio.Compiler
         public override void Render(Context context, TextWriter result)
         {
             base.Render(context, result);
-            
+
             var code = from temp in Prelude.Try(() => Template.Parse(File.ReadAllText($"CodeGen/{_name}.liquid")))
                 from res in Prelude.Try(() => temp.Render(new RenderParameters(new CultureInfo("en"))
                 {
@@ -43,7 +46,7 @@ namespace Infusio.Compiler
                     Filters = new []{typeof(Filters)},
                 }))
                 select res;
-            
+
             result.WriteLine(code);
         }
     }

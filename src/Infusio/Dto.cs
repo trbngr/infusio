@@ -11,59 +11,90 @@ namespace Infusio.Model
 {
 
 
-    public enum Category
+    public enum Field
     {
-        [EnumMember(Value = "Attachments")]
-        Attachments,
+        [EnumMember(Value = "BILLING")]
+        Billing,
 
-        [EnumMember(Value = "Cart")]
-        Cart,
-
-        [EnumMember(Value = "Documents")]
-        Documents,
-
-        [EnumMember(Value = "Hidden")]
-        Hidden,
-
-        [EnumMember(Value = "Invoice")]
-        Invoice,
-
-        [EnumMember(Value = "Logo")]
-        Logo,
-
-        [EnumMember(Value = "Tickets")]
-        Tickets,
-
-        [EnumMember(Value = "WebForm")]
-        Webform,
-
-        [EnumMember(Value = "Funnel")]
-        Funnel
-    }
-
-
-    public enum SourceType
-    {
-        [EnumMember(Value = "WEBFORM")]
-        Webform,
-
-        [EnumMember(Value = "LANDINGPAGE")]
-        Landingpage,
-
-        [EnumMember(Value = "IMPORT")]
-        Import,
-
-        [EnumMember(Value = "MANUAL")]
-        Manual,
-
-        [EnumMember(Value = "API")]
-        Api,
+        [EnumMember(Value = "SHIPPING")]
+        Shipping,
 
         [EnumMember(Value = "OTHER")]
         Other,
 
-        [EnumMember(Value = "UNKNOWN")]
-        Unknown
+        [EnumMember(Value = "EMAIL1")]
+        Email1
+    }
+
+
+    public enum Key
+    {
+        [EnumMember(Value = "SUCCESS")]
+        Success,
+
+        [EnumMember(Value = "DUPLICATE")]
+        Duplicate,
+
+        [EnumMember(Value = "CONTACT_NOT_FOUND")]
+        Contactnotfound,
+
+        [EnumMember(Value = "TAG_ID_NOT_FOUND")]
+        Tagidnotfound,
+
+        [EnumMember(Value = "FAILURE")]
+        Failure,
+
+        [EnumMember(Value = "NO_PERMISSION")]
+        Nopermission
+    }
+
+
+    public enum FileBoxType
+    {
+        [EnumMember(Value = "Application")]
+        Application,
+
+        [EnumMember(Value = "Image")]
+        Image,
+
+        [EnumMember(Value = "Fax")]
+        Fax,
+
+        [EnumMember(Value = "Attachment")]
+        Attachment,
+
+        [EnumMember(Value = "Ticket")]
+        Ticket,
+
+        [EnumMember(Value = "Contact")]
+        Contact,
+
+        [EnumMember(Value = "DigitalProduct")]
+        Digitalproduct,
+
+        [EnumMember(Value = "Import")]
+        Import,
+
+        [EnumMember(Value = "Hidden")]
+        Hidden,
+
+        [EnumMember(Value = "WebForm")]
+        Webform,
+
+        [EnumMember(Value = "StyledCart")]
+        Styledcart,
+
+        [EnumMember(Value = "ReSampledImage")]
+        Resampledimage,
+
+        [EnumMember(Value = "TemplateThumbnail")]
+        Templatethumbnail,
+
+        [EnumMember(Value = "Funnel")]
+        Funnel,
+
+        [EnumMember(Value = "LogoThumbnail")]
+        Logothumbnail
     }
 
 
@@ -119,16 +150,72 @@ namespace Infusio.Model
     }
 
 
-    public enum FileAssociation
+    public enum Status
+    {
+        [EnumMember(Value = "Unverified")]
+        Unverified,
+
+        [EnumMember(Value = "Verified")]
+        Verified,
+
+        [EnumMember(Value = "Inactive")]
+        Inactive
+    }
+
+
+    public enum Category
+    {
+        [EnumMember(Value = "Attachments")]
+        Attachments,
+
+        [EnumMember(Value = "Cart")]
+        Cart,
+
+        [EnumMember(Value = "Documents")]
+        Documents,
+
+        [EnumMember(Value = "Hidden")]
+        Hidden,
+
+        [EnumMember(Value = "Invoice")]
+        Invoice,
+
+        [EnumMember(Value = "Logo")]
+        Logo,
+
+        [EnumMember(Value = "Tickets")]
+        Tickets,
+
+        [EnumMember(Value = "WebForm")]
+        Webform,
+
+        [EnumMember(Value = "Funnel")]
+        Funnel
+    }
+
+
+    public enum RecordType
     {
         [EnumMember(Value = "CONTACT")]
         Contact,
 
-        [EnumMember(Value = "USER")]
-        User,
+        [EnumMember(Value = "REFERRAL_PARTNER")]
+        Referralpartner,
+
+        [EnumMember(Value = "OPPORTUNITY")]
+        Opportunity,
+
+        [EnumMember(Value = "TASK_APPOINTMENT")]
+        Taskappointment,
 
         [EnumMember(Value = "COMPANY")]
-        Company
+        Company,
+
+        [EnumMember(Value = "ORDER")]
+        Order,
+
+        [EnumMember(Value = "SUBSCRIPTION")]
+        Subscription
     }
 
 
@@ -139,6 +226,31 @@ namespace Infusio.Model
 
         [EnumMember(Value = "EmailAndName")]
         Emailandname
+    }
+
+
+    public enum SourceType
+    {
+        [EnumMember(Value = "WEBFORM")]
+        Webform,
+
+        [EnumMember(Value = "LANDINGPAGE")]
+        Landingpage,
+
+        [EnumMember(Value = "IMPORT")]
+        Import,
+
+        [EnumMember(Value = "MANUAL")]
+        Manual,
+
+        [EnumMember(Value = "API")]
+        Api,
+
+        [EnumMember(Value = "OTHER")]
+        Other,
+
+        [EnumMember(Value = "UNKNOWN")]
+        Unknown
     }
 
 
@@ -218,6 +330,19 @@ namespace Infusio.Model
     }
 
 
+    public enum FileAssociation
+    {
+        [EnumMember(Value = "CONTACT")]
+        Contact,
+
+        [EnumMember(Value = "USER")]
+        User,
+
+        [EnumMember(Value = "COMPANY")]
+        Company
+    }
+
+
     public enum Type
     {
         [EnumMember(Value = "NULL")]
@@ -294,131 +419,6 @@ namespace Infusio.Model
 
         [EnumMember(Value = "ActionSet")]
         Actionset
-    }
-
-
-    public enum Key
-    {
-        [EnumMember(Value = "SUCCESS")]
-        Success,
-
-        [EnumMember(Value = "DUPLICATE")]
-        Duplicate,
-
-        [EnumMember(Value = "CONTACT_NOT_FOUND")]
-        Contactnotfound,
-
-        [EnumMember(Value = "TAG_ID_NOT_FOUND")]
-        Tagidnotfound,
-
-        [EnumMember(Value = "FAILURE")]
-        Failure,
-
-        [EnumMember(Value = "NO_PERMISSION")]
-        Nopermission
-    }
-
-
-    public enum Status
-    {
-        [EnumMember(Value = "Unverified")]
-        Unverified,
-
-        [EnumMember(Value = "Verified")]
-        Verified,
-
-        [EnumMember(Value = "Inactive")]
-        Inactive
-    }
-
-
-    public enum FileBoxType
-    {
-        [EnumMember(Value = "Application")]
-        Application,
-
-        [EnumMember(Value = "Image")]
-        Image,
-
-        [EnumMember(Value = "Fax")]
-        Fax,
-
-        [EnumMember(Value = "Attachment")]
-        Attachment,
-
-        [EnumMember(Value = "Ticket")]
-        Ticket,
-
-        [EnumMember(Value = "Contact")]
-        Contact,
-
-        [EnumMember(Value = "DigitalProduct")]
-        Digitalproduct,
-
-        [EnumMember(Value = "Import")]
-        Import,
-
-        [EnumMember(Value = "Hidden")]
-        Hidden,
-
-        [EnumMember(Value = "WebForm")]
-        Webform,
-
-        [EnumMember(Value = "StyledCart")]
-        Styledcart,
-
-        [EnumMember(Value = "ReSampledImage")]
-        Resampledimage,
-
-        [EnumMember(Value = "TemplateThumbnail")]
-        Templatethumbnail,
-
-        [EnumMember(Value = "Funnel")]
-        Funnel,
-
-        [EnumMember(Value = "LogoThumbnail")]
-        Logothumbnail
-    }
-
-
-    public enum RecordType
-    {
-        [EnumMember(Value = "CONTACT")]
-        Contact,
-
-        [EnumMember(Value = "REFERRAL_PARTNER")]
-        Referralpartner,
-
-        [EnumMember(Value = "OPPORTUNITY")]
-        Opportunity,
-
-        [EnumMember(Value = "TASK_APPOINTMENT")]
-        Taskappointment,
-
-        [EnumMember(Value = "COMPANY")]
-        Company,
-
-        [EnumMember(Value = "ORDER")]
-        Order,
-
-        [EnumMember(Value = "SUBSCRIPTION")]
-        Subscription
-    }
-
-
-    public enum Field
-    {
-        [EnumMember(Value = "BILLING")]
-        Billing,
-
-        [EnumMember(Value = "SHIPPING")]
-        Shipping,
-
-        [EnumMember(Value = "OTHER")]
-        Other,
-
-        [EnumMember(Value = "EMAIL1")]
-        Email1
     }
 
 
