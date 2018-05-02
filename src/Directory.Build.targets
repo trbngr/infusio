@@ -5,9 +5,10 @@
         <GitSemVerMinor>1</GitSemVerMinor>
         <GitSemVerPatch>0</GitSemVerPatch>
         <GitSemVerDashLabel>-pre</GitSemVerDashLabel>
+        <GitDefaultBranch>dev</GitDefaultBranch>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="gitinfo" Version="2.0.*" />
+        <PackageReference Include="GitInfo" Version="2.0.*" />
     </ItemGroup>
 
     <PropertyGroup>
