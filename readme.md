@@ -1,5 +1,5 @@
 # Infusio. 
-**A Functional Infusionsoft REST Api Client**
+**A Functional Infusionsoft API Client**
 
 Infusio is a new .net Infusionsoft client.
 
