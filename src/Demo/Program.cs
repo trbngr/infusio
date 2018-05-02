@@ -81,11 +81,7 @@ namespace Demo
              * ===============
              */
 
-            // this will not produce any logs of your InfusioOp.
-//            var result = await operation.RunWith(client);
-            
-            // this will turn logging on
-            var result = await operation.RunWith(InfusioState.Create(WithLogs), client);
+            var result = await operation.RunWith(client, WithLogs);
             
             result.Match(
                 Left: error => Console.WriteLine($"error: {error.Value}"),

@@ -11,17 +11,11 @@ namespace Infusio.Http
 
     public static class HttpSupport
     {
-        public static Task<Either<InfusioError, InfusioResult<T>>> interpret<T>(InfusioOp<T> op, InfusioClient client) =>
-            RunWith(op, InfusioState.Create(InfusioLogging.WithoutLogs), client);
+        public static Task<Either<InfusioError, InfusioResult<T>>> interpret<T>(InfusioOp<T> op, InfusioClient client, InfusioLogging logging = InfusioLogging.WithoutLogs) =>
+            RunAsync(op, InfusioState.Create(logging), client).ToEither();
 
-        public static Task<Either<InfusioError, InfusioResult<T>>> RunWith<T>(this InfusioOp<T> op, InfusioClient client) =>
-            RunWith(op, InfusioState.Create(InfusioLogging.WithoutLogs), client);
-
-        public static Task<Either<InfusioError, InfusioResult<T>>> interpret<T>(InfusioOp<T> op, InfusioState state, InfusioClient client) =>
-            RunAsync(op, state, client).ToEither();
-
-        public static Task<Either<InfusioError, InfusioResult<T>>> RunWith<T>(this InfusioOp<T> op, InfusioState state, InfusioClient client) =>
-            RunAsync(op, state, client).ToEither();
+        public static Task<Either<InfusioError, InfusioResult<T>>> Run<T>(this InfusioOp<T> op, InfusioClient client, InfusioLogging logging = InfusioLogging.WithoutLogs) =>
+            RunAsync(op, InfusioState.Create(logging), client).ToEither();
 
         static EitherAsync<InfusioError, InfusioResult<T>> RunAsync<T>(InfusioOp<T> op, InfusioState state, InfusioClient client) =>
             op is InfusioOp<T>.Return r ? Right<InfusioError, InfusioResult<T>>(new InfusioResult<T>(r.Value, state.Logs)).ToAsync() :
@@ -59,7 +53,7 @@ namespace Infusio.Http
         WithoutLogs
     }
 
-    public class InfusioState
+    class InfusioState
     {
         public static InfusioState Create(InfusioLogging logging) => new InfusioState(Seq<string>(), logging == InfusioLogging.WithLogs ? true : false);
         public static InfusioState Create(Seq<string> logs, InfusioLogging logging) => new InfusioState(logs, logging == InfusioLogging.WithLogs ? true : false);
