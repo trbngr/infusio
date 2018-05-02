@@ -25,6 +25,7 @@ Please create issues if you run into any problems or just want a feature.
 
 - [ ] Create authentication helpers. Will probably be seperate projects.
 - [ ] Create documentation.
+- [ ] Create a test kit for easy unit testing.
 
 ## Installation
 `dotnet add package infusio`
