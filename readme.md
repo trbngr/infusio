@@ -5,7 +5,7 @@ Infusio is a new .net Infusionsoft client.
 
 The majority of the code is generated from the [official Infusionsoft API documentation](https://developer.infusionsoft.com/docs/rest/infusion.json).
 
-Benefits:
+Features:
 
 - All operations are coposable. This means that you can chain all operations together to form one 'master' operation using LINQ syntax. [LINQ Query](https://github.com/trbngr/infusio/blob/dev/src/Demo/CustomOperations.cs#L12). [LINQ Methods](https://github.com/trbngr/infusio/blob/dev/src/Demo/CustomOperations.cs#L35).
 - All operations are completely lazy. Nothing actually executes until you call `RunWith`. [Example](https://github.com/trbngr/infusio/blob/dev/src/Demo/Program.cs#L84).
