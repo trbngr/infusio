@@ -13,7 +13,7 @@ Features:
 - Speaking of logging, you can create your own log messages. `Log` is an `InfusioOp`. [Example](https://github.com/trbngr/infusio/blob/dev/src/Demo/CustomOperations.cs#L13).
 - All operations have XML documentation that comes from the API documentation.
 - All optional operation parameters are actually typed as optional (ie `Operation(long? id = default)`) so you don't have to provide a value.
-- All data models, and their properties, are immutable with `Copy` methods to change values. Makes for a nice API and thread-safe code. [Example](https://github.com/trbngr/infusio/blob/dev/src/Demo/CustomOperations.cs#L17).
+- All data models, and their properties, are immutable with a `Copy` method to change values. Makes for a nice API and thread-safe code. [Example](https://github.com/trbngr/infusio/blob/dev/src/Demo/CustomOperations.cs#L17).
 - Authentication is configured up-front and not littered throughout the calls. I still need to make some authentication helpers around token management. But that's a pretty easy task.
 
 Tasks to complete:
