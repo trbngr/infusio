@@ -5,9 +5,15 @@
 using System;
 using LanguageExt;
 using Infusio.Model;
+using Infusio.Http;
+using Newtonsoft.Json;
 
 namespace Infusio
 {
+    using static Prelude;
+    using static JsonConvert;
+    using static InfusioClient;
+
     public abstract class InfusioOp<A>
     {
         internal class Return : InfusioOp<A>
@@ -20,7 +26,7 @@ namespace Infusio
         {
             public readonly string Message;
             public readonly Func<Unit, InfusioOp<A>> Next;
-            public Log(string message, Func<Unit, InfusioOp<A>> next)
+            public Log(Func<Unit, InfusioOp<A>> next, string message)
             {
                 Message = message;
                 Next = next;
@@ -42,10 +48,26 @@ namespace Infusio
               {{ p.Name | capitalize }} = {{ p.Name }};
               {% endfor -%}
             }
+            
+            string Uri => MakeUri($"{{ op.Path | operationpath }}"{% if op.HasQueryParameters %}, {% endif %}{% for p in op.QueryParameters -%}
+                                            RequestParameter("{{ p.Name }}", {{ p.Name | capitalize }}){% if forloop.last == false %}, {% endif %}{% endfor -%});
+            Option<string> Body => MakeBody({% if op.HasSingleBodyParameter -%}{{ op.SingleBodyParameter.Name | capitalize }}{% else -%}
+                                                                    {% for p in op.RequestBodyParameters %}
+                                                                        RequestParameter("{{ p.Name }}", {{ p.Name | capitalize }}){% if forloop.last == false %}, {% endif -%}
+                                                                    {% endfor -%}
+                                                                    {% endif -%});
+{% assign uri = '{Uri}' -%}
 
-            public override string ToString() => $"{{ op.HttpMethod | upcase }}: {{ op.Path | operationpath }}";
+            public override string ToString() => Body.Fold($"{{ op.Summary }}. [{{ op.HttpMethod | upcase }}: {{ uri }}]", (msg, body) => $"{msg}: {body}");
         }
         {% endfor -%}
+        
+        static Option<string> MakeBody(params Option<(string name, object value)>[] values) => 
+            from body in Some(values.FoldT(HashMap<string, object>(), (acc, x) => acc.Add(x.name, x.value)))
+            where !body.IsEmpty
+            select SerializeObject(body, SerializerSettings);
+
+        static Option<string> MakeBody(object body) => SerializeObject(body, SerializerSettings);
     }
 
     public static class InfusioOpExtensions
@@ -61,6 +83,7 @@ namespace Infusio
 
         static InfusioOp<B> Bind<A, B>(this InfusioOp<A> op, Func<A, InfusioOp<B>> fn) =>
             op is InfusioOp<A>.Return rt ? fn(rt.Value) :
+            op is InfusioOp<A>.Log log ? new InfusioOp<B>.Log(x => log.Next(Unit.Default).Bind(fn), log.Message) : 
             {% for op in Operations %}op is InfusioOp<A>.{{ op.Name }} {% assign opName = forloop.index %} _{{ opName }} ? new InfusioOp<B>.{{ op.Name }}(x => _{{ opName }}.Next(x).Bind(fn){% if op.Parameters.size > 0 %}, {% endif %}{% for parameter in op.Parameters %}_{{opName}}.{{ parameter.Name | capitalize }}{% if forloop.last == false %}, {% endif %}{% endfor %}){% if forloop.last == true %} as InfusioOp<B> {% endif %} :
             {% endfor %}throw new NotSupportedException();
     }

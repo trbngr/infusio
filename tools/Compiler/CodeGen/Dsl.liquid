@@ -14,7 +14,7 @@ namespace Infusio
           new InfusioOp<A>.Return(value);
 
         public static InfusioOp<Unit> Log(string message) =>
-            new InfusioOp<Unit>.Log(message, Return);
+            new InfusioOp<Unit>.Log(Return, message);
 
       {% for operation in Operations -%}
         /// <summary>

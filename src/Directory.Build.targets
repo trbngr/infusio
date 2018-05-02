@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="SetVersion">
     <PropertyGroup>
-        <GitSemVerMajor>0</GitSemVerMajor>
-        <GitSemVerMinor>1</GitSemVerMinor>
-        <GitSemVerPatch>0</GitSemVerPatch>
-        <GitSemVerDashLabel>-pre</GitSemVerDashLabel>
-        <GitDefaultBranch>dev</GitDefaultBranch>
-    </PropertyGroup>
-    <ItemGroup>
-        <PackageReference Include="GitInfo" Version="2.0.*" />
-    </ItemGroup>
-
-    <PropertyGroup>
-        <GitInfoReportImportance Condition="$(Configuration) == 'Release'">high</GitInfoReportImportance>
+        <SemVerMajor>0</SemVerMajor>
+        <SemVerMinor>2</SemVerMinor>
+        <SemVerPatch>1</SemVerPatch>
+        <SemVerDashLabel>-pre</SemVerDashLabel>
     </PropertyGroup>
 
-    <Target Name="SetVersion" AfterTargets="GitInfoReport">
+    <Target Name="SetVersion">
         <PropertyGroup>
-            <Version>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(GitSemVerDashLabel)</Version>
-            <PackageVersion>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(GitSemVerDashLabel)</PackageVersion>
+            <Version>$(SemVerMajor).$(SemVerMinor).$(SemVerPatch)$(SemVerDashLabel)</Version>
+            <PackageVersion>$(SemVerMajor).$(SemVerMinor).$(SemVerPatch)$(SemVerDashLabel)</PackageVersion>
         </PropertyGroup>
     </Target>
 </Project>

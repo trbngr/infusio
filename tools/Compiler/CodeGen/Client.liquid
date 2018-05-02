@@ -84,13 +84,13 @@ namespace Infusio.Http
             from responseType in FindResponse(httpResponse, responses)
             select unit;
 
-        static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
+        public static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
         {
             NullValueHandling = NullValueHandling.Ignore,
             ContractResolver = new CamelCasePropertyNamesContractResolver()
         };
 
-        static Option<(string name, object value)> RequestParameter(string name, object value) =>
+        public static Option<(string name, object value)> RequestParameter(string name, object value) =>
             Optional(value).Map(x => (name, x));
 
         static HttpContent MakeHttpContent(params Option<(string name, object value)>[] values) => ifNoneUnsafe(
@@ -100,7 +100,7 @@ namespace Infusio.Http
             () => null
         );
 
-        string MakeUri(string relative, params Option<(string name, object value)>[] values) => ifNone(
+        public static string MakeUri(string relative, params Option<(string name, object value)>[] values) => ifNone(
             from pair in Some(values.FoldT(HashMap<string, object>(), (acc, x) => acc.Add(x.name, x.value)))
             where !pair.IsEmpty
             let qs = pair.Map((key, value) => $"{key}={value}").Values

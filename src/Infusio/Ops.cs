@@ -5,9 +5,15 @@
 using System;
 using LanguageExt;
 using Infusio.Model;
+using Infusio.Http;
+using Newtonsoft.Json;
 
 namespace Infusio
 {
+    using static Prelude;
+    using static JsonConvert;
+    using static InfusioClient;
+
     public abstract class InfusioOp<A>
     {
         internal class Return : InfusioOp<A>
@@ -20,7 +26,7 @@ namespace Infusio
         {
             public readonly string Message;
             public readonly Func<Unit, InfusioOp<A>> Next;
-            public Log(string message, Func<Unit, InfusioOp<A>> next)
+            public Log(Func<Unit, InfusioOp<A>> next, string message)
             {
                 Message = message;
                 Next = next;
@@ -37,7 +43,10 @@ namespace Infusio
                 Next = next;
             }
 
-            public override string ToString() => $"GET: /account/profile";
+            string Uri => MakeUri($"/account/profile");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve account profile. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class UpdateAccountInfo : InfusioOp<A>
@@ -51,7 +60,10 @@ namespace Infusio
                 AccountInfo = accountInfo;
             }
 
-            public override string ToString() => $"PUT: /account/profile";
+            string Uri => MakeUri($"/account/profile");
+            Option<string> Body => MakeBody(AccountInfo);
+
+            public override string ToString() => Body.Fold($"Updates an account profile. [PUT: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class SearchCommissions : InfusioOp<A>
@@ -73,7 +85,10 @@ namespace Infusio
                 Since = since;
             }
 
-            public override string ToString() => $"GET: /affiliates/commissions";
+            string Uri => MakeUri($"/affiliates/commissions", RequestParameter("affiliateId", AffiliateId), RequestParameter("offset", Offset), RequestParameter("limit", Limit), RequestParameter("until", Until), RequestParameter("since", Since));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve Commissions. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class RetrieveAffiliateModel : InfusioOp<A>
@@ -85,7 +100,10 @@ namespace Infusio
                 Next = next;
             }
 
-            public override string ToString() => $"GET: /affiliates/model";
+            string Uri => MakeUri($"/affiliates/model");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve Affiliate Model. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListAppointments : InfusioOp<A>
@@ -107,7 +125,10 @@ namespace Infusio
                 Since = since;
             }
 
-            public override string ToString() => $"GET: /appointments";
+            string Uri => MakeUri($"/appointments", RequestParameter("contactId", ContactId), RequestParameter("offset", Offset), RequestParameter("limit", Limit), RequestParameter("until", Until), RequestParameter("since", Since));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Appointments. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class CreateAppointment : InfusioOp<A>
@@ -121,7 +142,10 @@ namespace Infusio
                 Appointment = appointment;
             }
 
-            public override string ToString() => $"POST: /appointments";
+            string Uri => MakeUri($"/appointments");
+            Option<string> Body => MakeBody(Appointment);
+
+            public override string ToString() => Body.Fold($"Create an Appointment. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class RetrieveAppointmentModel : InfusioOp<A>
@@ -133,7 +157,10 @@ namespace Infusio
                 Next = next;
             }
 
-            public override string ToString() => $"GET: /appointments/model";
+            string Uri => MakeUri($"/appointments/model");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve Appointment Model. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class GetAppointment : InfusioOp<A>
@@ -147,7 +174,10 @@ namespace Infusio
                 AppointmentId = appointmentId;
             }
 
-            public override string ToString() => $"GET: /appointments/{AppointmentId}";
+            string Uri => MakeUri($"/appointments/{AppointmentId}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve an Appointment. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class UpdateAppointment : InfusioOp<A>
@@ -163,7 +193,10 @@ namespace Infusio
                 AppointmentId = appointmentId;
             }
 
-            public override string ToString() => $"PUT: /appointments/{AppointmentId}";
+            string Uri => MakeUri($"/appointments/{AppointmentId}");
+            Option<string> Body => MakeBody(AppointmentDTO);
+
+            public override string ToString() => Body.Fold($"Replace an Appointment. [PUT: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class DeleteAppointment : InfusioOp<A>
@@ -177,7 +210,10 @@ namespace Infusio
                 AppointmentId = appointmentId;
             }
 
-            public override string ToString() => $"DELETE: /appointments/{AppointmentId}";
+            string Uri => MakeUri($"/appointments/{AppointmentId}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Delete an Appointment. [DELETE: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class UpdatePropertiesOnAppointment : InfusioOp<A>
@@ -193,7 +229,10 @@ namespace Infusio
                 AppointmentId = appointmentId;
             }
 
-            public override string ToString() => $"PATCH: /appointments/{AppointmentId}";
+            string Uri => MakeUri($"/appointments/{AppointmentId}");
+            Option<string> Body => MakeBody(AppointmentDTO);
+
+            public override string ToString() => Body.Fold($"Update an Appointment. [PATCH: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListCampaigns : InfusioOp<A>
@@ -215,7 +254,10 @@ namespace Infusio
                 Limit = limit;
             }
 
-            public override string ToString() => $"GET: /campaigns";
+            string Uri => MakeUri($"/campaigns", RequestParameter("orderDirection", OrderDirection), RequestParameter("order", Order), RequestParameter("searchText", SearchText), RequestParameter("offset", Offset), RequestParameter("limit", Limit));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Campaigns. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class GetCampaign : InfusioOp<A>
@@ -231,7 +273,10 @@ namespace Infusio
                 OptionalProperties = optionalProperties;
             }
 
-            public override string ToString() => $"GET: /campaigns/{CampaignId}";
+            string Uri => MakeUri($"/campaigns/{CampaignId}", RequestParameter("optionalProperties", OptionalProperties));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve a Campaign. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class AddContactsToCampaignSequence : InfusioOp<A>
@@ -249,7 +294,10 @@ namespace Infusio
                 CampaignId = campaignId;
             }
 
-            public override string ToString() => $"POST: /campaigns/{CampaignId}/sequences/{SequenceId}/contacts";
+            string Uri => MakeUri($"/campaigns/{CampaignId}/sequences/{SequenceId}/contacts");
+            Option<string> Body => MakeBody(Ids);
+
+            public override string ToString() => Body.Fold($"Add Multiple to Campaign Sequence. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class RemoveContactsFromCampaignSequence : InfusioOp<A>
@@ -267,7 +315,10 @@ namespace Infusio
                 CampaignId = campaignId;
             }
 
-            public override string ToString() => $"DELETE: /campaigns/{CampaignId}/sequences/{SequenceId}/contacts";
+            string Uri => MakeUri($"/campaigns/{CampaignId}/sequences/{SequenceId}/contacts");
+            Option<string> Body => MakeBody(Ids);
+
+            public override string ToString() => Body.Fold($"Remove Multiple from Campaign Sequence. [DELETE: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class AddContactToCampaignSequence : InfusioOp<A>
@@ -285,7 +336,10 @@ namespace Infusio
                 CampaignId = campaignId;
             }
 
-            public override string ToString() => $"POST: /campaigns/{CampaignId}/sequences/{SequenceId}/contacts/{ContactId}";
+            string Uri => MakeUri($"/campaigns/{CampaignId}/sequences/{SequenceId}/contacts/{ContactId}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Add to Campaign Sequence. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class RemoveContactFromCampaignSequence : InfusioOp<A>
@@ -303,7 +357,10 @@ namespace Infusio
                 CampaignId = campaignId;
             }
 
-            public override string ToString() => $"DELETE: /campaigns/{CampaignId}/sequences/{SequenceId}/contacts/{ContactId}";
+            string Uri => MakeUri($"/campaigns/{CampaignId}/sequences/{SequenceId}/contacts/{ContactId}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Remove from Campaign Sequence. [DELETE: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListCompanies : InfusioOp<A>
@@ -327,7 +384,10 @@ namespace Infusio
                 Limit = limit;
             }
 
-            public override string ToString() => $"GET: /companies";
+            string Uri => MakeUri($"/companies", RequestParameter("optionalProperties", OptionalProperties), RequestParameter("orderDirection", OrderDirection), RequestParameter("order", Order), RequestParameter("companyName", CompanyName), RequestParameter("offset", Offset), RequestParameter("limit", Limit));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Companies. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class CreateCompany : InfusioOp<A>
@@ -341,7 +401,10 @@ namespace Infusio
                 Company = company;
             }
 
-            public override string ToString() => $"POST: /companies";
+            string Uri => MakeUri($"/companies");
+            Option<string> Body => MakeBody(Company);
+
+            public override string ToString() => Body.Fold($"Create a Company. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class RetrieveCompanyModel : InfusioOp<A>
@@ -353,7 +416,10 @@ namespace Infusio
                 Next = next;
             }
 
-            public override string ToString() => $"GET: /companies/model";
+            string Uri => MakeUri($"/companies/model");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve Company Model. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListContacts : InfusioOp<A>
@@ -379,7 +445,10 @@ namespace Infusio
                 Limit = limit;
             }
 
-            public override string ToString() => $"GET: /contacts";
+            string Uri => MakeUri($"/contacts", RequestParameter("orderDirection", OrderDirection), RequestParameter("order", Order), RequestParameter("familyName", FamilyName), RequestParameter("givenName", GivenName), RequestParameter("email", Email), RequestParameter("offset", Offset), RequestParameter("limit", Limit));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Contacts. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class CreateContact : InfusioOp<A>
@@ -393,7 +462,10 @@ namespace Infusio
                 Contact = contact;
             }
 
-            public override string ToString() => $"POST: /contacts";
+            string Uri => MakeUri($"/contacts");
+            Option<string> Body => MakeBody(Contact);
+
+            public override string ToString() => Body.Fold($"Create a Contact. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class CreateOrUpdateContact : InfusioOp<A>
@@ -407,7 +479,10 @@ namespace Infusio
                 Contact = contact;
             }
 
-            public override string ToString() => $"PUT: /contacts";
+            string Uri => MakeUri($"/contacts");
+            Option<string> Body => MakeBody(Contact);
+
+            public override string ToString() => Body.Fold($"Create or Update a Contact. [PUT: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class RetrieveContactModel : InfusioOp<A>
@@ -419,7 +494,10 @@ namespace Infusio
                 Next = next;
             }
 
-            public override string ToString() => $"GET: /contacts/model";
+            string Uri => MakeUri($"/contacts/model");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve Contact Model. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class DeleteContact : InfusioOp<A>
@@ -433,7 +511,10 @@ namespace Infusio
                 ContactId = contactId;
             }
 
-            public override string ToString() => $"DELETE: /contacts/{ContactId}";
+            string Uri => MakeUri($"/contacts/{ContactId}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Delete a Contact. [DELETE: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class UpdatePropertiesOnContact : InfusioOp<A>
@@ -449,7 +530,10 @@ namespace Infusio
                 Contact = contact;
             }
 
-            public override string ToString() => $"PATCH: /contacts/{ContactId}";
+            string Uri => MakeUri($"/contacts/{ContactId}");
+            Option<string> Body => MakeBody(Contact);
+
+            public override string ToString() => Body.Fold($"Update a Contact. [PATCH: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class CreateCreditCard : InfusioOp<A>
@@ -465,7 +549,10 @@ namespace Infusio
                 CreditCard = creditCard;
             }
 
-            public override string ToString() => $"POST: /contacts/{ContactId}/creditCards";
+            string Uri => MakeUri($"/contacts/{ContactId}/creditCards");
+            Option<string> Body => MakeBody(CreditCard);
+
+            public override string ToString() => Body.Fold($"Create a Credit Card. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListEmailsForContact : InfusioOp<A>
@@ -487,7 +574,10 @@ namespace Infusio
                 Limit = limit;
             }
 
-            public override string ToString() => $"GET: /contacts/{ContactId}/emails";
+            string Uri => MakeUri($"/contacts/{ContactId}/emails", RequestParameter("email", Email), RequestParameter("contactId2", ContactId2), RequestParameter("offset", Offset), RequestParameter("limit", Limit));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Emails. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class CreateEmailForContact : InfusioOp<A>
@@ -503,7 +593,10 @@ namespace Infusio
                 EmailWithContent = emailWithContent;
             }
 
-            public override string ToString() => $"POST: /contacts/{ContactId}/emails";
+            string Uri => MakeUri($"/contacts/{ContactId}/emails");
+            Option<string> Body => MakeBody(EmailWithContent);
+
+            public override string ToString() => Body.Fold($"Create an Email Record. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListAppliedTags : InfusioOp<A>
@@ -521,7 +614,10 @@ namespace Infusio
                 Limit = limit;
             }
 
-            public override string ToString() => $"GET: /contacts/{ContactId}/tags";
+            string Uri => MakeUri($"/contacts/{ContactId}/tags", RequestParameter("offset", Offset), RequestParameter("limit", Limit));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Applied Tags. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ApplyTagsToContactId : InfusioOp<A>
@@ -537,7 +633,10 @@ namespace Infusio
                 ContactId = contactId;
             }
 
-            public override string ToString() => $"POST: /contacts/{ContactId}/tags";
+            string Uri => MakeUri($"/contacts/{ContactId}/tags");
+            Option<string> Body => MakeBody(TagIds);
+
+            public override string ToString() => Body.Fold($"Apply Tags. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class RemoveTagsFromContact : InfusioOp<A>
@@ -553,7 +652,10 @@ namespace Infusio
                 ContactId = contactId;
             }
 
-            public override string ToString() => $"DELETE: /contacts/{ContactId}/tags";
+            string Uri => MakeUri($"/contacts/{ContactId}/tags", RequestParameter("ids", Ids));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Remove Applied Tags. [DELETE: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class RemoveTagsFromContact2 : InfusioOp<A>
@@ -569,7 +671,10 @@ namespace Infusio
                 ContactId = contactId;
             }
 
-            public override string ToString() => $"DELETE: /contacts/{ContactId}/tags/{TagId}";
+            string Uri => MakeUri($"/contacts/{ContactId}/tags/{TagId}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Remove Applied Tag. [DELETE: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class GetContact : InfusioOp<A>
@@ -585,7 +690,10 @@ namespace Infusio
                 OptionalProperties = optionalProperties;
             }
 
-            public override string ToString() => $"GET: /contacts/{Id}";
+            string Uri => MakeUri($"/contacts/{Id}", RequestParameter("optionalProperties", OptionalProperties));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve a Contact. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListEmails : InfusioOp<A>
@@ -605,7 +713,10 @@ namespace Infusio
                 Limit = limit;
             }
 
-            public override string ToString() => $"GET: /emails";
+            string Uri => MakeUri($"/emails", RequestParameter("email", Email), RequestParameter("contactId", ContactId), RequestParameter("offset", Offset), RequestParameter("limit", Limit));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Emails. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class CreateEmail : InfusioOp<A>
@@ -619,7 +730,10 @@ namespace Infusio
                 EmailWithContent = emailWithContent;
             }
 
-            public override string ToString() => $"POST: /emails";
+            string Uri => MakeUri($"/emails");
+            Option<string> Body => MakeBody(EmailWithContent);
+
+            public override string ToString() => Body.Fold($"Create an Email Record. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class CreateEmails : InfusioOp<A>
@@ -633,7 +747,10 @@ namespace Infusio
                 EmailWithContent = emailWithContent;
             }
 
-            public override string ToString() => $"POST: /emails/sync";
+            string Uri => MakeUri($"/emails/sync");
+            Option<string> Body => MakeBody(EmailWithContent);
+
+            public override string ToString() => Body.Fold($"Create a set of Email Records. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class DeleteEmails : InfusioOp<A>
@@ -647,7 +764,10 @@ namespace Infusio
                 EmailIds = emailIds;
             }
 
-            public override string ToString() => $"POST: /emails/unsync";
+            string Uri => MakeUri($"/emails/unsync");
+            Option<string> Body => MakeBody(EmailIds);
+
+            public override string ToString() => Body.Fold($"Un-sync a batch of Email Records. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class GetEmail : InfusioOp<A>
@@ -661,7 +781,10 @@ namespace Infusio
                 Id = id;
             }
 
-            public override string ToString() => $"GET: /emails/{Id}";
+            string Uri => MakeUri($"/emails/{Id}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve an Email. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class UpdateEmail : InfusioOp<A>
@@ -677,7 +800,10 @@ namespace Infusio
                 EmailWithContent = emailWithContent;
             }
 
-            public override string ToString() => $"PUT: /emails/{Id}";
+            string Uri => MakeUri($"/emails/{Id}");
+            Option<string> Body => MakeBody(EmailWithContent);
+
+            public override string ToString() => Body.Fold($"Update an Email Record. [PUT: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class DeleteEmail : InfusioOp<A>
@@ -691,7 +817,10 @@ namespace Infusio
                 Id = id;
             }
 
-            public override string ToString() => $"DELETE: /emails/{Id}";
+            string Uri => MakeUri($"/emails/{Id}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Delete an Email Record. [DELETE: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListFiles : InfusioOp<A>
@@ -715,7 +844,10 @@ namespace Infusio
                 Limit = limit;
             }
 
-            public override string ToString() => $"GET: /files";
+            string Uri => MakeUri($"/files", RequestParameter("name", Name), RequestParameter("type", Type), RequestParameter("permission", Permission), RequestParameter("viewable", Viewable), RequestParameter("offset", Offset), RequestParameter("limit", Limit));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Files. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class CreateFile : InfusioOp<A>
@@ -729,7 +861,10 @@ namespace Infusio
                 FileUpload = fileUpload;
             }
 
-            public override string ToString() => $"POST: /files";
+            string Uri => MakeUri($"/files");
+            Option<string> Body => MakeBody(FileUpload);
+
+            public override string ToString() => Body.Fold($"Upload File. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class GetFile : InfusioOp<A>
@@ -745,7 +880,10 @@ namespace Infusio
                 OptionalProperties = optionalProperties;
             }
 
-            public override string ToString() => $"GET: /files/{FileId}";
+            string Uri => MakeUri($"/files/{FileId}", RequestParameter("optionalProperties", OptionalProperties));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve File. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class UpdateFile : InfusioOp<A>
@@ -761,7 +899,10 @@ namespace Infusio
                 FileUpload = fileUpload;
             }
 
-            public override string ToString() => $"PUT: /files/{FileId}";
+            string Uri => MakeUri($"/files/{FileId}");
+            Option<string> Body => MakeBody(FileUpload);
+
+            public override string ToString() => Body.Fold($"Replace File. [PUT: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class DeleteFile : InfusioOp<A>
@@ -775,7 +916,10 @@ namespace Infusio
                 FileId = fileId;
             }
 
-            public override string ToString() => $"DELETE: /files/{FileId}";
+            string Uri => MakeUri($"/files/{FileId}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Delete File. [DELETE: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListStoredHookSubscriptions : InfusioOp<A>
@@ -787,7 +931,10 @@ namespace Infusio
                 Next = next;
             }
 
-            public override string ToString() => $"GET: /hooks";
+            string Uri => MakeUri($"/hooks");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Stored Hook Subscriptions. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class CreateAHookSubscription : InfusioOp<A>
@@ -801,7 +948,10 @@ namespace Infusio
                 RestHookRequest = restHookRequest;
             }
 
-            public override string ToString() => $"POST: /hooks";
+            string Uri => MakeUri($"/hooks");
+            Option<string> Body => MakeBody(RestHookRequest);
+
+            public override string ToString() => Body.Fold($"Create a Hook Subscription. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListHookEventTypes : InfusioOp<A>
@@ -813,7 +963,10 @@ namespace Infusio
                 Next = next;
             }
 
-            public override string ToString() => $"GET: /hooks/event_keys";
+            string Uri => MakeUri($"/hooks/event_keys");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Hook Event Types. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class RetrieveAHookSubscription : InfusioOp<A>
@@ -827,7 +980,10 @@ namespace Infusio
                 Key = key;
             }
 
-            public override string ToString() => $"GET: /hooks/{Key}";
+            string Uri => MakeUri($"/hooks/{Key}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve a Hook Subscription. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class UpdateAHookSubscription : InfusioOp<A>
@@ -843,7 +999,10 @@ namespace Infusio
                 Key = key;
             }
 
-            public override string ToString() => $"PUT: /hooks/{Key}";
+            string Uri => MakeUri($"/hooks/{Key}");
+            Option<string> Body => MakeBody(RestHookRequest);
+
+            public override string ToString() => Body.Fold($"Update a Hook Subscription. [PUT: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class DeleteAHookSubscription : InfusioOp<A>
@@ -857,7 +1016,10 @@ namespace Infusio
                 Key = key;
             }
 
-            public override string ToString() => $"DELETE: /hooks/{Key}";
+            string Uri => MakeUri($"/hooks/{Key}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Delete a Hook Subscription. [DELETE: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class VerifyAHookSubscriptionDelayed : InfusioOp<A>
@@ -873,7 +1035,10 @@ namespace Infusio
                 Key = key;
             }
 
-            public override string ToString() => $"POST: /hooks/{Key}/delayedVerify";
+            string Uri => MakeUri($"/hooks/{Key}/delayedVerify");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Verify a Hook Subscription, Delayed. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class VerifyAHookSubscription : InfusioOp<A>
@@ -887,7 +1052,10 @@ namespace Infusio
                 Key = key;
             }
 
-            public override string ToString() => $"POST: /hooks/{Key}/verify";
+            string Uri => MakeUri($"/hooks/{Key}/verify");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Verify a Hook Subscription. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class GetUserInfo : InfusioOp<A>
@@ -899,7 +1067,10 @@ namespace Infusio
                 Next = next;
             }
 
-            public override string ToString() => $"GET: /oauth/connect/userinfo";
+            string Uri => MakeUri($"/oauth/connect/userinfo");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve User Info. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListOpportunities : InfusioOp<A>
@@ -923,7 +1094,10 @@ namespace Infusio
                 Limit = limit;
             }
 
-            public override string ToString() => $"GET: /opportunities";
+            string Uri => MakeUri($"/opportunities", RequestParameter("order", Order), RequestParameter("searchTerm", SearchTerm), RequestParameter("stageId", StageId), RequestParameter("userId", UserId), RequestParameter("offset", Offset), RequestParameter("limit", Limit));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Opportunities. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class CreateOpportunity : InfusioOp<A>
@@ -937,7 +1111,10 @@ namespace Infusio
                 Opportunity = opportunity;
             }
 
-            public override string ToString() => $"POST: /opportunities";
+            string Uri => MakeUri($"/opportunities");
+            Option<string> Body => MakeBody(Opportunity);
+
+            public override string ToString() => Body.Fold($"Create an Opportunity. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class UpdateOpportunity : InfusioOp<A>
@@ -951,7 +1128,10 @@ namespace Infusio
                 Opportunity = opportunity;
             }
 
-            public override string ToString() => $"PUT: /opportunities";
+            string Uri => MakeUri($"/opportunities");
+            Option<string> Body => MakeBody(Opportunity);
+
+            public override string ToString() => Body.Fold($"Replace an Opportunity. [PUT: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class RetrieveOpportunityModel : InfusioOp<A>
@@ -963,7 +1143,10 @@ namespace Infusio
                 Next = next;
             }
 
-            public override string ToString() => $"GET: /opportunities/model";
+            string Uri => MakeUri($"/opportunities/model");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve Opportunity Model. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class GetOpportunity : InfusioOp<A>
@@ -979,7 +1162,10 @@ namespace Infusio
                 OptionalProperties = optionalProperties;
             }
 
-            public override string ToString() => $"GET: /opportunities/{OpportunityId}";
+            string Uri => MakeUri($"/opportunities/{OpportunityId}", RequestParameter("optionalProperties", OptionalProperties));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve an Opportunity. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class UpdatePropertiesOnOpportunity : InfusioOp<A>
@@ -995,7 +1181,10 @@ namespace Infusio
                 Opportunity = opportunity;
             }
 
-            public override string ToString() => $"PATCH: /opportunities/{OpportunityId}";
+            string Uri => MakeUri($"/opportunities/{OpportunityId}");
+            Option<string> Body => MakeBody(Opportunity);
+
+            public override string ToString() => Body.Fold($"Update an Opportunity. [PATCH: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListOpportunityStagePipelines : InfusioOp<A>
@@ -1007,7 +1196,10 @@ namespace Infusio
                 Next = next;
             }
 
-            public override string ToString() => $"GET: /opportunity/stage_pipeline";
+            string Uri => MakeUri($"/opportunity/stage_pipeline");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Opportunity Stage Pipeline. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListOrders : InfusioOp<A>
@@ -1035,7 +1227,10 @@ namespace Infusio
                 Since = since;
             }
 
-            public override string ToString() => $"GET: /orders";
+            string Uri => MakeUri($"/orders", RequestParameter("productId", ProductId), RequestParameter("contactId", ContactId), RequestParameter("order", Order), RequestParameter("paid", Paid), RequestParameter("offset", Offset), RequestParameter("limit", Limit), RequestParameter("until", Until), RequestParameter("since", Since));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Orders. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class RetrieveOrderModel : InfusioOp<A>
@@ -1047,7 +1242,10 @@ namespace Infusio
                 Next = next;
             }
 
-            public override string ToString() => $"GET: /orders/model";
+            string Uri => MakeUri($"/orders/model");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve Custom Order Model. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class GetOrder : InfusioOp<A>
@@ -1061,7 +1259,10 @@ namespace Infusio
                 OrderId = orderId;
             }
 
-            public override string ToString() => $"GET: /orders/{OrderId}";
+            string Uri => MakeUri($"/orders/{OrderId}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve an Order. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListTransactionsForOrder : InfusioOp<A>
@@ -1085,7 +1286,10 @@ namespace Infusio
                 Since = since;
             }
 
-            public override string ToString() => $"GET: /orders/{OrderId}/transactions";
+            string Uri => MakeUri($"/orders/{OrderId}/transactions", RequestParameter("contactId", ContactId), RequestParameter("offset", Offset), RequestParameter("limit", Limit), RequestParameter("until", Until), RequestParameter("since", Since));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve Order Transactions. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListProducts : InfusioOp<A>
@@ -1103,7 +1307,10 @@ namespace Infusio
                 Limit = limit;
             }
 
-            public override string ToString() => $"GET: /products";
+            string Uri => MakeUri($"/products", RequestParameter("active", Active), RequestParameter("offset", Offset), RequestParameter("limit", Limit));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Products. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListProductsFromSyncToken : InfusioOp<A>
@@ -1121,7 +1328,10 @@ namespace Infusio
                 SyncToken = syncToken;
             }
 
-            public override string ToString() => $"GET: /products/sync";
+            string Uri => MakeUri($"/products/sync", RequestParameter("offset", Offset), RequestParameter("limit", Limit), RequestParameter("syncToken", SyncToken));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve Synced Products. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class GetProduct : InfusioOp<A>
@@ -1135,7 +1345,10 @@ namespace Infusio
                 ProductId = productId;
             }
 
-            public override string ToString() => $"GET: /products/{ProductId}";
+            string Uri => MakeUri($"/products/{ProductId}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve a Product. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class GetApplicationEnabled : InfusioOp<A>
@@ -1147,7 +1360,10 @@ namespace Infusio
                 Next = next;
             }
 
-            public override string ToString() => $"GET: /setting/application/enabled";
+            string Uri => MakeUri($"/setting/application/enabled");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve application status. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class GetContactOptionTypes : InfusioOp<A>
@@ -1159,7 +1375,10 @@ namespace Infusio
                 Next = next;
             }
 
-            public override string ToString() => $"GET: /setting/contact/optionTypes";
+            string Uri => MakeUri($"/setting/contact/optionTypes");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Contact types. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class RetrieveSubscriptionModel : InfusioOp<A>
@@ -1171,7 +1390,10 @@ namespace Infusio
                 Next = next;
             }
 
-            public override string ToString() => $"GET: /subscriptions/model";
+            string Uri => MakeUri($"/subscriptions/model");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve Subscription Model. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListTags : InfusioOp<A>
@@ -1189,7 +1411,10 @@ namespace Infusio
                 Limit = limit;
             }
 
-            public override string ToString() => $"GET: /tags";
+            string Uri => MakeUri($"/tags", RequestParameter("category", Category), RequestParameter("offset", Offset), RequestParameter("limit", Limit));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Tags. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class CreateTag : InfusioOp<A>
@@ -1203,7 +1428,10 @@ namespace Infusio
                 Tag = tag;
             }
 
-            public override string ToString() => $"POST: /tags";
+            string Uri => MakeUri($"/tags");
+            Option<string> Body => MakeBody(Tag);
+
+            public override string ToString() => Body.Fold($"Create Tag. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class CreateTagCategory : InfusioOp<A>
@@ -1217,7 +1445,10 @@ namespace Infusio
                 TagCategory = tagCategory;
             }
 
-            public override string ToString() => $"POST: /tags/categories";
+            string Uri => MakeUri($"/tags/categories");
+            Option<string> Body => MakeBody(TagCategory);
+
+            public override string ToString() => Body.Fold($"Create Tag Category. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class GetTag : InfusioOp<A>
@@ -1231,7 +1462,10 @@ namespace Infusio
                 Id = id;
             }
 
-            public override string ToString() => $"GET: /tags/{Id}";
+            string Uri => MakeUri($"/tags/{Id}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve a Tag. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListContactsForTagId : InfusioOp<A>
@@ -1249,7 +1483,10 @@ namespace Infusio
                 Limit = limit;
             }
 
-            public override string ToString() => $"GET: /tags/{TagId}/contacts";
+            string Uri => MakeUri($"/tags/{TagId}/contacts", RequestParameter("offset", Offset), RequestParameter("limit", Limit));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Tagged Contacts. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ApplyTagToContactIds : InfusioOp<A>
@@ -1265,7 +1502,10 @@ namespace Infusio
                 TagId = tagId;
             }
 
-            public override string ToString() => $"POST: /tags/{TagId}/contacts";
+            string Uri => MakeUri($"/tags/{TagId}/contacts");
+            Option<string> Body => MakeBody(Ids);
+
+            public override string ToString() => Body.Fold($"Apply Tag to Contacts. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class RemoveTagFromContactIds : InfusioOp<A>
@@ -1281,7 +1521,10 @@ namespace Infusio
                 TagId = tagId;
             }
 
-            public override string ToString() => $"DELETE: /tags/{TagId}/contacts";
+            string Uri => MakeUri($"/tags/{TagId}/contacts", RequestParameter("ids", Ids));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Remove Tag from Contacts. [DELETE: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class RemoveTagFromContactId : InfusioOp<A>
@@ -1297,7 +1540,10 @@ namespace Infusio
                 TagId = tagId;
             }
 
-            public override string ToString() => $"DELETE: /tags/{TagId}/contacts/{ContactId}";
+            string Uri => MakeUri($"/tags/{TagId}/contacts/{ContactId}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Remove Tag from Contact. [DELETE: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListTasks : InfusioOp<A>
@@ -1327,7 +1573,10 @@ namespace Infusio
                 ContactId = contactId;
             }
 
-            public override string ToString() => $"GET: /tasks";
+            string Uri => MakeUri($"/tasks", RequestParameter("order", Order), RequestParameter("offset", Offset), RequestParameter("limit", Limit), RequestParameter("completed", Completed), RequestParameter("until", Until), RequestParameter("since", Since), RequestParameter("userId", UserId), RequestParameter("hasDueDate", HasDueDate), RequestParameter("contactId", ContactId));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Tasks. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class CreateTask : InfusioOp<A>
@@ -1341,7 +1590,10 @@ namespace Infusio
                 Task = task;
             }
 
-            public override string ToString() => $"POST: /tasks";
+            string Uri => MakeUri($"/tasks");
+            Option<string> Body => MakeBody(Task);
+
+            public override string ToString() => Body.Fold($"Create a Task. [POST: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class RetrieveTaskModel : InfusioOp<A>
@@ -1353,7 +1605,10 @@ namespace Infusio
                 Next = next;
             }
 
-            public override string ToString() => $"GET: /tasks/model";
+            string Uri => MakeUri($"/tasks/model");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve Task Model. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListTasksForCurrentUser : InfusioOp<A>
@@ -1383,7 +1638,10 @@ namespace Infusio
                 ContactId = contactId;
             }
 
-            public override string ToString() => $"GET: /tasks/search";
+            string Uri => MakeUri($"/tasks/search", RequestParameter("order", Order), RequestParameter("offset", Offset), RequestParameter("limit", Limit), RequestParameter("completed", Completed), RequestParameter("until", Until), RequestParameter("since", Since), RequestParameter("userId", UserId), RequestParameter("hasDueDate", HasDueDate), RequestParameter("contactId", ContactId));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Search Tasks. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class GetTask : InfusioOp<A>
@@ -1397,7 +1655,10 @@ namespace Infusio
                 TaskId = taskId;
             }
 
-            public override string ToString() => $"GET: /tasks/{TaskId}";
+            string Uri => MakeUri($"/tasks/{TaskId}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve a Task. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class UpdateTask : InfusioOp<A>
@@ -1413,7 +1674,10 @@ namespace Infusio
                 TaskId = taskId;
             }
 
-            public override string ToString() => $"PUT: /tasks/{TaskId}";
+            string Uri => MakeUri($"/tasks/{TaskId}");
+            Option<string> Body => MakeBody(Task);
+
+            public override string ToString() => Body.Fold($"Replace a Task. [PUT: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class DeleteTask : InfusioOp<A>
@@ -1427,7 +1691,10 @@ namespace Infusio
                 TaskId = taskId;
             }
 
-            public override string ToString() => $"DELETE: /tasks/{TaskId}";
+            string Uri => MakeUri($"/tasks/{TaskId}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Delete a Task. [DELETE: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class UpdatePropertiesOnTask : InfusioOp<A>
@@ -1443,7 +1710,10 @@ namespace Infusio
                 TaskId = taskId;
             }
 
-            public override string ToString() => $"PATCH: /tasks/{TaskId}";
+            string Uri => MakeUri($"/tasks/{TaskId}");
+            Option<string> Body => MakeBody(Task);
+
+            public override string ToString() => Body.Fold($"Update a Task. [PATCH: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class ListTransactions : InfusioOp<A>
@@ -1465,7 +1735,10 @@ namespace Infusio
                 Since = since;
             }
 
-            public override string ToString() => $"GET: /transactions";
+            string Uri => MakeUri($"/transactions", RequestParameter("contactId", ContactId), RequestParameter("offset", Offset), RequestParameter("limit", Limit), RequestParameter("until", Until), RequestParameter("since", Since));
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"List Transactions. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
 
         internal class GetTransaction : InfusioOp<A>
@@ -1479,8 +1752,18 @@ namespace Infusio
                 TransactionId = transactionId;
             }
 
-            public override string ToString() => $"GET: /transactions/{TransactionId}";
+            string Uri => MakeUri($"/transactions/{TransactionId}");
+            Option<string> Body => MakeBody();
+
+            public override string ToString() => Body.Fold($"Retrieve a Transaction. [GET: {Uri}]", (msg, body) => $"{msg}: {body}");
         }
+
+        static Option<string> MakeBody(params Option<(string name, object value)>[] values) =>
+            from body in Some(values.FoldT(HashMap<string, object>(), (acc, x) => acc.Add(x.name, x.value)))
+            where !body.IsEmpty
+            select SerializeObject(body, SerializerSettings);
+
+        static Option<string> MakeBody(object body) => SerializeObject(body, SerializerSettings);
     }
 
     public static class InfusioOpExtensions
@@ -1496,6 +1779,7 @@ namespace Infusio
 
         static InfusioOp<B> Bind<A, B>(this InfusioOp<A> op, Func<A, InfusioOp<B>> fn) =>
             op is InfusioOp<A>.Return rt ? fn(rt.Value) :
+            op is InfusioOp<A>.Log log ? new InfusioOp<B>.Log(x => log.Next(Unit.Default).Bind(fn), log.Message) :
             op is InfusioOp<A>.GetAccountProfile _1 ? new InfusioOp<B>.GetAccountProfile(x => _1.Next(x).Bind(fn)) :
             op is InfusioOp<A>.UpdateAccountInfo _2 ? new InfusioOp<B>.UpdateAccountInfo(x => _2.Next(x).Bind(fn), _2.AccountInfo) :
             op is InfusioOp<A>.SearchCommissions _3 ? new InfusioOp<B>.SearchCommissions(x => _3.Next(x).Bind(fn), _3.AffiliateId, _3.Offset, _3.Limit, _3.Until, _3.Since) :
