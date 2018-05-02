@@ -12,16 +12,16 @@ namespace Infusio.Http
     public static class HttpSupport
     {
         public static Task<Either<InfusioError, InfusioResult<T>>> interpret<T>(InfusioOp<T> op, InfusioClient client) =>
-            RunWith(op, new InterpreterState(Seq<string>()), client);
+            RunWith(op, InterpreterState.Empty, client);
 
         public static Task<Either<InfusioError, InfusioResult<T>>> RunWith<T>(this InfusioOp<T> op, InfusioClient client) =>
-            RunWith(op, new InterpreterState(Seq<string>()), client);
+            RunWith(op, InterpreterState.Empty, client);
 
         public static Task<Either<InfusioError, InfusioResult<T>>> interpret<T>(InfusioOp<T> op, InterpreterState state, InfusioClient client) =>
-            RunAsync(op, new InterpreterState(Seq<string>()), client).ToEither();
+            RunAsync(op, state, client).ToEither();
 
         public static Task<Either<InfusioError, InfusioResult<T>>> RunWith<T>(this InfusioOp<T> op, InterpreterState state, InfusioClient client) =>
-            RunAsync(op, new InterpreterState(Seq<string>()), client).ToEither();
+            RunAsync(op, state, client).ToEither();
 
         static EitherAsync<InfusioError, InfusioResult<T>> RunAsync<T>(InfusioOp<T> op, InterpreterState state, InfusioClient client) =>
             op is InfusioOp<T>.Return r ? Right<InfusioError, InfusioResult<T>>(new InfusioResult<T>(r.Value, state.Logs)).ToAsync() :
@@ -32,17 +32,17 @@ namespace Infusio.Http
             throw new NotSupportedException();
 
         static EitherAsync<InfusioError, InfusioResult<B>> Exe<T, B>(string describe, Func<Task<Either<InfusioError, T>>> fn, Func<T, InfusioOp<B>> nextOp, InterpreterState state, InfusioClient client) =>
-            from a in LogOperation(describe, state, fn).ToAsync()
-            from n in RunAsync(nextOp(a.Item2), a.Item1, client)
-            select n;
+            from right in LogOperation(describe, state, fn).ToAsync()
+            from next in RunAsync(nextOp(right.Value), right.State, client)
+            select next;
 
-        static Task<Either<InfusioError, (InterpreterState, T)>> LogOperation<T>(string describe, InterpreterState state, Func<Task<Either<InfusioError, T>>> fn) =>
+        static Task<Either<InfusioError, (InterpreterState State, T Value)>> LogOperation<T>(string describe, InterpreterState state, Func<Task<Either<InfusioError, T>>> fn) =>
             from st in Right<InfusioError, (InterpreterState, Unit)>((state.Log(describe), unit)).AsTask()
-            from r in fn().ToAsync().Match(
-                Left: e => Left<InfusioError, (InterpreterState, T)>(e),
-                Right: t => Right<InfusioError, (InterpreterState, T)>((st.Item1.Log($" -> {SerializeObject(t, Indented)}"), t))
+            from result in fn().ToAsync().Match(
+                Left: error => Left<InfusioError, (InterpreterState, T)>(error),
+                Right: value => Right<InfusioError, (InterpreterState, T)>((st.Item1.Log($" -> {SerializeObject(value, Indented)}"), value))
             )
-            select r;
+            select result;
     }
 
     public class InterpreterState
