@@ -89,7 +89,8 @@ namespace Demo
                 {
                     res.Logs.Iter(Console.WriteLine);
                     Console.WriteLine($"contact: {SerializeObject(res.Value, Indented)}");
-                });
+                }
+            );
         }
     }
 }
