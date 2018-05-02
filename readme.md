@@ -20,12 +20,9 @@ Tasks to complete:
 
 - [ ] Library Documentation
 - [ ] Authentication token helper packages. These will allow auto-refreshing of tokens so you don't have to worry about it.
+- [ ] Create a test kit for easy unit testing.
 
 Please create issues if you run into any problems or just want a feature.
-
-- [ ] Create authentication helpers. Will probably be seperate projects.
-- [ ] Create documentation.
-- [ ] Create a test kit for easy unit testing.
 
 ## Installation
 `dotnet add package infusio`
