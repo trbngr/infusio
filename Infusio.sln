@@ -16,7 +16,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{4BA03FA8-87EE-484F-A056-633FAC0D7FBF}"
 ProjectSection(SolutionItems) = preProject
 	src\Directory.Build.targets = src\Directory.Build.targets
-	GitInfo.txt = GitInfo.txt
 EndProjectSection
 EndProject
 Global

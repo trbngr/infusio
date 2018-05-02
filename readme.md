@@ -1,10 +1,27 @@
 # Infusio. 
 **A Functional Infusionsoft REST Api Client**
 
-This library is close to being ready to use. But it's not quite ready for primetime.
+Infusio is a new .net Infusionsoft client.
 
-- [ ] Create authentication helpers. Will probably be seperate projects.
-- [ ] Create documentation.
+The majority of the code is generated from the [official Infusionsoft API documentation](https://developer.infusionsoft.com/docs/rest/infusion.json).
+
+Benefits:
+
+- All operations are composable. This means that you can chain all operations together to form one 'master' operation. [Example](https://github.com/trbngr/infusio/blob/dev/src/Demo/CustomOperations.cs#L12).
+- All operations are completely lazy. Nothing actually executes until you call `RunWith`. [Example](https://github.com/trbngr/infusio/blob/dev/src/Demo/Program.cs#L84).
+- For easy debugging, all operations have the ability to output logs. 
+- Speaking of logging, you can create your own log messages. `Log` is an `InfusioOp`. [Example](https://github.com/trbngr/infusio/blob/dev/src/Demo/CustomOperations.cs#L13).
+- All operations have XML documentation that comes from the API documentation.
+- All optional operation parameters are actually typed as optional (ie `Operation(long? id = default)`) so you don't have to provide a value.
+- Authentication is configured up-front and not littered throughout the calls. I still need to make some authentication helpers around token management. But that's a pretty easy task.
+
+Tasks to complete:
+
+- [ ] Library Documentation
+- [ ] Authentication token helper packages. These will allow auto-refreshing of tokens so you don't have to worry about it.
+
+Please create issues if you run into any problems or just want a feature.
+
 
 ## Installation
 `dotnet add package infusio`

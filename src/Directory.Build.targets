@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="SetVersion">
     <PropertyGroup>
-        <SemVerMajor>0</SemVerMajor>
-        <SemVerMinor>2</SemVerMinor>
-        <SemVerPatch>1</SemVerPatch>
-        <SemVerDashLabel>-pre</SemVerDashLabel>
+        <SemVerMajor>1</SemVerMajor>
+        <SemVerMinor>0</SemVerMinor>
+        <SemVerPatch>0</SemVerPatch>
+        <SemVerDashLabel></SemVerDashLabel>
     </PropertyGroup>
 
     <Target Name="SetVersion">
