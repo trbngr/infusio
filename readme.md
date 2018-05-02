@@ -36,4 +36,4 @@ or
 `paket add infusio`
 
 ## Usage
-See the [demo project](src/Demo/Program.cs#L25)
+See the [demo project](src/Demo/Program.cs#L20)
