@@ -23,11 +23,8 @@ Tasks to complete:
 
 Please create issues if you run into any problems or just want a feature.
 
-<<<<<<< HEAD
-=======
 - [ ] Create authentication helpers. Will probably be seperate projects.
 - [ ] Create documentation.
->>>>>>> Versioning (#3)
 
 ## Installation
 `dotnet add package infusio`
