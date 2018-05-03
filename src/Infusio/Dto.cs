@@ -11,111 +11,13 @@ namespace Infusio.Model
 {
 
 
-    public enum Category
+    public enum DuplicateOption
     {
-        [EnumMember(Value = "Attachments")]
-        Attachments,
+        [EnumMember(Value = "Email")]
+        Email,
 
-        [EnumMember(Value = "Cart")]
-        Cart,
-
-        [EnumMember(Value = "Documents")]
-        Documents,
-
-        [EnumMember(Value = "Hidden")]
-        Hidden,
-
-        [EnumMember(Value = "Invoice")]
-        Invoice,
-
-        [EnumMember(Value = "Logo")]
-        Logo,
-
-        [EnumMember(Value = "Tickets")]
-        Tickets,
-
-        [EnumMember(Value = "WebForm")]
-        Webform,
-
-        [EnumMember(Value = "Funnel")]
-        Funnel
-    }
-
-
-    public enum SourceType
-    {
-        [EnumMember(Value = "WEBFORM")]
-        Webform,
-
-        [EnumMember(Value = "LANDINGPAGE")]
-        Landingpage,
-
-        [EnumMember(Value = "IMPORT")]
-        Import,
-
-        [EnumMember(Value = "MANUAL")]
-        Manual,
-
-        [EnumMember(Value = "API")]
-        Api,
-
-        [EnumMember(Value = "OTHER")]
-        Other,
-
-        [EnumMember(Value = "UNKNOWN")]
-        Unknown
-    }
-
-
-    public enum EmailStatus
-    {
-        [EnumMember(Value = "Unengaged Marketable")]
-        Unengagedmarketable,
-
-        [EnumMember(Value = "Unconfirmed")]
-        Unconfirmed,
-
-        [EnumMember(Value = "Confirmed (Legacy)")]
-        Confirmedlegacy,
-
-        [EnumMember(Value = "Confirmed")]
-        Confirmed,
-
-        [EnumMember(Value = "Unengaged NonMarketable")]
-        Unengagednonmarketable,
-
-        [EnumMember(Value = "Non-marketable")]
-        Nonmarketable,
-
-        [EnumMember(Value = "Lockdown")]
-        Lockdown,
-
-        [EnumMember(Value = "Soft Bounce")]
-        Softbounce,
-
-        [EnumMember(Value = "Hard Bounce")]
-        Hardbounce,
-
-        [EnumMember(Value = "Opt-Out")]
-        Optout,
-
-        [EnumMember(Value = "Opt-Out: Admin")]
-        Optoutadmin,
-
-        [EnumMember(Value = "Opt-Out: System")]
-        Optoutsystem,
-
-        [EnumMember(Value = "List Unsubscribe")]
-        Listunsubscribe,
-
-        [EnumMember(Value = "Provided Feedback")]
-        Providedfeedback,
-
-        [EnumMember(Value = "Reported Spam")]
-        Reportedspam,
-
-        [EnumMember(Value = "Invalid Email")]
-        Invalidemail
+        [EnumMember(Value = "EmailAndName")]
+        Emailandname
     }
 
 
@@ -129,92 +31,6 @@ namespace Infusio.Model
 
         [EnumMember(Value = "COMPANY")]
         Company
-    }
-
-
-    public enum DuplicateOption
-    {
-        [EnumMember(Value = "Email")]
-        Email,
-
-        [EnumMember(Value = "EmailAndName")]
-        Emailandname
-    }
-
-
-    public enum FieldType
-    {
-        [EnumMember(Value = "Currency")]
-        Currency,
-
-        [EnumMember(Value = "Date")]
-        Date,
-
-        [EnumMember(Value = "DateTime")]
-        Datetime,
-
-        [EnumMember(Value = "DayOfWeek")]
-        Dayofweek,
-
-        [EnumMember(Value = "Drilldown")]
-        Drilldown,
-
-        [EnumMember(Value = "Email")]
-        Email,
-
-        [EnumMember(Value = "Month")]
-        Month,
-
-        [EnumMember(Value = "ListBox")]
-        Listbox,
-
-        [EnumMember(Value = "Name")]
-        Name,
-
-        [EnumMember(Value = "WholeNumber")]
-        Wholenumber,
-
-        [EnumMember(Value = "DecimalNumber")]
-        Decimalnumber,
-
-        [EnumMember(Value = "Percent")]
-        Percent,
-
-        [EnumMember(Value = "PhoneNumber")]
-        Phonenumber,
-
-        [EnumMember(Value = "Radio")]
-        Radio,
-
-        [EnumMember(Value = "Dropdown")]
-        Dropdown,
-
-        [EnumMember(Value = "SocialSecurityNumber")]
-        Socialsecuritynumber,
-
-        [EnumMember(Value = "State")]
-        State,
-
-        [EnumMember(Value = "Text")]
-        Text,
-
-        [EnumMember(Value = "TextArea")]
-        Textarea,
-
-        [EnumMember(Value = "User")]
-        User,
-
-        [EnumMember(Value = "UserListBox")]
-        Userlistbox,
-
-        [EnumMember(Value = "Website")]
-        Website,
-
-        [EnumMember(Value = "Year")]
-        Year,
-
-        [EnumMember(Value = "YesNo")]
-        Yesno
     }
 
 
@@ -297,41 +113,6 @@ namespace Infusio.Model
     }
 
 
-    public enum Key
-    {
-        [EnumMember(Value = "SUCCESS")]
-        Success,
-
-        [EnumMember(Value = "DUPLICATE")]
-        Duplicate,
-
-        [EnumMember(Value = "CONTACT_NOT_FOUND")]
-        Contactnotfound,
-
-        [EnumMember(Value = "TAG_ID_NOT_FOUND")]
-        Tagidnotfound,
-
-        [EnumMember(Value = "FAILURE")]
-        Failure,
-
-        [EnumMember(Value = "NO_PERMISSION")]
-        Nopermission
-    }
-
-
-    public enum Status
-    {
-        [EnumMember(Value = "Unverified")]
-        Unverified,
-
-        [EnumMember(Value = "Verified")]
-        Verified,
-
-        [EnumMember(Value = "Inactive")]
-        Inactive
-    }
-
-
     public enum FileBoxType
     {
         [EnumMember(Value = "Application")]
@@ -381,6 +162,203 @@ namespace Infusio.Model
     }
 
 
+    public enum Status
+    {
+        [EnumMember(Value = "Unverified")]
+        Unverified,
+
+        [EnumMember(Value = "Verified")]
+        Verified,
+
+        [EnumMember(Value = "Inactive")]
+        Inactive
+    }
+
+
+    public enum Category
+    {
+        [EnumMember(Value = "Attachments")]
+        Attachments,
+
+        [EnumMember(Value = "Cart")]
+        Cart,
+
+        [EnumMember(Value = "Documents")]
+        Documents,
+
+        [EnumMember(Value = "Hidden")]
+        Hidden,
+
+        [EnumMember(Value = "Invoice")]
+        Invoice,
+
+        [EnumMember(Value = "Logo")]
+        Logo,
+
+        [EnumMember(Value = "Tickets")]
+        Tickets,
+
+        [EnumMember(Value = "WebForm")]
+        Webform,
+
+        [EnumMember(Value = "Funnel")]
+        Funnel
+    }
+
+
+    public enum EmailStatus
+    {
+        [EnumMember(Value = "Unengaged Marketable")]
+        Unengagedmarketable,
+
+        [EnumMember(Value = "Unconfirmed")]
+        Unconfirmed,
+
+        [EnumMember(Value = "Confirmed (Legacy)")]
+        Confirmedlegacy,
+
+        [EnumMember(Value = "Confirmed")]
+        Confirmed,
+
+        [EnumMember(Value = "Unengaged NonMarketable")]
+        Unengagednonmarketable,
+
+        [EnumMember(Value = "Non-marketable")]
+        Nonmarketable,
+
+        [EnumMember(Value = "Lockdown")]
+        Lockdown,
+
+        [EnumMember(Value = "Soft Bounce")]
+        Softbounce,
+
+        [EnumMember(Value = "Hard Bounce")]
+        Hardbounce,
+
+        [EnumMember(Value = "Opt-Out")]
+        Optout,
+
+        [EnumMember(Value = "Opt-Out: Admin")]
+        Optoutadmin,
+
+        [EnumMember(Value = "Opt-Out: System")]
+        Optoutsystem,
+
+        [EnumMember(Value = "List Unsubscribe")]
+        Listunsubscribe,
+
+        [EnumMember(Value = "Provided Feedback")]
+        Providedfeedback,
+
+        [EnumMember(Value = "Reported Spam")]
+        Reportedspam,
+
+        [EnumMember(Value = "Invalid Email")]
+        Invalidemail
+    }
+
+
+    public enum SourceType
+    {
+        [EnumMember(Value = "WEBFORM")]
+        Webform,
+
+        [EnumMember(Value = "LANDINGPAGE")]
+        Landingpage,
+
+        [EnumMember(Value = "IMPORT")]
+        Import,
+
+        [EnumMember(Value = "MANUAL")]
+        Manual,
+
+        [EnumMember(Value = "API")]
+        Api,
+
+        [EnumMember(Value = "OTHER")]
+        Other,
+
+        [EnumMember(Value = "UNKNOWN")]
+        Unknown
+    }
+
+
+    public enum FieldType
+    {
+        [EnumMember(Value = "Currency")]
+        Currency,
+
+        [EnumMember(Value = "Date")]
+        Date,
+
+        [EnumMember(Value = "DateTime")]
+        Datetime,
+
+        [EnumMember(Value = "DayOfWeek")]
+        Dayofweek,
+
+        [EnumMember(Value = "Drilldown")]
+        Drilldown,
+
+        [EnumMember(Value = "Email")]
+        Email,
+
+        [EnumMember(Value = "Month")]
+        Month,
+
+        [EnumMember(Value = "ListBox")]
+        Listbox,
+
+        [EnumMember(Value = "Name")]
+        Name,
+
+        [EnumMember(Value = "WholeNumber")]
+        Wholenumber,
+
+        [EnumMember(Value = "DecimalNumber")]
+        Decimalnumber,
+
+        [EnumMember(Value = "Percent")]
+        Percent,
+
+        [EnumMember(Value = "PhoneNumber")]
+        Phonenumber,
+
+        [EnumMember(Value = "Radio")]
+        Radio,
+
+        [EnumMember(Value = "Dropdown")]
+        Dropdown,
+
+        [EnumMember(Value = "SocialSecurityNumber")]
+        Socialsecuritynumber,
+
+        [EnumMember(Value = "State")]
+        State,
+
+        [EnumMember(Value = "Text")]
+        Text,
+
+        [EnumMember(Value = "TextArea")]
+        Textarea,
+
+        [EnumMember(Value = "User")]
+        User,
+
+        [EnumMember(Value = "UserListBox")]
+        Userlistbox,
+
+        [EnumMember(Value = "Website")]
+        Website,
+
+        [EnumMember(Value = "Year")]
+        Year,
+
+        [EnumMember(Value = "YesNo")]
+        Yesno
+    }
+
+
     public enum RecordType
     {
         [EnumMember(Value = "CONTACT")]
@@ -419,6 +397,28 @@ namespace Infusio.Model
 
         [EnumMember(Value = "EMAIL1")]
         Email1
+    }
+
+
+    public enum Key
+    {
+        [EnumMember(Value = "SUCCESS")]
+        Success,
+
+        [EnumMember(Value = "DUPLICATE")]
+        Duplicate,
+
+        [EnumMember(Value = "CONTACT_NOT_FOUND")]
+        Contactnotfound,
+
+        [EnumMember(Value = "TAG_ID_NOT_FOUND")]
+        Tagidnotfound,
+
+        [EnumMember(Value = "FAILURE")]
+        Failure,
+
+        [EnumMember(Value = "NO_PERMISSION")]
+        Nopermission
     }
 
 

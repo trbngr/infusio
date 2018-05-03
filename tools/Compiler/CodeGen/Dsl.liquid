@@ -4,7 +4,6 @@
 //----------------------
 using System;
 using LanguageExt;
-using Infusio.Ops;
 using Infusio.Model;
 
 namespace Infusio
@@ -13,6 +12,9 @@ namespace Infusio
   {
       public static InfusioOp<A> Return<A>(A value) =>
           new InfusioOp<A>.Return(value);
+
+        public static InfusioOp<Unit> Log(string message) =>
+            new InfusioOp<Unit>.Log(Return, message);
 
       {% for operation in Operations -%}
         /// <summary>

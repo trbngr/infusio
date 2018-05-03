@@ -8,11 +8,10 @@ namespace Demo
 {
     public static class TokenCache
     {
-        public static OptionAsync<AuthorizationInfo> AuthorizationInfoFromCache() => (
+        public static Option<AuthorizationInfo> AuthorizationInfoFromCache() =>
             from info in LoadFromCache()
             from valid in EnsureLifetime(info)
-            select valid
-        ).ToAsync();
+            select valid;
 
         static Option<AuthorizationInfo> LoadFromCache() => File.Exists("auth.json")
             ? JsonConvert.DeserializeObject<AuthorizationInfo>(File.ReadAllText("auth.json"))

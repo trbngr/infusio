@@ -20,6 +20,7 @@ using Newtonsoft.Json.Serialization;
 namespace Infusio.Http
 {
     using static Prelude;
+    using static HttpUtils;
     using static JsonConvert;
 
     public class InfusioClient
@@ -38,14 +39,13 @@ namespace Infusio.Http
         /// </summary>
         public Task<Either<InfusioError, AccountProfile>> GetAccountProfile() =>
             HttpWorkflow<AccountProfile>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/account/profile")),
+                message: Request(HttpMethod.Get, MakeUri($"/account/profile"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(AccountProfile)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve account profile
@@ -61,16 +61,13 @@ namespace Infusio.Http
         /// <param name="accountInfo">accountInfo</param>
         public Task<Either<InfusioError, AccountProfile>> UpdateAccountInfo(AccountProfile accountInfo) =>
             HttpWorkflow<AccountProfile>(
-                Request(HttpMethod.Put,
-                    MakeUri($"/account/profile"),
-                    accountInfo
-                ),
+                message: Request(HttpMethod.Put, MakeUri($"/account/profile"), _config.AccessToken, accountInfo),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(AccountProfile)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Updates an account profile
@@ -91,19 +88,13 @@ namespace Infusio.Http
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
         public Task<Either<InfusioError, AffiliateCommissionList>> SearchCommissions(long? affiliateId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
             HttpWorkflow<AffiliateCommissionList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/affiliates/commissions",
-                        RequestParameter("affiliateId", affiliateId),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit),
-                        RequestParameter("until", until),
-                        RequestParameter("since", since))),
+                message: Request(HttpMethod.Get, MakeUri($"/affiliates/commissions", RequestParameter("affiliateId", affiliateId), RequestParameter("offset", offset), RequestParameter("limit", limit), RequestParameter("until", until), RequestParameter("since", since)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(AffiliateCommissionList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve Commissions
@@ -123,14 +114,13 @@ namespace Infusio.Http
         /// </summary>
         public Task<Either<InfusioError, ObjectModel>> RetrieveAffiliateModel() =>
             HttpWorkflow<ObjectModel>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/affiliates/model")),
+                message: Request(HttpMethod.Get, MakeUri($"/affiliates/model"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve Affiliate Model
@@ -150,19 +140,13 @@ namespace Infusio.Http
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
         public Task<Either<InfusioError, AppointmentList>> ListAppointments(long? contactId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
             HttpWorkflow<AppointmentList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/appointments",
-                        RequestParameter("contactId", contactId),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit),
-                        RequestParameter("until", until),
-                        RequestParameter("since", since))),
+                message: Request(HttpMethod.Get, MakeUri($"/appointments", RequestParameter("contactId", contactId), RequestParameter("offset", offset), RequestParameter("limit", limit), RequestParameter("until", until), RequestParameter("since", since)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(AppointmentList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Appointments
@@ -183,15 +167,12 @@ namespace Infusio.Http
         /// <param name="appointment">appointment</param>
         public Task<Either<InfusioError, Appointment>> CreateAppointment(Model.Appointment appointment) =>
             HttpWorkflow<Appointment>(
-                Request(HttpMethod.Post,
-                    MakeUri($"/appointments"),
-                    appointment
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/appointments"), _config.AccessToken, appointment),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(201, "Created", typeof(Appointment)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Create an Appointment
@@ -207,14 +188,13 @@ namespace Infusio.Http
         /// </summary>
         public Task<Either<InfusioError, ObjectModel>> RetrieveAppointmentModel() =>
             HttpWorkflow<ObjectModel>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/appointments/model")),
+                message: Request(HttpMethod.Get, MakeUri($"/appointments/model"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve Appointment Model
@@ -230,14 +210,13 @@ namespace Infusio.Http
         /// <param name="appointmentId">appointmentId</param>
         public Task<Either<InfusioError, Appointment>> GetAppointment(long? appointmentId) =>
             HttpWorkflow<Appointment>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/appointments/{appointmentId}")),
+                message: Request(HttpMethod.Get, MakeUri($"/appointments/{appointmentId}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Appointment)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve an Appointment
@@ -255,16 +234,13 @@ namespace Infusio.Http
         /// <param name="appointmentId">appointmentId</param>
         public Task<Either<InfusioError, Appointment>> UpdateAppointment(Model.Appointment appointmentDTO, long? appointmentId) =>
             HttpWorkflow<Appointment>(
-                Request(HttpMethod.Put,
-                    MakeUri($"/appointments/{appointmentId}"),
-                    appointmentDTO
-                ),
+                message: Request(HttpMethod.Put, MakeUri($"/appointments/{appointmentId}"), _config.AccessToken, appointmentDTO),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Appointment)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Replace an Appointment
@@ -282,14 +258,13 @@ namespace Infusio.Http
         /// <param name="appointmentId">appointmentId</param>
         public Task<Either<InfusioError, Unit>> DeleteAppointment(long? appointmentId) =>
             HttpWorkflow(
-                Request(HttpMethod.Delete,
-                    MakeUri($"/appointments/{appointmentId}")),
+                message: Request(HttpMethod.Delete, MakeUri($"/appointments/{appointmentId}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Delete an Appointment
@@ -307,17 +282,13 @@ namespace Infusio.Http
         /// <param name="appointmentId">appointmentId</param>
         public Task<Either<InfusioError, Appointment>> UpdatePropertiesOnAppointment(Model.Appointment appointmentDTO, long? appointmentId) =>
             HttpWorkflow<Appointment>(
-                Request(
-                        new HttpMethod("Patch"),
-                    MakeUri($"/appointments/{appointmentId}"),
-                    appointmentDTO
-                ),
+                message: Request(new HttpMethod("Patch"), MakeUri($"/appointments/{appointmentId}"), _config.AccessToken, appointmentDTO),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Appointment)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Update an Appointment
@@ -339,19 +310,13 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<Either<InfusioError, CampaignList>> ListCampaigns(string orderDirection = default, string order = default, string searchText = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<CampaignList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/campaigns",
-                        RequestParameter("orderDirection", orderDirection),
-                        RequestParameter("order", order),
-                        RequestParameter("searchText", searchText),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit))),
+                message: Request(HttpMethod.Get, MakeUri($"/campaigns", RequestParameter("orderDirection", orderDirection), RequestParameter("order", order), RequestParameter("searchText", searchText), RequestParameter("offset", offset), RequestParameter("limit", limit)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(CampaignList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Campaigns
@@ -373,15 +338,13 @@ namespace Infusio.Http
         /// <param name="optionalProperties">Comma-delimited list of Campaign properties to include in the response. (The fields `goals` and `sequences` aren't included, by default.)</param>
         public Task<Either<InfusioError, Campaign>> GetCampaign(long? campaignId, Lst<string> optionalProperties = default) =>
             HttpWorkflow<Campaign>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/campaigns/{campaignId}",
-                        RequestParameter("optionalProperties", optionalProperties))),
+                message: Request(HttpMethod.Get, MakeUri($"/campaigns/{campaignId}", RequestParameter("optionalProperties", optionalProperties)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Campaign)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve a Campaign
@@ -401,15 +364,12 @@ namespace Infusio.Http
         /// <param name="campaignId">campaignId</param>
         public Task<Either<InfusioError, Unit>> AddContactsToCampaignSequence(Model.SetOfIds ids, long? sequenceId, long? campaignId) =>
             HttpWorkflow(
-                Request(HttpMethod.Post,
-                    MakeUri($"/campaigns/{campaignId}/sequences/{sequenceId}/contacts"),
-                    ids
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/campaigns/{campaignId}/sequences/{sequenceId}/contacts"), _config.AccessToken, ids),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Add Multiple to Campaign Sequence
@@ -430,16 +390,13 @@ namespace Infusio.Http
         /// <param name="campaignId">campaignId</param>
         public Task<Either<InfusioError, Unit>> RemoveContactsFromCampaignSequence(Model.SetOfIds ids, long? sequenceId, long? campaignId) =>
             HttpWorkflow(
-                Request(HttpMethod.Delete,
-                    MakeUri($"/campaigns/{campaignId}/sequences/{sequenceId}/contacts"),
-                    ids
-                ),
+                message: Request(HttpMethod.Delete, MakeUri($"/campaigns/{campaignId}/sequences/{sequenceId}/contacts"), _config.AccessToken, ids),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Remove Multiple from Campaign Sequence
@@ -460,13 +417,12 @@ namespace Infusio.Http
         /// <param name="campaignId">campaignId</param>
         public Task<Either<InfusioError, Unit>> AddContactToCampaignSequence(long? contactId, long? sequenceId, long? campaignId) =>
             HttpWorkflow(
-                Request(HttpMethod.Post,
-                    MakeUri($"/campaigns/{campaignId}/sequences/{sequenceId}/contacts/{contactId}")),
+                message: Request(HttpMethod.Post, MakeUri($"/campaigns/{campaignId}/sequences/{sequenceId}/contacts/{contactId}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Add to Campaign Sequence
@@ -487,14 +443,13 @@ namespace Infusio.Http
         /// <param name="campaignId">campaignId</param>
         public Task<Either<InfusioError, Unit>> RemoveContactFromCampaignSequence(long? contactId, long? sequenceId, long? campaignId) =>
             HttpWorkflow(
-                Request(HttpMethod.Delete,
-                    MakeUri($"/campaigns/{campaignId}/sequences/{sequenceId}/contacts/{contactId}")),
+                message: Request(HttpMethod.Delete, MakeUri($"/campaigns/{campaignId}/sequences/{sequenceId}/contacts/{contactId}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Remove from Campaign Sequence
@@ -518,20 +473,13 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<Either<InfusioError, CompanyList>> ListCompanies(Lst<string> optionalProperties = default, string orderDirection = default, string order = default, string companyName = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<CompanyList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/companies",
-                        RequestParameter("optionalProperties", optionalProperties),
-                        RequestParameter("orderDirection", orderDirection),
-                        RequestParameter("order", order),
-                        RequestParameter("companyName", companyName),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit))),
+                message: Request(HttpMethod.Get, MakeUri($"/companies", RequestParameter("optionalProperties", optionalProperties), RequestParameter("orderDirection", orderDirection), RequestParameter("order", order), RequestParameter("companyName", companyName), RequestParameter("offset", offset), RequestParameter("limit", limit)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(CompanyList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Companies
@@ -553,15 +501,12 @@ namespace Infusio.Http
         /// <param name="company">company</param>
         public Task<Either<InfusioError, Company>> CreateCompany(Model.CreateCompany company = default) =>
             HttpWorkflow<Company>(
-                Request(HttpMethod.Post,
-                    MakeUri($"/companies"),
-                    company
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/companies"), _config.AccessToken, company),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(201, "Created", typeof(Company)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Create a Company
@@ -577,14 +522,13 @@ namespace Infusio.Http
         /// </summary>
         public Task<Either<InfusioError, ObjectModel>> RetrieveCompanyModel() =>
             HttpWorkflow<ObjectModel>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/companies/model")),
+                message: Request(HttpMethod.Get, MakeUri($"/companies/model"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve Company Model
@@ -606,21 +550,13 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<Either<InfusioError, ContactList>> ListContacts(string orderDirection = default, string order = default, string familyName = default, string givenName = default, string email = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<ContactList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/contacts",
-                        RequestParameter("orderDirection", orderDirection),
-                        RequestParameter("order", order),
-                        RequestParameter("familyName", familyName),
-                        RequestParameter("givenName", givenName),
-                        RequestParameter("email", email),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit))),
+                message: Request(HttpMethod.Get, MakeUri($"/contacts", RequestParameter("orderDirection", orderDirection), RequestParameter("order", order), RequestParameter("familyName", familyName), RequestParameter("givenName", givenName), RequestParameter("email", email), RequestParameter("offset", offset), RequestParameter("limit", limit)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ContactList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Contacts
@@ -643,15 +579,12 @@ namespace Infusio.Http
         /// <param name="contact">contact</param>
         public Task<Either<InfusioError, FullContact>> CreateContact(Model.RequestContact contact = default) =>
             HttpWorkflow<FullContact>(
-                Request(HttpMethod.Post,
-                    MakeUri($"/contacts"),
-                    contact
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/contacts"), _config.AccessToken, contact),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(201, "Created", typeof(FullContact)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Create a Contact
@@ -668,16 +601,13 @@ namespace Infusio.Http
         /// <param name="contact">contact</param>
         public Task<Either<InfusioError, FullContact>> CreateOrUpdateContact(Model.UpsertContact contact = default) =>
             HttpWorkflow<FullContact>(
-                Request(HttpMethod.Put,
-                    MakeUri($"/contacts"),
-                    contact
-                ),
+                message: Request(HttpMethod.Put, MakeUri($"/contacts"), _config.AccessToken, contact),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(FullContact)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Create or Update a Contact
@@ -693,14 +623,13 @@ namespace Infusio.Http
         /// </summary>
         public Task<Either<InfusioError, ObjectModel>> RetrieveContactModel() =>
             HttpWorkflow<ObjectModel>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/contacts/model")),
+                message: Request(HttpMethod.Get, MakeUri($"/contacts/model"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve Contact Model
@@ -716,14 +645,13 @@ namespace Infusio.Http
         /// <param name="contactId">contactId</param>
         public Task<Either<InfusioError, Unit>> DeleteContact(long? contactId) =>
             HttpWorkflow(
-                Request(HttpMethod.Delete,
-                    MakeUri($"/contacts/{contactId}")),
+                message: Request(HttpMethod.Delete, MakeUri($"/contacts/{contactId}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Delete a Contact
@@ -741,17 +669,13 @@ namespace Infusio.Http
         /// <param name="contact">contact</param>
         public Task<Either<InfusioError, FullContact>> UpdatePropertiesOnContact(long? contactId, Model.RequestContact contact = default) =>
             HttpWorkflow<FullContact>(
-                Request(
-                        new HttpMethod("Patch"),
-                    MakeUri($"/contacts/{contactId}"),
-                    contact
-                ),
+                message: Request(new HttpMethod("Patch"), MakeUri($"/contacts/{contactId}"), _config.AccessToken, contact),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(FullContact)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Update a Contact
@@ -770,15 +694,12 @@ namespace Infusio.Http
         /// <param name="creditCard">creditCard</param>
         public Task<Either<InfusioError, CreditCardAdded>> CreateCreditCard(long? contactId, Model.CreditCard creditCard = default) =>
             HttpWorkflow<CreditCardAdded>(
-                Request(HttpMethod.Post,
-                    MakeUri($"/contacts/{contactId}/creditCards"),
-                    creditCard
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/contacts/{contactId}/creditCards"), _config.AccessToken, creditCard),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(201, "Created", typeof(CreditCardAdded)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Create a Credit Card
@@ -800,18 +721,13 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<Either<InfusioError, EmailSentQueryResultList>> ListEmailsForContact(long? contactId, string email = default, long? contactId2 = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<EmailSentQueryResultList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/contacts/{contactId}/emails",
-                        RequestParameter("email", email),
-                        RequestParameter("contactId2", contactId2),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit))),
+                message: Request(HttpMethod.Get, MakeUri($"/contacts/{contactId}/emails", RequestParameter("email", email), RequestParameter("contactId2", contactId2), RequestParameter("offset", offset), RequestParameter("limit", limit)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(EmailSentQueryResultList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Emails
@@ -833,15 +749,12 @@ namespace Infusio.Http
         /// <param name="emailWithContent">Email records to persist, with content.</param>
         public Task<Either<InfusioError, EmailSentCreate>> CreateEmailForContact(long? contactId, Model.EmailSentCreate emailWithContent = default) =>
             HttpWorkflow<EmailSentCreate>(
-                Request(HttpMethod.Post,
-                    MakeUri($"/contacts/{contactId}/emails"),
-                    emailWithContent
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/contacts/{contactId}/emails"), _config.AccessToken, emailWithContent),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(201, "Created", typeof(EmailSentCreate)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Create an Email Record
@@ -861,16 +774,13 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<Either<InfusioError, ContactTagList>> ListAppliedTags(long? contactId, int? offset = default, int? limit = default) =>
             HttpWorkflow<ContactTagList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/contacts/{contactId}/tags",
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit))),
+                message: Request(HttpMethod.Get, MakeUri($"/contacts/{contactId}/tags", RequestParameter("offset", offset), RequestParameter("limit", limit)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ContactTagList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Applied Tags
@@ -890,15 +800,12 @@ namespace Infusio.Http
         /// <param name="contactId">contactId</param>
         public Task<Either<InfusioError, Unit>> ApplyTagsToContactId(Model.TagId tagIds, long? contactId) =>
             HttpWorkflow(
-                Request(HttpMethod.Post,
-                    MakeUri($"/contacts/{contactId}/tags"),
-                    tagIds
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/contacts/{contactId}/tags"), _config.AccessToken, tagIds),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Unit)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Apply Tags
@@ -917,15 +824,13 @@ namespace Infusio.Http
         /// <param name="contactId">contactId</param>
         public Task<Either<InfusioError, Unit>> RemoveTagsFromContact(string ids, long? contactId) =>
             HttpWorkflow(
-                Request(HttpMethod.Delete,
-                    MakeUri($"/contacts/{contactId}/tags",
-                        RequestParameter("ids", ids))),
+                message: Request(HttpMethod.Delete, MakeUri($"/contacts/{contactId}/tags", RequestParameter("ids", ids)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Remove Applied Tags
@@ -944,14 +849,13 @@ namespace Infusio.Http
         /// <param name="contactId">contactId</param>
         public Task<Either<InfusioError, Unit>> RemoveTagsFromContact2(long? tagId, long? contactId) =>
             HttpWorkflow(
-                Request(HttpMethod.Delete,
-                    MakeUri($"/contacts/{contactId}/tags/{tagId}")),
+                message: Request(HttpMethod.Delete, MakeUri($"/contacts/{contactId}/tags/{tagId}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Remove Applied Tag
@@ -970,15 +874,13 @@ namespace Infusio.Http
         /// <param name="optionalProperties">Comma-delimited list of Contact properties to include in the response. (Some fields such as `lead_source_id`, `custom_fields`, and `job_title` aren't included, by default.)</param>
         public Task<Either<InfusioError, FullContact>> GetContact(long? id, Lst<string> optionalProperties = default) =>
             HttpWorkflow<FullContact>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/contacts/{id}",
-                        RequestParameter("optionalProperties", optionalProperties))),
+                message: Request(HttpMethod.Get, MakeUri($"/contacts/{id}", RequestParameter("optionalProperties", optionalProperties)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(FullContact)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve a Contact
@@ -999,18 +901,13 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<Either<InfusioError, EmailSentQueryResultList>> ListEmails(string email = default, long? contactId = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<EmailSentQueryResultList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/emails",
-                        RequestParameter("email", email),
-                        RequestParameter("contactId", contactId),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit))),
+                message: Request(HttpMethod.Get, MakeUri($"/emails", RequestParameter("email", email), RequestParameter("contactId", contactId), RequestParameter("offset", offset), RequestParameter("limit", limit)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(EmailSentQueryResultList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Emails
@@ -1030,15 +927,12 @@ namespace Infusio.Http
         /// <param name="emailWithContent">Email records to persist, with content.</param>
         public Task<Either<InfusioError, EmailSentCreate>> CreateEmail(Model.EmailSentCreate emailWithContent = default) =>
             HttpWorkflow<EmailSentCreate>(
-                Request(HttpMethod.Post,
-                    MakeUri($"/emails"),
-                    emailWithContent
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/emails"), _config.AccessToken, emailWithContent),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(201, "Created", typeof(EmailSentCreate)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Create an Email Record
@@ -1055,15 +949,12 @@ namespace Infusio.Http
         /// <param name="emailWithContent">Email records to persist, with content.</param>
         public Task<Either<InfusioError, EmailSentCreateList>> CreateEmails(Model.EmailSentCreateList emailWithContent = default) =>
             HttpWorkflow<EmailSentCreateList>(
-                Request(HttpMethod.Post,
-                    MakeUri($"/emails/sync"),
-                    emailWithContent
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/emails/sync"), _config.AccessToken, emailWithContent),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(201, "Created", typeof(EmailSentCreateList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Create a set of Email Records
@@ -1080,15 +971,12 @@ namespace Infusio.Http
         /// <param name="emailIds">emailIds</param>
         public Task<Either<InfusioError, Unit>> DeleteEmails(Model.SetOfIds emailIds) =>
             HttpWorkflow(
-                Request(HttpMethod.Post,
-                    MakeUri($"/emails/unsync"),
-                    emailIds
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/emails/unsync"), _config.AccessToken, emailIds),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Unit)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Un-sync a batch of Email Records
@@ -1105,14 +993,13 @@ namespace Infusio.Http
         /// <param name="id">id</param>
         public Task<Either<InfusioError, EmailSentQueryResultWithContent>> GetEmail(long? id) =>
             HttpWorkflow<EmailSentQueryResultWithContent>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/emails/{id}")),
+                message: Request(HttpMethod.Get, MakeUri($"/emails/{id}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(EmailSentQueryResultWithContent)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve an Email
@@ -1130,16 +1017,13 @@ namespace Infusio.Http
         /// <param name="emailWithContent">Email records to persist, with content.</param>
         public Task<Either<InfusioError, EmailSentCreate>> UpdateEmail(long? id, Model.EmailSentCreate emailWithContent = default) =>
             HttpWorkflow<EmailSentCreate>(
-                Request(HttpMethod.Put,
-                    MakeUri($"/emails/{id}"),
-                    emailWithContent
-                ),
+                message: Request(HttpMethod.Put, MakeUri($"/emails/{id}"), _config.AccessToken, emailWithContent),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(EmailSentCreate)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Update an Email Record
@@ -1157,14 +1041,13 @@ namespace Infusio.Http
         /// <param name="id">id</param>
         public Task<Either<InfusioError, Unit>> DeleteEmail(long? id) =>
             HttpWorkflow(
-                Request(HttpMethod.Delete,
-                    MakeUri($"/emails/{id}")),
+                message: Request(HttpMethod.Delete, MakeUri($"/emails/{id}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Delete an Email Record
@@ -1186,20 +1069,13 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<Either<InfusioError, FileList>> ListFiles(string name = default, string type = default, string permission = default, string viewable = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<FileList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/files",
-                        RequestParameter("name", name),
-                        RequestParameter("type", type),
-                        RequestParameter("permission", permission),
-                        RequestParameter("viewable", viewable),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit))),
+                message: Request(HttpMethod.Get, MakeUri($"/files", RequestParameter("name", name), RequestParameter("type", type), RequestParameter("permission", permission), RequestParameter("viewable", viewable), RequestParameter("offset", offset), RequestParameter("limit", limit)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(FileList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Files
@@ -1221,15 +1097,12 @@ namespace Infusio.Http
         /// <param name="fileUpload">fileUploadDTO</param>
         public Task<Either<InfusioError, FileInformation>> CreateFile(Model.FileUpload fileUpload = default) =>
             HttpWorkflow<FileInformation>(
-                Request(HttpMethod.Post,
-                    MakeUri($"/files"),
-                    fileUpload
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/files"), _config.AccessToken, fileUpload),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(FileInformation)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Upload File
@@ -1247,15 +1120,13 @@ namespace Infusio.Http
         /// <param name="optionalProperties">Comma-delimited list of File properties to include in the response. (Some fields such as `file_data` aren't included, by default.)</param>
         public Task<Either<InfusioError, FileInformation>> GetFile(long? fileId, Lst<string> optionalProperties = default) =>
             HttpWorkflow<FileInformation>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/files/{fileId}",
-                        RequestParameter("optionalProperties", optionalProperties))),
+                message: Request(HttpMethod.Get, MakeUri($"/files/{fileId}", RequestParameter("optionalProperties", optionalProperties)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(FileInformation)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve File
@@ -1274,16 +1145,13 @@ namespace Infusio.Http
         /// <param name="fileUpload">fileUpload</param>
         public Task<Either<InfusioError, FileInformation>> UpdateFile(long? fileId, Model.FileUpload fileUpload = default) =>
             HttpWorkflow<FileInformation>(
-                Request(HttpMethod.Put,
-                    MakeUri($"/files/{fileId}"),
-                    fileUpload
-                ),
+                message: Request(HttpMethod.Put, MakeUri($"/files/{fileId}"), _config.AccessToken, fileUpload),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(FileInformation)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Replace File
@@ -1301,14 +1169,13 @@ namespace Infusio.Http
         /// <param name="fileId">fileId</param>
         public Task<Either<InfusioError, Unit>> DeleteFile(long? fileId) =>
             HttpWorkflow(
-                Request(HttpMethod.Delete,
-                    MakeUri($"/files/{fileId}")),
+                message: Request(HttpMethod.Delete, MakeUri($"/files/{fileId}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Delete File
@@ -1324,14 +1191,13 @@ namespace Infusio.Http
         /// </summary>
         public Task<Either<InfusioError, Unit>> ListStoredHookSubscriptions() =>
             HttpWorkflow(
-                Request(HttpMethod.Get,
-                    MakeUri($"/hooks")),
+                message: Request(HttpMethod.Get, MakeUri($"/hooks"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Unit)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Stored Hook Subscriptions
@@ -1347,15 +1213,12 @@ namespace Infusio.Http
         /// <param name="restHookRequest">restHookRequest</param>
         public Task<Either<InfusioError, RestHook>> CreateAHookSubscription(Model.RestHookRequest restHookRequest) =>
             HttpWorkflow<RestHook>(
-                Request(HttpMethod.Post,
-                    MakeUri($"/hooks"),
-                    restHookRequest
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/hooks"), _config.AccessToken, restHookRequest),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(RestHook)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Create a Hook Subscription
@@ -1371,14 +1234,13 @@ namespace Infusio.Http
         /// </summary>
         public Task<Either<InfusioError, Unit>> ListHookEventTypes() =>
             HttpWorkflow(
-                Request(HttpMethod.Get,
-                    MakeUri($"/hooks/event_keys")),
+                message: Request(HttpMethod.Get, MakeUri($"/hooks/event_keys"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Unit)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Hook Event Types
@@ -1394,14 +1256,13 @@ namespace Infusio.Http
         /// <param name="key">key</param>
         public Task<Either<InfusioError, RestHook>> RetrieveAHookSubscription(string key) =>
             HttpWorkflow<RestHook>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/hooks/{key}")),
+                message: Request(HttpMethod.Get, MakeUri($"/hooks/{key}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(RestHook)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve a Hook Subscription
@@ -1419,16 +1280,13 @@ namespace Infusio.Http
         /// <param name="key">key</param>
         public Task<Either<InfusioError, RestHook>> UpdateAHookSubscription(Model.RestHookRequest restHookRequest, string key) =>
             HttpWorkflow<RestHook>(
-                Request(HttpMethod.Put,
-                    MakeUri($"/hooks/{key}"),
-                    restHookRequest
-                ),
+                message: Request(HttpMethod.Put, MakeUri($"/hooks/{key}"), _config.AccessToken, restHookRequest),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(RestHook)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Update a Hook Subscription
@@ -1446,14 +1304,13 @@ namespace Infusio.Http
         /// <param name="key">key</param>
         public Task<Either<InfusioError, Unit>> DeleteAHookSubscription(string key) =>
             HttpWorkflow(
-                Request(HttpMethod.Delete,
-                    MakeUri($"/hooks/{key}")),
+                message: Request(HttpMethod.Delete, MakeUri($"/hooks/{key}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Delete a Hook Subscription
@@ -1471,13 +1328,12 @@ namespace Infusio.Http
         /// <param name="key">key</param>
         public Task<Either<InfusioError, RestHook>> VerifyAHookSubscriptionDelayed(string xHookSecret, string key) =>
             HttpWorkflow<RestHook>(
-                Request(HttpMethod.Post,
-                    MakeUri($"/hooks/{key}/delayedVerify")),
+                message: Request(HttpMethod.Post, MakeUri($"/hooks/{key}/delayedVerify"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(RestHook)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Verify a Hook Subscription, Delayed
@@ -1495,13 +1351,12 @@ namespace Infusio.Http
         /// <param name="key">key</param>
         public Task<Either<InfusioError, RestHook>> VerifyAHookSubscription(string key) =>
             HttpWorkflow<RestHook>(
-                Request(HttpMethod.Post,
-                    MakeUri($"/hooks/{key}/verify")),
+                message: Request(HttpMethod.Post, MakeUri($"/hooks/{key}/verify"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(RestHook)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Verify a Hook Subscription
@@ -1517,14 +1372,13 @@ namespace Infusio.Http
         /// </summary>
         public Task<Either<InfusioError, UserInfoDTO>> GetUserInfo() =>
             HttpWorkflow<UserInfoDTO>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/oauth/connect/userinfo")),
+                message: Request(HttpMethod.Get, MakeUri($"/oauth/connect/userinfo"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(UserInfoDTO)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve User Info
@@ -1545,20 +1399,13 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<Either<InfusioError, OpportunityList>> ListOpportunities(string order = default, string searchTerm = default, long? stageId = default, long? userId = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<OpportunityList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/opportunities",
-                        RequestParameter("order", order),
-                        RequestParameter("searchTerm", searchTerm),
-                        RequestParameter("stageId", stageId),
-                        RequestParameter("userId", userId),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit))),
+                message: Request(HttpMethod.Get, MakeUri($"/opportunities", RequestParameter("order", order), RequestParameter("searchTerm", searchTerm), RequestParameter("stageId", stageId), RequestParameter("userId", userId), RequestParameter("offset", offset), RequestParameter("limit", limit)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(OpportunityList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Opportunities
@@ -1580,15 +1427,12 @@ namespace Infusio.Http
         /// <param name="opportunity">opportunity</param>
         public Task<Either<InfusioError, Opportunity>> CreateOpportunity(Model.Opportunity opportunity = default) =>
             HttpWorkflow<Opportunity>(
-                Request(HttpMethod.Post,
-                    MakeUri($"/opportunities"),
-                    opportunity
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/opportunities"), _config.AccessToken, opportunity),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Opportunity)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Create an Opportunity
@@ -1605,16 +1449,13 @@ namespace Infusio.Http
         /// <param name="opportunity">opportunity</param>
         public Task<Either<InfusioError, Opportunity>> UpdateOpportunity(Model.Opportunity opportunity = default) =>
             HttpWorkflow<Opportunity>(
-                Request(HttpMethod.Put,
-                    MakeUri($"/opportunities"),
-                    opportunity
-                ),
+                message: Request(HttpMethod.Put, MakeUri($"/opportunities"), _config.AccessToken, opportunity),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Opportunity)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Replace an Opportunity
@@ -1630,14 +1471,13 @@ namespace Infusio.Http
         /// </summary>
         public Task<Either<InfusioError, ObjectModel>> RetrieveOpportunityModel() =>
             HttpWorkflow<ObjectModel>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/opportunities/model")),
+                message: Request(HttpMethod.Get, MakeUri($"/opportunities/model"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve Opportunity Model
@@ -1654,15 +1494,13 @@ namespace Infusio.Http
         /// <param name="optionalProperties">Comma-delimited list of Opportunity properties to include in the response. (Some fields such as `custom_fields` aren't included, by default.)</param>
         public Task<Either<InfusioError, Opportunity>> GetOpportunity(long? opportunityId, Lst<string> optionalProperties = default) =>
             HttpWorkflow<Opportunity>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/opportunities/{opportunityId}",
-                        RequestParameter("optionalProperties", optionalProperties))),
+                message: Request(HttpMethod.Get, MakeUri($"/opportunities/{opportunityId}", RequestParameter("optionalProperties", optionalProperties)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Opportunity)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve an Opportunity
@@ -1681,17 +1519,13 @@ namespace Infusio.Http
         /// <param name="opportunity">opportunity</param>
         public Task<Either<InfusioError, Opportunity>> UpdatePropertiesOnOpportunity(long? opportunityId, Model.Opportunity opportunity = default) =>
             HttpWorkflow<Opportunity>(
-                Request(
-                        new HttpMethod("Patch"),
-                    MakeUri($"/opportunities/{opportunityId}"),
-                    opportunity
-                ),
+                message: Request(new HttpMethod("Patch"), MakeUri($"/opportunities/{opportunityId}"), _config.AccessToken, opportunity),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Opportunity)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Update an Opportunity
@@ -1708,14 +1542,13 @@ namespace Infusio.Http
         /// </summary>
         public Task<Either<InfusioError, Unit>> ListOpportunityStagePipelines() =>
             HttpWorkflow(
-                Request(HttpMethod.Get,
-                    MakeUri($"/opportunity/stage_pipeline")),
+                message: Request(HttpMethod.Get, MakeUri($"/opportunity/stage_pipeline"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Unit)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Opportunity Stage Pipeline
@@ -1738,22 +1571,13 @@ namespace Infusio.Http
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
         public Task<Either<InfusioError, OrderList>> ListOrders(long? productId = default, long? contactId = default, string order = default, bool paid = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
             HttpWorkflow<OrderList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/orders",
-                        RequestParameter("productId", productId),
-                        RequestParameter("contactId", contactId),
-                        RequestParameter("order", order),
-                        RequestParameter("paid", paid),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit),
-                        RequestParameter("until", until),
-                        RequestParameter("since", since))),
+                message: Request(HttpMethod.Get, MakeUri($"/orders", RequestParameter("productId", productId), RequestParameter("contactId", contactId), RequestParameter("order", order), RequestParameter("paid", paid), RequestParameter("offset", offset), RequestParameter("limit", limit), RequestParameter("until", until), RequestParameter("since", since)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(OrderList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Orders
@@ -1776,14 +1600,13 @@ namespace Infusio.Http
         /// </summary>
         public Task<Either<InfusioError, ObjectModel>> RetrieveOrderModel() =>
             HttpWorkflow<ObjectModel>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/orders/model")),
+                message: Request(HttpMethod.Get, MakeUri($"/orders/model"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve Custom Order Model
@@ -1799,14 +1622,13 @@ namespace Infusio.Http
         /// <param name="orderId">orderId</param>
         public Task<Either<InfusioError, Order>> GetOrder(long? orderId) =>
             HttpWorkflow<Order>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/orders/{orderId}")),
+                message: Request(HttpMethod.Get, MakeUri($"/orders/{orderId}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Order)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve an Order
@@ -1828,19 +1650,13 @@ namespace Infusio.Http
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
         public Task<Either<InfusioError, TransactionList>> ListTransactionsForOrder(long? orderId, long? contactId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
             HttpWorkflow<TransactionList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/orders/{orderId}/transactions",
-                        RequestParameter("contactId", contactId),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit),
-                        RequestParameter("until", until),
-                        RequestParameter("since", since))),
+                message: Request(HttpMethod.Get, MakeUri($"/orders/{orderId}/transactions", RequestParameter("contactId", contactId), RequestParameter("offset", offset), RequestParameter("limit", limit), RequestParameter("until", until), RequestParameter("since", since)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(TransactionList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve Order Transactions
@@ -1864,17 +1680,13 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<Either<InfusioError, ProductList>> ListProducts(bool active = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<ProductList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/products",
-                        RequestParameter("active", active),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit))),
+                message: Request(HttpMethod.Get, MakeUri($"/products", RequestParameter("active", active), RequestParameter("offset", offset), RequestParameter("limit", limit)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ProductList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Products
@@ -1895,17 +1707,13 @@ namespace Infusio.Http
         /// <param name="syncToken">sync_token</param>
         public Task<Either<InfusioError, ProductStatusList>> ListProductsFromSyncToken(int? offset = default, int? limit = default, string syncToken = default) =>
             HttpWorkflow<ProductStatusList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/products/sync",
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit),
-                        RequestParameter("syncToken", syncToken))),
+                message: Request(HttpMethod.Get, MakeUri($"/products/sync", RequestParameter("offset", offset), RequestParameter("limit", limit), RequestParameter("syncToken", syncToken)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ProductStatusList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve Synced Products
@@ -1924,14 +1732,13 @@ namespace Infusio.Http
         /// <param name="productId">productId</param>
         public Task<Either<InfusioError, Product>> GetProduct(long? productId) =>
             HttpWorkflow<Product>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/products/{productId}")),
+                message: Request(HttpMethod.Get, MakeUri($"/products/{productId}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Product)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve a Product
@@ -1947,14 +1754,13 @@ namespace Infusio.Http
         /// </summary>
         public Task<Either<InfusioError, Setting>> GetApplicationEnabled() =>
             HttpWorkflow<Setting>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/setting/application/enabled")),
+                message: Request(HttpMethod.Get, MakeUri($"/setting/application/enabled"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Setting)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve application status
@@ -1969,14 +1775,13 @@ namespace Infusio.Http
         /// </summary>
         public Task<Either<InfusioError, Setting>> GetContactOptionTypes() =>
             HttpWorkflow<Setting>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/setting/contact/optionTypes")),
+                message: Request(HttpMethod.Get, MakeUri($"/setting/contact/optionTypes"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Setting)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Contact types
@@ -1991,14 +1796,13 @@ namespace Infusio.Http
         /// </summary>
         public Task<Either<InfusioError, ObjectModel>> RetrieveSubscriptionModel() =>
             HttpWorkflow<ObjectModel>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/subscriptions/model")),
+                message: Request(HttpMethod.Get, MakeUri($"/subscriptions/model"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve Subscription Model
@@ -2016,17 +1820,13 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<Either<InfusioError, Tags>> ListTags(long? category = default, int? offset = default, int? limit = default) =>
             HttpWorkflow<Tags>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/tags",
-                        RequestParameter("category", category),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit))),
+                message: Request(HttpMethod.Get, MakeUri($"/tags", RequestParameter("category", category), RequestParameter("offset", offset), RequestParameter("limit", limit)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Tags)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Tags
@@ -2045,15 +1845,12 @@ namespace Infusio.Http
         /// <param name="tag">tag</param>
         public Task<Either<InfusioError, Tag>> CreateTag(Model.CreateTag tag) =>
             HttpWorkflow<Tag>(
-                Request(HttpMethod.Post,
-                    MakeUri($"/tags"),
-                    tag
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/tags"), _config.AccessToken, tag),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Tag)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Create Tag
@@ -2070,15 +1867,12 @@ namespace Infusio.Http
         /// <param name="tagCategory">tagCategory</param>
         public Task<Either<InfusioError, TagCategory>> CreateTagCategory(Model.CreateTagCategory tagCategory) =>
             HttpWorkflow<TagCategory>(
-                Request(HttpMethod.Post,
-                    MakeUri($"/tags/categories"),
-                    tagCategory
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/tags/categories"), _config.AccessToken, tagCategory),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(TagCategory)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Create Tag Category
@@ -2095,14 +1889,13 @@ namespace Infusio.Http
         /// <param name="id">id</param>
         public Task<Either<InfusioError, Tag>> GetTag(long? id) =>
             HttpWorkflow<Tag>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/tags/{id}")),
+                message: Request(HttpMethod.Get, MakeUri($"/tags/{id}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Tag)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve a Tag
@@ -2121,16 +1914,13 @@ namespace Infusio.Http
         /// <param name="limit">Sets a total of items to return</param>
         public Task<Either<InfusioError, TaggedContactList>> ListContactsForTagId(long? tagId, int? offset = default, int? limit = default) =>
             HttpWorkflow<TaggedContactList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/tags/{tagId}/contacts",
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit))),
+                message: Request(HttpMethod.Get, MakeUri($"/tags/{tagId}/contacts", RequestParameter("offset", offset), RequestParameter("limit", limit)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(TaggedContactList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Tagged Contacts
@@ -2150,15 +1940,12 @@ namespace Infusio.Http
         /// <param name="tagId">tagId</param>
         public Task<Either<InfusioError, Unit>> ApplyTagToContactIds(Model.SetOfIds ids, long? tagId) =>
             HttpWorkflow(
-                Request(HttpMethod.Post,
-                    MakeUri($"/tags/{tagId}/contacts"),
-                    ids
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/tags/{tagId}/contacts"), _config.AccessToken, ids),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Unit)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Apply Tag to Contacts
@@ -2177,15 +1964,13 @@ namespace Infusio.Http
         /// <param name="tagId">tagId</param>
         public Task<Either<InfusioError, Unit>> RemoveTagFromContactIds(Lst<long> ids, long? tagId) =>
             HttpWorkflow(
-                Request(HttpMethod.Delete,
-                    MakeUri($"/tags/{tagId}/contacts",
-                        RequestParameter("ids", ids))),
+                message: Request(HttpMethod.Delete, MakeUri($"/tags/{tagId}/contacts", RequestParameter("ids", ids)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Remove Tag from Contacts
@@ -2204,14 +1989,13 @@ namespace Infusio.Http
         /// <param name="tagId">tagId</param>
         public Task<Either<InfusioError, Unit>> RemoveTagFromContactId(long? contactId, long? tagId) =>
             HttpWorkflow(
-                Request(HttpMethod.Delete,
-                    MakeUri($"/tags/{tagId}/contacts/{contactId}")),
+                message: Request(HttpMethod.Delete, MakeUri($"/tags/{tagId}/contacts/{contactId}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Remove Tag from Contact
@@ -2237,23 +2021,13 @@ namespace Infusio.Http
         /// <param name="contactId">contact_id</param>
         public Task<Either<InfusioError, TaskList>> ListTasks(string order = default, int? offset = default, int? limit = default, bool completed = default, string until = default, string since = default, long? userId = default, bool hasDueDate = default, long? contactId = default) =>
             HttpWorkflow<TaskList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/tasks",
-                        RequestParameter("order", order),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit),
-                        RequestParameter("completed", completed),
-                        RequestParameter("until", until),
-                        RequestParameter("since", since),
-                        RequestParameter("userId", userId),
-                        RequestParameter("hasDueDate", hasDueDate),
-                        RequestParameter("contactId", contactId))),
+                message: Request(HttpMethod.Get, MakeUri($"/tasks", RequestParameter("order", order), RequestParameter("offset", offset), RequestParameter("limit", limit), RequestParameter("completed", completed), RequestParameter("until", until), RequestParameter("since", since), RequestParameter("userId", userId), RequestParameter("hasDueDate", hasDueDate), RequestParameter("contactId", contactId)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(TaskList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Tasks
@@ -2278,15 +2052,12 @@ namespace Infusio.Http
         /// <param name="task">task</param>
         public Task<Either<InfusioError, InfusionTask>> CreateTask(Model.InfusionTask task) =>
             HttpWorkflow<InfusionTask>(
-                Request(HttpMethod.Post,
-                    MakeUri($"/tasks"),
-                    task
-                ),
+                message: Request(HttpMethod.Post, MakeUri($"/tasks"), _config.AccessToken, task),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(InfusionTask)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Create a Task
@@ -2302,14 +2073,13 @@ namespace Infusio.Http
         /// </summary>
         public Task<Either<InfusioError, ObjectModel>> RetrieveTaskModel() =>
             HttpWorkflow<ObjectModel>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/tasks/model")),
+                message: Request(HttpMethod.Get, MakeUri($"/tasks/model"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(ObjectModel)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve Task Model
@@ -2333,23 +2103,13 @@ namespace Infusio.Http
         /// <param name="contactId">Returns tasks for the provided contact id</param>
         public Task<Either<InfusioError, TaskList>> ListTasksForCurrentUser(string order = default, int? offset = default, int? limit = default, bool completed = default, string until = default, string since = default, long? userId = default, bool hasDueDate = default, long? contactId = default) =>
             HttpWorkflow<TaskList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/tasks/search",
-                        RequestParameter("order", order),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit),
-                        RequestParameter("completed", completed),
-                        RequestParameter("until", until),
-                        RequestParameter("since", since),
-                        RequestParameter("userId", userId),
-                        RequestParameter("hasDueDate", hasDueDate),
-                        RequestParameter("contactId", contactId))),
+                message: Request(HttpMethod.Get, MakeUri($"/tasks/search", RequestParameter("order", order), RequestParameter("offset", offset), RequestParameter("limit", limit), RequestParameter("completed", completed), RequestParameter("until", until), RequestParameter("since", since), RequestParameter("userId", userId), RequestParameter("hasDueDate", hasDueDate), RequestParameter("contactId", contactId)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(TaskList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Search Tasks
@@ -2374,14 +2134,13 @@ namespace Infusio.Http
         /// <param name="taskId">taskId</param>
         public Task<Either<InfusioError, InfusionTask>> GetTask(string taskId) =>
             HttpWorkflow<InfusionTask>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/tasks/{taskId}")),
+                message: Request(HttpMethod.Get, MakeUri($"/tasks/{taskId}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(InfusionTask)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve a Task
@@ -2399,16 +2158,13 @@ namespace Infusio.Http
         /// <param name="taskId">taskId</param>
         public Task<Either<InfusioError, InfusionTask>> UpdateTask(Model.InfusionTask task, string taskId) =>
             HttpWorkflow<InfusionTask>(
-                Request(HttpMethod.Put,
-                    MakeUri($"/tasks/{taskId}"),
-                    task
-                ),
+                message: Request(HttpMethod.Put, MakeUri($"/tasks/{taskId}"), _config.AccessToken, task),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(InfusionTask)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Replace a Task
@@ -2426,14 +2182,13 @@ namespace Infusio.Http
         /// <param name="taskId">taskId</param>
         public Task<Either<InfusioError, Unit>> DeleteTask(string taskId) =>
             HttpWorkflow(
-                Request(HttpMethod.Delete,
-                    MakeUri($"/tasks/{taskId}")),
+                message: Request(HttpMethod.Delete, MakeUri($"/tasks/{taskId}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Delete a Task
@@ -2451,17 +2206,13 @@ namespace Infusio.Http
         /// <param name="taskId">taskId</param>
         public Task<Either<InfusioError, InfusionTask>> UpdatePropertiesOnTask(Model.InfusionTask task, string taskId) =>
             HttpWorkflow<InfusionTask>(
-                Request(
-                        new HttpMethod("Patch"),
-                    MakeUri($"/tasks/{taskId}"),
-                    task
-                ),
+                message: Request(new HttpMethod("Patch"), MakeUri($"/tasks/{taskId}"), _config.AccessToken, task),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(InfusionTask)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Update a Task
@@ -2483,19 +2234,13 @@ namespace Infusio.Http
         /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
         public Task<Either<InfusioError, TransactionList>> ListTransactions(long? contactId = default, int? offset = default, int? limit = default, string until = default, string since = default) =>
             HttpWorkflow<TransactionList>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/transactions",
-                        RequestParameter("contactId", contactId),
-                        RequestParameter("offset", offset),
-                        RequestParameter("limit", limit),
-                        RequestParameter("until", until),
-                        RequestParameter("since", since))),
+                message: Request(HttpMethod.Get, MakeUri($"/transactions", RequestParameter("contactId", contactId), RequestParameter("offset", offset), RequestParameter("limit", limit), RequestParameter("until", until), RequestParameter("since", since)), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(TransactionList)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// List Transactions
@@ -2516,14 +2261,13 @@ namespace Infusio.Http
         /// <param name="transactionId">transactionId</param>
         public Task<Either<InfusioError, Transaction>> GetTransaction(long? transactionId) =>
             HttpWorkflow<Transaction>(
-                Request(HttpMethod.Get,
-                    MakeUri($"/transactions/{transactionId}")),
+                message: Request(HttpMethod.Get, MakeUri($"/transactions/{transactionId}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Transaction)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
-            ));
+            ))(_client);
 
         /// <summary>
         /// Retrieve a Transaction
@@ -2534,108 +2278,5 @@ namespace Infusio.Http
             .ToAsync()
             .IfLeftAsync(e => throw new Exception(e.Value));
 
-
-        Task<Either<InfusioError, T>> HttpWorkflow<T>(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) where T : class =>
-            from httpResponse in SendRequest(message)
-            from responseType in FindResponse(httpResponse, responses)
-            from result in ReadResult<T>(httpResponse, responseType)
-            select result;
-
-        Task<Either<InfusioError, Unit>> HttpWorkflow(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) =>
-            from httpResponse in SendRequest(message)
-            from responseType in FindResponse(httpResponse, responses)
-            select unit;
-
-        static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
-        {
-            NullValueHandling = NullValueHandling.Ignore,
-            ContractResolver = new CamelCasePropertyNamesContractResolver()
-        };
-
-        static Option<(string name, object value)> RequestParameter(string name, object value) =>
-            Optional(value).Map(x => (name, x));
-
-        static HttpContent MakeHttpContent(params Option<(string name, object value)>[] values) => ifNoneUnsafe(
-            from body in Some(values.FoldT(HashMap<string, object>(), (acc, x) => acc.Add(x.name, x.value)))
-            where !body.IsEmpty
-            select new StringContent(SerializeObject(body, SerializerSettings)),
-            () => null
-        );
-
-        string MakeUri(string relative, params Option<(string name, object value)>[] values) => ifNone(
-            from pair in Some(values.FoldT(HashMap<string, object>(), (acc, x) => acc.Add(x.name, x.value)))
-            where !pair.IsEmpty
-            let qs = pair.Map((key, value) => $"{key}={value}").Values
-            select $"{relative}?{string.Join("&", qs)}",
-            relative
-        );
-
-        HttpRequestMessage Request(HttpMethod method, string relativeUrl, params Option<(string name, object value)>[] values) =>
-            Request(method, relativeUrl, MakeHttpContent(values));
-
-        HttpRequestMessage Request(HttpMethod method, string relativeUrl, object body) =>
-            Request(method, relativeUrl, new StringContent(SerializeObject(body), Encoding.UTF8, "application/json"));
-
-        HttpRequestMessage Request(HttpMethod method, string relativeUrl, HttpContent content) =>
-            new HttpRequestMessage(method, $"https://api.infusionsoft.com/crm/rest/v1{relativeUrl}")
-            {
-                Content = content,
-                Headers =
-                {
-                    Accept = { MediaTypeWithQualityHeaderValue.Parse("application/json")},
-                    Authorization = new AuthenticationHeaderValue("Bearer", _config.AccessToken)
-                }
-            };
-
-        Task<Either<InfusioError, KnownResponse>> FindResponse(HttpResponseMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) => match(
-            responses.Find(KnownResponse.For(message.StatusCode)),
-            None: () => message.Content.ReadAsStringAsync()
-                .Map(x => Left<InfusioError, KnownResponse>(new InfusioError($"Unexpected response: {message.StatusCode} {x}"))),
-            Some: response => Right<InfusioError, KnownResponse>(response).AsTask()
-        );
-
-        Task<Either<InfusioError, HttpResponseMessage>> SendRequest(HttpRequestMessage message) => match(
-            TryAsync(() => _client.SendAsync(message)),
-            Fail: e => Left<InfusioError, HttpResponseMessage>(new InfusioError($"Generic send InfusioError: {e.Message}")),
-            Succ: x => Right<InfusioError, HttpResponseMessage>(x)
-        );
-
-        Task<Either<InfusioError, T>> ReadResult<T>(HttpResponseMessage message, KnownResponse response) where T : class =>
-            !response.IsSuccess
-            ? Left<InfusioError, T>(new InfusioError(response.Description)).AsTask()
-            : match(
-                from json in TryAsync(message.Content.ReadAsStringAsync())
-                from result in Try(DeserializeObject(json, response.Type)).ToAsync()
-                select result,
-                Fail: e => Left<InfusioError, T>(new InfusioError($"Generic read InfusioError: {e.Message}")),
-                Succ: t => match(
-                    Optional((T)t),
-                    None: () => Left<InfusioError, T>(new InfusioError($"Unable to read {typeof(T)}")),
-                    Some: x => Right<InfusioError, T>(x)
-                )
-            );
-    }
-
-    public class KnownResponse : Record<KnownResponse>
-    {
-        public readonly int StatusCode;
-        public readonly string Description;
-        public readonly System.Type Type;
-        public bool IsSuccess => (StatusCode >= 200) && (StatusCode <= 299);
-
-        public KnownResponse(int statusCode, string description, System.Type type)
-        {
-            StatusCode = statusCode;
-            Description = description;
-            Type = type;
-        }
-
-        public static KnownResponse For(HttpStatusCode code) => new KnownResponse((int)code, "", null);
-
-        public struct Eq : Eq<KnownResponse>
-        {
-            public bool Equals(KnownResponse x, KnownResponse y) => x.StatusCode.Equals(y.StatusCode);
-            public int GetHashCode(KnownResponse x) => x.StatusCode.GetHashCode();
-        }
     }
 }

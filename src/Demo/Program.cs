@@ -1,14 +1,18 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using Demo.Demos;
 using Infusio;
 using Infusio.Auth;
 using Infusio.Http;
+using Infusio.Model;
+using Newtonsoft.Json;
 
 namespace Demo
 {
     using static TokenCache;
+    using static Formatting;
+    using static JsonConvert;
     using static Authorization;
+    using static InfusioLogging;
 
     class Program
     {
@@ -17,7 +21,7 @@ namespace Demo
             // These credentials are a test account.
             // I don't care about the data.
             // of course, you would provide your own.
-            var httpClient = new HttpClient(new HttpLogger());
+            var httpClient = new HttpClient();
             var clientId = ClientId("tj7a3rtbs5dmsz2sbwxx3phd");
             var clientSecret = ClientSecret("EEecE6bBYz");
             var redirectUri = RedirectUri("https://localhost");
@@ -45,19 +49,47 @@ namespace Demo
 
             // Utilize cache so we can run this program many times without the above hassle.
             // This is not part of the core library.
-            var authorization = await AuthorizationInfoFromCache()
-                .IfNoneAsync(() =>
-                    requestAccessToken(AccessCode("PASTE CODE HERE"))
-                        .Map(CacheAuthorizationInfo)
-                );
+            var authorization = await AuthorizationInfoFromCache().IfNoneAsync(() =>
+                requestAccessToken(AccessCode("PASTE CODE HERE")).Map(CacheAuthorizationInfo)
+            );
 
             var client = new InfusioClient(httpClient, new InfusioConfig(authorization.Token));
 
-            // DSL Demo
-            await InfusioDslDemo.Run(client);
+            /*
+             * ===============
+             * STEP 2
+             * ===============
+             * Describe the Infusionsoft operation that want to execute.
+             * InfusioOps are composable. You combine any number of InfusioOps together to form one InfusioOp.
+             * You're not stuck with running one operation at a time like you're probably used to traditionally.
+             * ===============
+             */
 
-            // Api Client Demo
-            await ClassicApiClientDemo.Run(client);
+            InfusioOp<FullContact> operation = CustomOperations.AddTagToContact(
+                new Tag(name: "developers"),
+                new EmailAddress("chris+demo@caliberweb.com")
+            );
+
+            /*
+             * ===============
+             * STEP 3
+             * ===============
+             * Execute your operation.
+             * This returns a data type with two possible values.
+             * Either<InfusioError, T>
+             * ===============
+             */
+
+            var result = await operation.Run(client, WithLogs);
+            
+            result.Match(
+                Left: error => Console.WriteLine($"error: {error.Value}"),
+                Right: res =>
+                {
+                    res.Logs.Iter(Console.WriteLine);
+                    Console.WriteLine($"contact: {SerializeObject(res.Value, Indented)}");
+                }
+            );
         }
     }
 }

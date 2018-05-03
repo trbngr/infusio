@@ -5,15 +5,35 @@
 using System;
 using LanguageExt;
 using Infusio.Model;
+using Infusio.Http;
+using Newtonsoft.Json;
 
-namespace Infusio.Ops
+namespace Infusio
 {
+    using static Prelude;
+    using static JsonConvert;
+    using static InfusioClient;
+
     public abstract class InfusioOp<A>
     {
         internal class Return : InfusioOp<A>
         {
             public readonly A Value;
             public Return(A value) => Value = value;
+        }
+
+        internal class Log : InfusioOp<A>
+        {
+            public readonly string Message;
+            public readonly Func<Unit, InfusioOp<A>> Next;
+            public Log(Func<Unit, InfusioOp<A>> next, string message)
+            {
+                Message = message;
+                Next = next;
+            }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.Log op) =>
+                op.AsShow();
         }
 
 
@@ -25,6 +45,9 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public static implicit operator Show<InfusioOp<AccountProfile>>(InfusioOp<A>.GetAccountProfile op) =>
+                op.AsShow();
         }
 
         internal class UpdateAccountInfo : InfusioOp<A>
@@ -37,6 +60,9 @@ namespace Infusio.Ops
                 Next = next;
                 AccountInfo = accountInfo;
             }
+
+            public static implicit operator Show<InfusioOp<AccountProfile>>(InfusioOp<A>.UpdateAccountInfo op) =>
+                op.AsShow();
         }
 
         internal class SearchCommissions : InfusioOp<A>
@@ -57,6 +83,9 @@ namespace Infusio.Ops
                 Until = until;
                 Since = since;
             }
+
+            public static implicit operator Show<InfusioOp<AffiliateCommissionList>>(InfusioOp<A>.SearchCommissions op) =>
+                op.AsShow();
         }
 
         internal class RetrieveAffiliateModel : InfusioOp<A>
@@ -67,6 +96,9 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveAffiliateModel op) =>
+                op.AsShow();
         }
 
         internal class ListAppointments : InfusioOp<A>
@@ -87,6 +119,9 @@ namespace Infusio.Ops
                 Until = until;
                 Since = since;
             }
+
+            public static implicit operator Show<InfusioOp<AppointmentList>>(InfusioOp<A>.ListAppointments op) =>
+                op.AsShow();
         }
 
         internal class CreateAppointment : InfusioOp<A>
@@ -99,6 +134,9 @@ namespace Infusio.Ops
                 Next = next;
                 Appointment = appointment;
             }
+
+            public static implicit operator Show<InfusioOp<Appointment>>(InfusioOp<A>.CreateAppointment op) =>
+                op.AsShow();
         }
 
         internal class RetrieveAppointmentModel : InfusioOp<A>
@@ -109,6 +147,9 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveAppointmentModel op) =>
+                op.AsShow();
         }
 
         internal class GetAppointment : InfusioOp<A>
@@ -121,6 +162,9 @@ namespace Infusio.Ops
                 Next = next;
                 AppointmentId = appointmentId;
             }
+
+            public static implicit operator Show<InfusioOp<Appointment>>(InfusioOp<A>.GetAppointment op) =>
+                op.AsShow();
         }
 
         internal class UpdateAppointment : InfusioOp<A>
@@ -135,6 +179,9 @@ namespace Infusio.Ops
                 AppointmentDTO = appointmentDTO;
                 AppointmentId = appointmentId;
             }
+
+            public static implicit operator Show<InfusioOp<Appointment>>(InfusioOp<A>.UpdateAppointment op) =>
+                op.AsShow();
         }
 
         internal class DeleteAppointment : InfusioOp<A>
@@ -147,6 +194,9 @@ namespace Infusio.Ops
                 Next = next;
                 AppointmentId = appointmentId;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteAppointment op) =>
+                op.AsShow();
         }
 
         internal class UpdatePropertiesOnAppointment : InfusioOp<A>
@@ -161,6 +211,9 @@ namespace Infusio.Ops
                 AppointmentDTO = appointmentDTO;
                 AppointmentId = appointmentId;
             }
+
+            public static implicit operator Show<InfusioOp<Appointment>>(InfusioOp<A>.UpdatePropertiesOnAppointment op) =>
+                op.AsShow();
         }
 
         internal class ListCampaigns : InfusioOp<A>
@@ -181,6 +234,9 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public static implicit operator Show<InfusioOp<CampaignList>>(InfusioOp<A>.ListCampaigns op) =>
+                op.AsShow();
         }
 
         internal class GetCampaign : InfusioOp<A>
@@ -195,6 +251,9 @@ namespace Infusio.Ops
                 CampaignId = campaignId;
                 OptionalProperties = optionalProperties;
             }
+
+            public static implicit operator Show<InfusioOp<Campaign>>(InfusioOp<A>.GetCampaign op) =>
+                op.AsShow();
         }
 
         internal class AddContactsToCampaignSequence : InfusioOp<A>
@@ -211,6 +270,9 @@ namespace Infusio.Ops
                 SequenceId = sequenceId;
                 CampaignId = campaignId;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.AddContactsToCampaignSequence op) =>
+                op.AsShow();
         }
 
         internal class RemoveContactsFromCampaignSequence : InfusioOp<A>
@@ -227,6 +289,9 @@ namespace Infusio.Ops
                 SequenceId = sequenceId;
                 CampaignId = campaignId;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.RemoveContactsFromCampaignSequence op) =>
+                op.AsShow();
         }
 
         internal class AddContactToCampaignSequence : InfusioOp<A>
@@ -243,6 +308,9 @@ namespace Infusio.Ops
                 SequenceId = sequenceId;
                 CampaignId = campaignId;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.AddContactToCampaignSequence op) =>
+                op.AsShow();
         }
 
         internal class RemoveContactFromCampaignSequence : InfusioOp<A>
@@ -259,6 +327,9 @@ namespace Infusio.Ops
                 SequenceId = sequenceId;
                 CampaignId = campaignId;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.RemoveContactFromCampaignSequence op) =>
+                op.AsShow();
         }
 
         internal class ListCompanies : InfusioOp<A>
@@ -281,6 +352,9 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public static implicit operator Show<InfusioOp<CompanyList>>(InfusioOp<A>.ListCompanies op) =>
+                op.AsShow();
         }
 
         internal class CreateCompany : InfusioOp<A>
@@ -293,6 +367,9 @@ namespace Infusio.Ops
                 Next = next;
                 Company = company;
             }
+
+            public static implicit operator Show<InfusioOp<Company>>(InfusioOp<A>.CreateCompany op) =>
+                op.AsShow();
         }
 
         internal class RetrieveCompanyModel : InfusioOp<A>
@@ -303,6 +380,9 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveCompanyModel op) =>
+                op.AsShow();
         }
 
         internal class ListContacts : InfusioOp<A>
@@ -327,6 +407,9 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public static implicit operator Show<InfusioOp<ContactList>>(InfusioOp<A>.ListContacts op) =>
+                op.AsShow();
         }
 
         internal class CreateContact : InfusioOp<A>
@@ -339,6 +422,9 @@ namespace Infusio.Ops
                 Next = next;
                 Contact = contact;
             }
+
+            public static implicit operator Show<InfusioOp<FullContact>>(InfusioOp<A>.CreateContact op) =>
+                op.AsShow();
         }
 
         internal class CreateOrUpdateContact : InfusioOp<A>
@@ -351,6 +437,9 @@ namespace Infusio.Ops
                 Next = next;
                 Contact = contact;
             }
+
+            public static implicit operator Show<InfusioOp<FullContact>>(InfusioOp<A>.CreateOrUpdateContact op) =>
+                op.AsShow();
         }
 
         internal class RetrieveContactModel : InfusioOp<A>
@@ -361,6 +450,9 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveContactModel op) =>
+                op.AsShow();
         }
 
         internal class DeleteContact : InfusioOp<A>
@@ -373,6 +465,9 @@ namespace Infusio.Ops
                 Next = next;
                 ContactId = contactId;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteContact op) =>
+                op.AsShow();
         }
 
         internal class UpdatePropertiesOnContact : InfusioOp<A>
@@ -387,6 +482,9 @@ namespace Infusio.Ops
                 ContactId = contactId;
                 Contact = contact;
             }
+
+            public static implicit operator Show<InfusioOp<FullContact>>(InfusioOp<A>.UpdatePropertiesOnContact op) =>
+                op.AsShow();
         }
 
         internal class CreateCreditCard : InfusioOp<A>
@@ -401,6 +499,9 @@ namespace Infusio.Ops
                 ContactId = contactId;
                 CreditCard = creditCard;
             }
+
+            public static implicit operator Show<InfusioOp<CreditCardAdded>>(InfusioOp<A>.CreateCreditCard op) =>
+                op.AsShow();
         }
 
         internal class ListEmailsForContact : InfusioOp<A>
@@ -421,6 +522,9 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public static implicit operator Show<InfusioOp<EmailSentQueryResultList>>(InfusioOp<A>.ListEmailsForContact op) =>
+                op.AsShow();
         }
 
         internal class CreateEmailForContact : InfusioOp<A>
@@ -435,6 +539,9 @@ namespace Infusio.Ops
                 ContactId = contactId;
                 EmailWithContent = emailWithContent;
             }
+
+            public static implicit operator Show<InfusioOp<EmailSentCreate>>(InfusioOp<A>.CreateEmailForContact op) =>
+                op.AsShow();
         }
 
         internal class ListAppliedTags : InfusioOp<A>
@@ -451,6 +558,9 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public static implicit operator Show<InfusioOp<ContactTagList>>(InfusioOp<A>.ListAppliedTags op) =>
+                op.AsShow();
         }
 
         internal class ApplyTagsToContactId : InfusioOp<A>
@@ -465,6 +575,9 @@ namespace Infusio.Ops
                 TagIds = tagIds;
                 ContactId = contactId;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.ApplyTagsToContactId op) =>
+                op.AsShow();
         }
 
         internal class RemoveTagsFromContact : InfusioOp<A>
@@ -479,6 +592,9 @@ namespace Infusio.Ops
                 Ids = ids;
                 ContactId = contactId;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.RemoveTagsFromContact op) =>
+                op.AsShow();
         }
 
         internal class RemoveTagsFromContact2 : InfusioOp<A>
@@ -493,6 +609,9 @@ namespace Infusio.Ops
                 TagId = tagId;
                 ContactId = contactId;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.RemoveTagsFromContact2 op) =>
+                op.AsShow();
         }
 
         internal class GetContact : InfusioOp<A>
@@ -507,6 +626,9 @@ namespace Infusio.Ops
                 Id = id;
                 OptionalProperties = optionalProperties;
             }
+
+            public static implicit operator Show<InfusioOp<FullContact>>(InfusioOp<A>.GetContact op) =>
+                op.AsShow();
         }
 
         internal class ListEmails : InfusioOp<A>
@@ -525,6 +647,9 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public static implicit operator Show<InfusioOp<EmailSentQueryResultList>>(InfusioOp<A>.ListEmails op) =>
+                op.AsShow();
         }
 
         internal class CreateEmail : InfusioOp<A>
@@ -537,6 +662,9 @@ namespace Infusio.Ops
                 Next = next;
                 EmailWithContent = emailWithContent;
             }
+
+            public static implicit operator Show<InfusioOp<EmailSentCreate>>(InfusioOp<A>.CreateEmail op) =>
+                op.AsShow();
         }
 
         internal class CreateEmails : InfusioOp<A>
@@ -549,6 +677,9 @@ namespace Infusio.Ops
                 Next = next;
                 EmailWithContent = emailWithContent;
             }
+
+            public static implicit operator Show<InfusioOp<EmailSentCreateList>>(InfusioOp<A>.CreateEmails op) =>
+                op.AsShow();
         }
 
         internal class DeleteEmails : InfusioOp<A>
@@ -561,6 +692,9 @@ namespace Infusio.Ops
                 Next = next;
                 EmailIds = emailIds;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteEmails op) =>
+                op.AsShow();
         }
 
         internal class GetEmail : InfusioOp<A>
@@ -573,6 +707,9 @@ namespace Infusio.Ops
                 Next = next;
                 Id = id;
             }
+
+            public static implicit operator Show<InfusioOp<EmailSentQueryResultWithContent>>(InfusioOp<A>.GetEmail op) =>
+                op.AsShow();
         }
 
         internal class UpdateEmail : InfusioOp<A>
@@ -587,6 +724,9 @@ namespace Infusio.Ops
                 Id = id;
                 EmailWithContent = emailWithContent;
             }
+
+            public static implicit operator Show<InfusioOp<EmailSentCreate>>(InfusioOp<A>.UpdateEmail op) =>
+                op.AsShow();
         }
 
         internal class DeleteEmail : InfusioOp<A>
@@ -599,6 +739,9 @@ namespace Infusio.Ops
                 Next = next;
                 Id = id;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteEmail op) =>
+                op.AsShow();
         }
 
         internal class ListFiles : InfusioOp<A>
@@ -621,6 +764,9 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public static implicit operator Show<InfusioOp<FileList>>(InfusioOp<A>.ListFiles op) =>
+                op.AsShow();
         }
 
         internal class CreateFile : InfusioOp<A>
@@ -633,6 +779,9 @@ namespace Infusio.Ops
                 Next = next;
                 FileUpload = fileUpload;
             }
+
+            public static implicit operator Show<InfusioOp<FileInformation>>(InfusioOp<A>.CreateFile op) =>
+                op.AsShow();
         }
 
         internal class GetFile : InfusioOp<A>
@@ -647,6 +796,9 @@ namespace Infusio.Ops
                 FileId = fileId;
                 OptionalProperties = optionalProperties;
             }
+
+            public static implicit operator Show<InfusioOp<FileInformation>>(InfusioOp<A>.GetFile op) =>
+                op.AsShow();
         }
 
         internal class UpdateFile : InfusioOp<A>
@@ -661,6 +813,9 @@ namespace Infusio.Ops
                 FileId = fileId;
                 FileUpload = fileUpload;
             }
+
+            public static implicit operator Show<InfusioOp<FileInformation>>(InfusioOp<A>.UpdateFile op) =>
+                op.AsShow();
         }
 
         internal class DeleteFile : InfusioOp<A>
@@ -673,6 +828,9 @@ namespace Infusio.Ops
                 Next = next;
                 FileId = fileId;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteFile op) =>
+                op.AsShow();
         }
 
         internal class ListStoredHookSubscriptions : InfusioOp<A>
@@ -683,6 +841,9 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.ListStoredHookSubscriptions op) =>
+                op.AsShow();
         }
 
         internal class CreateAHookSubscription : InfusioOp<A>
@@ -695,6 +856,9 @@ namespace Infusio.Ops
                 Next = next;
                 RestHookRequest = restHookRequest;
             }
+
+            public static implicit operator Show<InfusioOp<RestHook>>(InfusioOp<A>.CreateAHookSubscription op) =>
+                op.AsShow();
         }
 
         internal class ListHookEventTypes : InfusioOp<A>
@@ -705,6 +869,9 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.ListHookEventTypes op) =>
+                op.AsShow();
         }
 
         internal class RetrieveAHookSubscription : InfusioOp<A>
@@ -717,6 +884,9 @@ namespace Infusio.Ops
                 Next = next;
                 Key = key;
             }
+
+            public static implicit operator Show<InfusioOp<RestHook>>(InfusioOp<A>.RetrieveAHookSubscription op) =>
+                op.AsShow();
         }
 
         internal class UpdateAHookSubscription : InfusioOp<A>
@@ -731,6 +901,9 @@ namespace Infusio.Ops
                 RestHookRequest = restHookRequest;
                 Key = key;
             }
+
+            public static implicit operator Show<InfusioOp<RestHook>>(InfusioOp<A>.UpdateAHookSubscription op) =>
+                op.AsShow();
         }
 
         internal class DeleteAHookSubscription : InfusioOp<A>
@@ -743,6 +916,9 @@ namespace Infusio.Ops
                 Next = next;
                 Key = key;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteAHookSubscription op) =>
+                op.AsShow();
         }
 
         internal class VerifyAHookSubscriptionDelayed : InfusioOp<A>
@@ -757,6 +933,9 @@ namespace Infusio.Ops
                 XHookSecret = xHookSecret;
                 Key = key;
             }
+
+            public static implicit operator Show<InfusioOp<RestHook>>(InfusioOp<A>.VerifyAHookSubscriptionDelayed op) =>
+                op.AsShow();
         }
 
         internal class VerifyAHookSubscription : InfusioOp<A>
@@ -769,6 +948,9 @@ namespace Infusio.Ops
                 Next = next;
                 Key = key;
             }
+
+            public static implicit operator Show<InfusioOp<RestHook>>(InfusioOp<A>.VerifyAHookSubscription op) =>
+                op.AsShow();
         }
 
         internal class GetUserInfo : InfusioOp<A>
@@ -779,6 +961,9 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public static implicit operator Show<InfusioOp<UserInfoDTO>>(InfusioOp<A>.GetUserInfo op) =>
+                op.AsShow();
         }
 
         internal class ListOpportunities : InfusioOp<A>
@@ -801,6 +986,9 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public static implicit operator Show<InfusioOp<OpportunityList>>(InfusioOp<A>.ListOpportunities op) =>
+                op.AsShow();
         }
 
         internal class CreateOpportunity : InfusioOp<A>
@@ -813,6 +1001,9 @@ namespace Infusio.Ops
                 Next = next;
                 Opportunity = opportunity;
             }
+
+            public static implicit operator Show<InfusioOp<Opportunity>>(InfusioOp<A>.CreateOpportunity op) =>
+                op.AsShow();
         }
 
         internal class UpdateOpportunity : InfusioOp<A>
@@ -825,6 +1016,9 @@ namespace Infusio.Ops
                 Next = next;
                 Opportunity = opportunity;
             }
+
+            public static implicit operator Show<InfusioOp<Opportunity>>(InfusioOp<A>.UpdateOpportunity op) =>
+                op.AsShow();
         }
 
         internal class RetrieveOpportunityModel : InfusioOp<A>
@@ -835,6 +1029,9 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveOpportunityModel op) =>
+                op.AsShow();
         }
 
         internal class GetOpportunity : InfusioOp<A>
@@ -849,6 +1046,9 @@ namespace Infusio.Ops
                 OpportunityId = opportunityId;
                 OptionalProperties = optionalProperties;
             }
+
+            public static implicit operator Show<InfusioOp<Opportunity>>(InfusioOp<A>.GetOpportunity op) =>
+                op.AsShow();
         }
 
         internal class UpdatePropertiesOnOpportunity : InfusioOp<A>
@@ -863,6 +1063,9 @@ namespace Infusio.Ops
                 OpportunityId = opportunityId;
                 Opportunity = opportunity;
             }
+
+            public static implicit operator Show<InfusioOp<Opportunity>>(InfusioOp<A>.UpdatePropertiesOnOpportunity op) =>
+                op.AsShow();
         }
 
         internal class ListOpportunityStagePipelines : InfusioOp<A>
@@ -873,6 +1076,9 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.ListOpportunityStagePipelines op) =>
+                op.AsShow();
         }
 
         internal class ListOrders : InfusioOp<A>
@@ -899,6 +1105,9 @@ namespace Infusio.Ops
                 Until = until;
                 Since = since;
             }
+
+            public static implicit operator Show<InfusioOp<OrderList>>(InfusioOp<A>.ListOrders op) =>
+                op.AsShow();
         }
 
         internal class RetrieveOrderModel : InfusioOp<A>
@@ -909,6 +1118,9 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveOrderModel op) =>
+                op.AsShow();
         }
 
         internal class GetOrder : InfusioOp<A>
@@ -921,6 +1133,9 @@ namespace Infusio.Ops
                 Next = next;
                 OrderId = orderId;
             }
+
+            public static implicit operator Show<InfusioOp<Order>>(InfusioOp<A>.GetOrder op) =>
+                op.AsShow();
         }
 
         internal class ListTransactionsForOrder : InfusioOp<A>
@@ -943,6 +1158,9 @@ namespace Infusio.Ops
                 Until = until;
                 Since = since;
             }
+
+            public static implicit operator Show<InfusioOp<TransactionList>>(InfusioOp<A>.ListTransactionsForOrder op) =>
+                op.AsShow();
         }
 
         internal class ListProducts : InfusioOp<A>
@@ -959,6 +1177,9 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public static implicit operator Show<InfusioOp<ProductList>>(InfusioOp<A>.ListProducts op) =>
+                op.AsShow();
         }
 
         internal class ListProductsFromSyncToken : InfusioOp<A>
@@ -975,6 +1196,9 @@ namespace Infusio.Ops
                 Limit = limit;
                 SyncToken = syncToken;
             }
+
+            public static implicit operator Show<InfusioOp<ProductStatusList>>(InfusioOp<A>.ListProductsFromSyncToken op) =>
+                op.AsShow();
         }
 
         internal class GetProduct : InfusioOp<A>
@@ -987,6 +1211,9 @@ namespace Infusio.Ops
                 Next = next;
                 ProductId = productId;
             }
+
+            public static implicit operator Show<InfusioOp<Product>>(InfusioOp<A>.GetProduct op) =>
+                op.AsShow();
         }
 
         internal class GetApplicationEnabled : InfusioOp<A>
@@ -997,6 +1224,9 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public static implicit operator Show<InfusioOp<Setting>>(InfusioOp<A>.GetApplicationEnabled op) =>
+                op.AsShow();
         }
 
         internal class GetContactOptionTypes : InfusioOp<A>
@@ -1007,6 +1237,9 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public static implicit operator Show<InfusioOp<Setting>>(InfusioOp<A>.GetContactOptionTypes op) =>
+                op.AsShow();
         }
 
         internal class RetrieveSubscriptionModel : InfusioOp<A>
@@ -1017,6 +1250,9 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveSubscriptionModel op) =>
+                op.AsShow();
         }
 
         internal class ListTags : InfusioOp<A>
@@ -1033,6 +1269,9 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public static implicit operator Show<InfusioOp<Tags>>(InfusioOp<A>.ListTags op) =>
+                op.AsShow();
         }
 
         internal class CreateTag : InfusioOp<A>
@@ -1045,6 +1284,9 @@ namespace Infusio.Ops
                 Next = next;
                 Tag = tag;
             }
+
+            public static implicit operator Show<InfusioOp<Tag>>(InfusioOp<A>.CreateTag op) =>
+                op.AsShow();
         }
 
         internal class CreateTagCategory : InfusioOp<A>
@@ -1057,6 +1299,9 @@ namespace Infusio.Ops
                 Next = next;
                 TagCategory = tagCategory;
             }
+
+            public static implicit operator Show<InfusioOp<TagCategory>>(InfusioOp<A>.CreateTagCategory op) =>
+                op.AsShow();
         }
 
         internal class GetTag : InfusioOp<A>
@@ -1069,6 +1314,9 @@ namespace Infusio.Ops
                 Next = next;
                 Id = id;
             }
+
+            public static implicit operator Show<InfusioOp<Tag>>(InfusioOp<A>.GetTag op) =>
+                op.AsShow();
         }
 
         internal class ListContactsForTagId : InfusioOp<A>
@@ -1085,6 +1333,9 @@ namespace Infusio.Ops
                 Offset = offset;
                 Limit = limit;
             }
+
+            public static implicit operator Show<InfusioOp<TaggedContactList>>(InfusioOp<A>.ListContactsForTagId op) =>
+                op.AsShow();
         }
 
         internal class ApplyTagToContactIds : InfusioOp<A>
@@ -1099,6 +1350,9 @@ namespace Infusio.Ops
                 Ids = ids;
                 TagId = tagId;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.ApplyTagToContactIds op) =>
+                op.AsShow();
         }
 
         internal class RemoveTagFromContactIds : InfusioOp<A>
@@ -1113,6 +1367,9 @@ namespace Infusio.Ops
                 Ids = ids;
                 TagId = tagId;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.RemoveTagFromContactIds op) =>
+                op.AsShow();
         }
 
         internal class RemoveTagFromContactId : InfusioOp<A>
@@ -1127,6 +1384,9 @@ namespace Infusio.Ops
                 ContactId = contactId;
                 TagId = tagId;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.RemoveTagFromContactId op) =>
+                op.AsShow();
         }
 
         internal class ListTasks : InfusioOp<A>
@@ -1155,6 +1415,9 @@ namespace Infusio.Ops
                 HasDueDate = hasDueDate;
                 ContactId = contactId;
             }
+
+            public static implicit operator Show<InfusioOp<TaskList>>(InfusioOp<A>.ListTasks op) =>
+                op.AsShow();
         }
 
         internal class CreateTask : InfusioOp<A>
@@ -1167,6 +1430,9 @@ namespace Infusio.Ops
                 Next = next;
                 Task = task;
             }
+
+            public static implicit operator Show<InfusioOp<InfusionTask>>(InfusioOp<A>.CreateTask op) =>
+                op.AsShow();
         }
 
         internal class RetrieveTaskModel : InfusioOp<A>
@@ -1177,6 +1443,9 @@ namespace Infusio.Ops
             {
                 Next = next;
             }
+
+            public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveTaskModel op) =>
+                op.AsShow();
         }
 
         internal class ListTasksForCurrentUser : InfusioOp<A>
@@ -1205,6 +1474,9 @@ namespace Infusio.Ops
                 HasDueDate = hasDueDate;
                 ContactId = contactId;
             }
+
+            public static implicit operator Show<InfusioOp<TaskList>>(InfusioOp<A>.ListTasksForCurrentUser op) =>
+                op.AsShow();
         }
 
         internal class GetTask : InfusioOp<A>
@@ -1217,6 +1489,9 @@ namespace Infusio.Ops
                 Next = next;
                 TaskId = taskId;
             }
+
+            public static implicit operator Show<InfusioOp<InfusionTask>>(InfusioOp<A>.GetTask op) =>
+                op.AsShow();
         }
 
         internal class UpdateTask : InfusioOp<A>
@@ -1231,6 +1506,9 @@ namespace Infusio.Ops
                 Task = task;
                 TaskId = taskId;
             }
+
+            public static implicit operator Show<InfusioOp<InfusionTask>>(InfusioOp<A>.UpdateTask op) =>
+                op.AsShow();
         }
 
         internal class DeleteTask : InfusioOp<A>
@@ -1243,6 +1521,9 @@ namespace Infusio.Ops
                 Next = next;
                 TaskId = taskId;
             }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteTask op) =>
+                op.AsShow();
         }
 
         internal class UpdatePropertiesOnTask : InfusioOp<A>
@@ -1257,6 +1538,9 @@ namespace Infusio.Ops
                 Task = task;
                 TaskId = taskId;
             }
+
+            public static implicit operator Show<InfusioOp<InfusionTask>>(InfusioOp<A>.UpdatePropertiesOnTask op) =>
+                op.AsShow();
         }
 
         internal class ListTransactions : InfusioOp<A>
@@ -1277,6 +1561,9 @@ namespace Infusio.Ops
                 Until = until;
                 Since = since;
             }
+
+            public static implicit operator Show<InfusioOp<TransactionList>>(InfusioOp<A>.ListTransactions op) =>
+                op.AsShow();
         }
 
         internal class GetTransaction : InfusioOp<A>
@@ -1289,6 +1576,9 @@ namespace Infusio.Ops
                 Next = next;
                 TransactionId = transactionId;
             }
+
+            public static implicit operator Show<InfusioOp<Transaction>>(InfusioOp<A>.GetTransaction op) =>
+                op.AsShow();
         }
     }
 
@@ -1305,6 +1595,7 @@ namespace Infusio.Ops
 
         static InfusioOp<B> Bind<A, B>(this InfusioOp<A> op, Func<A, InfusioOp<B>> fn) =>
             op is InfusioOp<A>.Return rt ? fn(rt.Value) :
+            op is InfusioOp<A>.Log log ? new InfusioOp<B>.Log(x => log.Next(Unit.Default).Bind(fn), log.Message) :
             op is InfusioOp<A>.GetAccountProfile _1 ? new InfusioOp<B>.GetAccountProfile(x => _1.Next(x).Bind(fn)) :
             op is InfusioOp<A>.UpdateAccountInfo _2 ? new InfusioOp<B>.UpdateAccountInfo(x => _2.Next(x).Bind(fn), _2.AccountInfo) :
             op is InfusioOp<A>.SearchCommissions _3 ? new InfusioOp<B>.SearchCommissions(x => _3.Next(x).Bind(fn), _3.AffiliateId, _3.Offset, _3.Limit, _3.Until, _3.Since) :
