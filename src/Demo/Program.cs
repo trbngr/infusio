@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Infusio;
 using Infusio.Auth;
@@ -81,7 +82,7 @@ namespace Demo
              */
 
             var result = await operation.Run(client, WithLogs);
-            
+
             result.Match(
                 Left: error => Console.WriteLine($"error: {error.Value}"),
                 Right: res =>
