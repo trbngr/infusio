@@ -8,7 +8,7 @@ The majority of the code is generated from the [official Infusionsoft API docume
 Features:
 
 - All operations are composable. This means that you can chain all operations together to form one 'master' operation using LINQ syntax. [LINQ Query](https://github.com/trbngr/infusio/blob/dev/src/Demo/CustomOperations.cs#L12). [LINQ Methods](https://github.com/trbngr/infusio/blob/dev/src/Demo/CustomOperations.cs#L35).
-- All operations are completely lazy. Nothing actually executes until you call `RunWith`. [Example](https://github.com/trbngr/infusio/blob/dev/src/Demo/Program.cs#L84).
+- All operations are completely lazy. Nothing actually executes until you call `Run`. [Example](https://github.com/trbngr/infusio/blob/dev/src/Demo/Program.cs#L84).
 - For easy debugging, all operations have the ability to output logs. 
 - Speaking of logging, you can create your own log messages. `Log` is an `InfusioOp`. [Example](https://github.com/trbngr/infusio/blob/dev/src/Demo/CustomOperations.cs#L13).
 - All operations have XML documentation that comes from the API documentation.

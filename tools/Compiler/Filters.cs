@@ -22,8 +22,8 @@ namespace Infusio.Compiler
         public static string Firstupper(string input) =>
             input.ToLowerInvariant().PascalCase();
 
-        public static string Operationpath(string input) =>
-            Regex.Replace(input, @"{(\w+)}", match => $"{{{match.Groups[1].Value.PascalCase()}}}");
+        public static string Showoperationpath(string input) =>
+            Regex.Replace(input, @"{(\w+)}", match => $"{{op.{match.Groups[1].Value.PascalCase()}}}");
     }
 
     public class TemplateTag : Tag

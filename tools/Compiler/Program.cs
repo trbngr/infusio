@@ -51,6 +51,7 @@ namespace Infusio.Compiler
             List((FileName.New("Dsl"), Render("Dsl", model)))
                 .Add((FileName.New("Dto"), Render("Dto", model)))
                 .Add((FileName.New("Ops"), Render("Ops", model)))
+                .Add((FileName.New("Show"), Render("Show", model)))
                 .Add((FileName.New("Interpreter"), Render("Interpreter", model)))
                 .Add((FileName.New("Client"), Render("Client", model)));
 

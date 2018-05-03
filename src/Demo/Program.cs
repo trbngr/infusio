@@ -81,7 +81,7 @@ namespace Demo
              * ===============
              */
 
-            var result = await operation.RunWith(client, WithLogs);
+            var result = await operation.Run(client, WithLogs);
             
             result.Match(
                 Left: error => Console.WriteLine($"error: {error.Value}"),
