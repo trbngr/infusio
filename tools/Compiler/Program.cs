@@ -35,11 +35,7 @@ namespace Infusio.Compiler
         {
             var model = await LoadDocument().Map(TemplateModel.Parse);
 
-            var operations = model.Operations
-                .Filter(x => x.RequestBodyParameters.Count() > 1);
-
             Template.RegisterFilter(typeof(Filters));
-            Template.RegisterTag<TemplateTag>("template");
 
             GenerateForSingleFile(model)
                 .Map(result => WriteToDisc(OutputDirectory.New(Dest), result));
@@ -52,17 +48,17 @@ namespace Infusio.Compiler
                 .Add((FileName.New("Dto"), Render("Dto", model)))
                 .Add((FileName.New("Ops"), Render("Ops", model)))
                 .Add((FileName.New("Show"), Render("Show", model)))
-                .Add((FileName.New("Interpreter"), Render("Interpreter", model)))
-                .Add((FileName.New("Client"), Render("Client", model)));
+                .Add((FileName.New("Http/HttpSupport"), Render("Interpreter", model)))
+                .Add((FileName.New("Http/InfusioClient"), Render("Client", model)));
 
         static Unit WriteToDisc(OutputDirectory directory, (FileName Name, Try<GeneratedCode> Attemp) result) =>
-            WriteToDisc((directory, result.Name, result.Attemp));
+            WriteToDisc(directory, result.Name, result.Attemp);
 
-        static Unit WriteToDisc((OutputDirectory Directory, FileName Name, Try<GeneratedCode> Attempt) result) => match(
-            from code in result.Attempt
+        static Unit WriteToDisc(OutputDirectory directory, FileName name, Try<GeneratedCode> attempt) => match(
+            from code in attempt
             from ast in Try(CSharpSyntaxTree.ParseText(code))
-            let _ = Directory.CreateDirectory(result.Directory)
-            let path = Path.Combine(result.Directory, $"{result.Name}.cs")
+            let _ = Directory.CreateDirectory(directory)
+            let path = Path.Combine(directory, $"{name}.cs")
             let writer = new StreamWriter(new FileStream(path, FileMode.Create))
             let workspace = new AdhocWorkspace()
             from syntaxNode in Try(ast.GetRoot())
@@ -72,7 +68,7 @@ namespace Infusio.Compiler
             Succ: identity,
             Fail: e =>
             {
-                Console.Out.WriteLine($"Error generating file {result.Name}. {e.Message}");
+                Console.Out.WriteLine($"Error generating file {name}. {e.Message}");
                 return Prelude.unit;
             }
         );

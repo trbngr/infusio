@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 namespace Infusio
 {
     using static Prelude;
+    using static HttpUtils;
     using static JsonConvert;
     using static InfusioClient;
 

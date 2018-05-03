@@ -20,6 +20,7 @@ using Newtonsoft.Json.Serialization;
 namespace Infusio.Http
 {
     using static Prelude;
+    using static HttpUtils;
     using static JsonConvert;
 
     public class InfusioClient
@@ -42,22 +43,15 @@ namespace Infusio.Http
         {% endfor -%}
         public Task<Either<InfusioError, {{ op.ResponseType | normalize }}>> {{ op.Name }}({% for p in op.Parameters %}{{ p.OptionalTypeName }} {{ p.Name }}{% if p.Required == false %} = default{% endif %}{% if forloop.last == false %}, {% endif %}{% endfor %}) =>
                     HttpWorkflow{% if op.ResponseType != 'Unit' %}<{{ op.ResponseType | normalize }}>{% endif %}(
-                        Request({% if op.HttpMethod == 'Patch' %}
-                                new HttpMethod("{{ op.HttpMethod }}"){% else %}HttpMethod.{{ op.HttpMethod }}{% endif -%},
-                            MakeUri($"{{ op.Path }}"{% if op.HasQueryParameters %}, {% endif %}{% for p in op.QueryParameters %}
-                                RequestParameter("{{ p.Name }}", {{ p.Name }}){% if forloop.last == false %}, {% endif %}{% endfor %}){% if op.HasRequestBodyParameters -%}, {% endif -%}
-                        {% if op.HasSingleBodyParameter %}
-                            {{ op.SingleBodyParameter.Name }}
-                        {% else -%}
-                        {% for p in op.RequestBodyParameters %}
-                            RequestParameter("{{ p.Name }}", {{ p.Name }}){% if forloop.last == false %}, {% endif -%}
-                        {% endfor -%}
-                        {% endif -%}),
+                        message: Request({% if op.HttpMethod == 'Patch' -%}
+                                new HttpMethod("{{ op.HttpMethod }}"){% else %}HttpMethod.{{ op.HttpMethod }}{% endif -%},MakeUri($"{{ op.Path }}"{% if op.HasQueryParameters %}, {% endif %}{% for p in op.QueryParameters -%}
+                                RequestParameter("{{ p.Name }}", {{ p.Name }}){% if forloop.last == false %}, {% endif %}{% endfor %}), _config.AccessToken{% if op.HasRequestBodyParameters -%}, {% endif -%}{% if op.HasSingleBodyParameter -%}
+                            {{ op.SingleBodyParameter.Name }}{% else -%}{% for p in op.RequestBodyParameters -%}RequestParameter("{{ p.Name }}", {{ p.Name }}){% if forloop.last == false -%}, {% endif -%}{% endfor -%}{% endif -%}),
                         responses: HashSet<KnownResponse.Eq, KnownResponse>(
 {% for res in op.Responses -%}
                             new KnownResponse({{ res.StatusCode }}, "{{ res.Description }}", typeof({{ res.Type | normalize }})){% if forloop.last == false %}, {% endif %}
 {% endfor -%}
-                    ));
+                    ))(_client);
 
         /// <summary>
         /// {{ op.Summary }}
@@ -72,108 +66,5 @@ namespace Infusio.Http
                     .IfLeftAsync(e => throw new Exception(e.Value));
 
         {% endfor -%}
-
-        Task<Either<InfusioError, T>> HttpWorkflow<T>(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) where T : class =>
-            from httpResponse in SendRequest(message)
-            from responseType in FindResponse(httpResponse, responses)
-            from result in ReadResult<T>(httpResponse, responseType)
-            select result;
-
-        Task<Either<InfusioError, Unit>> HttpWorkflow(HttpRequestMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) =>
-            from httpResponse in SendRequest(message)
-            from responseType in FindResponse(httpResponse, responses)
-            select unit;
-
-        public static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
-        {
-            NullValueHandling = NullValueHandling.Ignore,
-            ContractResolver = new CamelCasePropertyNamesContractResolver()
-        };
-
-        public static Option<(string name, object value)> RequestParameter(string name, object value) =>
-            Optional(value).Map(x => (name, x));
-
-        static HttpContent MakeHttpContent(params Option<(string name, object value)>[] values) => ifNoneUnsafe(
-            from body in Some(values.FoldT(HashMap<string, object>(), (acc, x) => acc.Add(x.name, x.value)))
-            where !body.IsEmpty
-            select new StringContent(SerializeObject(body, SerializerSettings)),
-            () => null
-        );
-
-        public static string MakeUri(string relative, params Option<(string name, object value)>[] values) => ifNone(
-            from pair in Some(values.FoldT(HashMap<string, object>(), (acc, x) => acc.Add(x.name, x.value)))
-            where !pair.IsEmpty
-            let qs = pair.Map((key, value) => $"{key}={value}").Values
-            select $"{relative}?{string.Join("&", qs)}",
-            relative
-        );
-
-        HttpRequestMessage Request(HttpMethod method, string relativeUrl, params Option<(string name, object value)>[] values) =>
-            Request(method, relativeUrl, MakeHttpContent(values));
-
-        HttpRequestMessage Request(HttpMethod method, string relativeUrl, object body) =>
-            Request(method, relativeUrl, new StringContent(SerializeObject(body), Encoding.UTF8, "application/json"));
-
-        HttpRequestMessage Request(HttpMethod method, string relativeUrl, HttpContent content) =>
-            new HttpRequestMessage(method, $"https://api.infusionsoft.com/crm/rest/v1{relativeUrl}")
-            {
-                Content = content,
-                Headers =
-                {
-                    Accept = { MediaTypeWithQualityHeaderValue.Parse("application/json")},
-                    Authorization = new AuthenticationHeaderValue("Bearer", _config.AccessToken)
-                }
-            };
-
-        Task<Either<InfusioError, KnownResponse>> FindResponse(HttpResponseMessage message, HashSet<KnownResponse.Eq, KnownResponse> responses) => match(
-            responses.Find(KnownResponse.For(message.StatusCode)),
-            None: () => message.Content.ReadAsStringAsync()
-                .Map(x => Left<InfusioError, KnownResponse>(new InfusioError($"Unexpected response: {message.StatusCode} {x}"))),
-            Some: response => Right<InfusioError, KnownResponse>(response).AsTask()
-        );
-
-        Task<Either<InfusioError, HttpResponseMessage>> SendRequest(HttpRequestMessage message) => match(
-            TryAsync(() => _client.SendAsync(message)),
-            Fail: e => Left<InfusioError, HttpResponseMessage>(new InfusioError($"Generic send InfusioError: {e.Message}")),
-            Succ: x => Right<InfusioError, HttpResponseMessage>(x)
-        );
-
-        Task<Either<InfusioError, T>> ReadResult<T>(HttpResponseMessage message, KnownResponse response) where T : class =>
-            !response.IsSuccess
-            ? Left<InfusioError, T>(new InfusioError(response.Description)).AsTask()
-            : match(
-                from json in TryAsync(() => message.Content.ReadAsStringAsync())
-                from result in Try(() => DeserializeObject(json, response.Type)).ToAsync()
-                select result,
-                Fail: e => Left<InfusioError, T>(new InfusioError($"Generic read InfusioError: {e.Message}")),
-                Succ: t => match(
-                    Optional((T) t),
-                    None: () => Left<InfusioError, T>(new InfusioError($"Unable to read {typeof(T)}")),
-                    Some: x => Right<InfusioError, T>(x)
-                )
-            );
-    }
-
-    public class KnownResponse : Record<KnownResponse>
-    {
-        public readonly int StatusCode;
-        public readonly string Description;
-        public readonly System.Type Type;
-        public bool IsSuccess => (StatusCode >= 200) && (StatusCode <= 299);
-
-        public KnownResponse(int statusCode, string description, System.Type type)
-        {
-            StatusCode = statusCode;
-            Description = description;
-            Type = type;
-        }
-
-        public static KnownResponse For(HttpStatusCode code) => new KnownResponse((int) code, "", null);
-
-        public struct Eq : Eq<KnownResponse>
-        {
-            public bool Equals(KnownResponse x, KnownResponse y) => x.StatusCode.Equals(y.StatusCode);
-            public int GetHashCode(KnownResponse x) => x.StatusCode.GetHashCode();
-        }
     }
 }

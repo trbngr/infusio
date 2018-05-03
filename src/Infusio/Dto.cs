@@ -11,44 +11,6 @@ namespace Infusio.Model
 {
 
 
-    public enum SourceType
-    {
-        [EnumMember(Value = "WEBFORM")]
-        Webform,
-
-        [EnumMember(Value = "LANDINGPAGE")]
-        Landingpage,
-
-        [EnumMember(Value = "IMPORT")]
-        Import,
-
-        [EnumMember(Value = "MANUAL")]
-        Manual,
-
-        [EnumMember(Value = "API")]
-        Api,
-
-        [EnumMember(Value = "OTHER")]
-        Other,
-
-        [EnumMember(Value = "UNKNOWN")]
-        Unknown
-    }
-
-
-    public enum Status
-    {
-        [EnumMember(Value = "Unverified")]
-        Unverified,
-
-        [EnumMember(Value = "Verified")]
-        Verified,
-
-        [EnumMember(Value = "Inactive")]
-        Inactive
-    }
-
-
     public enum DuplicateOption
     {
         [EnumMember(Value = "Email")]
@@ -59,50 +21,16 @@ namespace Infusio.Model
     }
 
 
-    public enum Category
+    public enum FileAssociation
     {
-        [EnumMember(Value = "Attachments")]
-        Attachments,
+        [EnumMember(Value = "CONTACT")]
+        Contact,
 
-        [EnumMember(Value = "Cart")]
-        Cart,
+        [EnumMember(Value = "USER")]
+        User,
 
-        [EnumMember(Value = "Documents")]
-        Documents,
-
-        [EnumMember(Value = "Hidden")]
-        Hidden,
-
-        [EnumMember(Value = "Invoice")]
-        Invoice,
-
-        [EnumMember(Value = "Logo")]
-        Logo,
-
-        [EnumMember(Value = "Tickets")]
-        Tickets,
-
-        [EnumMember(Value = "WebForm")]
-        Webform,
-
-        [EnumMember(Value = "Funnel")]
-        Funnel
-    }
-
-
-    public enum Field
-    {
-        [EnumMember(Value = "BILLING")]
-        Billing,
-
-        [EnumMember(Value = "SHIPPING")]
-        Shipping,
-
-        [EnumMember(Value = "OTHER")]
-        Other,
-
-        [EnumMember(Value = "EMAIL1")]
-        Email1
+        [EnumMember(Value = "COMPANY")]
+        Company
     }
 
 
@@ -234,6 +162,127 @@ namespace Infusio.Model
     }
 
 
+    public enum Status
+    {
+        [EnumMember(Value = "Unverified")]
+        Unverified,
+
+        [EnumMember(Value = "Verified")]
+        Verified,
+
+        [EnumMember(Value = "Inactive")]
+        Inactive
+    }
+
+
+    public enum Category
+    {
+        [EnumMember(Value = "Attachments")]
+        Attachments,
+
+        [EnumMember(Value = "Cart")]
+        Cart,
+
+        [EnumMember(Value = "Documents")]
+        Documents,
+
+        [EnumMember(Value = "Hidden")]
+        Hidden,
+
+        [EnumMember(Value = "Invoice")]
+        Invoice,
+
+        [EnumMember(Value = "Logo")]
+        Logo,
+
+        [EnumMember(Value = "Tickets")]
+        Tickets,
+
+        [EnumMember(Value = "WebForm")]
+        Webform,
+
+        [EnumMember(Value = "Funnel")]
+        Funnel
+    }
+
+
+    public enum EmailStatus
+    {
+        [EnumMember(Value = "Unengaged Marketable")]
+        Unengagedmarketable,
+
+        [EnumMember(Value = "Unconfirmed")]
+        Unconfirmed,
+
+        [EnumMember(Value = "Confirmed (Legacy)")]
+        Confirmedlegacy,
+
+        [EnumMember(Value = "Confirmed")]
+        Confirmed,
+
+        [EnumMember(Value = "Unengaged NonMarketable")]
+        Unengagednonmarketable,
+
+        [EnumMember(Value = "Non-marketable")]
+        Nonmarketable,
+
+        [EnumMember(Value = "Lockdown")]
+        Lockdown,
+
+        [EnumMember(Value = "Soft Bounce")]
+        Softbounce,
+
+        [EnumMember(Value = "Hard Bounce")]
+        Hardbounce,
+
+        [EnumMember(Value = "Opt-Out")]
+        Optout,
+
+        [EnumMember(Value = "Opt-Out: Admin")]
+        Optoutadmin,
+
+        [EnumMember(Value = "Opt-Out: System")]
+        Optoutsystem,
+
+        [EnumMember(Value = "List Unsubscribe")]
+        Listunsubscribe,
+
+        [EnumMember(Value = "Provided Feedback")]
+        Providedfeedback,
+
+        [EnumMember(Value = "Reported Spam")]
+        Reportedspam,
+
+        [EnumMember(Value = "Invalid Email")]
+        Invalidemail
+    }
+
+
+    public enum SourceType
+    {
+        [EnumMember(Value = "WEBFORM")]
+        Webform,
+
+        [EnumMember(Value = "LANDINGPAGE")]
+        Landingpage,
+
+        [EnumMember(Value = "IMPORT")]
+        Import,
+
+        [EnumMember(Value = "MANUAL")]
+        Manual,
+
+        [EnumMember(Value = "API")]
+        Api,
+
+        [EnumMember(Value = "OTHER")]
+        Other,
+
+        [EnumMember(Value = "UNKNOWN")]
+        Unknown
+    }
+
+
     public enum FieldType
     {
         [EnumMember(Value = "Currency")]
@@ -310,19 +359,6 @@ namespace Infusio.Model
     }
 
 
-    public enum FileAssociation
-    {
-        [EnumMember(Value = "CONTACT")]
-        Contact,
-
-        [EnumMember(Value = "USER")]
-        User,
-
-        [EnumMember(Value = "COMPANY")]
-        Company
-    }
-
-
     public enum RecordType
     {
         [EnumMember(Value = "CONTACT")]
@@ -348,6 +384,22 @@ namespace Infusio.Model
     }
 
 
+    public enum Field
+    {
+        [EnumMember(Value = "BILLING")]
+        Billing,
+
+        [EnumMember(Value = "SHIPPING")]
+        Shipping,
+
+        [EnumMember(Value = "OTHER")]
+        Other,
+
+        [EnumMember(Value = "EMAIL1")]
+        Email1
+    }
+
+
     public enum Key
     {
         [EnumMember(Value = "SUCCESS")]
@@ -367,58 +419,6 @@ namespace Infusio.Model
 
         [EnumMember(Value = "NO_PERMISSION")]
         Nopermission
-    }
-
-
-    public enum EmailStatus
-    {
-        [EnumMember(Value = "Unengaged Marketable")]
-        Unengagedmarketable,
-
-        [EnumMember(Value = "Unconfirmed")]
-        Unconfirmed,
-
-        [EnumMember(Value = "Confirmed (Legacy)")]
-        Confirmedlegacy,
-
-        [EnumMember(Value = "Confirmed")]
-        Confirmed,
-
-        [EnumMember(Value = "Unengaged NonMarketable")]
-        Unengagednonmarketable,
-
-        [EnumMember(Value = "Non-marketable")]
-        Nonmarketable,
-
-        [EnumMember(Value = "Lockdown")]
-        Lockdown,
-
-        [EnumMember(Value = "Soft Bounce")]
-        Softbounce,
-
-        [EnumMember(Value = "Hard Bounce")]
-        Hardbounce,
-
-        [EnumMember(Value = "Opt-Out")]
-        Optout,
-
-        [EnumMember(Value = "Opt-Out: Admin")]
-        Optoutadmin,
-
-        [EnumMember(Value = "Opt-Out: System")]
-        Optoutsystem,
-
-        [EnumMember(Value = "List Unsubscribe")]
-        Listunsubscribe,
-
-        [EnumMember(Value = "Provided Feedback")]
-        Providedfeedback,
-
-        [EnumMember(Value = "Reported Spam")]
-        Reportedspam,
-
-        [EnumMember(Value = "Invalid Email")]
-        Invalidemail
     }
 
 

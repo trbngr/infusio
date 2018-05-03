@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 namespace Infusio
 {
     using static Prelude;
+    using static HttpUtils;
     using static JsonConvert;
     using static InfusioClient;
 
@@ -20,7 +21,7 @@ namespace Infusio
     {
         public static Show<T> AsShow<T>(this T self) => self.ToString;
         public static Show<T> AsShow<T>(this T self, Func<T, string> fn) => () => fn(self);
-        
+
         public static Show<InfusioOp<Unit>> AsShow<T>(this InfusioOp<T>.Log op) => () => op.Message;
 
 {% for op in Operations -%}
@@ -36,10 +37,10 @@ namespace Infusio
             {% assign uri = '{uri}' -%}
             return body.Fold($"{{ op.Summary }}. [{{ op.HttpMethod | upcase }}: {{ uri }}]", (msg, bd) => $"{msg}: {bd}");
         };
-        
+
 {% endfor %}
-        
-        static Option<string> MakeBody(params Option<(string name, object value)>[] values) => 
+
+        static Option<string> MakeBody(params Option<(string name, object value)>[] values) =>
             from body in Some(values.FoldT(HashMap<string, object>(), (acc, x) => acc.Add(x.name, x.value)))
             where !body.IsEmpty
             select SerializeObject(body, SerializerSettings);
