@@ -5,7 +5,7 @@ using LanguageExt.TypeClasses;
 
 namespace Infusio.Http
 {
-    public class KnownResponse : Record<KnownResponse>
+    class KnownResponse : Record<KnownResponse>
     {
         public readonly int StatusCode;
         public readonly string Description;
