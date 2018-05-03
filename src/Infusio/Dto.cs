@@ -11,250 +11,28 @@ namespace Infusio.Model
 {
 
 
-    public enum DuplicateOption
-    {
-        [EnumMember(Value = "Email")]
-        Email,
-
-        [EnumMember(Value = "EmailAndName")]
-        Emailandname
-    }
-
-
-    public enum FileAssociation
+    public enum RecordType
     {
         [EnumMember(Value = "CONTACT")]
         Contact,
 
-        [EnumMember(Value = "USER")]
-        User,
+        [EnumMember(Value = "REFERRAL_PARTNER")]
+        Referralpartner,
 
-        [EnumMember(Value = "COMPANY")]
-        Company
-    }
-
-
-    public enum Type
-    {
-        [EnumMember(Value = "NULL")]
-        Null,
-
-        [EnumMember(Value = "Start")]
-        Start,
-
-        [EnumMember(Value = "Wait")]
-        Wait,
-
-        [EnumMember(Value = "DelayTimer")]
-        Delaytimer,
-
-        [EnumMember(Value = "ContactTimer")]
-        Contacttimer,
-
-        [EnumMember(Value = "DateTimer")]
-        Datetimer,
-
-        [EnumMember(Value = "Email")]
-        Email,
-
-        [EnumMember(Value = "BardEmail")]
-        Bardemail,
-
-        [EnumMember(Value = "EmailConfirm")]
-        Emailconfirm,
-
-        [EnumMember(Value = "Voice")]
-        Voice,
-
-        [EnumMember(Value = "Fax")]
-        Fax,
-
-        [EnumMember(Value = "Letter")]
-        Letter,
-
-        [EnumMember(Value = "Tag")]
-        Tag,
-
-        [EnumMember(Value = "Opportunity")]
+        [EnumMember(Value = "OPPORTUNITY")]
         Opportunity,
 
-        [EnumMember(Value = "Note")]
-        Note,
+        [EnumMember(Value = "TASK_APPOINTMENT")]
+        Taskappointment,
 
-        [EnumMember(Value = "Task")]
-        Task,
+        [EnumMember(Value = "COMPANY")]
+        Company,
 
-        [EnumMember(Value = "CompleteTasks")]
-        Completetasks,
+        [EnumMember(Value = "ORDER")]
+        Order,
 
-        [EnumMember(Value = "Appointment")]
-        Appointment,
-
-        [EnumMember(Value = "AssignOwner")]
-        Assignowner,
-
-        [EnumMember(Value = "FieldValue")]
-        Fieldvalue,
-
-        [EnumMember(Value = "Fulfillment")]
-        Fulfillment,
-
-        [EnumMember(Value = "CreateOrder")]
-        Createorder,
-
-        [EnumMember(Value = "Http")]
-        Http,
-
-        [EnumMember(Value = "CustomerHub")]
-        Customerhub,
-
-        [EnumMember(Value = "ActionSet")]
-        Actionset
-    }
-
-
-    public enum FileBoxType
-    {
-        [EnumMember(Value = "Application")]
-        Application,
-
-        [EnumMember(Value = "Image")]
-        Image,
-
-        [EnumMember(Value = "Fax")]
-        Fax,
-
-        [EnumMember(Value = "Attachment")]
-        Attachment,
-
-        [EnumMember(Value = "Ticket")]
-        Ticket,
-
-        [EnumMember(Value = "Contact")]
-        Contact,
-
-        [EnumMember(Value = "DigitalProduct")]
-        Digitalproduct,
-
-        [EnumMember(Value = "Import")]
-        Import,
-
-        [EnumMember(Value = "Hidden")]
-        Hidden,
-
-        [EnumMember(Value = "WebForm")]
-        Webform,
-
-        [EnumMember(Value = "StyledCart")]
-        Styledcart,
-
-        [EnumMember(Value = "ReSampledImage")]
-        Resampledimage,
-
-        [EnumMember(Value = "TemplateThumbnail")]
-        Templatethumbnail,
-
-        [EnumMember(Value = "Funnel")]
-        Funnel,
-
-        [EnumMember(Value = "LogoThumbnail")]
-        Logothumbnail
-    }
-
-
-    public enum Status
-    {
-        [EnumMember(Value = "Unverified")]
-        Unverified,
-
-        [EnumMember(Value = "Verified")]
-        Verified,
-
-        [EnumMember(Value = "Inactive")]
-        Inactive
-    }
-
-
-    public enum Category
-    {
-        [EnumMember(Value = "Attachments")]
-        Attachments,
-
-        [EnumMember(Value = "Cart")]
-        Cart,
-
-        [EnumMember(Value = "Documents")]
-        Documents,
-
-        [EnumMember(Value = "Hidden")]
-        Hidden,
-
-        [EnumMember(Value = "Invoice")]
-        Invoice,
-
-        [EnumMember(Value = "Logo")]
-        Logo,
-
-        [EnumMember(Value = "Tickets")]
-        Tickets,
-
-        [EnumMember(Value = "WebForm")]
-        Webform,
-
-        [EnumMember(Value = "Funnel")]
-        Funnel
-    }
-
-
-    public enum EmailStatus
-    {
-        [EnumMember(Value = "Unengaged Marketable")]
-        Unengagedmarketable,
-
-        [EnumMember(Value = "Unconfirmed")]
-        Unconfirmed,
-
-        [EnumMember(Value = "Confirmed (Legacy)")]
-        Confirmedlegacy,
-
-        [EnumMember(Value = "Confirmed")]
-        Confirmed,
-
-        [EnumMember(Value = "Unengaged NonMarketable")]
-        Unengagednonmarketable,
-
-        [EnumMember(Value = "Non-marketable")]
-        Nonmarketable,
-
-        [EnumMember(Value = "Lockdown")]
-        Lockdown,
-
-        [EnumMember(Value = "Soft Bounce")]
-        Softbounce,
-
-        [EnumMember(Value = "Hard Bounce")]
-        Hardbounce,
-
-        [EnumMember(Value = "Opt-Out")]
-        Optout,
-
-        [EnumMember(Value = "Opt-Out: Admin")]
-        Optoutadmin,
-
-        [EnumMember(Value = "Opt-Out: System")]
-        Optoutsystem,
-
-        [EnumMember(Value = "List Unsubscribe")]
-        Listunsubscribe,
-
-        [EnumMember(Value = "Provided Feedback")]
-        Providedfeedback,
-
-        [EnumMember(Value = "Reported Spam")]
-        Reportedspam,
-
-        [EnumMember(Value = "Invalid Email")]
-        Invalidemail
+        [EnumMember(Value = "SUBSCRIPTION")]
+        Subscription
     }
 
 
@@ -359,28 +137,148 @@ namespace Infusio.Model
     }
 
 
-    public enum RecordType
+    public enum FileBoxType
+    {
+        [EnumMember(Value = "Application")]
+        Application,
+
+        [EnumMember(Value = "Image")]
+        Image,
+
+        [EnumMember(Value = "Fax")]
+        Fax,
+
+        [EnumMember(Value = "Attachment")]
+        Attachment,
+
+        [EnumMember(Value = "Ticket")]
+        Ticket,
+
+        [EnumMember(Value = "Contact")]
+        Contact,
+
+        [EnumMember(Value = "DigitalProduct")]
+        Digitalproduct,
+
+        [EnumMember(Value = "Import")]
+        Import,
+
+        [EnumMember(Value = "Hidden")]
+        Hidden,
+
+        [EnumMember(Value = "WebForm")]
+        Webform,
+
+        [EnumMember(Value = "StyledCart")]
+        Styledcart,
+
+        [EnumMember(Value = "ReSampledImage")]
+        Resampledimage,
+
+        [EnumMember(Value = "TemplateThumbnail")]
+        Templatethumbnail,
+
+        [EnumMember(Value = "Funnel")]
+        Funnel,
+
+        [EnumMember(Value = "LogoThumbnail")]
+        Logothumbnail
+    }
+
+
+    public enum EmailStatus
+    {
+        [EnumMember(Value = "Unengaged Marketable")]
+        Unengagedmarketable,
+
+        [EnumMember(Value = "Unconfirmed")]
+        Unconfirmed,
+
+        [EnumMember(Value = "Confirmed (Legacy)")]
+        Confirmedlegacy,
+
+        [EnumMember(Value = "Confirmed")]
+        Confirmed,
+
+        [EnumMember(Value = "Unengaged NonMarketable")]
+        Unengagednonmarketable,
+
+        [EnumMember(Value = "Non-marketable")]
+        Nonmarketable,
+
+        [EnumMember(Value = "Lockdown")]
+        Lockdown,
+
+        [EnumMember(Value = "Soft Bounce")]
+        Softbounce,
+
+        [EnumMember(Value = "Hard Bounce")]
+        Hardbounce,
+
+        [EnumMember(Value = "Opt-Out")]
+        Optout,
+
+        [EnumMember(Value = "Opt-Out: Admin")]
+        Optoutadmin,
+
+        [EnumMember(Value = "Opt-Out: System")]
+        Optoutsystem,
+
+        [EnumMember(Value = "List Unsubscribe")]
+        Listunsubscribe,
+
+        [EnumMember(Value = "Provided Feedback")]
+        Providedfeedback,
+
+        [EnumMember(Value = "Reported Spam")]
+        Reportedspam,
+
+        [EnumMember(Value = "Invalid Email")]
+        Invalidemail
+    }
+
+
+    public enum Category
+    {
+        [EnumMember(Value = "Attachments")]
+        Attachments,
+
+        [EnumMember(Value = "Cart")]
+        Cart,
+
+        [EnumMember(Value = "Documents")]
+        Documents,
+
+        [EnumMember(Value = "Hidden")]
+        Hidden,
+
+        [EnumMember(Value = "Invoice")]
+        Invoice,
+
+        [EnumMember(Value = "Logo")]
+        Logo,
+
+        [EnumMember(Value = "Tickets")]
+        Tickets,
+
+        [EnumMember(Value = "WebForm")]
+        Webform,
+
+        [EnumMember(Value = "Funnel")]
+        Funnel
+    }
+
+
+    public enum FileAssociation
     {
         [EnumMember(Value = "CONTACT")]
         Contact,
 
-        [EnumMember(Value = "REFERRAL_PARTNER")]
-        Referralpartner,
-
-        [EnumMember(Value = "OPPORTUNITY")]
-        Opportunity,
-
-        [EnumMember(Value = "TASK_APPOINTMENT")]
-        Taskappointment,
+        [EnumMember(Value = "USER")]
+        User,
 
         [EnumMember(Value = "COMPANY")]
-        Company,
-
-        [EnumMember(Value = "ORDER")]
-        Order,
-
-        [EnumMember(Value = "SUBSCRIPTION")]
-        Subscription
+        Company
     }
 
 
@@ -397,6 +295,108 @@ namespace Infusio.Model
 
         [EnumMember(Value = "EMAIL1")]
         Email1
+    }
+
+
+    public enum DuplicateOption
+    {
+        [EnumMember(Value = "Email")]
+        Email,
+
+        [EnumMember(Value = "EmailAndName")]
+        Emailandname
+    }
+
+
+    public enum Status
+    {
+        [EnumMember(Value = "Unverified")]
+        Unverified,
+
+        [EnumMember(Value = "Verified")]
+        Verified,
+
+        [EnumMember(Value = "Inactive")]
+        Inactive
+    }
+
+
+    public enum Type
+    {
+        [EnumMember(Value = "NULL")]
+        Null,
+
+        [EnumMember(Value = "Start")]
+        Start,
+
+        [EnumMember(Value = "Wait")]
+        Wait,
+
+        [EnumMember(Value = "DelayTimer")]
+        Delaytimer,
+
+        [EnumMember(Value = "ContactTimer")]
+        Contacttimer,
+
+        [EnumMember(Value = "DateTimer")]
+        Datetimer,
+
+        [EnumMember(Value = "Email")]
+        Email,
+
+        [EnumMember(Value = "BardEmail")]
+        Bardemail,
+
+        [EnumMember(Value = "EmailConfirm")]
+        Emailconfirm,
+
+        [EnumMember(Value = "Voice")]
+        Voice,
+
+        [EnumMember(Value = "Fax")]
+        Fax,
+
+        [EnumMember(Value = "Letter")]
+        Letter,
+
+        [EnumMember(Value = "Tag")]
+        Tag,
+
+        [EnumMember(Value = "Opportunity")]
+        Opportunity,
+
+        [EnumMember(Value = "Note")]
+        Note,
+
+        [EnumMember(Value = "Task")]
+        Task,
+
+        [EnumMember(Value = "CompleteTasks")]
+        Completetasks,
+
+        [EnumMember(Value = "Appointment")]
+        Appointment,
+
+        [EnumMember(Value = "AssignOwner")]
+        Assignowner,
+
+        [EnumMember(Value = "FieldValue")]
+        Fieldvalue,
+
+        [EnumMember(Value = "Fulfillment")]
+        Fulfillment,
+
+        [EnumMember(Value = "CreateOrder")]
+        Createorder,
+
+        [EnumMember(Value = "Http")]
+        Http,
+
+        [EnumMember(Value = "CustomerHub")]
+        Customerhub,
+
+        [EnumMember(Value = "ActionSet")]
+        Actionset
     }
 
 

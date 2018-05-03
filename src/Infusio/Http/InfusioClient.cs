@@ -48,14 +48,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Retrieve account profile
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetAccountProfile"/>.</remarks>
-        public Task<AccountProfile> GetAccountProfileUnsafe() => GetAccountProfile()
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Updates an account profile
         /// </summary>
         /// <param name="accountInfo">accountInfo</param>
@@ -68,15 +60,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Updates an account profile
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="UpdateAccountInfo"/>.</remarks>
-        /// <param name="accountInfo">accountInfo</param>
-        public Task<AccountProfile> UpdateAccountInfoUnsafe(AccountProfile accountInfo) => UpdateAccountInfo(accountInfo)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve Commissions
@@ -97,19 +80,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Retrieve Commissions
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="SearchCommissions"/>.</remarks>
-        /// <param name="affiliateId">Affiliate to retrieve commissions for</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
-        /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
-        public Task<AffiliateCommissionList> SearchCommissionsUnsafe(long affiliateId = default, int offset = default, int limit = default, string until = default, string since = default) => SearchCommissions(affiliateId, offset, limit, until, since)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Retrieve Affiliate Model
         /// </summary>
         public Task<Either<InfusioError, ObjectModel>> RetrieveAffiliateModel() =>
@@ -121,14 +91,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve Affiliate Model
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveAffiliateModel"/>.</remarks>
-        public Task<ObjectModel> RetrieveAffiliateModelUnsafe() => RetrieveAffiliateModel()
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Appointments
@@ -149,19 +111,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// List Appointments
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListAppointments"/>.</remarks>
-        /// <param name="contactId">Optionally find appointments with a contact</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
-        /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
-        public Task<AppointmentList> ListAppointmentsUnsafe(long contactId = default, int offset = default, int limit = default, string until = default, string since = default) => ListAppointments(contactId, offset, limit, until, since)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Create an Appointment
         /// </summary>
         /// <param name="appointment">appointment</param>
@@ -173,15 +122,6 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Create an Appointment
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="CreateAppointment"/>.</remarks>
-        /// <param name="appointment">appointment</param>
-        public Task<Appointment> CreateAppointmentUnsafe(Model.Appointment appointment) => CreateAppointment(appointment)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve Appointment Model
@@ -197,14 +137,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Retrieve Appointment Model
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveAppointmentModel"/>.</remarks>
-        public Task<ObjectModel> RetrieveAppointmentModelUnsafe() => RetrieveAppointmentModel()
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Retrieve an Appointment
         /// </summary>
         /// <param name="appointmentId">appointmentId</param>
@@ -217,15 +149,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve an Appointment
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetAppointment"/>.</remarks>
-        /// <param name="appointmentId">appointmentId</param>
-        public Task<Appointment> GetAppointmentUnsafe(long appointmentId) => GetAppointment(appointmentId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Replace an Appointment
@@ -243,16 +166,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Replace an Appointment
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="UpdateAppointment"/>.</remarks>
-        /// <param name="appointmentDTO">appointmentDTO</param>
-        /// <param name="appointmentId">appointmentId</param>
-        public Task<Appointment> UpdateAppointmentUnsafe(Model.Appointment appointmentDTO, long appointmentId) => UpdateAppointment(appointmentDTO, appointmentId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Delete an Appointment
         /// </summary>
         /// <param name="appointmentId">appointmentId</param>
@@ -265,15 +178,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Delete an Appointment
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="DeleteAppointment"/>.</remarks>
-        /// <param name="appointmentId">appointmentId</param>
-        public Task<Unit> DeleteAppointmentUnsafe(long appointmentId) => DeleteAppointment(appointmentId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Update an Appointment
@@ -289,16 +193,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Update an Appointment
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="UpdatePropertiesOnAppointment"/>.</remarks>
-        /// <param name="appointmentDTO">appointmentDTO</param>
-        /// <param name="appointmentId">appointmentId</param>
-        public Task<Appointment> UpdatePropertiesOnAppointmentUnsafe(Model.Appointment appointmentDTO, long appointmentId) => UpdatePropertiesOnAppointment(appointmentDTO, appointmentId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Campaigns
@@ -319,19 +213,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// List Campaigns
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListCampaigns"/>.</remarks>
-        /// <param name="orderDirection">How to order the data i.e. ascending (A-Z) or descending (Z-A)</param>
-        /// <param name="order">Attribute to order items by</param>
-        /// <param name="searchText">Optional text to search</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        public Task<CampaignList> ListCampaignsUnsafe(string orderDirection = default, string order = default, string searchText = default, int offset = default, int limit = default) => ListCampaigns(orderDirection, order, searchText, offset, limit)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Retrieve a Campaign
         /// </summary>
         /// <param name="campaignId">campaignId</param>
@@ -347,16 +228,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Retrieve a Campaign
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetCampaign"/>.</remarks>
-        /// <param name="campaignId">campaignId</param>
-        /// <param name="optionalProperties">Comma-delimited list of Campaign properties to include in the response. (The fields `goals` and `sequences` aren't included, by default.)</param>
-        public Task<Campaign> GetCampaignUnsafe(long campaignId, Lst<string> optionalProperties = default) => GetCampaign(campaignId, optionalProperties)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Add Multiple to Campaign Sequence
         /// </summary>
         /// <param name="ids">ids</param>
@@ -370,17 +241,6 @@ namespace Infusio.Http
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Add Multiple to Campaign Sequence
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="AddContactsToCampaignSequence"/>.</remarks>
-        /// <param name="ids">ids</param>
-        /// <param name="sequenceId">sequenceId</param>
-        /// <param name="campaignId">campaignId</param>
-        public Task<Unit> AddContactsToCampaignSequenceUnsafe(Model.SetOfIds ids, long sequenceId, long campaignId) => AddContactsToCampaignSequence(ids, sequenceId, campaignId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Remove Multiple from Campaign Sequence
@@ -399,17 +259,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Remove Multiple from Campaign Sequence
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RemoveContactsFromCampaignSequence"/>.</remarks>
-        /// <param name="ids">ids</param>
-        /// <param name="sequenceId">sequenceId</param>
-        /// <param name="campaignId">campaignId</param>
-        public Task<Unit> RemoveContactsFromCampaignSequenceUnsafe(Model.SetOfIds ids, long sequenceId, long campaignId) => RemoveContactsFromCampaignSequence(ids, sequenceId, campaignId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Add to Campaign Sequence
         /// </summary>
         /// <param name="contactId">contactId</param>
@@ -423,17 +272,6 @@ namespace Infusio.Http
                     new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Add to Campaign Sequence
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="AddContactToCampaignSequence"/>.</remarks>
-        /// <param name="contactId">contactId</param>
-        /// <param name="sequenceId">sequenceId</param>
-        /// <param name="campaignId">campaignId</param>
-        public Task<Unit> AddContactToCampaignSequenceUnsafe(long contactId, long sequenceId, long campaignId) => AddContactToCampaignSequence(contactId, sequenceId, campaignId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Remove from Campaign Sequence
@@ -450,17 +288,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Remove from Campaign Sequence
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RemoveContactFromCampaignSequence"/>.</remarks>
-        /// <param name="contactId">contactId</param>
-        /// <param name="sequenceId">sequenceId</param>
-        /// <param name="campaignId">campaignId</param>
-        public Task<Unit> RemoveContactFromCampaignSequenceUnsafe(long contactId, long sequenceId, long campaignId) => RemoveContactFromCampaignSequence(contactId, sequenceId, campaignId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Companies
@@ -482,20 +309,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// List Companies
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListCompanies"/>.</remarks>
-        /// <param name="optionalProperties">Comma-delimited list of Company properties to include in the response. (Fields such as `notes`, `fax_number` and `custom_fields` aren't included, by default.)</param>
-        /// <param name="orderDirection">How to order the data i.e. ascending (A-Z) or descending (Z-A)</param>
-        /// <param name="order">Attribute to order items by</param>
-        /// <param name="companyName">Optional company name to query on</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        public Task<CompanyList> ListCompaniesUnsafe(Lst<string> optionalProperties = default, string orderDirection = default, string order = default, string companyName = default, int offset = default, int limit = default) => ListCompanies(optionalProperties, orderDirection, order, companyName, offset, limit)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Create a Company
         /// </summary>
         /// <param name="company">company</param>
@@ -509,15 +322,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Create a Company
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="CreateCompany"/>.</remarks>
-        /// <param name="company">company</param>
-        public Task<Company> CreateCompanyUnsafe(Model.CreateCompany company = default) => CreateCompany(company)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Retrieve Company Model
         /// </summary>
         public Task<Either<InfusioError, ObjectModel>> RetrieveCompanyModel() =>
@@ -529,14 +333,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve Company Model
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveCompanyModel"/>.</remarks>
-        public Task<ObjectModel> RetrieveCompanyModelUnsafe() => RetrieveCompanyModel()
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Contacts
@@ -559,21 +355,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// List Contacts
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListContacts"/>.</remarks>
-        /// <param name="orderDirection">How to order the data i.e. ascending (A-Z) or descending (Z-A)</param>
-        /// <param name="order">Attribute to order items by</param>
-        /// <param name="familyName">Optional last name or surname to query on</param>
-        /// <param name="givenName">Optional first name or forename to query on</param>
-        /// <param name="email">Optional email address to query on</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        public Task<ContactList> ListContactsUnsafe(string orderDirection = default, string order = default, string familyName = default, string givenName = default, string email = default, int offset = default, int limit = default) => ListContacts(orderDirection, order, familyName, givenName, email, offset, limit)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Create a Contact
         /// </summary>
         /// <param name="contact">contact</param>
@@ -585,15 +366,6 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Create a Contact
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="CreateContact"/>.</remarks>
-        /// <param name="contact">contact</param>
-        public Task<FullContact> CreateContactUnsafe(Model.RequestContact contact = default) => CreateContact(contact)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create or Update a Contact
@@ -610,15 +382,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Create or Update a Contact
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="CreateOrUpdateContact"/>.</remarks>
-        /// <param name="contact">contact</param>
-        public Task<FullContact> CreateOrUpdateContactUnsafe(Model.UpsertContact contact = default) => CreateOrUpdateContact(contact)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Retrieve Contact Model
         /// </summary>
         public Task<Either<InfusioError, ObjectModel>> RetrieveContactModel() =>
@@ -630,14 +393,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve Contact Model
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveContactModel"/>.</remarks>
-        public Task<ObjectModel> RetrieveContactModelUnsafe() => RetrieveContactModel()
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Delete a Contact
@@ -652,15 +407,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Delete a Contact
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="DeleteContact"/>.</remarks>
-        /// <param name="contactId">contactId</param>
-        public Task<Unit> DeleteContactUnsafe(long contactId) => DeleteContact(contactId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Update a Contact
@@ -678,16 +424,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Update a Contact
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="UpdatePropertiesOnContact"/>.</remarks>
-        /// <param name="contactId">contactId</param>
-        /// <param name="contact">contact</param>
-        public Task<FullContact> UpdatePropertiesOnContactUnsafe(long contactId, Model.RequestContact contact = default) => UpdatePropertiesOnContact(contactId, contact)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Create a Credit Card
         /// </summary>
         /// <param name="contactId">contactId</param>
@@ -700,16 +436,6 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Create a Credit Card
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="CreateCreditCard"/>.</remarks>
-        /// <param name="contactId">contactId</param>
-        /// <param name="creditCard">creditCard</param>
-        public Task<CreditCardAdded> CreateCreditCardUnsafe(long contactId, Model.CreditCard creditCard = default) => CreateCreditCard(contactId, creditCard)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Emails
@@ -730,19 +456,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// List Emails
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListEmailsForContact"/>.</remarks>
-        /// <param name="contactId">contactId</param>
-        /// <param name="email">Optional email address to query on</param>
-        /// <param name="contactId2">Optional Contact Id to find Emails for</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        public Task<EmailSentQueryResultList> ListEmailsForContactUnsafe(long contactId, string email = default, long contactId2 = default, int offset = default, int limit = default) => ListEmailsForContact(contactId, email, contactId2, offset, limit)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Create an Email Record
         /// </summary>
         /// <param name="contactId">contactId</param>
@@ -755,16 +468,6 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Create an Email Record
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="CreateEmailForContact"/>.</remarks>
-        /// <param name="contactId">contactId</param>
-        /// <param name="emailWithContent">Email records to persist, with content.</param>
-        public Task<EmailSentCreate> CreateEmailForContactUnsafe(long contactId, Model.EmailSentCreate emailWithContent = default) => CreateEmailForContact(contactId, emailWithContent)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Applied Tags
@@ -783,17 +486,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// List Applied Tags
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListAppliedTags"/>.</remarks>
-        /// <param name="contactId">contactId</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        public Task<ContactTagList> ListAppliedTagsUnsafe(long contactId, int offset = default, int limit = default) => ListAppliedTags(contactId, offset, limit)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Apply Tags
         /// </summary>
         /// <param name="tagIds">tagIds</param>
@@ -806,16 +498,6 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Apply Tags
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ApplyTagsToContactId"/>.</remarks>
-        /// <param name="tagIds">tagIds</param>
-        /// <param name="contactId">contactId</param>
-        public Task<Unit> ApplyTagsToContactIdUnsafe(Model.TagId tagIds, long contactId) => ApplyTagsToContactId(tagIds, contactId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Remove Applied Tags
@@ -833,16 +515,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Remove Applied Tags
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RemoveTagsFromContact"/>.</remarks>
-        /// <param name="ids">ids</param>
-        /// <param name="contactId">contactId</param>
-        public Task<Unit> RemoveTagsFromContactUnsafe(string ids, long contactId) => RemoveTagsFromContact(ids, contactId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Remove Applied Tag
         /// </summary>
         /// <param name="tagId">tagId</param>
@@ -858,16 +530,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Remove Applied Tag
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RemoveTagsFromContact2"/>.</remarks>
-        /// <param name="tagId">tagId</param>
-        /// <param name="contactId">contactId</param>
-        public Task<Unit> RemoveTagsFromContact2Unsafe(long tagId, long contactId) => RemoveTagsFromContact2(tagId, contactId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Retrieve a Contact
         /// </summary>
         /// <param name="id">id</param>
@@ -881,16 +543,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve a Contact
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetContact"/>.</remarks>
-        /// <param name="id">id</param>
-        /// <param name="optionalProperties">Comma-delimited list of Contact properties to include in the response. (Some fields such as `lead_source_id`, `custom_fields`, and `job_title` aren't included, by default.)</param>
-        public Task<FullContact> GetContactUnsafe(long id, Lst<string> optionalProperties = default) => GetContact(id, optionalProperties)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Emails
@@ -910,18 +562,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// List Emails
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListEmails"/>.</remarks>
-        /// <param name="email">Optional email address to query on</param>
-        /// <param name="contactId">Optional Contact Id to find Emails for</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        public Task<EmailSentQueryResultList> ListEmailsUnsafe(string email = default, long contactId = default, int offset = default, int limit = default) => ListEmails(email, contactId, offset, limit)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Create an Email Record
         /// </summary>
         /// <param name="emailWithContent">Email records to persist, with content.</param>
@@ -933,15 +573,6 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Create an Email Record
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="CreateEmail"/>.</remarks>
-        /// <param name="emailWithContent">Email records to persist, with content.</param>
-        public Task<EmailSentCreate> CreateEmailUnsafe(Model.EmailSentCreate emailWithContent = default) => CreateEmail(emailWithContent)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create a set of Email Records
@@ -957,15 +588,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Create a set of Email Records
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="CreateEmails"/>.</remarks>
-        /// <param name="emailWithContent">Email records to persist, with content.</param>
-        public Task<EmailSentCreateList> CreateEmailsUnsafe(Model.EmailSentCreateList emailWithContent = default) => CreateEmails(emailWithContent)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Un-sync a batch of Email Records
         /// </summary>
         /// <param name="emailIds">emailIds</param>
@@ -977,15 +599,6 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Un-sync a batch of Email Records
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="DeleteEmails"/>.</remarks>
-        /// <param name="emailIds">emailIds</param>
-        public Task<Unit> DeleteEmailsUnsafe(Model.SetOfIds emailIds) => DeleteEmails(emailIds)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve an Email
@@ -1000,15 +613,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve an Email
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetEmail"/>.</remarks>
-        /// <param name="id">id</param>
-        public Task<EmailSentQueryResultWithContent> GetEmailUnsafe(long id) => GetEmail(id)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Update an Email Record
@@ -1026,16 +630,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Update an Email Record
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="UpdateEmail"/>.</remarks>
-        /// <param name="id">id</param>
-        /// <param name="emailWithContent">Email records to persist, with content.</param>
-        public Task<EmailSentCreate> UpdateEmailUnsafe(long id, Model.EmailSentCreate emailWithContent = default) => UpdateEmail(id, emailWithContent)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Delete an Email Record
         /// </summary>
         /// <param name="id">id</param>
@@ -1048,15 +642,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Delete an Email Record
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="DeleteEmail"/>.</remarks>
-        /// <param name="id">id</param>
-        public Task<Unit> DeleteEmailUnsafe(long id) => DeleteEmail(id)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Files
@@ -1078,20 +663,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// List Files
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListFiles"/>.</remarks>
-        /// <param name="name">Filter files based on name, with '*' preceding or following to indicate LIKE queries.</param>
-        /// <param name="type">Filter based on the type of file.</param>
-        /// <param name="permission">Filter based on the permission of files (USER or COMPANY), defaults to BOTH.</param>
-        /// <param name="viewable">Include public or private files in response (PUBLIC or PRIVATE), defaults to BOTH.</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        public Task<FileList> ListFilesUnsafe(string name = default, string type = default, string permission = default, string viewable = default, int offset = default, int limit = default) => ListFiles(name, type, permission, viewable, offset, limit)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Upload File
         /// </summary>
         /// <param name="fileUpload">fileUploadDTO</param>
@@ -1103,15 +674,6 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Upload File
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="CreateFile"/>.</remarks>
-        /// <param name="fileUpload">fileUploadDTO</param>
-        public Task<FileInformation> CreateFileUnsafe(Model.FileUpload fileUpload = default) => CreateFile(fileUpload)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve File
@@ -1129,16 +691,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Retrieve File
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetFile"/>.</remarks>
-        /// <param name="fileId">fileId</param>
-        /// <param name="optionalProperties">Comma-delimited list of File properties to include in the response. (Some fields such as `file_data` aren't included, by default.)</param>
-        public Task<FileInformation> GetFileUnsafe(long fileId, Lst<string> optionalProperties = default) => GetFile(fileId, optionalProperties)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Replace File
         /// </summary>
         /// <param name="fileId">fileId</param>
@@ -1152,16 +704,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Replace File
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="UpdateFile"/>.</remarks>
-        /// <param name="fileId">fileId</param>
-        /// <param name="fileUpload">fileUpload</param>
-        public Task<FileInformation> UpdateFileUnsafe(long fileId, Model.FileUpload fileUpload = default) => UpdateFile(fileId, fileUpload)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Delete File
@@ -1178,15 +720,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Delete File
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="DeleteFile"/>.</remarks>
-        /// <param name="fileId">fileId</param>
-        public Task<Unit> DeleteFileUnsafe(long fileId) => DeleteFile(fileId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// List Stored Hook Subscriptions
         /// </summary>
         public Task<Either<InfusioError, Unit>> ListStoredHookSubscriptions() =>
@@ -1198,14 +731,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// List Stored Hook Subscriptions
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListStoredHookSubscriptions"/>.</remarks>
-        public Task<Unit> ListStoredHookSubscriptionsUnsafe() => ListStoredHookSubscriptions()
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create a Hook Subscription
@@ -1221,15 +746,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Create a Hook Subscription
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="CreateAHookSubscription"/>.</remarks>
-        /// <param name="restHookRequest">restHookRequest</param>
-        public Task<RestHook> CreateAHookSubscriptionUnsafe(Model.RestHookRequest restHookRequest) => CreateAHookSubscription(restHookRequest)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// List Hook Event Types
         /// </summary>
         public Task<Either<InfusioError, Unit>> ListHookEventTypes() =>
@@ -1241,14 +757,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// List Hook Event Types
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListHookEventTypes"/>.</remarks>
-        public Task<Unit> ListHookEventTypesUnsafe() => ListHookEventTypes()
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve a Hook Subscription
@@ -1263,15 +771,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve a Hook Subscription
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveAHookSubscription"/>.</remarks>
-        /// <param name="key">key</param>
-        public Task<RestHook> RetrieveAHookSubscriptionUnsafe(string key) => RetrieveAHookSubscription(key)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Update a Hook Subscription
@@ -1289,16 +788,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Update a Hook Subscription
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="UpdateAHookSubscription"/>.</remarks>
-        /// <param name="restHookRequest">restHookRequest</param>
-        /// <param name="key">key</param>
-        public Task<RestHook> UpdateAHookSubscriptionUnsafe(Model.RestHookRequest restHookRequest, string key) => UpdateAHookSubscription(restHookRequest, key)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Delete a Hook Subscription
         /// </summary>
         /// <param name="key">key</param>
@@ -1311,15 +800,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Delete a Hook Subscription
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="DeleteAHookSubscription"/>.</remarks>
-        /// <param name="key">key</param>
-        public Task<Unit> DeleteAHookSubscriptionUnsafe(string key) => DeleteAHookSubscription(key)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Verify a Hook Subscription, Delayed
@@ -1336,16 +816,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Verify a Hook Subscription, Delayed
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="VerifyAHookSubscriptionDelayed"/>.</remarks>
-        /// <param name="xHookSecret">X-Hook-Secret</param>
-        /// <param name="key">key</param>
-        public Task<RestHook> VerifyAHookSubscriptionDelayedUnsafe(string xHookSecret, string key) => VerifyAHookSubscriptionDelayed(xHookSecret, key)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Verify a Hook Subscription
         /// </summary>
         /// <param name="key">key</param>
@@ -1359,15 +829,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Verify a Hook Subscription
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="VerifyAHookSubscription"/>.</remarks>
-        /// <param name="key">key</param>
-        public Task<RestHook> VerifyAHookSubscriptionUnsafe(string key) => VerifyAHookSubscription(key)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Retrieve User Info
         /// </summary>
         public Task<Either<InfusioError, UserInfoDTO>> GetUserInfo() =>
@@ -1379,14 +840,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve User Info
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetUserInfo"/>.</remarks>
-        public Task<UserInfoDTO> GetUserInfoUnsafe() => GetUserInfo()
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Opportunities
@@ -1408,20 +861,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// List Opportunities
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListOpportunities"/>.</remarks>
-        /// <param name="order">Attribute to order items by</param>
-        /// <param name="searchTerm">Returns opportunities that match any of the contact's `given_name`, `family_name`, `company_name`, and `email_addresses` (searches `EMAIL1` only) fields as well as `opportunity_title`</param>
-        /// <param name="stageId">Returns opportunities for the provided stage id</param>
-        /// <param name="userId">Returns opportunities for the provided user id</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        public Task<OpportunityList> ListOpportunitiesUnsafe(string order = default, string searchTerm = default, long stageId = default, long userId = default, int offset = default, int limit = default) => ListOpportunities(order, searchTerm, stageId, userId, offset, limit)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Create an Opportunity
         /// </summary>
         /// <param name="opportunity">opportunity</param>
@@ -1433,15 +872,6 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Create an Opportunity
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="CreateOpportunity"/>.</remarks>
-        /// <param name="opportunity">opportunity</param>
-        public Task<Opportunity> CreateOpportunityUnsafe(Model.Opportunity opportunity = default) => CreateOpportunity(opportunity)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Replace an Opportunity
@@ -1458,15 +888,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Replace an Opportunity
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="UpdateOpportunity"/>.</remarks>
-        /// <param name="opportunity">opportunity</param>
-        public Task<Opportunity> UpdateOpportunityUnsafe(Model.Opportunity opportunity = default) => UpdateOpportunity(opportunity)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Retrieve Opportunity Model
         /// </summary>
         public Task<Either<InfusioError, ObjectModel>> RetrieveOpportunityModel() =>
@@ -1478,14 +899,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve Opportunity Model
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveOpportunityModel"/>.</remarks>
-        public Task<ObjectModel> RetrieveOpportunityModelUnsafe() => RetrieveOpportunityModel()
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve an Opportunity
@@ -1503,16 +916,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Retrieve an Opportunity
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetOpportunity"/>.</remarks>
-        /// <param name="opportunityId">opportunityId</param>
-        /// <param name="optionalProperties">Comma-delimited list of Opportunity properties to include in the response. (Some fields such as `custom_fields` aren't included, by default.)</param>
-        public Task<Opportunity> GetOpportunityUnsafe(long opportunityId, Lst<string> optionalProperties = default) => GetOpportunity(opportunityId, optionalProperties)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Update an Opportunity
         /// </summary>
         /// <param name="opportunityId">opportunityId</param>
@@ -1528,16 +931,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Update an Opportunity
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="UpdatePropertiesOnOpportunity"/>.</remarks>
-        /// <param name="opportunityId">opportunityId</param>
-        /// <param name="opportunity">opportunity</param>
-        public Task<Opportunity> UpdatePropertiesOnOpportunityUnsafe(long opportunityId, Model.Opportunity opportunity = default) => UpdatePropertiesOnOpportunity(opportunityId, opportunity)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// List Opportunity Stage Pipeline
         /// </summary>
         public Task<Either<InfusioError, Unit>> ListOpportunityStagePipelines() =>
@@ -1549,14 +942,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// List Opportunity Stage Pipeline
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListOpportunityStagePipelines"/>.</remarks>
-        public Task<Unit> ListOpportunityStagePipelinesUnsafe() => ListOpportunityStagePipelines()
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Orders
@@ -1580,22 +965,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// List Orders
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListOrders"/>.</remarks>
-        /// <param name="productId">Returns orders containing the provided product id</param>
-        /// <param name="contactId">Returns orders for the provided contact id</param>
-        /// <param name="order">Attribute to order items by</param>
-        /// <param name="paid">Sets paid status of items to return</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
-        /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
-        public Task<OrderList> ListOrdersUnsafe(long productId = default, long contactId = default, string order = default, bool paid = default, int offset = default, int limit = default, string until = default, string since = default) => ListOrders(productId, contactId, order, paid, offset, limit, until, since)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Retrieve Custom Order Model
         /// </summary>
         public Task<Either<InfusioError, ObjectModel>> RetrieveOrderModel() =>
@@ -1607,14 +976,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve Custom Order Model
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveOrderModel"/>.</remarks>
-        public Task<ObjectModel> RetrieveOrderModelUnsafe() => RetrieveOrderModel()
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve an Order
@@ -1629,15 +990,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve an Order
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetOrder"/>.</remarks>
-        /// <param name="orderId">orderId</param>
-        public Task<Order> GetOrderUnsafe(long orderId) => GetOrder(orderId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve Order Transactions
@@ -1659,20 +1011,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Retrieve Order Transactions
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListTransactionsForOrder"/>.</remarks>
-        /// <param name="orderId">orderId</param>
-        /// <param name="contactId">Returns transactions for the provided contact id</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
-        /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
-        public Task<TransactionList> ListTransactionsForOrderUnsafe(long orderId, long contactId = default, int offset = default, int limit = default, string until = default, string since = default) => ListTransactionsForOrder(orderId, contactId, offset, limit, until, since)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// List Products
         /// </summary>
         /// <param name="active">Sets status of items to return</param>
@@ -1687,17 +1025,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// List Products
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListProducts"/>.</remarks>
-        /// <param name="active">Sets status of items to return</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        public Task<ProductList> ListProductsUnsafe(bool active = default, int offset = default, int limit = default) => ListProducts(active, offset, limit)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve Synced Products
@@ -1716,17 +1043,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Retrieve Synced Products
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListProductsFromSyncToken"/>.</remarks>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        /// <param name="syncToken">sync_token</param>
-        public Task<ProductStatusList> ListProductsFromSyncTokenUnsafe(int offset = default, int limit = default, string syncToken = default) => ListProductsFromSyncToken(offset, limit, syncToken)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Retrieve a Product
         /// </summary>
         /// <param name="productId">productId</param>
@@ -1739,15 +1055,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve a Product
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetProduct"/>.</remarks>
-        /// <param name="productId">productId</param>
-        public Task<Product> GetProductUnsafe(long productId) => GetProduct(productId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Retrieve application status
@@ -1763,14 +1070,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Retrieve application status
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetApplicationEnabled"/>.</remarks>
-        public Task<Setting> GetApplicationEnabledUnsafe() => GetApplicationEnabled()
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// List Contact types
         /// </summary>
         public Task<Either<InfusioError, Setting>> GetContactOptionTypes() =>
@@ -1784,14 +1083,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// List Contact types
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetContactOptionTypes"/>.</remarks>
-        public Task<Setting> GetContactOptionTypesUnsafe() => GetContactOptionTypes()
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Retrieve Subscription Model
         /// </summary>
         public Task<Either<InfusioError, ObjectModel>> RetrieveSubscriptionModel() =>
@@ -1803,14 +1094,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve Subscription Model
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveSubscriptionModel"/>.</remarks>
-        public Task<ObjectModel> RetrieveSubscriptionModelUnsafe() => RetrieveSubscriptionModel()
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Tags
@@ -1829,17 +1112,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// List Tags
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListTags"/>.</remarks>
-        /// <param name="category">Category Id of tags to filter by</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        public Task<Tags> ListTagsUnsafe(long category = default, int offset = default, int limit = default) => ListTags(category, offset, limit)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Create Tag
         /// </summary>
         /// <param name="tag">tag</param>
@@ -1851,15 +1123,6 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Create Tag
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="CreateTag"/>.</remarks>
-        /// <param name="tag">tag</param>
-        public Task<Tag> CreateTagUnsafe(Model.CreateTag tag) => CreateTag(tag)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Create Tag Category
@@ -1875,15 +1138,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Create Tag Category
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="CreateTagCategory"/>.</remarks>
-        /// <param name="tagCategory">tagCategory</param>
-        public Task<TagCategory> CreateTagCategoryUnsafe(Model.CreateTagCategory tagCategory) => CreateTagCategory(tagCategory)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Retrieve a Tag
         /// </summary>
         /// <param name="id">id</param>
@@ -1896,15 +1150,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve a Tag
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetTag"/>.</remarks>
-        /// <param name="id">id</param>
-        public Task<Tag> GetTagUnsafe(long id) => GetTag(id)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Tagged Contacts
@@ -1923,17 +1168,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// List Tagged Contacts
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListContactsForTagId"/>.</remarks>
-        /// <param name="tagId">tagId</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        public Task<TaggedContactList> ListContactsForTagIdUnsafe(long tagId, int offset = default, int limit = default) => ListContactsForTagId(tagId, offset, limit)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Apply Tag to Contacts
         /// </summary>
         /// <param name="ids">ids</param>
@@ -1946,16 +1180,6 @@ namespace Infusio.Http
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Apply Tag to Contacts
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ApplyTagToContactIds"/>.</remarks>
-        /// <param name="ids">ids</param>
-        /// <param name="tagId">tagId</param>
-        public Task<Unit> ApplyTagToContactIdsUnsafe(Model.SetOfIds ids, long tagId) => ApplyTagToContactIds(ids, tagId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Remove Tag from Contacts
@@ -1973,16 +1197,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Remove Tag from Contacts
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RemoveTagFromContactIds"/>.</remarks>
-        /// <param name="ids">ids</param>
-        /// <param name="tagId">tagId</param>
-        public Task<Unit> RemoveTagFromContactIdsUnsafe(Lst<long> ids, long tagId) => RemoveTagFromContactIds(ids, tagId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Remove Tag from Contact
         /// </summary>
         /// <param name="contactId">contactId</param>
@@ -1996,16 +1210,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Remove Tag from Contact
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RemoveTagFromContactId"/>.</remarks>
-        /// <param name="contactId">contactId</param>
-        /// <param name="tagId">tagId</param>
-        public Task<Unit> RemoveTagFromContactIdUnsafe(long contactId, long tagId) => RemoveTagFromContactId(contactId, tagId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Tasks
@@ -2030,23 +1234,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// List Tasks
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListTasks"/>.</remarks>
-        /// <param name="order">Attribute to order items by</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        /// <param name="completed">Sets completed status of items to return</param>
-        /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
-        /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
-        /// <param name="userId">user_id</param>
-        /// <param name="hasDueDate">has_due_date</param>
-        /// <param name="contactId">contact_id</param>
-        public Task<TaskList> ListTasksUnsafe(string order = default, int offset = default, int limit = default, bool completed = default, string until = default, string since = default, long userId = default, bool hasDueDate = default, long contactId = default) => ListTasks(order, offset, limit, completed, until, since, userId, hasDueDate, contactId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Create a Task
         /// </summary>
         /// <param name="task">task</param>
@@ -2060,15 +1247,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Create a Task
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="CreateTask"/>.</remarks>
-        /// <param name="task">task</param>
-        public Task<InfusionTask> CreateTaskUnsafe(Model.InfusionTask task) => CreateTask(task)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Retrieve Task Model
         /// </summary>
         public Task<Either<InfusioError, ObjectModel>> RetrieveTaskModel() =>
@@ -2080,14 +1258,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve Task Model
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="RetrieveTaskModel"/>.</remarks>
-        public Task<ObjectModel> RetrieveTaskModelUnsafe() => RetrieveTaskModel()
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Search Tasks
@@ -2112,23 +1282,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Search Tasks
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListTasksForCurrentUser"/>.</remarks>
-        /// <param name="order">Attribute to order items by</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        /// <param name="completed">Sets completed status of items to return</param>
-        /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
-        /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
-        /// <param name="userId">Returns tasks for the provided user id</param>
-        /// <param name="hasDueDate">Returns tasks that have an 'action date' when set to true</param>
-        /// <param name="contactId">Returns tasks for the provided contact id</param>
-        public Task<TaskList> ListTasksForCurrentUserUnsafe(string order = default, int offset = default, int limit = default, bool completed = default, string until = default, string since = default, long userId = default, bool hasDueDate = default, long contactId = default) => ListTasksForCurrentUser(order, offset, limit, completed, until, since, userId, hasDueDate, contactId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Retrieve a Task
         /// </summary>
         /// <param name="taskId">taskId</param>
@@ -2141,15 +1294,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve a Task
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetTask"/>.</remarks>
-        /// <param name="taskId">taskId</param>
-        public Task<InfusionTask> GetTaskUnsafe(string taskId) => GetTask(taskId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Replace a Task
@@ -2167,16 +1311,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// Replace a Task
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="UpdateTask"/>.</remarks>
-        /// <param name="task">task</param>
-        /// <param name="taskId">taskId</param>
-        public Task<InfusionTask> UpdateTaskUnsafe(Model.InfusionTask task, string taskId) => UpdateTask(task, taskId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Delete a Task
         /// </summary>
         /// <param name="taskId">taskId</param>
@@ -2189,15 +1323,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Delete a Task
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="DeleteTask"/>.</remarks>
-        /// <param name="taskId">taskId</param>
-        public Task<Unit> DeleteTaskUnsafe(string taskId) => DeleteTask(taskId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// Update a Task
@@ -2213,16 +1338,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Update a Task
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="UpdatePropertiesOnTask"/>.</remarks>
-        /// <param name="task">task</param>
-        /// <param name="taskId">taskId</param>
-        public Task<InfusionTask> UpdatePropertiesOnTaskUnsafe(Model.InfusionTask task, string taskId) => UpdatePropertiesOnTask(task, taskId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
         /// <summary>
         /// List Transactions
@@ -2243,19 +1358,6 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
-        /// List Transactions
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="ListTransactions"/>.</remarks>
-        /// <param name="contactId">Returns transactions for the provided contact id</param>
-        /// <param name="offset">Sets a beginning range of items to return</param>
-        /// <param name="limit">Sets a total of items to return</param>
-        /// <param name="until">Date to search to ex. `2017-01-01T22:17:59.039Z`</param>
-        /// <param name="since">Date to start searching from ex. `2017-01-01T22:17:59.039Z`</param>
-        public Task<TransactionList> ListTransactionsUnsafe(long contactId = default, int offset = default, int limit = default, string until = default, string since = default) => ListTransactions(contactId, offset, limit, until, since)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
-
-        /// <summary>
         /// Retrieve a Transaction
         /// </summary>
         /// <param name="transactionId">transactionId</param>
@@ -2268,15 +1370,6 @@ namespace Infusio.Http
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);
-
-        /// <summary>
-        /// Retrieve a Transaction
-        /// </summary>
-        /// <remarks>Does not catch exceptions. It is preferred to use <see cref="GetTransaction"/>.</remarks>
-        /// <param name="transactionId">transactionId</param>
-        public Task<Transaction> GetTransactionUnsafe(long transactionId) => GetTransaction(transactionId)
-            .ToAsync()
-            .IfLeftAsync(e => throw new Exception(e.Value));
 
     }
 }

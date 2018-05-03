@@ -49,6 +49,10 @@ namespace Infusio.Http
             typeof(T) == typeof(Unit) ? state :
             state.UseLogging ? state.Log($"OK: {SerializeObject(value, Indented)}") :
             state;
+
+        public static Task<T> Unsafe<T>(this Task<Either<InfusioError, T>> self) =>
+            self.ToAsync()
+                .IfLeftAsync(e => throw new Exception(e.Value));
     }
 
     public enum InfusioLogging
