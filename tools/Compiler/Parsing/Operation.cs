@@ -105,13 +105,13 @@ namespace Infusio.Compiler.Parsing
         private static Option<Operation> ParseOperation(string path, string method, JToken token, Set<string> definitions) =>
             from opNode in Optional(token as JObject)
             from operationId in Optional(opNode["operationId"])
-            let operationName = operationId.Value<string>()
+            let operationName = TypeResolver.ResolveOperationName(operationId.Value<string>())
             let responses = opNode["responses"]
             let parameters =
                 Optional(opNode["parameters"])
                     .Map(node => node
                         .Children()
-                        .Map(n => ParseOperationParameter(n, definitions))
+                        .Map(n => ParseOperationParameter(operationName, n, definitions))
                     ).IfNone(Enumerable.Empty<OperationParameter>())
             select new Operation
             {
@@ -119,7 +119,7 @@ namespace Infusio.Compiler.Parsing
                 HttpMethod = method,
                 Summary = opNode["summary"].StringOrNull(),
                 Description = opNode["description"].StringOrNull(),
-                Name = TypeResolver.ResolveOperationName(operationId.Value<string>()),
+                Name = operationName,
                 Responses = OperationResponse.ParseResponses(responses),
                 Parameters = parameters.OrderBy(p => p.Required).Rev().Freeze().MakeUnique()
             };
@@ -150,15 +150,20 @@ namespace Infusio.Compiler.Parsing
             Type
         };
 
-        public static OperationParameter ParseOperationParameter(JToken node, Set<string> definitions)
+        public static OperationParameter ParseOperationParameter(string operationName, JToken node,
+            Set<string>                                                 definitions)
         {
             var param = node.Deserialize<OperationParameter>()
                 .Set(x => x.Name = x.Name.UnSnake().CamelCase());
 
+            Console.Out.WriteLine($"{operationName} : {param.Name} : {param.Type}");
+            
             return (isnull(param.Type)
                     ? param.Set(p => p.Type = TypeResolver.ReadRef(Optional(node["schema"]).Map(x => x["$ref"])))
                     : param.Set(p => p.Type = TypeResolver.ResolveType(p))
-                ).Set(x => x.Type = definitions.Contains(x.Type) ? $"Model.{x.Type}" : x.Type);
+                )
+                .Set(x => x.Type = definitions.Contains(x.Type) ? $"Model.{x.Type}" : x.Type)
+                .Set(x => x.Name = operationName.Equals(x.Name, StringComparison.CurrentCultureIgnoreCase) ? $"{x.Name}Model" : x.Name);
         }
 
         public static implicit operator Property(OperationParameter p) => new Property

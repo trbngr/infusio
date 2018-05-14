@@ -623,6 +623,14 @@ namespace Infusio
                   new InfusioOp<ProductList>.ListProducts(Return, active, offset, limit);
 
         /// <summary>
+        /// Create a Product
+        /// </summary>
+        /// <param name="createProductModel">createProduct</param>
+        /// <returns><see cref="Product"/></returns>
+        public static InfusioOp<Product> CreateProduct(Model.CreateProduct createProductModel) =>
+                  new InfusioOp<Product>.CreateProduct(Return, createProductModel);
+
+        /// <summary>
         /// Retrieve Synced Products
         /// </summary>
         /// <param name="offset">Sets a beginning range of items to return</param>
@@ -637,8 +645,43 @@ namespace Infusio
         /// </summary>
         /// <param name="productId">productId</param>
         /// <returns><see cref="Product"/></returns>
-        public static InfusioOp<Product> GetProduct(long productId) =>
-                  new InfusioOp<Product>.GetProduct(Return, productId);
+        public static InfusioOp<Product> RetrieveProduct(long productId) =>
+                  new InfusioOp<Product>.RetrieveProduct(Return, productId);
+
+        /// <summary>
+        /// Delete a Product
+        /// </summary>
+        /// <param name="productId">productId</param>
+        /// <returns><see cref="Unit"/></returns>
+        public static InfusioOp<Unit> DeleteProduct(long productId) =>
+                  new InfusioOp<Unit>.DeleteProduct(Return, productId);
+
+        /// <summary>
+        /// Create a Product Subscription
+        /// </summary>
+        /// <param name="createProductSubscriptionModel">createProductSubscription</param>
+        /// <param name="productId">productId</param>
+        /// <returns><see cref="ProductSubscription"/></returns>
+        public static InfusioOp<ProductSubscription> CreateProductSubscription(Model.CreateProductSubscription createProductSubscriptionModel, long productId) =>
+                  new InfusioOp<ProductSubscription>.CreateProductSubscription(Return, createProductSubscriptionModel, productId);
+
+        /// <summary>
+        /// Retrieve a Product Subscription
+        /// </summary>
+        /// <param name="subscriptionId">subscriptionId</param>
+        /// <param name="productId">productId</param>
+        /// <returns><see cref="ProductSubscription"/></returns>
+        public static InfusioOp<ProductSubscription> RetrieveProductSubscription(long subscriptionId, long productId) =>
+                  new InfusioOp<ProductSubscription>.RetrieveProductSubscription(Return, subscriptionId, productId);
+
+        /// <summary>
+        /// Delete a Product Subscription
+        /// </summary>
+        /// <param name="subscriptionId">subscriptionId</param>
+        /// <param name="productId">productId</param>
+        /// <returns><see cref="Unit"/></returns>
+        public static InfusioOp<Unit> DeleteProductSubscription(long subscriptionId, long productId) =>
+                  new InfusioOp<Unit>.DeleteProductSubscription(Return, subscriptionId, productId);
 
         /// <summary>
         /// Retrieve application status

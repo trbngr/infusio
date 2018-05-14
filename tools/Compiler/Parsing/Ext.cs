@@ -18,7 +18,7 @@ namespace Infusio.Compiler.Parsing
             .ToString();
 
         public static string PascalCase(this string text) =>
-            $"{text.Substring(0, 1).ToUpperInvariant()}{text.Substring(1)}".Replace("_", "");
+            $"{text.Substring(0, 1).ToUpperInvariant()}{text.Substring(1)}";
 
         public static string CamelCase(this string text) =>
             $"{text.Substring(0, 1).ToLowerInvariant()}{text.Substring(1)}".Replace("_", "");

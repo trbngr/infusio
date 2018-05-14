@@ -237,8 +237,8 @@ namespace Infusio.Http
             HttpWorkflow(
                 message: Request(HttpMethod.Post, MakeUri($"/campaigns/{campaignId}/sequences/{sequenceId}/contacts"), _config.AccessToken, ids),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
+                    new KnownResponse(200, "OK", typeof(Unit)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
-                    new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error))
             ))(_client);
 
@@ -1027,6 +1027,19 @@ namespace Infusio.Http
             ))(_client);
 
         /// <summary>
+        /// Create a Product
+        /// </summary>
+        /// <param name="createProductModel">createProduct</param>
+        public Task<Either<InfusioError, Product>> CreateProduct(Model.CreateProduct createProductModel) =>
+            HttpWorkflow<Product>(
+                message: Request(HttpMethod.Post, MakeUri($"/products"), _config.AccessToken, createProductModel),
+                responses: HashSet<KnownResponse.Eq, KnownResponse>(
+                    new KnownResponse(201, "Created", typeof(Product)),
+                    new KnownResponse(401, "Unauthorized", typeof(Error)),
+                    new KnownResponse(403, "Forbidden", typeof(Error))
+            ))(_client);
+
+        /// <summary>
         /// Retrieve Synced Products
         /// </summary>
         /// <param name="offset">Sets a beginning range of items to return</param>
@@ -1046,12 +1059,70 @@ namespace Infusio.Http
         /// Retrieve a Product
         /// </summary>
         /// <param name="productId">productId</param>
-        public Task<Either<InfusioError, Product>> GetProduct(long? productId) =>
+        public Task<Either<InfusioError, Product>> RetrieveProduct(long? productId) =>
             HttpWorkflow<Product>(
                 message: Request(HttpMethod.Get, MakeUri($"/products/{productId}"), _config.AccessToken),
                 responses: HashSet<KnownResponse.Eq, KnownResponse>(
                     new KnownResponse(200, "OK", typeof(Product)),
                     new KnownResponse(401, "Unauthorized", typeof(Error)),
+                    new KnownResponse(403, "Forbidden", typeof(Error)),
+                    new KnownResponse(404, "Not Found", typeof(Error))
+            ))(_client);
+
+        /// <summary>
+        /// Delete a Product
+        /// </summary>
+        /// <param name="productId">productId</param>
+        public Task<Either<InfusioError, Unit>> DeleteProduct(long? productId) =>
+            HttpWorkflow(
+                message: Request(HttpMethod.Delete, MakeUri($"/products/{productId}"), _config.AccessToken),
+                responses: HashSet<KnownResponse.Eq, KnownResponse>(
+                    new KnownResponse(401, "Unauthorized", typeof(Error)),
+                    new KnownResponse(204, "No Content", typeof(Unit)),
+                    new KnownResponse(403, "Forbidden", typeof(Error)),
+                    new KnownResponse(404, "Not Found", typeof(Error))
+            ))(_client);
+
+        /// <summary>
+        /// Create a Product Subscription
+        /// </summary>
+        /// <param name="createProductSubscriptionModel">createProductSubscription</param>
+        /// <param name="productId">productId</param>
+        public Task<Either<InfusioError, ProductSubscription>> CreateProductSubscription(Model.CreateProductSubscription createProductSubscriptionModel, long? productId) =>
+            HttpWorkflow<ProductSubscription>(
+                message: Request(HttpMethod.Post, MakeUri($"/products/{productId}/subscriptions"), _config.AccessToken, createProductSubscriptionModel),
+                responses: HashSet<KnownResponse.Eq, KnownResponse>(
+                    new KnownResponse(201, "Created", typeof(ProductSubscription)),
+                    new KnownResponse(401, "Unauthorized", typeof(Error)),
+                    new KnownResponse(403, "Forbidden", typeof(Error))
+            ))(_client);
+
+        /// <summary>
+        /// Retrieve a Product Subscription
+        /// </summary>
+        /// <param name="subscriptionId">subscriptionId</param>
+        /// <param name="productId">productId</param>
+        public Task<Either<InfusioError, ProductSubscription>> RetrieveProductSubscription(long? subscriptionId, long? productId) =>
+            HttpWorkflow<ProductSubscription>(
+                message: Request(HttpMethod.Get, MakeUri($"/products/{productId}/subscriptions/{subscriptionId}"), _config.AccessToken),
+                responses: HashSet<KnownResponse.Eq, KnownResponse>(
+                    new KnownResponse(200, "OK", typeof(ProductSubscription)),
+                    new KnownResponse(401, "Unauthorized", typeof(Error)),
+                    new KnownResponse(403, "Forbidden", typeof(Error)),
+                    new KnownResponse(404, "Not Found", typeof(Error))
+            ))(_client);
+
+        /// <summary>
+        /// Delete a Product Subscription
+        /// </summary>
+        /// <param name="subscriptionId">subscriptionId</param>
+        /// <param name="productId">productId</param>
+        public Task<Either<InfusioError, Unit>> DeleteProductSubscription(long? subscriptionId, long? productId) =>
+            HttpWorkflow(
+                message: Request(HttpMethod.Delete, MakeUri($"/products/{productId}/subscriptions/{subscriptionId}"), _config.AccessToken),
+                responses: HashSet<KnownResponse.Eq, KnownResponse>(
+                    new KnownResponse(401, "Unauthorized", typeof(Error)),
+                    new KnownResponse(204, "No Content", typeof(Unit)),
                     new KnownResponse(403, "Forbidden", typeof(Error)),
                     new KnownResponse(404, "Not Found", typeof(Error))
             ))(_client);

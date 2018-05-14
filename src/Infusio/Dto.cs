@@ -11,55 +11,142 @@ namespace Infusio.Model
 {
 
 
-    public enum EmailStatus
+    public enum FieldType
     {
-        [EnumMember(Value = "Unengaged Marketable")]
-        Unengagedmarketable,
+        [EnumMember(Value = "Currency")]
+        Currency,
 
-        [EnumMember(Value = "Unconfirmed")]
-        Unconfirmed,
+        [EnumMember(Value = "Date")]
+        Date,
 
-        [EnumMember(Value = "Confirmed (Legacy)")]
-        Confirmedlegacy,
+        [EnumMember(Value = "DateTime")]
+        DateTime,
 
-        [EnumMember(Value = "Confirmed")]
-        Confirmed,
+        [EnumMember(Value = "DayOfWeek")]
+        DayOfWeek,
 
-        [EnumMember(Value = "Unengaged NonMarketable")]
-        Unengagednonmarketable,
+        [EnumMember(Value = "Drilldown")]
+        Drilldown,
 
-        [EnumMember(Value = "Non-marketable")]
-        Nonmarketable,
+        [EnumMember(Value = "Email")]
+        Email,
 
-        [EnumMember(Value = "Lockdown")]
-        Lockdown,
+        [EnumMember(Value = "Month")]
+        Month,
 
-        [EnumMember(Value = "Soft Bounce")]
-        Softbounce,
+        [EnumMember(Value = "ListBox")]
+        ListBox,
 
-        [EnumMember(Value = "Hard Bounce")]
-        Hardbounce,
+        [EnumMember(Value = "Name")]
+        Name,
 
-        [EnumMember(Value = "Opt-Out")]
-        Optout,
+        [EnumMember(Value = "WholeNumber")]
+        WholeNumber,
 
-        [EnumMember(Value = "Opt-Out: Admin")]
-        Optoutadmin,
+        [EnumMember(Value = "DecimalNumber")]
+        DecimalNumber,
 
-        [EnumMember(Value = "Opt-Out: System")]
-        Optoutsystem,
+        [EnumMember(Value = "Percent")]
+        Percent,
 
-        [EnumMember(Value = "List Unsubscribe")]
-        Listunsubscribe,
+        [EnumMember(Value = "PhoneNumber")]
+        PhoneNumber,
 
-        [EnumMember(Value = "Provided Feedback")]
-        Providedfeedback,
+        [EnumMember(Value = "Radio")]
+        Radio,
 
-        [EnumMember(Value = "Reported Spam")]
-        Reportedspam,
+        [EnumMember(Value = "Dropdown")]
+        Dropdown,
 
-        [EnumMember(Value = "Invalid Email")]
-        Invalidemail
+        [EnumMember(Value = "SocialSecurityNumber")]
+        SocialSecurityNumber,
+
+        [EnumMember(Value = "State")]
+        State,
+
+        [EnumMember(Value = "Text")]
+        Text,
+
+        [EnumMember(Value = "TextArea")]
+        TextArea,
+
+        [EnumMember(Value = "User")]
+        User,
+
+        [EnumMember(Value = "UserListBox")]
+        UserListBox,
+
+        [EnumMember(Value = "Website")]
+        Website,
+
+        [EnumMember(Value = "Year")]
+        Year,
+
+        [EnumMember(Value = "YesNo")]
+        YesNo
+    }
+
+
+    public enum FileAssociation
+    {
+        [EnumMember(Value = "CONTACT")]
+        CONTACT,
+
+        [EnumMember(Value = "USER")]
+        USER,
+
+        [EnumMember(Value = "COMPANY")]
+        COMPANY
+    }
+
+
+    public enum RecordType
+    {
+        [EnumMember(Value = "CONTACT")]
+        CONTACT,
+
+        [EnumMember(Value = "REFERRAL_PARTNER")]
+        REFERRAL_PARTNER,
+
+        [EnumMember(Value = "OPPORTUNITY")]
+        OPPORTUNITY,
+
+        [EnumMember(Value = "TASK_APPOINTMENT")]
+        TASK_APPOINTMENT,
+
+        [EnumMember(Value = "COMPANY")]
+        COMPANY,
+
+        [EnumMember(Value = "ORDER")]
+        ORDER,
+
+        [EnumMember(Value = "SUBSCRIPTION")]
+        SUBSCRIPTION
+    }
+
+
+    public enum SourceType
+    {
+        [EnumMember(Value = "WEBFORM")]
+        WEBFORM,
+
+        [EnumMember(Value = "LANDINGPAGE")]
+        LANDINGPAGE,
+
+        [EnumMember(Value = "IMPORT")]
+        IMPORT,
+
+        [EnumMember(Value = "MANUAL")]
+        MANUAL,
+
+        [EnumMember(Value = "API")]
+        API,
+
+        [EnumMember(Value = "OTHER")]
+        OTHER,
+
+        [EnumMember(Value = "UNKNOWN")]
+        UNKNOWN
     }
 
 
@@ -69,76 +156,14 @@ namespace Infusio.Model
         Email,
 
         [EnumMember(Value = "EmailAndName")]
-        Emailandname
-    }
-
-
-    public enum FileBoxType
-    {
-        [EnumMember(Value = "Application")]
-        Application,
-
-        [EnumMember(Value = "Image")]
-        Image,
-
-        [EnumMember(Value = "Fax")]
-        Fax,
-
-        [EnumMember(Value = "Attachment")]
-        Attachment,
-
-        [EnumMember(Value = "Ticket")]
-        Ticket,
-
-        [EnumMember(Value = "Contact")]
-        Contact,
-
-        [EnumMember(Value = "DigitalProduct")]
-        Digitalproduct,
-
-        [EnumMember(Value = "Import")]
-        Import,
-
-        [EnumMember(Value = "Hidden")]
-        Hidden,
-
-        [EnumMember(Value = "WebForm")]
-        Webform,
-
-        [EnumMember(Value = "StyledCart")]
-        Styledcart,
-
-        [EnumMember(Value = "ReSampledImage")]
-        Resampledimage,
-
-        [EnumMember(Value = "TemplateThumbnail")]
-        Templatethumbnail,
-
-        [EnumMember(Value = "Funnel")]
-        Funnel,
-
-        [EnumMember(Value = "LogoThumbnail")]
-        Logothumbnail
-    }
-
-
-    public enum Status
-    {
-        [EnumMember(Value = "Unverified")]
-        Unverified,
-
-        [EnumMember(Value = "Verified")]
-        Verified,
-
-        [EnumMember(Value = "Inactive")]
-        Inactive
+        EmailAndName
     }
 
 
     public enum Type
     {
         [EnumMember(Value = "NULL")]
-        Null,
+        NULL,
 
         [EnumMember(Value = "Start")]
         Start,
@@ -147,22 +172,22 @@ namespace Infusio.Model
         Wait,
 
         [EnumMember(Value = "DelayTimer")]
-        Delaytimer,
+        DelayTimer,
 
         [EnumMember(Value = "ContactTimer")]
-        Contacttimer,
+        ContactTimer,
 
         [EnumMember(Value = "DateTimer")]
-        Datetimer,
+        DateTimer,
 
         [EnumMember(Value = "Email")]
         Email,
 
         [EnumMember(Value = "BardEmail")]
-        Bardemail,
+        BardEmail,
 
         [EnumMember(Value = "EmailConfirm")]
-        Emailconfirm,
+        EmailConfirm,
 
         [EnumMember(Value = "Voice")]
         Voice,
@@ -186,170 +211,131 @@ namespace Infusio.Model
         Task,
 
         [EnumMember(Value = "CompleteTasks")]
-        Completetasks,
+        CompleteTasks,
 
         [EnumMember(Value = "Appointment")]
         Appointment,
 
         [EnumMember(Value = "AssignOwner")]
-        Assignowner,
+        AssignOwner,
 
         [EnumMember(Value = "FieldValue")]
-        Fieldvalue,
+        FieldValue,
 
         [EnumMember(Value = "Fulfillment")]
         Fulfillment,
 
         [EnumMember(Value = "CreateOrder")]
-        Createorder,
+        CreateOrder,
 
         [EnumMember(Value = "Http")]
         Http,
 
         [EnumMember(Value = "CustomerHub")]
-        Customerhub,
+        CustomerHub,
 
         [EnumMember(Value = "ActionSet")]
-        Actionset
-    }
-
-
-    public enum FieldType
-    {
-        [EnumMember(Value = "Currency")]
-        Currency,
-
-        [EnumMember(Value = "Date")]
-        Date,
-
-        [EnumMember(Value = "DateTime")]
-        Datetime,
-
-        [EnumMember(Value = "DayOfWeek")]
-        Dayofweek,
-
-        [EnumMember(Value = "Drilldown")]
-        Drilldown,
-
-        [EnumMember(Value = "Email")]
-        Email,
-
-        [EnumMember(Value = "Month")]
-        Month,
-
-        [EnumMember(Value = "ListBox")]
-        Listbox,
-
-        [EnumMember(Value = "Name")]
-        Name,
-
-        [EnumMember(Value = "WholeNumber")]
-        Wholenumber,
-
-        [EnumMember(Value = "DecimalNumber")]
-        Decimalnumber,
-
-        [EnumMember(Value = "Percent")]
-        Percent,
-
-        [EnumMember(Value = "PhoneNumber")]
-        Phonenumber,
-
-        [EnumMember(Value = "Radio")]
-        Radio,
-
-        [EnumMember(Value = "Dropdown")]
-        Dropdown,
-
-        [EnumMember(Value = "SocialSecurityNumber")]
-        Socialsecuritynumber,
-
-        [EnumMember(Value = "State")]
-        State,
-
-        [EnumMember(Value = "Text")]
-        Text,
-
-        [EnumMember(Value = "TextArea")]
-        Textarea,
-
-        [EnumMember(Value = "User")]
-        User,
-
-        [EnumMember(Value = "UserListBox")]
-        Userlistbox,
-
-        [EnumMember(Value = "Website")]
-        Website,
-
-        [EnumMember(Value = "Year")]
-        Year,
-
-        [EnumMember(Value = "YesNo")]
-        Yesno
-    }
-
-
-    public enum SourceType
-    {
-        [EnumMember(Value = "WEBFORM")]
-        Webform,
-
-        [EnumMember(Value = "LANDINGPAGE")]
-        Landingpage,
-
-        [EnumMember(Value = "IMPORT")]
-        Import,
-
-        [EnumMember(Value = "MANUAL")]
-        Manual,
-
-        [EnumMember(Value = "API")]
-        Api,
-
-        [EnumMember(Value = "OTHER")]
-        Other,
-
-        [EnumMember(Value = "UNKNOWN")]
-        Unknown
+        ActionSet
     }
 
 
     public enum Field
     {
         [EnumMember(Value = "BILLING")]
-        Billing,
+        BILLING,
 
         [EnumMember(Value = "SHIPPING")]
-        Shipping,
+        SHIPPING,
 
         [EnumMember(Value = "OTHER")]
-        Other,
+        OTHER,
 
         [EnumMember(Value = "EMAIL1")]
-        Email1
+        EMAIL1
     }
 
 
-    public enum Key
+    public enum EmailStatus
     {
-        [EnumMember(Value = "SUCCESS")]
-        Success,
+        [EnumMember(Value = "Unengaged Marketable")]
+        UnengagedMarketable,
 
-        [EnumMember(Value = "DUPLICATE")]
-        Duplicate,
+        [EnumMember(Value = "Unconfirmed")]
+        Unconfirmed,
 
-        [EnumMember(Value = "CONTACT_NOT_FOUND")]
-        Contactnotfound,
+        [EnumMember(Value = "Confirmed (Legacy)")]
+        ConfirmedLegacy,
 
-        [EnumMember(Value = "TAG_ID_NOT_FOUND")]
-        Tagidnotfound,
+        [EnumMember(Value = "Confirmed")]
+        Confirmed,
 
-        [EnumMember(Value = "FAILURE")]
-        Failure,
+        [EnumMember(Value = "Unengaged NonMarketable")]
+        UnengagedNonMarketable,
 
-        [EnumMember(Value = "NO_PERMISSION")]
-        Nopermission
+        [EnumMember(Value = "Non-marketable")]
+        NonMarketable,
+
+        [EnumMember(Value = "Lockdown")]
+        Lockdown,
+
+        [EnumMember(Value = "Soft Bounce")]
+        SoftBounce,
+
+        [EnumMember(Value = "Hard Bounce")]
+        HardBounce,
+
+        [EnumMember(Value = "Opt-Out")]
+        OptOut,
+
+        [EnumMember(Value = "Opt-Out: Admin")]
+        OptOutAdmin,
+
+        [EnumMember(Value = "Opt-Out: System")]
+        OptOutSystem,
+
+        [EnumMember(Value = "List Unsubscribe")]
+        ListUnsubscribe,
+
+        [EnumMember(Value = "Provided Feedback")]
+        ProvidedFeedback,
+
+        [EnumMember(Value = "Reported Spam")]
+        ReportedSpam,
+
+        [EnumMember(Value = "Invalid Email")]
+        InvalidEmail,
+
+        [EnumMember(Value = "EMAIL1")]
+        EMAIL1
+    }
+
+
+    public enum CycleType
+    {
+        [EnumMember(Value = "YEAR")]
+        YEAR,
+
+        [EnumMember(Value = "MONTH")]
+        MONTH,
+
+        [EnumMember(Value = "WEEK")]
+        WEEK,
+
+        [EnumMember(Value = "DAY")]
+        DAY
+    }
+
+
+    public enum Status
+    {
+        [EnumMember(Value = "CREATED")]
+        CREATED,
+
+        [EnumMember(Value = "UPDATED")]
+        UPDATED,
+
+        [EnumMember(Value = "DELETED")]
+        DELETED
     }
 
 
@@ -377,83 +363,83 @@ namespace Infusio.Model
         Tickets,
 
         [EnumMember(Value = "WebForm")]
-        Webform,
+        WebForm,
 
         [EnumMember(Value = "Funnel")]
         Funnel
     }
 
 
-    public enum FileAssociation
+    public enum FileBoxType
     {
-        [EnumMember(Value = "CONTACT")]
+        [EnumMember(Value = "Application")]
+        Application,
+
+        [EnumMember(Value = "Image")]
+        Image,
+
+        [EnumMember(Value = "Fax")]
+        Fax,
+
+        [EnumMember(Value = "Attachment")]
+        Attachment,
+
+        [EnumMember(Value = "Ticket")]
+        Ticket,
+
+        [EnumMember(Value = "Contact")]
         Contact,
 
-        [EnumMember(Value = "USER")]
-        User,
+        [EnumMember(Value = "DigitalProduct")]
+        DigitalProduct,
 
-        [EnumMember(Value = "COMPANY")]
-        Company
+        [EnumMember(Value = "Import")]
+        Import,
+
+        [EnumMember(Value = "Hidden")]
+        Hidden,
+
+        [EnumMember(Value = "WebForm")]
+        WebForm,
+
+        [EnumMember(Value = "StyledCart")]
+        StyledCart,
+
+        [EnumMember(Value = "ReSampledImage")]
+        ReSampledImage,
+
+        [EnumMember(Value = "TemplateThumbnail")]
+        TemplateThumbnail,
+
+        [EnumMember(Value = "Funnel")]
+        Funnel,
+
+        [EnumMember(Value = "LogoThumbnail")]
+        LogoThumbnail
     }
 
 
-    public enum RecordType
+    public enum Key
     {
-        [EnumMember(Value = "CONTACT")]
-        Contact,
+        [EnumMember(Value = "SUCCESS")]
+        SUCCESS,
 
-        [EnumMember(Value = "REFERRAL_PARTNER")]
-        Referralpartner,
+        [EnumMember(Value = "DUPLICATE")]
+        DUPLICATE,
 
-        [EnumMember(Value = "OPPORTUNITY")]
-        Opportunity,
+        [EnumMember(Value = "CONTACT_NOT_FOUND")]
+        CONTACT_NOT_FOUND,
 
-        [EnumMember(Value = "TASK_APPOINTMENT")]
-        Taskappointment,
+        [EnumMember(Value = "TAG_ID_NOT_FOUND")]
+        TAG_ID_NOT_FOUND,
 
-        [EnumMember(Value = "COMPANY")]
-        Company,
+        [EnumMember(Value = "FAILURE")]
+        FAILURE,
 
-        [EnumMember(Value = "ORDER")]
-        Order,
-
-        [EnumMember(Value = "SUBSCRIPTION")]
-        Subscription
+        [EnumMember(Value = "NO_PERMISSION")]
+        NO_PERMISSION
     }
 
-
-    public class CustomFieldMetaData : Record<CustomFieldMetaData>
-    {
-        [JsonProperty("field_type")]
-        public readonly FieldType FieldType;
-        [JsonProperty("id")]
-        public readonly long? Id;
-        [JsonProperty("label")]
-        public readonly string Label;
-        [JsonProperty("options")]
-        public readonly Lst<CustomFieldOption> Options;
-        [JsonProperty("record_type")]
-        public readonly RecordType RecordType;
-
-        public CustomFieldMetaData(FieldType fieldType = default, long? id = default, string label = default, Lst<CustomFieldOption> options = default, RecordType recordType = default)
-        {
-            FieldType = fieldType;
-            Id = id;
-            Label = label;
-            Options = options;
-            RecordType = recordType;
-
-        }
-
-        public CustomFieldMetaData Copy(FieldType fieldType = default, long? id = default, string label = default, Lst<CustomFieldOption> options = default, RecordType recordType = default) => new CustomFieldMetaData(
-                    fieldType: fieldType == default ? FieldType : fieldType,
-                          id: id ?? Id,
-                          label: label ?? Label,
-                          options: options == default ? Options : options,
-                          recordType: recordType == default ? RecordType : recordType
-
-        );
-    }
 
     public class Appointment : Record<Appointment>
     {
@@ -496,240 +482,6 @@ namespace Infusio.Model
                           startDate: startDate ?? StartDate,
                           title: title ?? Title,
                           user: user ?? User
-
-        );
-    }
-
-    public class CustomFieldValue : Record<CustomFieldValue>
-    {
-        [JsonProperty("content")]
-        public readonly object Content;
-        [JsonProperty("id")]
-        public readonly long? Id;
-
-        public CustomFieldValue(object content = default, long? id = default)
-        {
-            Content = content;
-            Id = id;
-
-        }
-
-        public CustomFieldValue Copy(object content = default, long? id = default) => new CustomFieldValue(
-                    content: content ?? Content,
-                          id: id ?? Id
-
-        );
-    }
-
-    public class EntryLongString : Record<EntryLongString>
-    {
-        [JsonProperty("key")]
-        public readonly Key Key;
-
-        public EntryLongString(Key key = default)
-        {
-            Key = key;
-
-        }
-
-        public EntryLongString Copy(Key key = default) => new EntryLongString(
-                    key: key == default ? Key : key
-
-        );
-    }
-
-    public class SubscriptionPlan : Record<SubscriptionPlan>
-    {
-        [JsonProperty("active")]
-        public readonly bool Active;
-        [JsonProperty("cycle")]
-        public readonly int? Cycle;
-        [JsonProperty("frequency")]
-        public readonly int? Frequency;
-        [JsonProperty("id")]
-        public readonly long? Id;
-        [JsonProperty("number_of_cycles")]
-        public readonly int? NumberOfCycles;
-        [JsonProperty("plan_price")]
-        public readonly int? PlanPrice;
-        [JsonProperty("subscription_plan_index")]
-        public readonly int? SubscriptionPlanIndex;
-        [JsonProperty("subscription_plan_name")]
-        public readonly string SubscriptionPlanName;
-        [JsonProperty("url")]
-        public readonly string Url;
-
-        public SubscriptionPlan(bool active = default, int? cycle = default, int? frequency = default, long? id = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default, string subscriptionPlanName = default, string url = default)
-        {
-            Active = active;
-            Cycle = cycle;
-            Frequency = frequency;
-            Id = id;
-            NumberOfCycles = numberOfCycles;
-            PlanPrice = planPrice;
-            SubscriptionPlanIndex = subscriptionPlanIndex;
-            SubscriptionPlanName = subscriptionPlanName;
-            Url = url;
-
-        }
-
-        public SubscriptionPlan Copy(bool active = default, int? cycle = default, int? frequency = default, long? id = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default, string subscriptionPlanName = default, string url = default) => new SubscriptionPlan(
-                    active: active == default ? Active : active,
-                          cycle: cycle ?? Cycle,
-                          frequency: frequency ?? Frequency,
-                          id: id ?? Id,
-                          numberOfCycles: numberOfCycles ?? NumberOfCycles,
-                          planPrice: planPrice ?? PlanPrice,
-                          subscriptionPlanIndex: subscriptionPlanIndex ?? SubscriptionPlanIndex,
-                          subscriptionPlanName: subscriptionPlanName ?? SubscriptionPlanName,
-                          url: url ?? Url
-
-        );
-    }
-
-    public class Company : Record<Company>
-    {
-        [JsonProperty("address")]
-        public readonly CompanyAddress Address;
-        [JsonProperty("company_name")]
-        public readonly string CompanyName;
-        [JsonProperty("custom_fields")]
-        public readonly Lst<CustomFieldValue> CustomFields;
-        [JsonProperty("email_address")]
-        public readonly string EmailAddress;
-        [JsonProperty("email_opted_in")]
-        public readonly bool EmailOptedIn;
-        [JsonProperty("email_status")]
-        public readonly EmailStatus EmailStatus;
-        [JsonProperty("fax_number")]
-        public readonly CompanyFaxNumber FaxNumber;
-        [JsonProperty("id")]
-        public readonly long? Id;
-        [JsonProperty("notes")]
-        public readonly string Notes;
-        [JsonProperty("phone_number")]
-        public readonly CompanyPhoneNumber PhoneNumber;
-        [JsonProperty("website")]
-        public readonly string Website;
-
-        public Company(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, bool emailOptedIn = default, EmailStatus emailStatus = default, CompanyFaxNumber faxNumber = default, long? id = default, string notes = default, CompanyPhoneNumber phoneNumber = default, string website = default)
-        {
-            Address = address;
-            CompanyName = companyName;
-            CustomFields = customFields;
-            EmailAddress = emailAddress;
-            EmailOptedIn = emailOptedIn;
-            EmailStatus = emailStatus;
-            FaxNumber = faxNumber;
-            Id = id;
-            Notes = notes;
-            PhoneNumber = phoneNumber;
-            Website = website;
-
-        }
-
-        public Company Copy(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, bool emailOptedIn = default, EmailStatus emailStatus = default, CompanyFaxNumber faxNumber = default, long? id = default, string notes = default, CompanyPhoneNumber phoneNumber = default, string website = default) => new Company(
-                    address: address == default ? Address : address,
-                          companyName: companyName ?? CompanyName,
-                          customFields: customFields == default ? CustomFields : customFields,
-                          emailAddress: emailAddress ?? EmailAddress,
-                          emailOptedIn: emailOptedIn == default ? EmailOptedIn : emailOptedIn,
-                          emailStatus: emailStatus == default ? EmailStatus : emailStatus,
-                          faxNumber: faxNumber == default ? FaxNumber : faxNumber,
-                          id: id ?? Id,
-                          notes: notes ?? Notes,
-                          phoneNumber: phoneNumber == default ? PhoneNumber : phoneNumber,
-                          website: website ?? Website
-
-        );
-    }
-
-    public class InfusionTask : Record<InfusionTask>
-    {
-        [JsonProperty("completed")]
-        public readonly bool Completed;
-        [JsonProperty("completion_date")]
-        public readonly string CompletionDate;
-        [JsonProperty("contact")]
-        public readonly BasicContact Contact;
-        [JsonProperty("creation_date")]
-        public readonly string CreationDate;
-        [JsonProperty("description")]
-        public readonly string Description;
-        [JsonProperty("due_date")]
-        public readonly string DueDate;
-        [JsonProperty("modification_date")]
-        public readonly string ModificationDate;
-        [JsonProperty("priority")]
-        public readonly int? Priority;
-        [JsonProperty("title")]
-        public readonly string Title;
-        [JsonProperty("type")]
-        public readonly string Type;
-        [JsonProperty("url")]
-        public readonly string Url;
-        [JsonProperty("user_id")]
-        public readonly long? UserId;
-
-        public InfusionTask(bool completed = default, string completionDate = default, BasicContact contact = default, string creationDate = default, string description = default, string dueDate = default, string modificationDate = default, int? priority = default, string title = default, string type = default, string url = default, long? userId = default)
-        {
-            Completed = completed;
-            CompletionDate = completionDate;
-            Contact = contact;
-            CreationDate = creationDate;
-            Description = description;
-            DueDate = dueDate;
-            ModificationDate = modificationDate;
-            Priority = priority;
-            Title = title;
-            Type = type;
-            Url = url;
-            UserId = userId;
-
-        }
-
-        public InfusionTask Copy(bool completed = default, string completionDate = default, BasicContact contact = default, string creationDate = default, string description = default, string dueDate = default, string modificationDate = default, int? priority = default, string title = default, string type = default, string url = default, long? userId = default) => new InfusionTask(
-                    completed: completed == default ? Completed : completed,
-                          completionDate: completionDate ?? CompletionDate,
-                          contact: contact == default ? Contact : contact,
-                          creationDate: creationDate ?? CreationDate,
-                          description: description ?? Description,
-                          dueDate: dueDate ?? DueDate,
-                          modificationDate: modificationDate ?? ModificationDate,
-                          priority: priority ?? Priority,
-                          title: title ?? Title,
-                          type: type ?? Type,
-                          url: url ?? Url,
-                          userId: userId ?? UserId
-
-        );
-    }
-
-    public class CompanyList : Record<CompanyList>
-    {
-        [JsonProperty("companies")]
-        public readonly Lst<Company> Companies;
-        [JsonProperty("count")]
-        public readonly int? Count;
-        [JsonProperty("next")]
-        public readonly string Next;
-        [JsonProperty("previous")]
-        public readonly string Previous;
-
-        public CompanyList(Lst<Company> companies = default, int? count = default, string next = default, string previous = default)
-        {
-            Companies = companies;
-            Count = count;
-            Next = next;
-            Previous = previous;
-
-        }
-
-        public CompanyList Copy(Lst<Company> companies = default, int? count = default, string next = default, string previous = default) => new CompanyList(
-                    companies: companies == default ? Companies : companies,
-                          count: count ?? Count,
-                          next: next ?? Next,
-                          previous: previous ?? Previous
 
         );
     }
@@ -881,6 +633,1423 @@ namespace Infusio.Model
         );
     }
 
+    public class Product : Record<Product>
+    {
+        [JsonProperty("active")]
+        public readonly bool Active;
+        [JsonProperty("id")]
+        public readonly long? Id;
+        [JsonProperty("product_desc")]
+        public readonly string ProductDesc;
+        [JsonProperty("product_name")]
+        public readonly string ProductName;
+        [JsonProperty("product_price")]
+        public readonly int? ProductPrice;
+        [JsonProperty("product_short_desc")]
+        public readonly string ProductShortDesc;
+        [JsonProperty("sku")]
+        public readonly string Sku;
+        [JsonProperty("subscription_only")]
+        public readonly bool SubscriptionOnly;
+        [JsonProperty("subscription_plans")]
+        public readonly Lst<ProductSubscription> SubscriptionPlans;
+        [JsonProperty("url")]
+        public readonly string Url;
+
+        public Product(bool active = default, long? id = default, string productDesc = default, string productName = default, int? productPrice = default, string productShortDesc = default, string sku = default, bool subscriptionOnly = default, Lst<ProductSubscription> subscriptionPlans = default, string url = default)
+        {
+            Active = active;
+            Id = id;
+            ProductDesc = productDesc;
+            ProductName = productName;
+            ProductPrice = productPrice;
+            ProductShortDesc = productShortDesc;
+            Sku = sku;
+            SubscriptionOnly = subscriptionOnly;
+            SubscriptionPlans = subscriptionPlans;
+            Url = url;
+
+        }
+
+        public Product Copy(bool active = default, long? id = default, string productDesc = default, string productName = default, int? productPrice = default, string productShortDesc = default, string sku = default, bool subscriptionOnly = default, Lst<ProductSubscription> subscriptionPlans = default, string url = default) => new Product(
+                    active: active == default ? Active : active,
+                          id: id ?? Id,
+                          productDesc: productDesc ?? ProductDesc,
+                          productName: productName ?? ProductName,
+                          productPrice: productPrice ?? ProductPrice,
+                          productShortDesc: productShortDesc ?? ProductShortDesc,
+                          sku: sku ?? Sku,
+                          subscriptionOnly: subscriptionOnly == default ? SubscriptionOnly : subscriptionOnly,
+                          subscriptionPlans: subscriptionPlans == default ? SubscriptionPlans : subscriptionPlans,
+                          url: url ?? Url
+
+        );
+    }
+
+    public class Item : Record<Item>
+    {
+        [JsonProperty("id")]
+        public readonly long? Id;
+        [JsonProperty("name")]
+        public readonly string Name;
+        [JsonProperty("next_item_id")]
+        public readonly long? NextItemId;
+        [JsonProperty("previous_item_id")]
+        public readonly long? PreviousItemId;
+        [JsonProperty("type")]
+        public readonly Type Type;
+
+        public Item(long? id = default, string name = default, long? nextItemId = default, long? previousItemId = default, Type type = default)
+        {
+            Id = id;
+            Name = name;
+            NextItemId = nextItemId;
+            PreviousItemId = previousItemId;
+            Type = type;
+
+        }
+
+        public Item Copy(long? id = default, string name = default, long? nextItemId = default, long? previousItemId = default, Type type = default) => new Item(
+                    id: id ?? Id,
+                          name: name ?? Name,
+                          nextItemId: nextItemId ?? NextItemId,
+                          previousItemId: previousItemId ?? PreviousItemId,
+                          type: type == default ? Type : type
+
+        );
+    }
+
+    public class EmailSentQueryResultWithContent : Record<EmailSentQueryResultWithContent>
+    {
+        [JsonProperty("contact_id")]
+        public readonly long? ContactId;
+        [JsonProperty("headers")]
+        public readonly string Headers;
+        [JsonProperty("html_content")]
+        public readonly string HtmlContent;
+        [JsonProperty("id")]
+        public readonly long? Id;
+        [JsonProperty("opened_date")]
+        public readonly string OpenedDate;
+        [JsonProperty("plain_content")]
+        public readonly string PlainContent;
+        [JsonProperty("received_date")]
+        public readonly string ReceivedDate;
+        [JsonProperty("sent_date")]
+        public readonly string SentDate;
+        [JsonProperty("sent_from_address")]
+        public readonly string SentFromAddress;
+        [JsonProperty("sent_from_reply_address")]
+        public readonly string SentFromReplyAddress;
+        [JsonProperty("sent_to_address")]
+        public readonly string SentToAddress;
+        [JsonProperty("sent_to_bcc_addresses")]
+        public readonly string SentToBccAddresses;
+        [JsonProperty("sent_to_cc_addresses")]
+        public readonly string SentToCcAddresses;
+        [JsonProperty("subject")]
+        public readonly string Subject;
+
+        public EmailSentQueryResultWithContent(long? contactId = default, string headers = default, string htmlContent = default, long? id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default)
+        {
+            ContactId = contactId;
+            Headers = headers;
+            HtmlContent = htmlContent;
+            Id = id;
+            OpenedDate = openedDate;
+            PlainContent = plainContent;
+            ReceivedDate = receivedDate;
+            SentDate = sentDate;
+            SentFromAddress = sentFromAddress;
+            SentFromReplyAddress = sentFromReplyAddress;
+            SentToAddress = sentToAddress;
+            SentToBccAddresses = sentToBccAddresses;
+            SentToCcAddresses = sentToCcAddresses;
+            Subject = subject;
+
+        }
+
+        public EmailSentQueryResultWithContent Copy(long? contactId = default, string headers = default, string htmlContent = default, long? id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default) => new EmailSentQueryResultWithContent(
+                    contactId: contactId ?? ContactId,
+                          headers: headers ?? Headers,
+                          htmlContent: htmlContent ?? HtmlContent,
+                          id: id ?? Id,
+                          openedDate: openedDate ?? OpenedDate,
+                          plainContent: plainContent ?? PlainContent,
+                          receivedDate: receivedDate ?? ReceivedDate,
+                          sentDate: sentDate ?? SentDate,
+                          sentFromAddress: sentFromAddress ?? SentFromAddress,
+                          sentFromReplyAddress: sentFromReplyAddress ?? SentFromReplyAddress,
+                          sentToAddress: sentToAddress ?? SentToAddress,
+                          sentToBccAddresses: sentToBccAddresses ?? SentToBccAddresses,
+                          sentToCcAddresses: sentToCcAddresses ?? SentToCcAddresses,
+                          subject: subject ?? Subject
+
+        );
+    }
+
+    public class Goal : Record<Goal>
+    {
+        [JsonProperty("historical_contact_counts")]
+        public readonly HistoricalCounts HistoricalContactCounts;
+        [JsonProperty("id")]
+        public readonly long? Id;
+        [JsonProperty("name")]
+        public readonly string Name;
+        [JsonProperty("next_sequence_ids")]
+        public readonly Lst<long> NextSequenceIds;
+        [JsonProperty("previous_sequence_ids")]
+        public readonly Lst<long> PreviousSequenceIds;
+        [JsonProperty("type")]
+        public readonly Type Type;
+
+        public Goal(HistoricalCounts historicalContactCounts = default, long? id = default, string name = default, Lst<long> nextSequenceIds = default, Lst<long> previousSequenceIds = default, Type type = default)
+        {
+            HistoricalContactCounts = historicalContactCounts;
+            Id = id;
+            Name = name;
+            NextSequenceIds = nextSequenceIds;
+            PreviousSequenceIds = previousSequenceIds;
+            Type = type;
+
+        }
+
+        public Goal Copy(HistoricalCounts historicalContactCounts = default, long? id = default, string name = default, Lst<long> nextSequenceIds = default, Lst<long> previousSequenceIds = default, Type type = default) => new Goal(
+                    historicalContactCounts: historicalContactCounts == default ? HistoricalContactCounts : historicalContactCounts,
+                          id: id ?? Id,
+                          name: name ?? Name,
+                          nextSequenceIds: nextSequenceIds == default ? NextSequenceIds : nextSequenceIds,
+                          previousSequenceIds: previousSequenceIds == default ? PreviousSequenceIds : previousSequenceIds,
+                          type: type == default ? Type : type
+
+        );
+    }
+
+    public class FaxNumber : Record<FaxNumber>
+    {
+        [JsonProperty("field")]
+        public readonly Field Field;
+        [JsonProperty("number")]
+        public readonly string Number;
+        [JsonProperty("type")]
+        public readonly string Type;
+
+        public FaxNumber(Field field = default, string number = default, string type = default)
+        {
+            Field = field;
+            Number = number;
+            Type = type;
+
+        }
+
+        public FaxNumber Copy(Field field = default, string number = default, string type = default) => new FaxNumber(
+                    field: field == default ? Field : field,
+                          number: number ?? Number,
+                          type: type ?? Type
+
+        );
+    }
+
+    public class Tags : Record<Tags>
+    {
+        [JsonProperty("count")]
+        public readonly int? Count;
+        [JsonProperty("next")]
+        public readonly string Next;
+        [JsonProperty("previous")]
+        public readonly string Previous;
+        [JsonProperty("tags")]
+        public readonly Lst<Tag> InnerTags;
+
+        public Tags(int? count = default, string next = default, string previous = default, Lst<Tag> innerTags = default)
+        {
+            Count = count;
+            Next = next;
+            Previous = previous;
+            InnerTags = innerTags;
+
+        }
+
+        public Tags Copy(int? count = default, string next = default, string previous = default, Lst<Tag> innerTags = default) => new Tags(
+                    count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous,
+                          innerTags: innerTags == default ? InnerTags : innerTags
+
+        );
+    }
+
+    public class CreateProduct : Record<CreateProduct>
+    {
+        [JsonProperty("active")]
+        public readonly bool Active;
+        [JsonProperty("product_desc")]
+        public readonly string ProductDesc;
+        [JsonProperty("product_name")]
+        public readonly string ProductName;
+        [JsonProperty("product_price")]
+        public readonly int? ProductPrice;
+        [JsonProperty("product_short_desc")]
+        public readonly string ProductShortDesc;
+        [JsonProperty("sku")]
+        public readonly string Sku;
+        [JsonProperty("subscription_only")]
+        public readonly bool SubscriptionOnly;
+
+        public CreateProduct(bool active = default, string productDesc = default, string productName = default, int? productPrice = default, string productShortDesc = default, string sku = default, bool subscriptionOnly = default)
+        {
+            Active = active;
+            ProductDesc = productDesc;
+            ProductName = productName;
+            ProductPrice = productPrice;
+            ProductShortDesc = productShortDesc;
+            Sku = sku;
+            SubscriptionOnly = subscriptionOnly;
+
+        }
+
+        public CreateProduct Copy(bool active = default, string productDesc = default, string productName = default, int? productPrice = default, string productShortDesc = default, string sku = default, bool subscriptionOnly = default) => new CreateProduct(
+                    active: active == default ? Active : active,
+                          productDesc: productDesc ?? ProductDesc,
+                          productName: productName ?? ProductName,
+                          productPrice: productPrice ?? ProductPrice,
+                          productShortDesc: productShortDesc ?? ProductShortDesc,
+                          sku: sku ?? Sku,
+                          subscriptionOnly: subscriptionOnly == default ? SubscriptionOnly : subscriptionOnly
+
+        );
+    }
+
+    public class EmailAddress : Record<EmailAddress>
+    {
+        [JsonProperty("email")]
+        public readonly string Email;
+        [JsonProperty("field")]
+        public readonly Field Field;
+
+        public EmailAddress(string email = default, Field field = default)
+        {
+            Email = email;
+            Field = field;
+
+        }
+
+        public EmailAddress Copy(string email = default, Field field = default) => new EmailAddress(
+                    email: email ?? Email,
+                          field: field == default ? Field : field
+
+        );
+    }
+
+    public class CompanyPhoneNumber : Record<CompanyPhoneNumber>
+    {
+        [JsonProperty("extension")]
+        public readonly string Extension;
+        [JsonProperty("number")]
+        public readonly string Number;
+        [JsonProperty("type")]
+        public readonly string Type;
+
+        public CompanyPhoneNumber(string extension = default, string number = default, string type = default)
+        {
+            Extension = extension;
+            Number = number;
+            Type = type;
+
+        }
+
+        public CompanyPhoneNumber Copy(string extension = default, string number = default, string type = default) => new CompanyPhoneNumber(
+                    extension: extension ?? Extension,
+                          number: number ?? Number,
+                          type: type ?? Type
+
+        );
+    }
+
+    public class CreditCardAdded : Record<CreditCardAdded>
+    {
+        [JsonProperty("address")]
+        public readonly Address Address;
+        [JsonProperty("card_type")]
+        public readonly string CardType;
+        [JsonProperty("contact_id")]
+        public readonly long? ContactId;
+        [JsonProperty("email_address")]
+        public readonly string EmailAddress;
+        [JsonProperty("expiration_month")]
+        public readonly string ExpirationMonth;
+        [JsonProperty("expiration_year")]
+        public readonly string ExpirationYear;
+        [JsonProperty("id")]
+        public readonly long? Id;
+        [JsonProperty("maestro_issue_number")]
+        public readonly string MaestroIssueNumber;
+        [JsonProperty("maestro_start_date_month")]
+        public readonly string MaestroStartDateMonth;
+        [JsonProperty("maestro_start_date_year")]
+        public readonly string MaestroStartDateYear;
+        [JsonProperty("name_on_card")]
+        public readonly string NameOnCard;
+        [JsonProperty("validation_message")]
+        public readonly string ValidationMessage;
+        [JsonProperty("validation_status")]
+        public readonly string ValidationStatus;
+
+        public CreditCardAdded(Address address = default, string cardType = default, long? contactId = default, string emailAddress = default, string expirationMonth = default, string expirationYear = default, long? id = default, string maestroIssueNumber = default, string maestroStartDateMonth = default, string maestroStartDateYear = default, string nameOnCard = default, string validationMessage = default, string validationStatus = default)
+        {
+            Address = address;
+            CardType = cardType;
+            ContactId = contactId;
+            EmailAddress = emailAddress;
+            ExpirationMonth = expirationMonth;
+            ExpirationYear = expirationYear;
+            Id = id;
+            MaestroIssueNumber = maestroIssueNumber;
+            MaestroStartDateMonth = maestroStartDateMonth;
+            MaestroStartDateYear = maestroStartDateYear;
+            NameOnCard = nameOnCard;
+            ValidationMessage = validationMessage;
+            ValidationStatus = validationStatus;
+
+        }
+
+        public CreditCardAdded Copy(Address address = default, string cardType = default, long? contactId = default, string emailAddress = default, string expirationMonth = default, string expirationYear = default, long? id = default, string maestroIssueNumber = default, string maestroStartDateMonth = default, string maestroStartDateYear = default, string nameOnCard = default, string validationMessage = default, string validationStatus = default) => new CreditCardAdded(
+                    address: address == default ? Address : address,
+                          cardType: cardType ?? CardType,
+                          contactId: contactId ?? ContactId,
+                          emailAddress: emailAddress ?? EmailAddress,
+                          expirationMonth: expirationMonth ?? ExpirationMonth,
+                          expirationYear: expirationYear ?? ExpirationYear,
+                          id: id ?? Id,
+                          maestroIssueNumber: maestroIssueNumber ?? MaestroIssueNumber,
+                          maestroStartDateMonth: maestroStartDateMonth ?? MaestroStartDateMonth,
+                          maestroStartDateYear: maestroStartDateYear ?? MaestroStartDateYear,
+                          nameOnCard: nameOnCard ?? NameOnCard,
+                          validationMessage: validationMessage ?? ValidationMessage,
+                          validationStatus: validationStatus ?? ValidationStatus
+
+        );
+    }
+
+    public class TaggedContact : Record<TaggedContact>
+    {
+        [JsonProperty("contact")]
+        public readonly BasicContact Contact;
+        [JsonProperty("date_applied")]
+        public readonly string DateApplied;
+
+        public TaggedContact(BasicContact contact = default, string dateApplied = default)
+        {
+            Contact = contact;
+            DateApplied = dateApplied;
+
+        }
+
+        public TaggedContact Copy(BasicContact contact = default, string dateApplied = default) => new TaggedContact(
+                    contact: contact == default ? Contact : contact,
+                          dateApplied: dateApplied ?? DateApplied
+
+        );
+    }
+
+    public class ContactTagList : Record<ContactTagList>
+    {
+        [JsonProperty("count")]
+        public readonly int? Count;
+        [JsonProperty("next")]
+        public readonly string Next;
+        [JsonProperty("previous")]
+        public readonly string Previous;
+        [JsonProperty("tags")]
+        public readonly Lst<ContactTag> Tags;
+
+        public ContactTagList(int? count = default, string next = default, string previous = default, Lst<ContactTag> tags = default)
+        {
+            Count = count;
+            Next = next;
+            Previous = previous;
+            Tags = tags;
+
+        }
+
+        public ContactTagList Copy(int? count = default, string next = default, string previous = default, Lst<ContactTag> tags = default) => new ContactTagList(
+                    count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous,
+                          tags: tags == default ? Tags : tags
+
+        );
+    }
+
+    public class CreateTagCategory : Record<CreateTagCategory>
+    {
+        [JsonProperty("description")]
+        public readonly string Description;
+        [JsonProperty("name")]
+        public readonly string Name;
+
+        public CreateTagCategory(string description = default, string name = default)
+        {
+            Description = description;
+            Name = name;
+
+        }
+
+        public CreateTagCategory Copy(string description = default, string name = default) => new CreateTagCategory(
+                    description: description ?? Description,
+                          name: name ?? Name
+
+        );
+    }
+
+    public class ProductStatusList : Record<ProductStatusList>
+    {
+        [JsonProperty("count")]
+        public readonly int? Count;
+        [JsonProperty("next")]
+        public readonly string Next;
+        [JsonProperty("previous")]
+        public readonly string Previous;
+        [JsonProperty("product_statuses")]
+        public readonly Lst<ProductStatus> ProductStatuses;
+        [JsonProperty("sync_token")]
+        public readonly string SyncToken;
+
+        public ProductStatusList(int? count = default, string next = default, string previous = default, Lst<ProductStatus> productStatuses = default, string syncToken = default)
+        {
+            Count = count;
+            Next = next;
+            Previous = previous;
+            ProductStatuses = productStatuses;
+            SyncToken = syncToken;
+
+        }
+
+        public ProductStatusList Copy(int? count = default, string next = default, string previous = default, Lst<ProductStatus> productStatuses = default, string syncToken = default) => new ProductStatusList(
+                    count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous,
+                          productStatuses: productStatuses == default ? ProductStatuses : productStatuses,
+                          syncToken: syncToken ?? SyncToken
+
+        );
+    }
+
+    public class ObjectModel : Record<ObjectModel>
+    {
+        [JsonProperty("custom_fields")]
+        public readonly Lst<CustomFieldMetaData> CustomFields;
+        [JsonProperty("optional_properties")]
+        public readonly Lst<string> OptionalProperties;
+
+        public ObjectModel(Lst<CustomFieldMetaData> customFields = default, Lst<string> optionalProperties = default)
+        {
+            CustomFields = customFields;
+            OptionalProperties = optionalProperties;
+
+        }
+
+        public ObjectModel Copy(Lst<CustomFieldMetaData> customFields = default, Lst<string> optionalProperties = default) => new ObjectModel(
+                    customFields: customFields == default ? CustomFields : customFields,
+                          optionalProperties: optionalProperties == default ? OptionalProperties : optionalProperties
+
+        );
+    }
+
+    public class AccountProfile : Record<AccountProfile>
+    {
+        [JsonProperty("address")]
+        public readonly Address Address;
+        [JsonProperty("business_goals")]
+        public readonly Lst<string> BusinessGoals;
+        [JsonProperty("business_type")]
+        public readonly string BusinessType;
+        [JsonProperty("currency_code")]
+        public readonly string CurrencyCode;
+        [JsonProperty("email")]
+        public readonly string Email;
+        [JsonProperty("language_tag")]
+        public readonly string LanguageTag;
+        [JsonProperty("logo_url")]
+        public readonly string LogoUrl;
+        [JsonProperty("name")]
+        public readonly string Name;
+        [JsonProperty("phone")]
+        public readonly string Phone;
+        [JsonProperty("phone_ext")]
+        public readonly string PhoneExt;
+        [JsonProperty("time_zone")]
+        public readonly string TimeZone;
+        [JsonProperty("website")]
+        public readonly string Website;
+
+        public AccountProfile(Address address = default, Lst<string> businessGoals = default, string businessType = default, string currencyCode = default, string email = default, string languageTag = default, string logoUrl = default, string name = default, string phone = default, string phoneExt = default, string timeZone = default, string website = default)
+        {
+            Address = address;
+            BusinessGoals = businessGoals;
+            BusinessType = businessType;
+            CurrencyCode = currencyCode;
+            Email = email;
+            LanguageTag = languageTag;
+            LogoUrl = logoUrl;
+            Name = name;
+            Phone = phone;
+            PhoneExt = phoneExt;
+            TimeZone = timeZone;
+            Website = website;
+
+        }
+
+        public AccountProfile Copy(Address address = default, Lst<string> businessGoals = default, string businessType = default, string currencyCode = default, string email = default, string languageTag = default, string logoUrl = default, string name = default, string phone = default, string phoneExt = default, string timeZone = default, string website = default) => new AccountProfile(
+                    address: address == default ? Address : address,
+                          businessGoals: businessGoals == default ? BusinessGoals : businessGoals,
+                          businessType: businessType ?? BusinessType,
+                          currencyCode: currencyCode ?? CurrencyCode,
+                          email: email ?? Email,
+                          languageTag: languageTag ?? LanguageTag,
+                          logoUrl: logoUrl ?? LogoUrl,
+                          name: name ?? Name,
+                          phone: phone ?? Phone,
+                          phoneExt: phoneExt ?? PhoneExt,
+                          timeZone: timeZone ?? TimeZone,
+                          website: website ?? Website
+
+        );
+    }
+
+    public class SimpleOpportunityStage : Record<SimpleOpportunityStage>
+    {
+        [JsonProperty("details")]
+        public readonly StageDetails Details;
+        [JsonProperty("id")]
+        public readonly long? Id;
+        [JsonProperty("name")]
+        public readonly string Name;
+        [JsonProperty("reasons")]
+        public readonly Lst<string> Reasons;
+
+        public SimpleOpportunityStage(StageDetails details = default, long? id = default, string name = default, Lst<string> reasons = default)
+        {
+            Details = details;
+            Id = id;
+            Name = name;
+            Reasons = reasons;
+
+        }
+
+        public SimpleOpportunityStage Copy(StageDetails details = default, long? id = default, string name = default, Lst<string> reasons = default) => new SimpleOpportunityStage(
+                    details: details == default ? Details : details,
+                          id: id ?? Id,
+                          name: name ?? Name,
+                          reasons: reasons == default ? Reasons : reasons
+
+        );
+    }
+
+    public class StackTraceElement : Record<StackTraceElement>
+    {
+        [JsonProperty("className")]
+        public readonly string ClassName;
+        [JsonProperty("fileName")]
+        public readonly string FileName;
+        [JsonProperty("lineNumber")]
+        public readonly int? LineNumber;
+        [JsonProperty("methodName")]
+        public readonly string MethodName;
+        [JsonProperty("nativeMethod")]
+        public readonly bool NativeMethod;
+
+        public StackTraceElement(string className = default, string fileName = default, int? lineNumber = default, string methodName = default, bool nativeMethod = default)
+        {
+            ClassName = className;
+            FileName = fileName;
+            LineNumber = lineNumber;
+            MethodName = methodName;
+            NativeMethod = nativeMethod;
+
+        }
+
+        public StackTraceElement Copy(string className = default, string fileName = default, int? lineNumber = default, string methodName = default, bool nativeMethod = default) => new StackTraceElement(
+                    className: className ?? ClassName,
+                          fileName: fileName ?? FileName,
+                          lineNumber: lineNumber ?? LineNumber,
+                          methodName: methodName ?? MethodName,
+                          nativeMethod: nativeMethod == default ? NativeMethod : nativeMethod
+
+        );
+    }
+
+    public class SequencePath : Record<SequencePath>
+    {
+        [JsonProperty("id")]
+        public readonly long? Id;
+        [JsonProperty("items")]
+        public readonly Lst<Item> Items;
+
+        public SequencePath(long? id = default, Lst<Item> items = default)
+        {
+            Id = id;
+            Items = items;
+
+        }
+
+        public SequencePath Copy(long? id = default, Lst<Item> items = default) => new SequencePath(
+                    id: id ?? Id,
+                          items: items == default ? Items : items
+
+        );
+    }
+
+    public class ContactTag : Record<ContactTag>
+    {
+        [JsonProperty("date_applied")]
+        public readonly string DateApplied;
+        [JsonProperty("tag")]
+        public readonly SimpleTag Tag;
+
+        public ContactTag(string dateApplied = default, SimpleTag tag = default)
+        {
+            DateApplied = dateApplied;
+            Tag = tag;
+
+        }
+
+        public ContactTag Copy(string dateApplied = default, SimpleTag tag = default) => new ContactTag(
+                    dateApplied: dateApplied ?? DateApplied,
+                          tag: tag == default ? Tag : tag
+
+        );
+    }
+
+    public class CampaignLandingPageNodeDTO : Record<CampaignLandingPageNodeDTO>
+    {
+        [JsonProperty("formId")]
+        public readonly string FormId;
+        [JsonProperty("id")]
+        public readonly string Id;
+        [JsonProperty("landingPageId")]
+        public readonly string LandingPageId;
+        [JsonProperty("leadBucketIds")]
+        public readonly Lst<string> LeadBucketIds;
+        [JsonProperty("name")]
+        public readonly string Name;
+        [JsonProperty("properties")]
+        public readonly object Properties;
+        [JsonProperty("ready")]
+        public readonly bool Ready;
+        [JsonProperty("type")]
+        public readonly Type Type;
+
+        public CampaignLandingPageNodeDTO(string formId = default, string id = default, string landingPageId = default, Lst<string> leadBucketIds = default, string name = default, object properties = default, bool ready = default, Type type = default)
+        {
+            FormId = formId;
+            Id = id;
+            LandingPageId = landingPageId;
+            LeadBucketIds = leadBucketIds;
+            Name = name;
+            Properties = properties;
+            Ready = ready;
+            Type = type;
+
+        }
+
+        public CampaignLandingPageNodeDTO Copy(string formId = default, string id = default, string landingPageId = default, Lst<string> leadBucketIds = default, string name = default, object properties = default, bool ready = default, Type type = default) => new CampaignLandingPageNodeDTO(
+                    formId: formId ?? FormId,
+                          id: id ?? Id,
+                          landingPageId: landingPageId ?? LandingPageId,
+                          leadBucketIds: leadBucketIds == default ? LeadBucketIds : leadBucketIds,
+                          name: name ?? Name,
+                          properties: properties ?? Properties,
+                          ready: ready == default ? Ready : ready,
+                          type: type == default ? Type : type
+
+        );
+    }
+
+    public class RequestCompanyReference : Record<RequestCompanyReference>
+    {
+        [JsonProperty("id")]
+        public readonly long? Id;
+
+        public RequestCompanyReference(long? id = default)
+        {
+            Id = id;
+
+        }
+
+        public RequestCompanyReference Copy(long? id = default) => new RequestCompanyReference(
+                    id: id ?? Id
+
+        );
+    }
+
+    public class HistoricalCounts : Record<HistoricalCounts>
+    {
+        [JsonProperty("24_hours")]
+        public readonly int? TwentyFourHours;
+        [JsonProperty("30_days")]
+        public readonly int? ThirtyDays;
+
+        public HistoricalCounts(int? twentyFourHours = default, int? thirtyDays = default)
+        {
+            TwentyFourHours = twentyFourHours;
+            ThirtyDays = thirtyDays;
+
+        }
+
+        public HistoricalCounts Copy(int? twentyFourHours = default, int? thirtyDays = default) => new HistoricalCounts(
+                    twentyFourHours: twentyFourHours ?? TwentyFourHours,
+                          thirtyDays: thirtyDays ?? ThirtyDays
+
+        );
+    }
+
+    public class CampaignNodeDTO : Record<CampaignNodeDTO>
+    {
+        [JsonProperty("id")]
+        public readonly string Id;
+        [JsonProperty("name")]
+        public readonly string Name;
+        [JsonProperty("properties")]
+        public readonly object Properties;
+        [JsonProperty("ready")]
+        public readonly bool Ready;
+        [JsonProperty("type")]
+        public readonly Type Type;
+
+        public CampaignNodeDTO(string id = default, string name = default, object properties = default, bool ready = default, Type type = default)
+        {
+            Id = id;
+            Name = name;
+            Properties = properties;
+            Ready = ready;
+            Type = type;
+
+        }
+
+        public CampaignNodeDTO Copy(string id = default, string name = default, object properties = default, bool ready = default, Type type = default) => new CampaignNodeDTO(
+                    id: id ?? Id,
+                          name: name ?? Name,
+                          properties: properties ?? Properties,
+                          ready: ready == default ? Ready : ready,
+                          type: type == default ? Type : type
+
+        );
+    }
+
+    public class AffiliateCommissionList : Record<AffiliateCommissionList>
+    {
+        [JsonProperty("commissions")]
+        public readonly Lst<AffiliateCommission> Commissions;
+        [JsonProperty("count")]
+        public readonly int? Count;
+        [JsonProperty("next")]
+        public readonly string Next;
+        [JsonProperty("previous")]
+        public readonly string Previous;
+
+        public AffiliateCommissionList(Lst<AffiliateCommission> commissions = default, int? count = default, string next = default, string previous = default)
+        {
+            Commissions = commissions;
+            Count = count;
+            Next = next;
+            Previous = previous;
+
+        }
+
+        public AffiliateCommissionList Copy(Lst<AffiliateCommission> commissions = default, int? count = default, string next = default, string previous = default) => new AffiliateCommissionList(
+                    commissions: commissions == default ? Commissions : commissions,
+                          count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous
+
+        );
+    }
+
+    public class ProductStatus : Record<ProductStatus>
+    {
+        [JsonProperty("product")]
+        public readonly Product_ Product;
+        [JsonProperty("status")]
+        public readonly Status Status;
+
+        public ProductStatus(Product_ product = default, Status status = default)
+        {
+            Product = product;
+            Status = status;
+
+        }
+
+        public ProductStatus Copy(Product_ product = default, Status status = default) => new ProductStatus(
+                    product: product == default ? Product : product,
+                          status: status == default ? Status : status
+
+        );
+    }
+
+    public class ContactList : Record<ContactList>
+    {
+        [JsonProperty("contacts")]
+        public readonly Lst<FullContact> Contacts;
+        [JsonProperty("count")]
+        public readonly int? Count;
+        [JsonProperty("next")]
+        public readonly string Next;
+        [JsonProperty("previous")]
+        public readonly string Previous;
+
+        public ContactList(Lst<FullContact> contacts = default, int? count = default, string next = default, string previous = default)
+        {
+            Contacts = contacts;
+            Count = count;
+            Next = next;
+            Previous = previous;
+
+        }
+
+        public ContactList Copy(Lst<FullContact> contacts = default, int? count = default, string next = default, string previous = default) => new ContactList(
+                    contacts: contacts == default ? Contacts : contacts,
+                          count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous
+
+        );
+    }
+
+    public class SetOfIds : Record<SetOfIds>
+    {
+        [JsonProperty("ids")]
+        public readonly Lst<long> Ids;
+
+        public SetOfIds(Lst<long> ids = default)
+        {
+            Ids = ids;
+
+        }
+
+        public SetOfIds Copy(Lst<long> ids = default) => new SetOfIds(
+                    ids: ids == default ? Ids : ids
+
+        );
+    }
+
+    public class EmailSentCreate : Record<EmailSentCreate>
+    {
+        [JsonProperty("contact_id")]
+        public readonly long? ContactId;
+        [JsonProperty("headers")]
+        public readonly string Headers;
+        [JsonProperty("html_content")]
+        public readonly string HtmlContent;
+        [JsonProperty("id")]
+        public readonly long? Id;
+        [JsonProperty("opened_date")]
+        public readonly string OpenedDate;
+        [JsonProperty("plain_content")]
+        public readonly string PlainContent;
+        [JsonProperty("received_date")]
+        public readonly string ReceivedDate;
+        [JsonProperty("sent_date")]
+        public readonly string SentDate;
+        [JsonProperty("sent_from_address")]
+        public readonly string SentFromAddress;
+        [JsonProperty("sent_from_reply_address")]
+        public readonly string SentFromReplyAddress;
+        [JsonProperty("sent_to_address")]
+        public readonly string SentToAddress;
+        [JsonProperty("sent_to_bcc_addresses")]
+        public readonly string SentToBccAddresses;
+        [JsonProperty("sent_to_cc_addresses")]
+        public readonly string SentToCcAddresses;
+        [JsonProperty("subject")]
+        public readonly string Subject;
+
+        public EmailSentCreate(long? contactId = default, string headers = default, string htmlContent = default, long? id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default)
+        {
+            ContactId = contactId;
+            Headers = headers;
+            HtmlContent = htmlContent;
+            Id = id;
+            OpenedDate = openedDate;
+            PlainContent = plainContent;
+            ReceivedDate = receivedDate;
+            SentDate = sentDate;
+            SentFromAddress = sentFromAddress;
+            SentFromReplyAddress = sentFromReplyAddress;
+            SentToAddress = sentToAddress;
+            SentToBccAddresses = sentToBccAddresses;
+            SentToCcAddresses = sentToCcAddresses;
+            Subject = subject;
+
+        }
+
+        public EmailSentCreate Copy(long? contactId = default, string headers = default, string htmlContent = default, long? id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default) => new EmailSentCreate(
+                    contactId: contactId ?? ContactId,
+                          headers: headers ?? Headers,
+                          htmlContent: htmlContent ?? HtmlContent,
+                          id: id ?? Id,
+                          openedDate: openedDate ?? OpenedDate,
+                          plainContent: plainContent ?? PlainContent,
+                          receivedDate: receivedDate ?? ReceivedDate,
+                          sentDate: sentDate ?? SentDate,
+                          sentFromAddress: sentFromAddress ?? SentFromAddress,
+                          sentFromReplyAddress: sentFromReplyAddress ?? SentFromReplyAddress,
+                          sentToAddress: sentToAddress ?? SentToAddress,
+                          sentToBccAddresses: sentToBccAddresses ?? SentToBccAddresses,
+                          sentToCcAddresses: sentToCcAddresses ?? SentToCcAddresses,
+                          subject: subject ?? Subject
+
+        );
+    }
+
+    public class ProductList : Record<ProductList>
+    {
+        [JsonProperty("count")]
+        public readonly int? Count;
+        [JsonProperty("next")]
+        public readonly string Next;
+        [JsonProperty("previous")]
+        public readonly string Previous;
+        [JsonProperty("products")]
+        public readonly Lst<Product_> Products;
+        [JsonProperty("sync_token")]
+        public readonly string SyncToken;
+
+        public ProductList(int? count = default, string next = default, string previous = default, Lst<Product_> products = default, string syncToken = default)
+        {
+            Count = count;
+            Next = next;
+            Previous = previous;
+            Products = products;
+            SyncToken = syncToken;
+
+        }
+
+        public ProductList Copy(int? count = default, string next = default, string previous = default, Lst<Product_> products = default, string syncToken = default) => new ProductList(
+                    count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous,
+                          products: products == default ? Products : products,
+                          syncToken: syncToken ?? SyncToken
+
+        );
+    }
+
+    public class Product_ : Record<Product_>
+    {
+        [JsonProperty("id")]
+        public readonly long? Id;
+        [JsonProperty("product_desc")]
+        public readonly string ProductDesc;
+        [JsonProperty("product_name")]
+        public readonly string ProductName;
+        [JsonProperty("product_options")]
+        public readonly Lst<ProductOption> ProductOptions;
+        [JsonProperty("product_price")]
+        public readonly int? ProductPrice;
+        [JsonProperty("product_short_desc")]
+        public readonly string ProductShortDesc;
+        [JsonProperty("sku")]
+        public readonly string Sku;
+        [JsonProperty("status")]
+        public readonly int? Status;
+        [JsonProperty("sub_category_id")]
+        public readonly long? SubCategoryId;
+        [JsonProperty("subscription_only")]
+        public readonly bool SubscriptionOnly;
+        [JsonProperty("subscription_plans")]
+        public readonly Lst<SubscriptionPlan_> SubscriptionPlans;
+        [JsonProperty("url")]
+        public readonly string Url;
+
+        public Product_(long? id = default, string productDesc = default, string productName = default, Lst<ProductOption> productOptions = default, int? productPrice = default, string productShortDesc = default, string sku = default, int? status = default, long? subCategoryId = default, bool subscriptionOnly = default, Lst<SubscriptionPlan_> subscriptionPlans = default, string url = default)
+        {
+            Id = id;
+            ProductDesc = productDesc;
+            ProductName = productName;
+            ProductOptions = productOptions;
+            ProductPrice = productPrice;
+            ProductShortDesc = productShortDesc;
+            Sku = sku;
+            Status = status;
+            SubCategoryId = subCategoryId;
+            SubscriptionOnly = subscriptionOnly;
+            SubscriptionPlans = subscriptionPlans;
+            Url = url;
+
+        }
+
+        public Product_ Copy(long? id = default, string productDesc = default, string productName = default, Lst<ProductOption> productOptions = default, int? productPrice = default, string productShortDesc = default, string sku = default, int? status = default, long? subCategoryId = default, bool subscriptionOnly = default, Lst<SubscriptionPlan_> subscriptionPlans = default, string url = default) => new Product_(
+                    id: id ?? Id,
+                          productDesc: productDesc ?? ProductDesc,
+                          productName: productName ?? ProductName,
+                          productOptions: productOptions == default ? ProductOptions : productOptions,
+                          productPrice: productPrice ?? ProductPrice,
+                          productShortDesc: productShortDesc ?? ProductShortDesc,
+                          sku: sku ?? Sku,
+                          status: status ?? Status,
+                          subCategoryId: subCategoryId ?? SubCategoryId,
+                          subscriptionOnly: subscriptionOnly == default ? SubscriptionOnly : subscriptionOnly,
+                          subscriptionPlans: subscriptionPlans == default ? SubscriptionPlans : subscriptionPlans,
+                          url: url ?? Url
+
+        );
+    }
+
+    public class Relationship : Record<Relationship>
+    {
+        [JsonProperty("id")]
+        public readonly long? Id;
+        [JsonProperty("linked_contact_id")]
+        public readonly long? LinkedContactId;
+        [JsonProperty("relationship_type_id")]
+        public readonly long? RelationshipTypeId;
+
+        public Relationship(long? id = default, long? linkedContactId = default, long? relationshipTypeId = default)
+        {
+            Id = id;
+            LinkedContactId = linkedContactId;
+            RelationshipTypeId = relationshipTypeId;
+
+        }
+
+        public Relationship Copy(long? id = default, long? linkedContactId = default, long? relationshipTypeId = default) => new Relationship(
+                    id: id ?? Id,
+                          linkedContactId: linkedContactId ?? LinkedContactId,
+                          relationshipTypeId: relationshipTypeId ?? RelationshipTypeId
+
+        );
+    }
+
+    public class OrderItem : Record<OrderItem>
+    {
+        [JsonProperty("cost")]
+        public readonly int? Cost;
+        [JsonProperty("description")]
+        public readonly string Description;
+        [JsonProperty("discount")]
+        public readonly int? Discount;
+        [JsonProperty("id")]
+        public readonly long? Id;
+        [JsonProperty("name")]
+        public readonly string Name;
+        [JsonProperty("notes")]
+        public readonly string Notes;
+        [JsonProperty("price")]
+        public readonly int? Price;
+        [JsonProperty("product")]
+        public readonly SimpleProduct Product;
+        [JsonProperty("quantity")]
+        public readonly int? Quantity;
+        [JsonProperty("type")]
+        public readonly string Type;
+
+        public OrderItem(int? cost = default, string description = default, int? discount = default, long? id = default, string name = default, string notes = default, int? price = default, SimpleProduct product = default, int? quantity = default, string type = default)
+        {
+            Cost = cost;
+            Description = description;
+            Discount = discount;
+            Id = id;
+            Name = name;
+            Notes = notes;
+            Price = price;
+            Product = product;
+            Quantity = quantity;
+            Type = type;
+
+        }
+
+        public OrderItem Copy(int? cost = default, string description = default, int? discount = default, long? id = default, string name = default, string notes = default, int? price = default, SimpleProduct product = default, int? quantity = default, string type = default) => new OrderItem(
+                    cost: cost ?? Cost,
+                          description: description ?? Description,
+                          discount: discount ?? Discount,
+                          id: id ?? Id,
+                          name: name ?? Name,
+                          notes: notes ?? Notes,
+                          price: price ?? Price,
+                          product: product == default ? Product : product,
+                          quantity: quantity ?? Quantity,
+                          type: type ?? Type
+
+        );
+    }
+
+    public class PhoneNumber : Record<PhoneNumber>
+    {
+        [JsonProperty("extension")]
+        public readonly string Extension;
+        [JsonProperty("field")]
+        public readonly Field Field;
+        [JsonProperty("number")]
+        public readonly string Number;
+        [JsonProperty("type")]
+        public readonly string Type;
+
+        public PhoneNumber(string extension = default, Field field = default, string number = default, string type = default)
+        {
+            Extension = extension;
+            Field = field;
+            Number = number;
+            Type = type;
+
+        }
+
+        public PhoneNumber Copy(string extension = default, Field field = default, string number = default, string type = default) => new PhoneNumber(
+                    extension: extension ?? Extension,
+                          field: field == default ? Field : field,
+                          number: number ?? Number,
+                          type: type ?? Type
+
+        );
+    }
+
+    public class Tag : Record<Tag>
+    {
+        [JsonProperty("category")]
+        public readonly TagCategory Category;
+        [JsonProperty("description")]
+        public readonly string Description;
+        [JsonProperty("id")]
+        public readonly long? Id;
+        [JsonProperty("name")]
+        public readonly string Name;
+
+        public Tag(TagCategory category = default, string description = default, long? id = default, string name = default)
+        {
+            Category = category;
+            Description = description;
+            Id = id;
+            Name = name;
+
+        }
+
+        public Tag Copy(TagCategory category = default, string description = default, long? id = default, string name = default) => new Tag(
+                    category: category == default ? Category : category,
+                          description: description ?? Description,
+                          id: id ?? Id,
+                          name: name ?? Name
+
+        );
+    }
+
+    public class CustomFieldMetaData : Record<CustomFieldMetaData>
+    {
+        [JsonProperty("field_type")]
+        public readonly FieldType FieldType;
+        [JsonProperty("id")]
+        public readonly long? Id;
+        [JsonProperty("label")]
+        public readonly string Label;
+        [JsonProperty("options")]
+        public readonly Lst<CustomFieldOption> Options;
+        [JsonProperty("record_type")]
+        public readonly RecordType RecordType;
+
+        public CustomFieldMetaData(FieldType fieldType = default, long? id = default, string label = default, Lst<CustomFieldOption> options = default, RecordType recordType = default)
+        {
+            FieldType = fieldType;
+            Id = id;
+            Label = label;
+            Options = options;
+            RecordType = recordType;
+
+        }
+
+        public CustomFieldMetaData Copy(FieldType fieldType = default, long? id = default, string label = default, Lst<CustomFieldOption> options = default, RecordType recordType = default) => new CustomFieldMetaData(
+                    fieldType: fieldType == default ? FieldType : fieldType,
+                          id: id ?? Id,
+                          label: label ?? Label,
+                          options: options == default ? Options : options,
+                          recordType: recordType == default ? RecordType : recordType
+
+        );
+    }
+
+    public class CustomFieldValue : Record<CustomFieldValue>
+    {
+        [JsonProperty("content")]
+        public readonly object Content;
+        [JsonProperty("id")]
+        public readonly long? Id;
+
+        public CustomFieldValue(object content = default, long? id = default)
+        {
+            Content = content;
+            Id = id;
+
+        }
+
+        public CustomFieldValue Copy(object content = default, long? id = default) => new CustomFieldValue(
+                    content: content ?? Content,
+                          id: id ?? Id
+
+        );
+    }
+
+    public class EntryLongString : Record<EntryLongString>
+    {
+        [JsonProperty("key")]
+        public readonly Key Key;
+
+        public EntryLongString(Key key = default)
+        {
+            Key = key;
+
+        }
+
+        public EntryLongString Copy(Key key = default) => new EntryLongString(
+                    key: key == default ? Key : key
+
+        );
+    }
+
+    public class Company : Record<Company>
+    {
+        [JsonProperty("address")]
+        public readonly CompanyAddress Address;
+        [JsonProperty("company_name")]
+        public readonly string CompanyName;
+        [JsonProperty("custom_fields")]
+        public readonly Lst<CustomFieldValue> CustomFields;
+        [JsonProperty("email_address")]
+        public readonly string EmailAddress;
+        [JsonProperty("email_opted_in")]
+        public readonly bool EmailOptedIn;
+        [JsonProperty("email_status")]
+        public readonly EmailStatus EmailStatus;
+        [JsonProperty("fax_number")]
+        public readonly CompanyFaxNumber FaxNumber;
+        [JsonProperty("id")]
+        public readonly long? Id;
+        [JsonProperty("notes")]
+        public readonly string Notes;
+        [JsonProperty("phone_number")]
+        public readonly CompanyPhoneNumber PhoneNumber;
+        [JsonProperty("website")]
+        public readonly string Website;
+
+        public Company(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, bool emailOptedIn = default, EmailStatus emailStatus = default, CompanyFaxNumber faxNumber = default, long? id = default, string notes = default, CompanyPhoneNumber phoneNumber = default, string website = default)
+        {
+            Address = address;
+            CompanyName = companyName;
+            CustomFields = customFields;
+            EmailAddress = emailAddress;
+            EmailOptedIn = emailOptedIn;
+            EmailStatus = emailStatus;
+            FaxNumber = faxNumber;
+            Id = id;
+            Notes = notes;
+            PhoneNumber = phoneNumber;
+            Website = website;
+
+        }
+
+        public Company Copy(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, bool emailOptedIn = default, EmailStatus emailStatus = default, CompanyFaxNumber faxNumber = default, long? id = default, string notes = default, CompanyPhoneNumber phoneNumber = default, string website = default) => new Company(
+                    address: address == default ? Address : address,
+                          companyName: companyName ?? CompanyName,
+                          customFields: customFields == default ? CustomFields : customFields,
+                          emailAddress: emailAddress ?? EmailAddress,
+                          emailOptedIn: emailOptedIn == default ? EmailOptedIn : emailOptedIn,
+                          emailStatus: emailStatus == default ? EmailStatus : emailStatus,
+                          faxNumber: faxNumber == default ? FaxNumber : faxNumber,
+                          id: id ?? Id,
+                          notes: notes ?? Notes,
+                          phoneNumber: phoneNumber == default ? PhoneNumber : phoneNumber,
+                          website: website ?? Website
+
+        );
+    }
+
+    public class InfusionTask : Record<InfusionTask>
+    {
+        [JsonProperty("completed")]
+        public readonly bool Completed;
+        [JsonProperty("completion_date")]
+        public readonly string CompletionDate;
+        [JsonProperty("contact")]
+        public readonly BasicContact Contact;
+        [JsonProperty("creation_date")]
+        public readonly string CreationDate;
+        [JsonProperty("description")]
+        public readonly string Description;
+        [JsonProperty("due_date")]
+        public readonly string DueDate;
+        [JsonProperty("modification_date")]
+        public readonly string ModificationDate;
+        [JsonProperty("priority")]
+        public readonly int? Priority;
+        [JsonProperty("title")]
+        public readonly string Title;
+        [JsonProperty("type")]
+        public readonly string Type;
+        [JsonProperty("url")]
+        public readonly string Url;
+        [JsonProperty("user_id")]
+        public readonly long? UserId;
+
+        public InfusionTask(bool completed = default, string completionDate = default, BasicContact contact = default, string creationDate = default, string description = default, string dueDate = default, string modificationDate = default, int? priority = default, string title = default, string type = default, string url = default, long? userId = default)
+        {
+            Completed = completed;
+            CompletionDate = completionDate;
+            Contact = contact;
+            CreationDate = creationDate;
+            Description = description;
+            DueDate = dueDate;
+            ModificationDate = modificationDate;
+            Priority = priority;
+            Title = title;
+            Type = type;
+            Url = url;
+            UserId = userId;
+
+        }
+
+        public InfusionTask Copy(bool completed = default, string completionDate = default, BasicContact contact = default, string creationDate = default, string description = default, string dueDate = default, string modificationDate = default, int? priority = default, string title = default, string type = default, string url = default, long? userId = default) => new InfusionTask(
+                    completed: completed == default ? Completed : completed,
+                          completionDate: completionDate ?? CompletionDate,
+                          contact: contact == default ? Contact : contact,
+                          creationDate: creationDate ?? CreationDate,
+                          description: description ?? Description,
+                          dueDate: dueDate ?? DueDate,
+                          modificationDate: modificationDate ?? ModificationDate,
+                          priority: priority ?? Priority,
+                          title: title ?? Title,
+                          type: type ?? Type,
+                          url: url ?? Url,
+                          userId: userId ?? UserId
+
+        );
+    }
+
+    public class CompanyList : Record<CompanyList>
+    {
+        [JsonProperty("companies")]
+        public readonly Lst<Company> Companies;
+        [JsonProperty("count")]
+        public readonly int? Count;
+        [JsonProperty("next")]
+        public readonly string Next;
+        [JsonProperty("previous")]
+        public readonly string Previous;
+
+        public CompanyList(Lst<Company> companies = default, int? count = default, string next = default, string previous = default)
+        {
+            Companies = companies;
+            Count = count;
+            Next = next;
+            Previous = previous;
+
+        }
+
+        public CompanyList Copy(Lst<Company> companies = default, int? count = default, string next = default, string previous = default) => new CompanyList(
+                    companies: companies == default ? Companies : companies,
+                          count: count ?? Count,
+                          next: next ?? Next,
+                          previous: previous ?? Previous
+
+        );
+    }
+
     public class CheckListItemDetails : Record<CheckListItemDetails>
     {
         [JsonProperty("description")]
@@ -951,62 +2120,50 @@ namespace Infusio.Model
         );
     }
 
-    public class Product : Record<Product>
+    public class SubscriptionPlan_ : Record<SubscriptionPlan_>
     {
+        [JsonProperty("active")]
+        public readonly bool Active;
+        [JsonProperty("cycle")]
+        public readonly int? Cycle;
+        [JsonProperty("frequency")]
+        public readonly int? Frequency;
         [JsonProperty("id")]
         public readonly long? Id;
-        [JsonProperty("product_desc")]
-        public readonly string ProductDesc;
-        [JsonProperty("product_name")]
-        public readonly string ProductName;
-        [JsonProperty("product_options")]
-        public readonly Lst<ProductOption> ProductOptions;
-        [JsonProperty("product_price")]
-        public readonly int? ProductPrice;
-        [JsonProperty("product_short_desc")]
-        public readonly string ProductShortDesc;
-        [JsonProperty("sku")]
-        public readonly string Sku;
-        [JsonProperty("status")]
-        public readonly int? Status;
-        [JsonProperty("sub_category_id")]
-        public readonly long? SubCategoryId;
-        [JsonProperty("subscription_only")]
-        public readonly bool SubscriptionOnly;
-        [JsonProperty("subscription_plans")]
-        public readonly Lst<SubscriptionPlan> SubscriptionPlans;
+        [JsonProperty("number_of_cycles")]
+        public readonly int? NumberOfCycles;
+        [JsonProperty("plan_price")]
+        public readonly int? PlanPrice;
+        [JsonProperty("subscription_plan_index")]
+        public readonly int? SubscriptionPlanIndex;
+        [JsonProperty("subscription_plan_name")]
+        public readonly string SubscriptionPlanName;
         [JsonProperty("url")]
         public readonly string Url;
 
-        public Product(long? id = default, string productDesc = default, string productName = default, Lst<ProductOption> productOptions = default, int? productPrice = default, string productShortDesc = default, string sku = default, int? status = default, long? subCategoryId = default, bool subscriptionOnly = default, Lst<SubscriptionPlan> subscriptionPlans = default, string url = default)
+        public SubscriptionPlan_(bool active = default, int? cycle = default, int? frequency = default, long? id = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default, string subscriptionPlanName = default, string url = default)
         {
+            Active = active;
+            Cycle = cycle;
+            Frequency = frequency;
             Id = id;
-            ProductDesc = productDesc;
-            ProductName = productName;
-            ProductOptions = productOptions;
-            ProductPrice = productPrice;
-            ProductShortDesc = productShortDesc;
-            Sku = sku;
-            Status = status;
-            SubCategoryId = subCategoryId;
-            SubscriptionOnly = subscriptionOnly;
-            SubscriptionPlans = subscriptionPlans;
+            NumberOfCycles = numberOfCycles;
+            PlanPrice = planPrice;
+            SubscriptionPlanIndex = subscriptionPlanIndex;
+            SubscriptionPlanName = subscriptionPlanName;
             Url = url;
 
         }
 
-        public Product Copy(long? id = default, string productDesc = default, string productName = default, Lst<ProductOption> productOptions = default, int? productPrice = default, string productShortDesc = default, string sku = default, int? status = default, long? subCategoryId = default, bool subscriptionOnly = default, Lst<SubscriptionPlan> subscriptionPlans = default, string url = default) => new Product(
-                    id: id ?? Id,
-                          productDesc: productDesc ?? ProductDesc,
-                          productName: productName ?? ProductName,
-                          productOptions: productOptions == default ? ProductOptions : productOptions,
-                          productPrice: productPrice ?? ProductPrice,
-                          productShortDesc: productShortDesc ?? ProductShortDesc,
-                          sku: sku ?? Sku,
-                          status: status ?? Status,
-                          subCategoryId: subCategoryId ?? SubCategoryId,
-                          subscriptionOnly: subscriptionOnly == default ? SubscriptionOnly : subscriptionOnly,
-                          subscriptionPlans: subscriptionPlans == default ? SubscriptionPlans : subscriptionPlans,
+        public SubscriptionPlan_ Copy(bool active = default, int? cycle = default, int? frequency = default, long? id = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default, string subscriptionPlanName = default, string url = default) => new SubscriptionPlan_(
+                    active: active == default ? Active : active,
+                          cycle: cycle ?? Cycle,
+                          frequency: frequency ?? Frequency,
+                          id: id ?? Id,
+                          numberOfCycles: numberOfCycles ?? NumberOfCycles,
+                          planPrice: planPrice ?? PlanPrice,
+                          subscriptionPlanIndex: subscriptionPlanIndex ?? SubscriptionPlanIndex,
+                          subscriptionPlanName: subscriptionPlanName ?? SubscriptionPlanName,
                           url: url ?? Url
 
         );
@@ -1173,145 +2330,6 @@ namespace Infusio.Model
         );
     }
 
-    public class Item : Record<Item>
-    {
-        [JsonProperty("id")]
-        public readonly long? Id;
-        [JsonProperty("name")]
-        public readonly string Name;
-        [JsonProperty("next_item_id")]
-        public readonly long? NextItemId;
-        [JsonProperty("previous_item_id")]
-        public readonly long? PreviousItemId;
-        [JsonProperty("type")]
-        public readonly Type Type;
-
-        public Item(long? id = default, string name = default, long? nextItemId = default, long? previousItemId = default, Type type = default)
-        {
-            Id = id;
-            Name = name;
-            NextItemId = nextItemId;
-            PreviousItemId = previousItemId;
-            Type = type;
-
-        }
-
-        public Item Copy(long? id = default, string name = default, long? nextItemId = default, long? previousItemId = default, Type type = default) => new Item(
-                    id: id ?? Id,
-                          name: name ?? Name,
-                          nextItemId: nextItemId ?? NextItemId,
-                          previousItemId: previousItemId ?? PreviousItemId,
-                          type: type == default ? Type : type
-
-        );
-    }
-
-    public class EmailSentQueryResultWithContent : Record<EmailSentQueryResultWithContent>
-    {
-        [JsonProperty("contact_id")]
-        public readonly long? ContactId;
-        [JsonProperty("headers")]
-        public readonly string Headers;
-        [JsonProperty("html_content")]
-        public readonly string HtmlContent;
-        [JsonProperty("id")]
-        public readonly long? Id;
-        [JsonProperty("opened_date")]
-        public readonly string OpenedDate;
-        [JsonProperty("plain_content")]
-        public readonly string PlainContent;
-        [JsonProperty("received_date")]
-        public readonly string ReceivedDate;
-        [JsonProperty("sent_date")]
-        public readonly string SentDate;
-        [JsonProperty("sent_from_address")]
-        public readonly string SentFromAddress;
-        [JsonProperty("sent_from_reply_address")]
-        public readonly string SentFromReplyAddress;
-        [JsonProperty("sent_to_address")]
-        public readonly string SentToAddress;
-        [JsonProperty("sent_to_bcc_addresses")]
-        public readonly string SentToBccAddresses;
-        [JsonProperty("sent_to_cc_addresses")]
-        public readonly string SentToCcAddresses;
-        [JsonProperty("subject")]
-        public readonly string Subject;
-
-        public EmailSentQueryResultWithContent(long? contactId = default, string headers = default, string htmlContent = default, long? id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default)
-        {
-            ContactId = contactId;
-            Headers = headers;
-            HtmlContent = htmlContent;
-            Id = id;
-            OpenedDate = openedDate;
-            PlainContent = plainContent;
-            ReceivedDate = receivedDate;
-            SentDate = sentDate;
-            SentFromAddress = sentFromAddress;
-            SentFromReplyAddress = sentFromReplyAddress;
-            SentToAddress = sentToAddress;
-            SentToBccAddresses = sentToBccAddresses;
-            SentToCcAddresses = sentToCcAddresses;
-            Subject = subject;
-
-        }
-
-        public EmailSentQueryResultWithContent Copy(long? contactId = default, string headers = default, string htmlContent = default, long? id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default) => new EmailSentQueryResultWithContent(
-                    contactId: contactId ?? ContactId,
-                          headers: headers ?? Headers,
-                          htmlContent: htmlContent ?? HtmlContent,
-                          id: id ?? Id,
-                          openedDate: openedDate ?? OpenedDate,
-                          plainContent: plainContent ?? PlainContent,
-                          receivedDate: receivedDate ?? ReceivedDate,
-                          sentDate: sentDate ?? SentDate,
-                          sentFromAddress: sentFromAddress ?? SentFromAddress,
-                          sentFromReplyAddress: sentFromReplyAddress ?? SentFromReplyAddress,
-                          sentToAddress: sentToAddress ?? SentToAddress,
-                          sentToBccAddresses: sentToBccAddresses ?? SentToBccAddresses,
-                          sentToCcAddresses: sentToCcAddresses ?? SentToCcAddresses,
-                          subject: subject ?? Subject
-
-        );
-    }
-
-    public class Goal : Record<Goal>
-    {
-        [JsonProperty("historical_contact_counts")]
-        public readonly HistoricalCounts HistoricalContactCounts;
-        [JsonProperty("id")]
-        public readonly long? Id;
-        [JsonProperty("name")]
-        public readonly string Name;
-        [JsonProperty("next_sequence_ids")]
-        public readonly Lst<long> NextSequenceIds;
-        [JsonProperty("previous_sequence_ids")]
-        public readonly Lst<long> PreviousSequenceIds;
-        [JsonProperty("type")]
-        public readonly Type Type;
-
-        public Goal(HistoricalCounts historicalContactCounts = default, long? id = default, string name = default, Lst<long> nextSequenceIds = default, Lst<long> previousSequenceIds = default, Type type = default)
-        {
-            HistoricalContactCounts = historicalContactCounts;
-            Id = id;
-            Name = name;
-            NextSequenceIds = nextSequenceIds;
-            PreviousSequenceIds = previousSequenceIds;
-            Type = type;
-
-        }
-
-        public Goal Copy(HistoricalCounts historicalContactCounts = default, long? id = default, string name = default, Lst<long> nextSequenceIds = default, Lst<long> previousSequenceIds = default, Type type = default) => new Goal(
-                    historicalContactCounts: historicalContactCounts == default ? HistoricalContactCounts : historicalContactCounts,
-                          id: id ?? Id,
-                          name: name ?? Name,
-                          nextSequenceIds: nextSequenceIds == default ? NextSequenceIds : nextSequenceIds,
-                          previousSequenceIds: previousSequenceIds == default ? PreviousSequenceIds : previousSequenceIds,
-                          type: type == default ? Type : type
-
-        );
-    }
-
     public class FullContact : Record<FullContact>
     {
         [JsonProperty("addresses")]
@@ -1457,31 +2475,6 @@ namespace Infusio.Model
         );
     }
 
-    public class FaxNumber : Record<FaxNumber>
-    {
-        [JsonProperty("field")]
-        public readonly Field Field;
-        [JsonProperty("number")]
-        public readonly string Number;
-        [JsonProperty("type")]
-        public readonly string Type;
-
-        public FaxNumber(Field field = default, string number = default, string type = default)
-        {
-            Field = field;
-            Number = number;
-            Type = type;
-
-        }
-
-        public FaxNumber Copy(Field field = default, string number = default, string type = default) => new FaxNumber(
-                    field: field == default ? Field : field,
-                          number: number ?? Number,
-                          type: type ?? Type
-
-        );
-    }
-
     public class OpportunityList : Record<OpportunityList>
     {
         [JsonProperty("count")]
@@ -1507,35 +2500,6 @@ namespace Infusio.Model
                           next: next ?? Next,
                           opportunities: opportunities == default ? Opportunities : opportunities,
                           previous: previous ?? Previous
-
-        );
-    }
-
-    public class Tags : Record<Tags>
-    {
-        [JsonProperty("count")]
-        public readonly int? Count;
-        [JsonProperty("next")]
-        public readonly string Next;
-        [JsonProperty("previous")]
-        public readonly string Previous;
-        [JsonProperty("tags")]
-        public readonly Lst<Tag> InnerTags;
-
-        public Tags(int? count = default, string next = default, string previous = default, Lst<Tag> innerTags = default)
-        {
-            Count = count;
-            Next = next;
-            Previous = previous;
-            InnerTags = innerTags;
-
-        }
-
-        public Tags Copy(int? count = default, string next = default, string previous = default, Lst<Tag> innerTags = default) => new Tags(
-                    count: count ?? Count,
-                          next: next ?? Next,
-                          previous: previous ?? Previous,
-                          innerTags: innerTags == default ? InnerTags : innerTags
 
         );
     }
@@ -1786,52 +2750,6 @@ namespace Infusio.Model
         );
     }
 
-    public class EmailAddress : Record<EmailAddress>
-    {
-        [JsonProperty("email")]
-        public readonly string Email;
-        [JsonProperty("field")]
-        public readonly Field Field;
-
-        public EmailAddress(string email = default, Field field = default)
-        {
-            Email = email;
-            Field = field;
-
-        }
-
-        public EmailAddress Copy(string email = default, Field field = default) => new EmailAddress(
-                    email: email ?? Email,
-                          field: field == default ? Field : field
-
-        );
-    }
-
-    public class CompanyPhoneNumber : Record<CompanyPhoneNumber>
-    {
-        [JsonProperty("extension")]
-        public readonly string Extension;
-        [JsonProperty("number")]
-        public readonly string Number;
-        [JsonProperty("type")]
-        public readonly string Type;
-
-        public CompanyPhoneNumber(string extension = default, string number = default, string type = default)
-        {
-            Extension = extension;
-            Number = number;
-            Type = type;
-
-        }
-
-        public CompanyPhoneNumber Copy(string extension = default, string number = default, string type = default) => new CompanyPhoneNumber(
-                    extension: extension ?? Extension,
-                          number: number ?? Number,
-                          type: type ?? Type
-
-        );
-    }
-
     public class UpsertContact : Record<UpsertContact>
     {
         [JsonProperty("addresses")]
@@ -2022,71 +2940,6 @@ namespace Infusio.Model
         );
     }
 
-    public class CreditCardAdded : Record<CreditCardAdded>
-    {
-        [JsonProperty("address")]
-        public readonly Address Address;
-        [JsonProperty("card_type")]
-        public readonly string CardType;
-        [JsonProperty("contact_id")]
-        public readonly long? ContactId;
-        [JsonProperty("email_address")]
-        public readonly string EmailAddress;
-        [JsonProperty("expiration_month")]
-        public readonly string ExpirationMonth;
-        [JsonProperty("expiration_year")]
-        public readonly string ExpirationYear;
-        [JsonProperty("id")]
-        public readonly long? Id;
-        [JsonProperty("maestro_issue_number")]
-        public readonly string MaestroIssueNumber;
-        [JsonProperty("maestro_start_date_month")]
-        public readonly string MaestroStartDateMonth;
-        [JsonProperty("maestro_start_date_year")]
-        public readonly string MaestroStartDateYear;
-        [JsonProperty("name_on_card")]
-        public readonly string NameOnCard;
-        [JsonProperty("validation_message")]
-        public readonly string ValidationMessage;
-        [JsonProperty("validation_status")]
-        public readonly string ValidationStatus;
-
-        public CreditCardAdded(Address address = default, string cardType = default, long? contactId = default, string emailAddress = default, string expirationMonth = default, string expirationYear = default, long? id = default, string maestroIssueNumber = default, string maestroStartDateMonth = default, string maestroStartDateYear = default, string nameOnCard = default, string validationMessage = default, string validationStatus = default)
-        {
-            Address = address;
-            CardType = cardType;
-            ContactId = contactId;
-            EmailAddress = emailAddress;
-            ExpirationMonth = expirationMonth;
-            ExpirationYear = expirationYear;
-            Id = id;
-            MaestroIssueNumber = maestroIssueNumber;
-            MaestroStartDateMonth = maestroStartDateMonth;
-            MaestroStartDateYear = maestroStartDateYear;
-            NameOnCard = nameOnCard;
-            ValidationMessage = validationMessage;
-            ValidationStatus = validationStatus;
-
-        }
-
-        public CreditCardAdded Copy(Address address = default, string cardType = default, long? contactId = default, string emailAddress = default, string expirationMonth = default, string expirationYear = default, long? id = default, string maestroIssueNumber = default, string maestroStartDateMonth = default, string maestroStartDateYear = default, string nameOnCard = default, string validationMessage = default, string validationStatus = default) => new CreditCardAdded(
-                    address: address == default ? Address : address,
-                          cardType: cardType ?? CardType,
-                          contactId: contactId ?? ContactId,
-                          emailAddress: emailAddress ?? EmailAddress,
-                          expirationMonth: expirationMonth ?? ExpirationMonth,
-                          expirationYear: expirationYear ?? ExpirationYear,
-                          id: id ?? Id,
-                          maestroIssueNumber: maestroIssueNumber ?? MaestroIssueNumber,
-                          maestroStartDateMonth: maestroStartDateMonth ?? MaestroStartDateMonth,
-                          maestroStartDateYear: maestroStartDateYear ?? MaestroStartDateYear,
-                          nameOnCard: nameOnCard ?? NameOnCard,
-                          validationMessage: validationMessage ?? ValidationMessage,
-                          validationStatus: validationStatus ?? ValidationStatus
-
-        );
-    }
-
     public class Transaction : Record<Transaction>
     {
         [JsonProperty("amount")]
@@ -2181,27 +3034,6 @@ namespace Infusio.Model
                           firstName: firstName ?? FirstName,
                           id: id ?? Id,
                           lastName: lastName ?? LastName
-
-        );
-    }
-
-    public class TaggedContact : Record<TaggedContact>
-    {
-        [JsonProperty("contact")]
-        public readonly BasicContact Contact;
-        [JsonProperty("date_applied")]
-        public readonly string DateApplied;
-
-        public TaggedContact(BasicContact contact = default, string dateApplied = default)
-        {
-            Contact = contact;
-            DateApplied = dateApplied;
-
-        }
-
-        public TaggedContact Copy(BasicContact contact = default, string dateApplied = default) => new TaggedContact(
-                    contact: contact == default ? Contact : contact,
-                          dateApplied: dateApplied ?? DateApplied
 
         );
     }
@@ -2309,56 +3141,6 @@ namespace Infusio.Model
         );
     }
 
-    public class ContactTagList : Record<ContactTagList>
-    {
-        [JsonProperty("count")]
-        public readonly int? Count;
-        [JsonProperty("next")]
-        public readonly string Next;
-        [JsonProperty("previous")]
-        public readonly string Previous;
-        [JsonProperty("tags")]
-        public readonly Lst<ContactTag> Tags;
-
-        public ContactTagList(int? count = default, string next = default, string previous = default, Lst<ContactTag> tags = default)
-        {
-            Count = count;
-            Next = next;
-            Previous = previous;
-            Tags = tags;
-
-        }
-
-        public ContactTagList Copy(int? count = default, string next = default, string previous = default, Lst<ContactTag> tags = default) => new ContactTagList(
-                    count: count ?? Count,
-                          next: next ?? Next,
-                          previous: previous ?? Previous,
-                          tags: tags == default ? Tags : tags
-
-        );
-    }
-
-    public class CreateTagCategory : Record<CreateTagCategory>
-    {
-        [JsonProperty("description")]
-        public readonly string Description;
-        [JsonProperty("name")]
-        public readonly string Name;
-
-        public CreateTagCategory(string description = default, string name = default)
-        {
-            Description = description;
-            Name = name;
-
-        }
-
-        public CreateTagCategory Copy(string description = default, string name = default) => new CreateTagCategory(
-                    description: description ?? Description,
-                          name: name ?? Name
-
-        );
-    }
-
     public class CreateTag : Record<CreateTag>
     {
         [JsonProperty("category")]
@@ -2380,60 +3162,6 @@ namespace Infusio.Model
                     category: category == default ? Category : category,
                           description: description ?? Description,
                           name: name ?? Name
-
-        );
-    }
-
-    public class ProductStatusList : Record<ProductStatusList>
-    {
-        [JsonProperty("count")]
-        public readonly int? Count;
-        [JsonProperty("next")]
-        public readonly string Next;
-        [JsonProperty("previous")]
-        public readonly string Previous;
-        [JsonProperty("product_statuses")]
-        public readonly Lst<ProductStatus> ProductStatuses;
-        [JsonProperty("sync_token")]
-        public readonly string SyncToken;
-
-        public ProductStatusList(int? count = default, string next = default, string previous = default, Lst<ProductStatus> productStatuses = default, string syncToken = default)
-        {
-            Count = count;
-            Next = next;
-            Previous = previous;
-            ProductStatuses = productStatuses;
-            SyncToken = syncToken;
-
-        }
-
-        public ProductStatusList Copy(int? count = default, string next = default, string previous = default, Lst<ProductStatus> productStatuses = default, string syncToken = default) => new ProductStatusList(
-                    count: count ?? Count,
-                          next: next ?? Next,
-                          previous: previous ?? Previous,
-                          productStatuses: productStatuses == default ? ProductStatuses : productStatuses,
-                          syncToken: syncToken ?? SyncToken
-
-        );
-    }
-
-    public class ObjectModel : Record<ObjectModel>
-    {
-        [JsonProperty("custom_fields")]
-        public readonly Lst<CustomFieldMetaData> CustomFields;
-        [JsonProperty("optional_properties")]
-        public readonly Lst<string> OptionalProperties;
-
-        public ObjectModel(Lst<CustomFieldMetaData> customFields = default, Lst<string> optionalProperties = default)
-        {
-            CustomFields = customFields;
-            OptionalProperties = optionalProperties;
-
-        }
-
-        public ObjectModel Copy(Lst<CustomFieldMetaData> customFields = default, Lst<string> optionalProperties = default) => new ObjectModel(
-                    customFields: customFields == default ? CustomFields : customFields,
-                          optionalProperties: optionalProperties == default ? OptionalProperties : optionalProperties
 
         );
     }
@@ -2513,96 +3241,6 @@ namespace Infusio.Model
         );
     }
 
-    public class AccountProfile : Record<AccountProfile>
-    {
-        [JsonProperty("address")]
-        public readonly Address Address;
-        [JsonProperty("business_goals")]
-        public readonly Lst<string> BusinessGoals;
-        [JsonProperty("business_type")]
-        public readonly string BusinessType;
-        [JsonProperty("currency_code")]
-        public readonly string CurrencyCode;
-        [JsonProperty("email")]
-        public readonly string Email;
-        [JsonProperty("language_tag")]
-        public readonly string LanguageTag;
-        [JsonProperty("logo_url")]
-        public readonly string LogoUrl;
-        [JsonProperty("name")]
-        public readonly string Name;
-        [JsonProperty("phone")]
-        public readonly string Phone;
-        [JsonProperty("phone_ext")]
-        public readonly string PhoneExt;
-        [JsonProperty("time_zone")]
-        public readonly string TimeZone;
-        [JsonProperty("website")]
-        public readonly string Website;
-
-        public AccountProfile(Address address = default, Lst<string> businessGoals = default, string businessType = default, string currencyCode = default, string email = default, string languageTag = default, string logoUrl = default, string name = default, string phone = default, string phoneExt = default, string timeZone = default, string website = default)
-        {
-            Address = address;
-            BusinessGoals = businessGoals;
-            BusinessType = businessType;
-            CurrencyCode = currencyCode;
-            Email = email;
-            LanguageTag = languageTag;
-            LogoUrl = logoUrl;
-            Name = name;
-            Phone = phone;
-            PhoneExt = phoneExt;
-            TimeZone = timeZone;
-            Website = website;
-
-        }
-
-        public AccountProfile Copy(Address address = default, Lst<string> businessGoals = default, string businessType = default, string currencyCode = default, string email = default, string languageTag = default, string logoUrl = default, string name = default, string phone = default, string phoneExt = default, string timeZone = default, string website = default) => new AccountProfile(
-                    address: address == default ? Address : address,
-                          businessGoals: businessGoals == default ? BusinessGoals : businessGoals,
-                          businessType: businessType ?? BusinessType,
-                          currencyCode: currencyCode ?? CurrencyCode,
-                          email: email ?? Email,
-                          languageTag: languageTag ?? LanguageTag,
-                          logoUrl: logoUrl ?? LogoUrl,
-                          name: name ?? Name,
-                          phone: phone ?? Phone,
-                          phoneExt: phoneExt ?? PhoneExt,
-                          timeZone: timeZone ?? TimeZone,
-                          website: website ?? Website
-
-        );
-    }
-
-    public class SimpleOpportunityStage : Record<SimpleOpportunityStage>
-    {
-        [JsonProperty("details")]
-        public readonly StageDetails Details;
-        [JsonProperty("id")]
-        public readonly long? Id;
-        [JsonProperty("name")]
-        public readonly string Name;
-        [JsonProperty("reasons")]
-        public readonly Lst<string> Reasons;
-
-        public SimpleOpportunityStage(StageDetails details = default, long? id = default, string name = default, Lst<string> reasons = default)
-        {
-            Details = details;
-            Id = id;
-            Name = name;
-            Reasons = reasons;
-
-        }
-
-        public SimpleOpportunityStage Copy(StageDetails details = default, long? id = default, string name = default, Lst<string> reasons = default) => new SimpleOpportunityStage(
-                    details: details == default ? Details : details,
-                          id: id ?? Id,
-                          name: name ?? Name,
-                          reasons: reasons == default ? Reasons : reasons
-
-        );
-    }
-
     public class RestHookRequest : Record<RestHookRequest>
     {
         [JsonProperty("eventKey")]
@@ -2637,60 +3275,6 @@ namespace Infusio.Model
 
         public EmailSentCreateList Copy(Lst<EmailSentCreate> emails = default) => new EmailSentCreateList(
                     emails: emails == default ? Emails : emails
-
-        );
-    }
-
-    public class StackTraceElement : Record<StackTraceElement>
-    {
-        [JsonProperty("className")]
-        public readonly string ClassName;
-        [JsonProperty("fileName")]
-        public readonly string FileName;
-        [JsonProperty("lineNumber")]
-        public readonly int? LineNumber;
-        [JsonProperty("methodName")]
-        public readonly string MethodName;
-        [JsonProperty("nativeMethod")]
-        public readonly bool NativeMethod;
-
-        public StackTraceElement(string className = default, string fileName = default, int? lineNumber = default, string methodName = default, bool nativeMethod = default)
-        {
-            ClassName = className;
-            FileName = fileName;
-            LineNumber = lineNumber;
-            MethodName = methodName;
-            NativeMethod = nativeMethod;
-
-        }
-
-        public StackTraceElement Copy(string className = default, string fileName = default, int? lineNumber = default, string methodName = default, bool nativeMethod = default) => new StackTraceElement(
-                    className: className ?? ClassName,
-                          fileName: fileName ?? FileName,
-                          lineNumber: lineNumber ?? LineNumber,
-                          methodName: methodName ?? MethodName,
-                          nativeMethod: nativeMethod == default ? NativeMethod : nativeMethod
-
-        );
-    }
-
-    public class SequencePath : Record<SequencePath>
-    {
-        [JsonProperty("id")]
-        public readonly long? Id;
-        [JsonProperty("items")]
-        public readonly Lst<Item> Items;
-
-        public SequencePath(long? id = default, Lst<Item> items = default)
-        {
-            Id = id;
-            Items = items;
-
-        }
-
-        public SequencePath Copy(long? id = default, Lst<Item> items = default) => new SequencePath(
-                    id: id ?? Id,
-                          items: items == default ? Items : items
 
         );
     }
@@ -2736,23 +3320,39 @@ namespace Infusio.Model
         );
     }
 
-    public class ContactTag : Record<ContactTag>
+    public class CreateProductSubscription : Record<CreateProductSubscription>
     {
-        [JsonProperty("date_applied")]
-        public readonly string DateApplied;
-        [JsonProperty("tag")]
-        public readonly SimpleTag Tag;
+        [JsonProperty("active")]
+        public readonly bool Active;
+        [JsonProperty("cycle_type")]
+        public readonly CycleType CycleType;
+        [JsonProperty("frequency")]
+        public readonly int? Frequency;
+        [JsonProperty("number_of_cycles")]
+        public readonly int? NumberOfCycles;
+        [JsonProperty("plan_price")]
+        public readonly int? PlanPrice;
+        [JsonProperty("subscription_plan_index")]
+        public readonly int? SubscriptionPlanIndex;
 
-        public ContactTag(string dateApplied = default, SimpleTag tag = default)
+        public CreateProductSubscription(bool active = default, CycleType cycleType = default, int? frequency = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default)
         {
-            DateApplied = dateApplied;
-            Tag = tag;
+            Active = active;
+            CycleType = cycleType;
+            Frequency = frequency;
+            NumberOfCycles = numberOfCycles;
+            PlanPrice = planPrice;
+            SubscriptionPlanIndex = subscriptionPlanIndex;
 
         }
 
-        public ContactTag Copy(string dateApplied = default, SimpleTag tag = default) => new ContactTag(
-                    dateApplied: dateApplied ?? DateApplied,
-                          tag: tag == default ? Tag : tag
+        public CreateProductSubscription Copy(bool active = default, CycleType cycleType = default, int? frequency = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default) => new CreateProductSubscription(
+                    active: active == default ? Active : active,
+                          cycleType: cycleType == default ? CycleType : cycleType,
+                          frequency: frequency ?? Frequency,
+                          numberOfCycles: numberOfCycles ?? NumberOfCycles,
+                          planPrice: planPrice ?? PlanPrice,
+                          subscriptionPlanIndex: subscriptionPlanIndex ?? SubscriptionPlanIndex
 
         );
     }
@@ -2855,68 +3455,6 @@ namespace Infusio.Model
         );
     }
 
-    public class CampaignLandingPageNodeDTO : Record<CampaignLandingPageNodeDTO>
-    {
-        [JsonProperty("formId")]
-        public readonly string FormId;
-        [JsonProperty("id")]
-        public readonly string Id;
-        [JsonProperty("landingPageId")]
-        public readonly string LandingPageId;
-        [JsonProperty("leadBucketIds")]
-        public readonly Lst<string> LeadBucketIds;
-        [JsonProperty("name")]
-        public readonly string Name;
-        [JsonProperty("properties")]
-        public readonly object Properties;
-        [JsonProperty("ready")]
-        public readonly bool Ready;
-        [JsonProperty("type")]
-        public readonly Type Type;
-
-        public CampaignLandingPageNodeDTO(string formId = default, string id = default, string landingPageId = default, Lst<string> leadBucketIds = default, string name = default, object properties = default, bool ready = default, Type type = default)
-        {
-            FormId = formId;
-            Id = id;
-            LandingPageId = landingPageId;
-            LeadBucketIds = leadBucketIds;
-            Name = name;
-            Properties = properties;
-            Ready = ready;
-            Type = type;
-
-        }
-
-        public CampaignLandingPageNodeDTO Copy(string formId = default, string id = default, string landingPageId = default, Lst<string> leadBucketIds = default, string name = default, object properties = default, bool ready = default, Type type = default) => new CampaignLandingPageNodeDTO(
-                    formId: formId ?? FormId,
-                          id: id ?? Id,
-                          landingPageId: landingPageId ?? LandingPageId,
-                          leadBucketIds: leadBucketIds == default ? LeadBucketIds : leadBucketIds,
-                          name: name ?? Name,
-                          properties: properties ?? Properties,
-                          ready: ready == default ? Ready : ready,
-                          type: type == default ? Type : type
-
-        );
-    }
-
-    public class RequestCompanyReference : Record<RequestCompanyReference>
-    {
-        [JsonProperty("id")]
-        public readonly long? Id;
-
-        public RequestCompanyReference(long? id = default)
-        {
-            Id = id;
-
-        }
-
-        public RequestCompanyReference Copy(long? id = default) => new RequestCompanyReference(
-                    id: id ?? Id
-
-        );
-    }
-
     public class AppointmentList : Record<AppointmentList>
     {
         [JsonProperty("appointments")]
@@ -2946,27 +3484,6 @@ namespace Infusio.Model
                           next: next ?? Next,
                           previous: previous ?? Previous,
                           syncToken: syncToken ?? SyncToken
-
-        );
-    }
-
-    public class HistoricalCounts : Record<HistoricalCounts>
-    {
-        [JsonProperty("24_hours")]
-        public readonly int? TwentyFourHours;
-        [JsonProperty("30_days")]
-        public readonly int? ThirtyDays;
-
-        public HistoricalCounts(int? twentyFourHours = default, int? thirtyDays = default)
-        {
-            TwentyFourHours = twentyFourHours;
-            ThirtyDays = thirtyDays;
-
-        }
-
-        public HistoricalCounts Copy(int? twentyFourHours = default, int? thirtyDays = default) => new HistoricalCounts(
-                    twentyFourHours: twentyFourHours ?? TwentyFourHours,
-                          thirtyDays: thirtyDays ?? ThirtyDays
 
         );
     }
@@ -3131,39 +3648,6 @@ namespace Infusio.Model
         );
     }
 
-    public class CampaignNodeDTO : Record<CampaignNodeDTO>
-    {
-        [JsonProperty("id")]
-        public readonly string Id;
-        [JsonProperty("name")]
-        public readonly string Name;
-        [JsonProperty("properties")]
-        public readonly object Properties;
-        [JsonProperty("ready")]
-        public readonly bool Ready;
-        [JsonProperty("type")]
-        public readonly Type Type;
-
-        public CampaignNodeDTO(string id = default, string name = default, object properties = default, bool ready = default, Type type = default)
-        {
-            Id = id;
-            Name = name;
-            Properties = properties;
-            Ready = ready;
-            Type = type;
-
-        }
-
-        public CampaignNodeDTO Copy(string id = default, string name = default, object properties = default, bool ready = default, Type type = default) => new CampaignNodeDTO(
-                    id: id ?? Id,
-                          name: name ?? Name,
-                          properties: properties ?? Properties,
-                          ready: ready == default ? Ready : ready,
-                          type: type == default ? Type : type
-
-        );
-    }
-
     public class CompanyFaxNumber : Record<CompanyFaxNumber>
     {
         [JsonProperty("number")]
@@ -3181,35 +3665,6 @@ namespace Infusio.Model
         public CompanyFaxNumber Copy(string number = default, string type = default) => new CompanyFaxNumber(
                     number: number ?? Number,
                           type: type ?? Type
-
-        );
-    }
-
-    public class AffiliateCommissionList : Record<AffiliateCommissionList>
-    {
-        [JsonProperty("commissions")]
-        public readonly Lst<AffiliateCommission> Commissions;
-        [JsonProperty("count")]
-        public readonly int? Count;
-        [JsonProperty("next")]
-        public readonly string Next;
-        [JsonProperty("previous")]
-        public readonly string Previous;
-
-        public AffiliateCommissionList(Lst<AffiliateCommission> commissions = default, int? count = default, string next = default, string previous = default)
-        {
-            Commissions = commissions;
-            Count = count;
-            Next = next;
-            Previous = previous;
-
-        }
-
-        public AffiliateCommissionList Copy(Lst<AffiliateCommission> commissions = default, int? count = default, string next = default, string previous = default) => new AffiliateCommissionList(
-                    commissions: commissions == default ? Commissions : commissions,
-                          count: count ?? Count,
-                          next: next ?? Next,
-                          previous: previous ?? Previous
 
         );
     }
@@ -3251,6 +3706,55 @@ namespace Infusio.Model
         );
     }
 
+    public class ProductSubscription : Record<ProductSubscription>
+    {
+        [JsonProperty("active")]
+        public readonly bool Active;
+        [JsonProperty("cycle_type")]
+        public readonly CycleType CycleType;
+        [JsonProperty("frequency")]
+        public readonly int? Frequency;
+        [JsonProperty("id")]
+        public readonly long? Id;
+        [JsonProperty("number_of_cycles")]
+        public readonly int? NumberOfCycles;
+        [JsonProperty("plan_price")]
+        public readonly int? PlanPrice;
+        [JsonProperty("subscription_plan_index")]
+        public readonly int? SubscriptionPlanIndex;
+        [JsonProperty("subscription_plan_name")]
+        public readonly string SubscriptionPlanName;
+        [JsonProperty("url")]
+        public readonly string Url;
+
+        public ProductSubscription(bool active = default, CycleType cycleType = default, int? frequency = default, long? id = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default, string subscriptionPlanName = default, string url = default)
+        {
+            Active = active;
+            CycleType = cycleType;
+            Frequency = frequency;
+            Id = id;
+            NumberOfCycles = numberOfCycles;
+            PlanPrice = planPrice;
+            SubscriptionPlanIndex = subscriptionPlanIndex;
+            SubscriptionPlanName = subscriptionPlanName;
+            Url = url;
+
+        }
+
+        public ProductSubscription Copy(bool active = default, CycleType cycleType = default, int? frequency = default, long? id = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default, string subscriptionPlanName = default, string url = default) => new ProductSubscription(
+                    active: active == default ? Active : active,
+                          cycleType: cycleType == default ? CycleType : cycleType,
+                          frequency: frequency ?? Frequency,
+                          id: id ?? Id,
+                          numberOfCycles: numberOfCycles ?? NumberOfCycles,
+                          planPrice: planPrice ?? PlanPrice,
+                          subscriptionPlanIndex: subscriptionPlanIndex ?? SubscriptionPlanIndex,
+                          subscriptionPlanName: subscriptionPlanName ?? SubscriptionPlanName,
+                          url: url ?? Url
+
+        );
+    }
+
     public class Error : Record<Error>
     {
         [JsonProperty("cause")]
@@ -3280,27 +3784,6 @@ namespace Infusio.Model
                           message: message ?? Message,
                           stackTrace: stackTrace == default ? StackTrace : stackTrace,
                           suppressed: suppressed == default ? Suppressed : suppressed
-
-        );
-    }
-
-    public class ProductStatus : Record<ProductStatus>
-    {
-        [JsonProperty("product")]
-        public readonly Product Product;
-        [JsonProperty("status")]
-        public readonly Status Status;
-
-        public ProductStatus(Product product = default, Status status = default)
-        {
-            Product = product;
-            Status = status;
-
-        }
-
-        public ProductStatus Copy(Product product = default, Status status = default) => new ProductStatus(
-                    product: product == default ? Product : product,
-                          status: status == default ? Status : status
 
         );
     }
@@ -3443,35 +3926,6 @@ namespace Infusio.Model
         );
     }
 
-    public class ContactList : Record<ContactList>
-    {
-        [JsonProperty("contacts")]
-        public readonly Lst<FullContact> Contacts;
-        [JsonProperty("count")]
-        public readonly int? Count;
-        [JsonProperty("next")]
-        public readonly string Next;
-        [JsonProperty("previous")]
-        public readonly string Previous;
-
-        public ContactList(Lst<FullContact> contacts = default, int? count = default, string next = default, string previous = default)
-        {
-            Contacts = contacts;
-            Count = count;
-            Next = next;
-            Previous = previous;
-
-        }
-
-        public ContactList Copy(Lst<FullContact> contacts = default, int? count = default, string next = default, string previous = default) => new ContactList(
-                    contacts: contacts == default ? Contacts : contacts,
-                          count: count ?? Count,
-                          next: next ?? Next,
-                          previous: previous ?? Previous
-
-        );
-    }
-
     public class CreateCompany : Record<CreateCompany>
     {
         [JsonProperty("address")]
@@ -3550,23 +4004,6 @@ namespace Infusio.Model
         );
     }
 
-    public class SetOfIds : Record<SetOfIds>
-    {
-        [JsonProperty("ids")]
-        public readonly Lst<long> Ids;
-
-        public SetOfIds(Lst<long> ids = default)
-        {
-            Ids = ids;
-
-        }
-
-        public SetOfIds Copy(Lst<long> ids = default) => new SetOfIds(
-                    ids: ids == default ? Ids : ids
-
-        );
-    }
-
     public class CreditCard : Record<CreditCard>
     {
         [JsonProperty("address")]
@@ -3620,75 +4057,6 @@ namespace Infusio.Model
                           maestroStartDateYear: maestroStartDateYear ?? MaestroStartDateYear,
                           nameOnCard: nameOnCard ?? NameOnCard,
                           verificationCode: verificationCode ?? VerificationCode
-
-        );
-    }
-
-    public class EmailSentCreate : Record<EmailSentCreate>
-    {
-        [JsonProperty("contact_id")]
-        public readonly long? ContactId;
-        [JsonProperty("headers")]
-        public readonly string Headers;
-        [JsonProperty("html_content")]
-        public readonly string HtmlContent;
-        [JsonProperty("id")]
-        public readonly long? Id;
-        [JsonProperty("opened_date")]
-        public readonly string OpenedDate;
-        [JsonProperty("plain_content")]
-        public readonly string PlainContent;
-        [JsonProperty("received_date")]
-        public readonly string ReceivedDate;
-        [JsonProperty("sent_date")]
-        public readonly string SentDate;
-        [JsonProperty("sent_from_address")]
-        public readonly string SentFromAddress;
-        [JsonProperty("sent_from_reply_address")]
-        public readonly string SentFromReplyAddress;
-        [JsonProperty("sent_to_address")]
-        public readonly string SentToAddress;
-        [JsonProperty("sent_to_bcc_addresses")]
-        public readonly string SentToBccAddresses;
-        [JsonProperty("sent_to_cc_addresses")]
-        public readonly string SentToCcAddresses;
-        [JsonProperty("subject")]
-        public readonly string Subject;
-
-        public EmailSentCreate(long? contactId = default, string headers = default, string htmlContent = default, long? id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default)
-        {
-            ContactId = contactId;
-            Headers = headers;
-            HtmlContent = htmlContent;
-            Id = id;
-            OpenedDate = openedDate;
-            PlainContent = plainContent;
-            ReceivedDate = receivedDate;
-            SentDate = sentDate;
-            SentFromAddress = sentFromAddress;
-            SentFromReplyAddress = sentFromReplyAddress;
-            SentToAddress = sentToAddress;
-            SentToBccAddresses = sentToBccAddresses;
-            SentToCcAddresses = sentToCcAddresses;
-            Subject = subject;
-
-        }
-
-        public EmailSentCreate Copy(long? contactId = default, string headers = default, string htmlContent = default, long? id = default, string openedDate = default, string plainContent = default, string receivedDate = default, string sentDate = default, string sentFromAddress = default, string sentFromReplyAddress = default, string sentToAddress = default, string sentToBccAddresses = default, string sentToCcAddresses = default, string subject = default) => new EmailSentCreate(
-                    contactId: contactId ?? ContactId,
-                          headers: headers ?? Headers,
-                          htmlContent: htmlContent ?? HtmlContent,
-                          id: id ?? Id,
-                          openedDate: openedDate ?? OpenedDate,
-                          plainContent: plainContent ?? PlainContent,
-                          receivedDate: receivedDate ?? ReceivedDate,
-                          sentDate: sentDate ?? SentDate,
-                          sentFromAddress: sentFromAddress ?? SentFromAddress,
-                          sentFromReplyAddress: sentFromReplyAddress ?? SentFromReplyAddress,
-                          sentToAddress: sentToAddress ?? SentToAddress,
-                          sentToBccAddresses: sentToBccAddresses ?? SentToBccAddresses,
-                          sentToCcAddresses: sentToCcAddresses ?? SentToCcAddresses,
-                          subject: subject ?? Subject
 
         );
     }
@@ -3750,117 +4118,6 @@ namespace Infusio.Model
         );
     }
 
-    public class ProductList : Record<ProductList>
-    {
-        [JsonProperty("count")]
-        public readonly int? Count;
-        [JsonProperty("next")]
-        public readonly string Next;
-        [JsonProperty("previous")]
-        public readonly string Previous;
-        [JsonProperty("products")]
-        public readonly Lst<Product> Products;
-        [JsonProperty("sync_token")]
-        public readonly string SyncToken;
-
-        public ProductList(int? count = default, string next = default, string previous = default, Lst<Product> products = default, string syncToken = default)
-        {
-            Count = count;
-            Next = next;
-            Previous = previous;
-            Products = products;
-            SyncToken = syncToken;
-
-        }
-
-        public ProductList Copy(int? count = default, string next = default, string previous = default, Lst<Product> products = default, string syncToken = default) => new ProductList(
-                    count: count ?? Count,
-                          next: next ?? Next,
-                          previous: previous ?? Previous,
-                          products: products == default ? Products : products,
-                          syncToken: syncToken ?? SyncToken
-
-        );
-    }
-
-    public class Relationship : Record<Relationship>
-    {
-        [JsonProperty("id")]
-        public readonly long? Id;
-        [JsonProperty("linked_contact_id")]
-        public readonly long? LinkedContactId;
-        [JsonProperty("relationship_type_id")]
-        public readonly long? RelationshipTypeId;
-
-        public Relationship(long? id = default, long? linkedContactId = default, long? relationshipTypeId = default)
-        {
-            Id = id;
-            LinkedContactId = linkedContactId;
-            RelationshipTypeId = relationshipTypeId;
-
-        }
-
-        public Relationship Copy(long? id = default, long? linkedContactId = default, long? relationshipTypeId = default) => new Relationship(
-                    id: id ?? Id,
-                          linkedContactId: linkedContactId ?? LinkedContactId,
-                          relationshipTypeId: relationshipTypeId ?? RelationshipTypeId
-
-        );
-    }
-
-    public class OrderItem : Record<OrderItem>
-    {
-        [JsonProperty("cost")]
-        public readonly int? Cost;
-        [JsonProperty("description")]
-        public readonly string Description;
-        [JsonProperty("discount")]
-        public readonly int? Discount;
-        [JsonProperty("id")]
-        public readonly long? Id;
-        [JsonProperty("name")]
-        public readonly string Name;
-        [JsonProperty("notes")]
-        public readonly string Notes;
-        [JsonProperty("price")]
-        public readonly int? Price;
-        [JsonProperty("product")]
-        public readonly SimpleProduct Product;
-        [JsonProperty("quantity")]
-        public readonly int? Quantity;
-        [JsonProperty("type")]
-        public readonly string Type;
-
-        public OrderItem(int? cost = default, string description = default, int? discount = default, long? id = default, string name = default, string notes = default, int? price = default, SimpleProduct product = default, int? quantity = default, string type = default)
-        {
-            Cost = cost;
-            Description = description;
-            Discount = discount;
-            Id = id;
-            Name = name;
-            Notes = notes;
-            Price = price;
-            Product = product;
-            Quantity = quantity;
-            Type = type;
-
-        }
-
-        public OrderItem Copy(int? cost = default, string description = default, int? discount = default, long? id = default, string name = default, string notes = default, int? price = default, SimpleProduct product = default, int? quantity = default, string type = default) => new OrderItem(
-                    cost: cost ?? Cost,
-                          description: description ?? Description,
-                          discount: discount ?? Discount,
-                          id: id ?? Id,
-                          name: name ?? Name,
-                          notes: notes ?? Notes,
-                          price: price ?? Price,
-                          product: product == default ? Product : product,
-                          quantity: quantity ?? Quantity,
-                          type: type ?? Type
-
-        );
-    }
-
     public class TagId : Record<TagId>
     {
         [JsonProperty("tagIds")]
@@ -3874,35 +4131,6 @@ namespace Infusio.Model
 
         public TagId Copy(Lst<long> tagIds = default) => new TagId(
                     tagIds: tagIds == default ? TagIds : tagIds
-
-        );
-    }
-
-    public class PhoneNumber : Record<PhoneNumber>
-    {
-        [JsonProperty("extension")]
-        public readonly string Extension;
-        [JsonProperty("field")]
-        public readonly Field Field;
-        [JsonProperty("number")]
-        public readonly string Number;
-        [JsonProperty("type")]
-        public readonly string Type;
-
-        public PhoneNumber(string extension = default, Field field = default, string number = default, string type = default)
-        {
-            Extension = extension;
-            Field = field;
-            Number = number;
-            Type = type;
-
-        }
-
-        public PhoneNumber Copy(string extension = default, Field field = default, string number = default, string type = default) => new PhoneNumber(
-                    extension: extension ?? Extension,
-                          field: field == default ? Field : field,
-                          number: number ?? Number,
-                          type: type ?? Type
 
         );
     }
@@ -3961,35 +4189,6 @@ namespace Infusio.Model
                           next: next ?? Next,
                           orders: orders == default ? Orders : orders,
                           previous: previous ?? Previous
-
-        );
-    }
-
-    public class Tag : Record<Tag>
-    {
-        [JsonProperty("category")]
-        public readonly TagCategory Category;
-        [JsonProperty("description")]
-        public readonly string Description;
-        [JsonProperty("id")]
-        public readonly long? Id;
-        [JsonProperty("name")]
-        public readonly string Name;
-
-        public Tag(TagCategory category = default, string description = default, long? id = default, string name = default)
-        {
-            Category = category;
-            Description = description;
-            Id = id;
-            Name = name;
-
-        }
-
-        public Tag Copy(TagCategory category = default, string description = default, long? id = default, string name = default) => new Tag(
-                    category: category == default ? Category : category,
-                          description: description ?? Description,
-                          id: id ?? Id,
-                          name: name ?? Name
 
         );
     }

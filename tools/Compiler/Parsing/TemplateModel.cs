@@ -12,9 +12,10 @@ namespace Infusio.Compiler.Parsing
         public Lst<Definition> Definitions { get; }
         public Lst<Operation> Operations { get; set; }
 
-        //FullContact is returning EMAIL1 which is not documented in the swagger doc.
-        private Map<string, Lst<string>> extraEnumMembers = Map(
-            ("Field", List("EMAIL1"))
+        // Handle enum values not documented in the swaggerdoc:
+        private Map<string, Lst<string>> _extraEnumMembers = Map(
+            ("Field", List("EMAIL1")),
+            ("EmailStatus", List("SingleOptIn"))
         );
 
         public Seq<EnumModel> Enums => (
@@ -23,7 +24,8 @@ namespace Infusio.Compiler.Parsing
                 select prop
             )
             .Filter(x => x.IsEnum)
-            .Map(x => new EnumModel(x.Name, x.Enum.Append(extraEnumMembers.Find(x.Name).IfNone(Lst<string>.Empty)), x.Description))
+            .Map(x => new EnumModel(x.Name, x.Enum.Append(_extraEnumMembers.Find(x.Name).IfNone(Lst<string>.Empty)),
+                x.Description))
             .Fold(HashSet<EnumModel.NameEq, EnumModel>(), (set, model) => set.TryAdd(model))
             .ToSeq();
 
@@ -43,12 +45,9 @@ namespace Infusio.Compiler.Parsing
             return new TemplateModel(
                 definitions: definitions,
                 operations: ParseOperations(swagger, definitions.Fold(
-                    Set<string>(),
-                    (set, definition) =>
-                    {
-                        Console.Out.WriteLine($"Op: {definition.Name}");
-                        return set.TryAdd(definition.Name);
-                    })
+                        Set<string>(),
+                        (set, definition) => set.TryAdd(definition.Name)
+                    )
                 )
             );
         }

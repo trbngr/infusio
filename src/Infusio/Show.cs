@@ -493,6 +493,13 @@ namespace Infusio
             return body.Fold($"List Products. [GET: {uri}]", (msg, bd) => $"{msg}: {bd}");
         };
 
+        public static Show<InfusioOp<Product>> AsShow<T>(this InfusioOp<T>.CreateProduct op) => () =>
+        {
+            var uri = MakeUri($"/products");
+            var body = MakeBody(op.CreateProductModel);
+            return body.Fold($"Create a Product. [POST: {uri}]", (msg, bd) => $"{msg}: {bd}");
+        };
+
         public static Show<InfusioOp<ProductStatusList>> AsShow<T>(this InfusioOp<T>.ListProductsFromSyncToken op) => () =>
         {
             var uri = MakeUri($"/products/sync", RequestParameter("offset", op.Offset), RequestParameter("limit", op.Limit), RequestParameter("syncToken", op.SyncToken));
@@ -500,11 +507,39 @@ namespace Infusio
             return body.Fold($"Retrieve Synced Products. [GET: {uri}]", (msg, bd) => $"{msg}: {bd}");
         };
 
-        public static Show<InfusioOp<Product>> AsShow<T>(this InfusioOp<T>.GetProduct op) => () =>
+        public static Show<InfusioOp<Product>> AsShow<T>(this InfusioOp<T>.RetrieveProduct op) => () =>
         {
             var uri = MakeUri($"/products/{op.ProductId}");
             var body = MakeBody();
             return body.Fold($"Retrieve a Product. [GET: {uri}]", (msg, bd) => $"{msg}: {bd}");
+        };
+
+        public static Show<InfusioOp<Unit>> AsShow<T>(this InfusioOp<T>.DeleteProduct op) => () =>
+        {
+            var uri = MakeUri($"/products/{op.ProductId}");
+            var body = MakeBody();
+            return body.Fold($"Delete a Product. [DELETE: {uri}]", (msg, bd) => $"{msg}: {bd}");
+        };
+
+        public static Show<InfusioOp<ProductSubscription>> AsShow<T>(this InfusioOp<T>.CreateProductSubscription op) => () =>
+        {
+            var uri = MakeUri($"/products/{op.ProductId}/subscriptions");
+            var body = MakeBody(op.CreateProductSubscriptionModel);
+            return body.Fold($"Create a Product Subscription. [POST: {uri}]", (msg, bd) => $"{msg}: {bd}");
+        };
+
+        public static Show<InfusioOp<ProductSubscription>> AsShow<T>(this InfusioOp<T>.RetrieveProductSubscription op) => () =>
+        {
+            var uri = MakeUri($"/products/{op.ProductId}/subscriptions/{op.SubscriptionId}");
+            var body = MakeBody();
+            return body.Fold($"Retrieve a Product Subscription. [GET: {uri}]", (msg, bd) => $"{msg}: {bd}");
+        };
+
+        public static Show<InfusioOp<Unit>> AsShow<T>(this InfusioOp<T>.DeleteProductSubscription op) => () =>
+        {
+            var uri = MakeUri($"/products/{op.ProductId}/subscriptions/{op.SubscriptionId}");
+            var body = MakeBody();
+            return body.Fold($"Delete a Product Subscription. [DELETE: {uri}]", (msg, bd) => $"{msg}: {bd}");
         };
 
         public static Show<InfusioOp<Setting>> AsShow<T>(this InfusioOp<T>.GetApplicationEnabled op) => () =>

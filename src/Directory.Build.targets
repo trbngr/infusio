@@ -2,8 +2,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="SetVersion">
     <PropertyGroup>
         <SemVerMajor>1</SemVerMajor>
-        <SemVerMinor>1</SemVerMinor>
-        <SemVerPatch>2</SemVerPatch>
+        <SemVerMinor>2</SemVerMinor>
+        <SemVerPatch>0</SemVerPatch>
         <SemVerDashLabel></SemVerDashLabel>
     </PropertyGroup>
 

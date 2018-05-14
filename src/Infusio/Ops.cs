@@ -1182,6 +1182,21 @@ namespace Infusio
                 op.AsShow();
         }
 
+        internal class CreateProduct : InfusioOp<A>
+        {
+            public readonly Func<Product, InfusioOp<A>> Next;
+            public readonly Model.CreateProduct CreateProductModel;
+
+            public CreateProduct(Func<Product, InfusioOp<A>> next, Model.CreateProduct createProductModel)
+            {
+                Next = next;
+                CreateProductModel = createProductModel;
+            }
+
+            public static implicit operator Show<InfusioOp<Product>>(InfusioOp<A>.CreateProduct op) =>
+                op.AsShow();
+        }
+
         internal class ListProductsFromSyncToken : InfusioOp<A>
         {
             public readonly Func<ProductStatusList, InfusioOp<A>> Next;
@@ -1201,18 +1216,84 @@ namespace Infusio
                 op.AsShow();
         }
 
-        internal class GetProduct : InfusioOp<A>
+        internal class RetrieveProduct : InfusioOp<A>
         {
             public readonly Func<Product, InfusioOp<A>> Next;
             public readonly long? ProductId;
 
-            public GetProduct(Func<Product, InfusioOp<A>> next, long? productId)
+            public RetrieveProduct(Func<Product, InfusioOp<A>> next, long? productId)
             {
                 Next = next;
                 ProductId = productId;
             }
 
-            public static implicit operator Show<InfusioOp<Product>>(InfusioOp<A>.GetProduct op) =>
+            public static implicit operator Show<InfusioOp<Product>>(InfusioOp<A>.RetrieveProduct op) =>
+                op.AsShow();
+        }
+
+        internal class DeleteProduct : InfusioOp<A>
+        {
+            public readonly Func<Unit, InfusioOp<A>> Next;
+            public readonly long? ProductId;
+
+            public DeleteProduct(Func<Unit, InfusioOp<A>> next, long? productId)
+            {
+                Next = next;
+                ProductId = productId;
+            }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteProduct op) =>
+                op.AsShow();
+        }
+
+        internal class CreateProductSubscription : InfusioOp<A>
+        {
+            public readonly Func<ProductSubscription, InfusioOp<A>> Next;
+            public readonly Model.CreateProductSubscription CreateProductSubscriptionModel;
+            public readonly long? ProductId;
+
+            public CreateProductSubscription(Func<ProductSubscription, InfusioOp<A>> next, Model.CreateProductSubscription createProductSubscriptionModel, long? productId)
+            {
+                Next = next;
+                CreateProductSubscriptionModel = createProductSubscriptionModel;
+                ProductId = productId;
+            }
+
+            public static implicit operator Show<InfusioOp<ProductSubscription>>(InfusioOp<A>.CreateProductSubscription op) =>
+                op.AsShow();
+        }
+
+        internal class RetrieveProductSubscription : InfusioOp<A>
+        {
+            public readonly Func<ProductSubscription, InfusioOp<A>> Next;
+            public readonly long? SubscriptionId;
+            public readonly long? ProductId;
+
+            public RetrieveProductSubscription(Func<ProductSubscription, InfusioOp<A>> next, long? subscriptionId, long? productId)
+            {
+                Next = next;
+                SubscriptionId = subscriptionId;
+                ProductId = productId;
+            }
+
+            public static implicit operator Show<InfusioOp<ProductSubscription>>(InfusioOp<A>.RetrieveProductSubscription op) =>
+                op.AsShow();
+        }
+
+        internal class DeleteProductSubscription : InfusioOp<A>
+        {
+            public readonly Func<Unit, InfusioOp<A>> Next;
+            public readonly long? SubscriptionId;
+            public readonly long? ProductId;
+
+            public DeleteProductSubscription(Func<Unit, InfusioOp<A>> next, long? subscriptionId, long? productId)
+            {
+                Next = next;
+                SubscriptionId = subscriptionId;
+                ProductId = productId;
+            }
+
+            public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteProductSubscription op) =>
                 op.AsShow();
         }
 
@@ -1663,29 +1744,34 @@ namespace Infusio
             op is InfusioOp<A>.GetOrder _65 ? new InfusioOp<B>.GetOrder(x => _65.Next(x).Bind(fn), _65.OrderId) :
             op is InfusioOp<A>.ListTransactionsForOrder _66 ? new InfusioOp<B>.ListTransactionsForOrder(x => _66.Next(x).Bind(fn), _66.OrderId, _66.ContactId, _66.Offset, _66.Limit, _66.Until, _66.Since) :
             op is InfusioOp<A>.ListProducts _67 ? new InfusioOp<B>.ListProducts(x => _67.Next(x).Bind(fn), _67.Active, _67.Offset, _67.Limit) :
-            op is InfusioOp<A>.ListProductsFromSyncToken _68 ? new InfusioOp<B>.ListProductsFromSyncToken(x => _68.Next(x).Bind(fn), _68.Offset, _68.Limit, _68.SyncToken) :
-            op is InfusioOp<A>.GetProduct _69 ? new InfusioOp<B>.GetProduct(x => _69.Next(x).Bind(fn), _69.ProductId) :
-            op is InfusioOp<A>.GetApplicationEnabled _70 ? new InfusioOp<B>.GetApplicationEnabled(x => _70.Next(x).Bind(fn)) :
-            op is InfusioOp<A>.GetContactOptionTypes _71 ? new InfusioOp<B>.GetContactOptionTypes(x => _71.Next(x).Bind(fn)) :
-            op is InfusioOp<A>.RetrieveSubscriptionModel _72 ? new InfusioOp<B>.RetrieveSubscriptionModel(x => _72.Next(x).Bind(fn)) :
-            op is InfusioOp<A>.ListTags _73 ? new InfusioOp<B>.ListTags(x => _73.Next(x).Bind(fn), _73.Category, _73.Offset, _73.Limit) :
-            op is InfusioOp<A>.CreateTag _74 ? new InfusioOp<B>.CreateTag(x => _74.Next(x).Bind(fn), _74.Tag) :
-            op is InfusioOp<A>.CreateTagCategory _75 ? new InfusioOp<B>.CreateTagCategory(x => _75.Next(x).Bind(fn), _75.TagCategory) :
-            op is InfusioOp<A>.GetTag _76 ? new InfusioOp<B>.GetTag(x => _76.Next(x).Bind(fn), _76.Id) :
-            op is InfusioOp<A>.ListContactsForTagId _77 ? new InfusioOp<B>.ListContactsForTagId(x => _77.Next(x).Bind(fn), _77.TagId, _77.Offset, _77.Limit) :
-            op is InfusioOp<A>.ApplyTagToContactIds _78 ? new InfusioOp<B>.ApplyTagToContactIds(x => _78.Next(x).Bind(fn), _78.Ids, _78.TagId) :
-            op is InfusioOp<A>.RemoveTagFromContactIds _79 ? new InfusioOp<B>.RemoveTagFromContactIds(x => _79.Next(x).Bind(fn), _79.Ids, _79.TagId) :
-            op is InfusioOp<A>.RemoveTagFromContactId _80 ? new InfusioOp<B>.RemoveTagFromContactId(x => _80.Next(x).Bind(fn), _80.ContactId, _80.TagId) :
-            op is InfusioOp<A>.ListTasks _81 ? new InfusioOp<B>.ListTasks(x => _81.Next(x).Bind(fn), _81.Order, _81.Offset, _81.Limit, _81.Completed, _81.Until, _81.Since, _81.UserId, _81.HasDueDate, _81.ContactId) :
-            op is InfusioOp<A>.CreateTask _82 ? new InfusioOp<B>.CreateTask(x => _82.Next(x).Bind(fn), _82.Task) :
-            op is InfusioOp<A>.RetrieveTaskModel _83 ? new InfusioOp<B>.RetrieveTaskModel(x => _83.Next(x).Bind(fn)) :
-            op is InfusioOp<A>.ListTasksForCurrentUser _84 ? new InfusioOp<B>.ListTasksForCurrentUser(x => _84.Next(x).Bind(fn), _84.Order, _84.Offset, _84.Limit, _84.Completed, _84.Until, _84.Since, _84.UserId, _84.HasDueDate, _84.ContactId) :
-            op is InfusioOp<A>.GetTask _85 ? new InfusioOp<B>.GetTask(x => _85.Next(x).Bind(fn), _85.TaskId) :
-            op is InfusioOp<A>.UpdateTask _86 ? new InfusioOp<B>.UpdateTask(x => _86.Next(x).Bind(fn), _86.Task, _86.TaskId) :
-            op is InfusioOp<A>.DeleteTask _87 ? new InfusioOp<B>.DeleteTask(x => _87.Next(x).Bind(fn), _87.TaskId) :
-            op is InfusioOp<A>.UpdatePropertiesOnTask _88 ? new InfusioOp<B>.UpdatePropertiesOnTask(x => _88.Next(x).Bind(fn), _88.Task, _88.TaskId) :
-            op is InfusioOp<A>.ListTransactions _89 ? new InfusioOp<B>.ListTransactions(x => _89.Next(x).Bind(fn), _89.ContactId, _89.Offset, _89.Limit, _89.Until, _89.Since) :
-            op is InfusioOp<A>.GetTransaction _90 ? new InfusioOp<B>.GetTransaction(x => _90.Next(x).Bind(fn), _90.TransactionId) as InfusioOp<B> :
+            op is InfusioOp<A>.CreateProduct _68 ? new InfusioOp<B>.CreateProduct(x => _68.Next(x).Bind(fn), _68.CreateProductModel) :
+            op is InfusioOp<A>.ListProductsFromSyncToken _69 ? new InfusioOp<B>.ListProductsFromSyncToken(x => _69.Next(x).Bind(fn), _69.Offset, _69.Limit, _69.SyncToken) :
+            op is InfusioOp<A>.RetrieveProduct _70 ? new InfusioOp<B>.RetrieveProduct(x => _70.Next(x).Bind(fn), _70.ProductId) :
+            op is InfusioOp<A>.DeleteProduct _71 ? new InfusioOp<B>.DeleteProduct(x => _71.Next(x).Bind(fn), _71.ProductId) :
+            op is InfusioOp<A>.CreateProductSubscription _72 ? new InfusioOp<B>.CreateProductSubscription(x => _72.Next(x).Bind(fn), _72.CreateProductSubscriptionModel, _72.ProductId) :
+            op is InfusioOp<A>.RetrieveProductSubscription _73 ? new InfusioOp<B>.RetrieveProductSubscription(x => _73.Next(x).Bind(fn), _73.SubscriptionId, _73.ProductId) :
+            op is InfusioOp<A>.DeleteProductSubscription _74 ? new InfusioOp<B>.DeleteProductSubscription(x => _74.Next(x).Bind(fn), _74.SubscriptionId, _74.ProductId) :
+            op is InfusioOp<A>.GetApplicationEnabled _75 ? new InfusioOp<B>.GetApplicationEnabled(x => _75.Next(x).Bind(fn)) :
+            op is InfusioOp<A>.GetContactOptionTypes _76 ? new InfusioOp<B>.GetContactOptionTypes(x => _76.Next(x).Bind(fn)) :
+            op is InfusioOp<A>.RetrieveSubscriptionModel _77 ? new InfusioOp<B>.RetrieveSubscriptionModel(x => _77.Next(x).Bind(fn)) :
+            op is InfusioOp<A>.ListTags _78 ? new InfusioOp<B>.ListTags(x => _78.Next(x).Bind(fn), _78.Category, _78.Offset, _78.Limit) :
+            op is InfusioOp<A>.CreateTag _79 ? new InfusioOp<B>.CreateTag(x => _79.Next(x).Bind(fn), _79.Tag) :
+            op is InfusioOp<A>.CreateTagCategory _80 ? new InfusioOp<B>.CreateTagCategory(x => _80.Next(x).Bind(fn), _80.TagCategory) :
+            op is InfusioOp<A>.GetTag _81 ? new InfusioOp<B>.GetTag(x => _81.Next(x).Bind(fn), _81.Id) :
+            op is InfusioOp<A>.ListContactsForTagId _82 ? new InfusioOp<B>.ListContactsForTagId(x => _82.Next(x).Bind(fn), _82.TagId, _82.Offset, _82.Limit) :
+            op is InfusioOp<A>.ApplyTagToContactIds _83 ? new InfusioOp<B>.ApplyTagToContactIds(x => _83.Next(x).Bind(fn), _83.Ids, _83.TagId) :
+            op is InfusioOp<A>.RemoveTagFromContactIds _84 ? new InfusioOp<B>.RemoveTagFromContactIds(x => _84.Next(x).Bind(fn), _84.Ids, _84.TagId) :
+            op is InfusioOp<A>.RemoveTagFromContactId _85 ? new InfusioOp<B>.RemoveTagFromContactId(x => _85.Next(x).Bind(fn), _85.ContactId, _85.TagId) :
+            op is InfusioOp<A>.ListTasks _86 ? new InfusioOp<B>.ListTasks(x => _86.Next(x).Bind(fn), _86.Order, _86.Offset, _86.Limit, _86.Completed, _86.Until, _86.Since, _86.UserId, _86.HasDueDate, _86.ContactId) :
+            op is InfusioOp<A>.CreateTask _87 ? new InfusioOp<B>.CreateTask(x => _87.Next(x).Bind(fn), _87.Task) :
+            op is InfusioOp<A>.RetrieveTaskModel _88 ? new InfusioOp<B>.RetrieveTaskModel(x => _88.Next(x).Bind(fn)) :
+            op is InfusioOp<A>.ListTasksForCurrentUser _89 ? new InfusioOp<B>.ListTasksForCurrentUser(x => _89.Next(x).Bind(fn), _89.Order, _89.Offset, _89.Limit, _89.Completed, _89.Until, _89.Since, _89.UserId, _89.HasDueDate, _89.ContactId) :
+            op is InfusioOp<A>.GetTask _90 ? new InfusioOp<B>.GetTask(x => _90.Next(x).Bind(fn), _90.TaskId) :
+            op is InfusioOp<A>.UpdateTask _91 ? new InfusioOp<B>.UpdateTask(x => _91.Next(x).Bind(fn), _91.Task, _91.TaskId) :
+            op is InfusioOp<A>.DeleteTask _92 ? new InfusioOp<B>.DeleteTask(x => _92.Next(x).Bind(fn), _92.TaskId) :
+            op is InfusioOp<A>.UpdatePropertiesOnTask _93 ? new InfusioOp<B>.UpdatePropertiesOnTask(x => _93.Next(x).Bind(fn), _93.Task, _93.TaskId) :
+            op is InfusioOp<A>.ListTransactions _94 ? new InfusioOp<B>.ListTransactions(x => _94.Next(x).Bind(fn), _94.ContactId, _94.Offset, _94.Limit, _94.Until, _94.Since) :
+            op is InfusioOp<A>.GetTransaction _95 ? new InfusioOp<B>.GetTransaction(x => _95.Next(x).Bind(fn), _95.TransactionId) as InfusioOp<B> :
             throw new NotSupportedException();
     }
 }

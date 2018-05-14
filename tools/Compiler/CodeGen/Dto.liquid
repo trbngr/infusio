@@ -18,7 +18,7 @@ namespace Infusio.Model
       public enum {{ e.Name | normalize }}
       { {% for value in e.Values %}
         [EnumMember(Value = "{{ value }}")]
-        {{ value | normalize | firstupper }}{% if forloop.last == false %},{% endif %}
+        {{ value | enummember }}{% if forloop.last == false %},{% endif %}
         {% endfor -%}
       }
     {% endfor -%}

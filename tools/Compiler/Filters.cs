@@ -7,7 +7,7 @@ namespace Infusio.Compiler
     public static class Filters
     {
         public static string Normalize(string input) =>
-            Regex.Matches(input, @"(\w+)")
+            Regex.Matches(input, @"([\w_]+)")
                 .Fold(new StringBuilder(), (sb, match) => sb.Append(match.Groups[1].Value.PascalCase()))
                 .ToString();
 
@@ -19,5 +19,10 @@ namespace Infusio.Compiler
 
         public static string Showoperationpath(string input) =>
             Regex.Replace(input, @"{(\w+)}", match => $"{{op.{match.Groups[1].Value.PascalCase()}}}");
+
+        public static string Enummember(string input) =>
+            Regex.Matches(input, @"(\w+)")
+                .Fold(new StringBuilder(), (sb, word) => sb.Append(word.Groups[1].Value.PascalCase())
+                ).ToString();
     }
 }
