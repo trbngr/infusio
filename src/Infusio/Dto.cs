@@ -59,7 +59,10 @@ namespace Infusio.Model
         Reportedspam,
 
         [EnumMember(Value = "Invalid Email")]
-        Invalidemail
+        Invalidemail,
+
+        [EnumMember(Value = "SingleOptIn")]
+        Singleoptin
     }
 
 

@@ -12,9 +12,10 @@ namespace Infusio.Compiler.Parsing
         public Lst<Definition> Definitions { get; }
         public Lst<Operation> Operations { get; set; }
 
-        //FullContact is returning EMAIL1 which is not documented in the swagger doc.
+        // Handle enum values not documented in the swaggerdoc:
         private Map<string, Lst<string>> extraEnumMembers = Map(
-            ("Field", List("EMAIL1"))
+            ("Field", List("EMAIL1")),
+            ("EmailStatus", List("SingleOptIn"))
         );
 
         public Seq<EnumModel> Enums => (
