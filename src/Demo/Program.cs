@@ -5,15 +5,16 @@ using Infusio;
 using Infusio.Auth;
 using Infusio.Http;
 using Infusio.Model;
+using LanguageExt;
 using Newtonsoft.Json;
 
 namespace Demo
 {
+    using static Prelude;
     using static TokenCache;
     using static Formatting;
     using static JsonConvert;
     using static Authorization;
-    using static InfusioLogging;
 
     class Program
     {
@@ -54,7 +55,7 @@ namespace Demo
                 requestAccessToken(AccessCode("PASTE CODE HERE")).Map(CacheAuthorizationInfo)
             );
 
-            var client = new InfusioClient(httpClient, new InfusioConfig(authorization.Token));
+            var client = new InfusioClient(httpClient, authorization);
 
             /*
              * ===============
@@ -81,7 +82,7 @@ namespace Demo
              * ===============
              */
 
-            var result = await operation.Run(client, WithLogs);
+            var result = await operation.RunWithLogs(client, List("Infusionsoft operations", "start"));
 
             result.Match(
                 Left: error => Console.WriteLine($"error: {error.Value}"),

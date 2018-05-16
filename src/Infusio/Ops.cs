@@ -34,6 +34,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.Log op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.Log op) => client =>
+                Right<InfusioError, Unit>(unit).AsTask();
         }
 
 
@@ -48,6 +51,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<AccountProfile>>(InfusioOp<A>.GetAccountProfile op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<AccountProfile>(InfusioOp<A>.GetAccountProfile op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class UpdateAccountInfo : InfusioOp<A>
@@ -63,6 +69,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<AccountProfile>>(InfusioOp<A>.UpdateAccountInfo op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<AccountProfile>(InfusioOp<A>.UpdateAccountInfo op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class SearchCommissions : InfusioOp<A>
@@ -86,6 +95,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<AffiliateCommissionList>>(InfusioOp<A>.SearchCommissions op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<AffiliateCommissionList>(InfusioOp<A>.SearchCommissions op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RetrieveAffiliateModel : InfusioOp<A>
@@ -99,6 +111,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveAffiliateModel op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<ObjectModel>(InfusioOp<A>.RetrieveAffiliateModel op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListAppointments : InfusioOp<A>
@@ -122,6 +137,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<AppointmentList>>(InfusioOp<A>.ListAppointments op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<AppointmentList>(InfusioOp<A>.ListAppointments op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateAppointment : InfusioOp<A>
@@ -137,6 +155,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Appointment>>(InfusioOp<A>.CreateAppointment op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Appointment>(InfusioOp<A>.CreateAppointment op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RetrieveAppointmentModel : InfusioOp<A>
@@ -150,6 +171,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveAppointmentModel op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<ObjectModel>(InfusioOp<A>.RetrieveAppointmentModel op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class GetAppointment : InfusioOp<A>
@@ -165,6 +189,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Appointment>>(InfusioOp<A>.GetAppointment op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Appointment>(InfusioOp<A>.GetAppointment op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class UpdateAppointment : InfusioOp<A>
@@ -182,6 +209,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Appointment>>(InfusioOp<A>.UpdateAppointment op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Appointment>(InfusioOp<A>.UpdateAppointment op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class DeleteAppointment : InfusioOp<A>
@@ -197,6 +227,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteAppointment op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.DeleteAppointment op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class UpdatePropertiesOnAppointment : InfusioOp<A>
@@ -214,6 +247,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Appointment>>(InfusioOp<A>.UpdatePropertiesOnAppointment op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Appointment>(InfusioOp<A>.UpdatePropertiesOnAppointment op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListCampaigns : InfusioOp<A>
@@ -237,6 +273,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<CampaignList>>(InfusioOp<A>.ListCampaigns op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<CampaignList>(InfusioOp<A>.ListCampaigns op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class GetCampaign : InfusioOp<A>
@@ -254,6 +293,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Campaign>>(InfusioOp<A>.GetCampaign op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Campaign>(InfusioOp<A>.GetCampaign op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class AddContactsToCampaignSequence : InfusioOp<A>
@@ -273,6 +315,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.AddContactsToCampaignSequence op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.AddContactsToCampaignSequence op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RemoveContactsFromCampaignSequence : InfusioOp<A>
@@ -292,6 +337,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.RemoveContactsFromCampaignSequence op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.RemoveContactsFromCampaignSequence op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class AddContactToCampaignSequence : InfusioOp<A>
@@ -311,6 +359,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.AddContactToCampaignSequence op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.AddContactToCampaignSequence op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RemoveContactFromCampaignSequence : InfusioOp<A>
@@ -330,6 +381,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.RemoveContactFromCampaignSequence op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.RemoveContactFromCampaignSequence op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListCompanies : InfusioOp<A>
@@ -355,6 +409,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<CompanyList>>(InfusioOp<A>.ListCompanies op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<CompanyList>(InfusioOp<A>.ListCompanies op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateCompany : InfusioOp<A>
@@ -370,6 +427,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Company>>(InfusioOp<A>.CreateCompany op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Company>(InfusioOp<A>.CreateCompany op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RetrieveCompanyModel : InfusioOp<A>
@@ -383,6 +443,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveCompanyModel op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<ObjectModel>(InfusioOp<A>.RetrieveCompanyModel op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListContacts : InfusioOp<A>
@@ -410,6 +473,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<ContactList>>(InfusioOp<A>.ListContacts op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<ContactList>(InfusioOp<A>.ListContacts op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateContact : InfusioOp<A>
@@ -425,6 +491,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<FullContact>>(InfusioOp<A>.CreateContact op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<FullContact>(InfusioOp<A>.CreateContact op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateOrUpdateContact : InfusioOp<A>
@@ -440,6 +509,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<FullContact>>(InfusioOp<A>.CreateOrUpdateContact op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<FullContact>(InfusioOp<A>.CreateOrUpdateContact op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RetrieveContactModel : InfusioOp<A>
@@ -453,6 +525,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveContactModel op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<ObjectModel>(InfusioOp<A>.RetrieveContactModel op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class DeleteContact : InfusioOp<A>
@@ -468,6 +543,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteContact op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.DeleteContact op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class UpdatePropertiesOnContact : InfusioOp<A>
@@ -485,6 +563,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<FullContact>>(InfusioOp<A>.UpdatePropertiesOnContact op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<FullContact>(InfusioOp<A>.UpdatePropertiesOnContact op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateCreditCard : InfusioOp<A>
@@ -502,6 +583,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<CreditCardAdded>>(InfusioOp<A>.CreateCreditCard op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<CreditCardAdded>(InfusioOp<A>.CreateCreditCard op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListEmailsForContact : InfusioOp<A>
@@ -525,6 +609,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<EmailSentQueryResultList>>(InfusioOp<A>.ListEmailsForContact op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<EmailSentQueryResultList>(InfusioOp<A>.ListEmailsForContact op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateEmailForContact : InfusioOp<A>
@@ -542,6 +629,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<EmailSentCreate>>(InfusioOp<A>.CreateEmailForContact op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<EmailSentCreate>(InfusioOp<A>.CreateEmailForContact op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListAppliedTags : InfusioOp<A>
@@ -561,6 +651,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<ContactTagList>>(InfusioOp<A>.ListAppliedTags op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<ContactTagList>(InfusioOp<A>.ListAppliedTags op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ApplyTagsToContactId : InfusioOp<A>
@@ -578,6 +671,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.ApplyTagsToContactId op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.ApplyTagsToContactId op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RemoveTagsFromContact : InfusioOp<A>
@@ -595,6 +691,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.RemoveTagsFromContact op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.RemoveTagsFromContact op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RemoveTagsFromContact2 : InfusioOp<A>
@@ -612,6 +711,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.RemoveTagsFromContact2 op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.RemoveTagsFromContact2 op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class GetContact : InfusioOp<A>
@@ -629,6 +731,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<FullContact>>(InfusioOp<A>.GetContact op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<FullContact>(InfusioOp<A>.GetContact op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListEmails : InfusioOp<A>
@@ -650,6 +755,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<EmailSentQueryResultList>>(InfusioOp<A>.ListEmails op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<EmailSentQueryResultList>(InfusioOp<A>.ListEmails op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateEmail : InfusioOp<A>
@@ -665,6 +773,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<EmailSentCreate>>(InfusioOp<A>.CreateEmail op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<EmailSentCreate>(InfusioOp<A>.CreateEmail op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateEmails : InfusioOp<A>
@@ -680,6 +791,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<EmailSentCreateList>>(InfusioOp<A>.CreateEmails op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<EmailSentCreateList>(InfusioOp<A>.CreateEmails op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class DeleteEmails : InfusioOp<A>
@@ -695,6 +809,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteEmails op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.DeleteEmails op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class GetEmail : InfusioOp<A>
@@ -710,6 +827,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<EmailSentQueryResultWithContent>>(InfusioOp<A>.GetEmail op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<EmailSentQueryResultWithContent>(InfusioOp<A>.GetEmail op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class UpdateEmail : InfusioOp<A>
@@ -727,6 +847,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<EmailSentCreate>>(InfusioOp<A>.UpdateEmail op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<EmailSentCreate>(InfusioOp<A>.UpdateEmail op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class DeleteEmail : InfusioOp<A>
@@ -742,6 +865,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteEmail op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.DeleteEmail op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListFiles : InfusioOp<A>
@@ -767,6 +893,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<FileList>>(InfusioOp<A>.ListFiles op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<FileList>(InfusioOp<A>.ListFiles op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateFile : InfusioOp<A>
@@ -782,6 +911,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<FileInformation>>(InfusioOp<A>.CreateFile op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<FileInformation>(InfusioOp<A>.CreateFile op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class GetFile : InfusioOp<A>
@@ -799,6 +931,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<FileInformation>>(InfusioOp<A>.GetFile op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<FileInformation>(InfusioOp<A>.GetFile op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class UpdateFile : InfusioOp<A>
@@ -816,6 +951,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<FileInformation>>(InfusioOp<A>.UpdateFile op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<FileInformation>(InfusioOp<A>.UpdateFile op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class DeleteFile : InfusioOp<A>
@@ -831,6 +969,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteFile op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.DeleteFile op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListStoredHookSubscriptions : InfusioOp<A>
@@ -844,6 +985,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.ListStoredHookSubscriptions op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.ListStoredHookSubscriptions op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateAHookSubscription : InfusioOp<A>
@@ -859,6 +1003,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<RestHook>>(InfusioOp<A>.CreateAHookSubscription op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<RestHook>(InfusioOp<A>.CreateAHookSubscription op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListHookEventTypes : InfusioOp<A>
@@ -872,6 +1019,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.ListHookEventTypes op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.ListHookEventTypes op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RetrieveAHookSubscription : InfusioOp<A>
@@ -887,6 +1037,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<RestHook>>(InfusioOp<A>.RetrieveAHookSubscription op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<RestHook>(InfusioOp<A>.RetrieveAHookSubscription op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class UpdateAHookSubscription : InfusioOp<A>
@@ -904,6 +1057,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<RestHook>>(InfusioOp<A>.UpdateAHookSubscription op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<RestHook>(InfusioOp<A>.UpdateAHookSubscription op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class DeleteAHookSubscription : InfusioOp<A>
@@ -919,6 +1075,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteAHookSubscription op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.DeleteAHookSubscription op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class VerifyAHookSubscriptionDelayed : InfusioOp<A>
@@ -936,6 +1095,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<RestHook>>(InfusioOp<A>.VerifyAHookSubscriptionDelayed op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<RestHook>(InfusioOp<A>.VerifyAHookSubscriptionDelayed op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class VerifyAHookSubscription : InfusioOp<A>
@@ -951,6 +1113,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<RestHook>>(InfusioOp<A>.VerifyAHookSubscription op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<RestHook>(InfusioOp<A>.VerifyAHookSubscription op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class GetUserInfo : InfusioOp<A>
@@ -964,6 +1129,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<UserInfoDTO>>(InfusioOp<A>.GetUserInfo op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<UserInfoDTO>(InfusioOp<A>.GetUserInfo op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListOpportunities : InfusioOp<A>
@@ -989,6 +1157,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<OpportunityList>>(InfusioOp<A>.ListOpportunities op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<OpportunityList>(InfusioOp<A>.ListOpportunities op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateOpportunity : InfusioOp<A>
@@ -1004,6 +1175,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Opportunity>>(InfusioOp<A>.CreateOpportunity op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Opportunity>(InfusioOp<A>.CreateOpportunity op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class UpdateOpportunity : InfusioOp<A>
@@ -1019,6 +1193,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Opportunity>>(InfusioOp<A>.UpdateOpportunity op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Opportunity>(InfusioOp<A>.UpdateOpportunity op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RetrieveOpportunityModel : InfusioOp<A>
@@ -1032,6 +1209,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveOpportunityModel op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<ObjectModel>(InfusioOp<A>.RetrieveOpportunityModel op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class GetOpportunity : InfusioOp<A>
@@ -1049,6 +1229,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Opportunity>>(InfusioOp<A>.GetOpportunity op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Opportunity>(InfusioOp<A>.GetOpportunity op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class UpdatePropertiesOnOpportunity : InfusioOp<A>
@@ -1066,6 +1249,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Opportunity>>(InfusioOp<A>.UpdatePropertiesOnOpportunity op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Opportunity>(InfusioOp<A>.UpdatePropertiesOnOpportunity op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListOpportunityStagePipelines : InfusioOp<A>
@@ -1079,6 +1265,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.ListOpportunityStagePipelines op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.ListOpportunityStagePipelines op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListOrders : InfusioOp<A>
@@ -1108,6 +1297,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<OrderList>>(InfusioOp<A>.ListOrders op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<OrderList>(InfusioOp<A>.ListOrders op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RetrieveOrderModel : InfusioOp<A>
@@ -1121,6 +1313,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveOrderModel op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<ObjectModel>(InfusioOp<A>.RetrieveOrderModel op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class GetOrder : InfusioOp<A>
@@ -1136,6 +1331,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Order>>(InfusioOp<A>.GetOrder op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Order>(InfusioOp<A>.GetOrder op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListTransactionsForOrder : InfusioOp<A>
@@ -1161,6 +1359,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<TransactionList>>(InfusioOp<A>.ListTransactionsForOrder op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<TransactionList>(InfusioOp<A>.ListTransactionsForOrder op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListProducts : InfusioOp<A>
@@ -1180,6 +1381,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<ProductList>>(InfusioOp<A>.ListProducts op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<ProductList>(InfusioOp<A>.ListProducts op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateProduct : InfusioOp<A>
@@ -1195,6 +1399,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Product>>(InfusioOp<A>.CreateProduct op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Product>(InfusioOp<A>.CreateProduct op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListProductsFromSyncToken : InfusioOp<A>
@@ -1214,6 +1421,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<ProductStatusList>>(InfusioOp<A>.ListProductsFromSyncToken op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<ProductStatusList>(InfusioOp<A>.ListProductsFromSyncToken op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RetrieveProduct : InfusioOp<A>
@@ -1229,6 +1439,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Product>>(InfusioOp<A>.RetrieveProduct op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Product>(InfusioOp<A>.RetrieveProduct op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class DeleteProduct : InfusioOp<A>
@@ -1244,6 +1457,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteProduct op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.DeleteProduct op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateProductSubscription : InfusioOp<A>
@@ -1261,6 +1477,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<ProductSubscription>>(InfusioOp<A>.CreateProductSubscription op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<ProductSubscription>(InfusioOp<A>.CreateProductSubscription op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RetrieveProductSubscription : InfusioOp<A>
@@ -1278,6 +1497,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<ProductSubscription>>(InfusioOp<A>.RetrieveProductSubscription op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<ProductSubscription>(InfusioOp<A>.RetrieveProductSubscription op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class DeleteProductSubscription : InfusioOp<A>
@@ -1295,6 +1517,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteProductSubscription op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.DeleteProductSubscription op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class GetApplicationEnabled : InfusioOp<A>
@@ -1308,6 +1533,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Setting>>(InfusioOp<A>.GetApplicationEnabled op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Setting>(InfusioOp<A>.GetApplicationEnabled op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class GetContactOptionTypes : InfusioOp<A>
@@ -1321,6 +1549,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Setting>>(InfusioOp<A>.GetContactOptionTypes op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Setting>(InfusioOp<A>.GetContactOptionTypes op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RetrieveSubscriptionModel : InfusioOp<A>
@@ -1334,6 +1565,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveSubscriptionModel op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<ObjectModel>(InfusioOp<A>.RetrieveSubscriptionModel op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListTags : InfusioOp<A>
@@ -1353,6 +1587,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Tags>>(InfusioOp<A>.ListTags op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Tags>(InfusioOp<A>.ListTags op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateTag : InfusioOp<A>
@@ -1368,6 +1605,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Tag>>(InfusioOp<A>.CreateTag op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Tag>(InfusioOp<A>.CreateTag op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateTagCategory : InfusioOp<A>
@@ -1383,6 +1623,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<TagCategory>>(InfusioOp<A>.CreateTagCategory op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<TagCategory>(InfusioOp<A>.CreateTagCategory op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class GetTag : InfusioOp<A>
@@ -1398,6 +1641,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Tag>>(InfusioOp<A>.GetTag op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Tag>(InfusioOp<A>.GetTag op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListContactsForTagId : InfusioOp<A>
@@ -1417,6 +1663,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<TaggedContactList>>(InfusioOp<A>.ListContactsForTagId op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<TaggedContactList>(InfusioOp<A>.ListContactsForTagId op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ApplyTagToContactIds : InfusioOp<A>
@@ -1434,6 +1683,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.ApplyTagToContactIds op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.ApplyTagToContactIds op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RemoveTagFromContactIds : InfusioOp<A>
@@ -1451,6 +1703,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.RemoveTagFromContactIds op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.RemoveTagFromContactIds op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RemoveTagFromContactId : InfusioOp<A>
@@ -1468,6 +1723,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.RemoveTagFromContactId op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.RemoveTagFromContactId op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListTasks : InfusioOp<A>
@@ -1499,6 +1757,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<TaskList>>(InfusioOp<A>.ListTasks op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<TaskList>(InfusioOp<A>.ListTasks op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class CreateTask : InfusioOp<A>
@@ -1514,6 +1775,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<InfusionTask>>(InfusioOp<A>.CreateTask op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<InfusionTask>(InfusioOp<A>.CreateTask op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class RetrieveTaskModel : InfusioOp<A>
@@ -1527,6 +1791,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<ObjectModel>>(InfusioOp<A>.RetrieveTaskModel op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<ObjectModel>(InfusioOp<A>.RetrieveTaskModel op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListTasksForCurrentUser : InfusioOp<A>
@@ -1558,6 +1825,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<TaskList>>(InfusioOp<A>.ListTasksForCurrentUser op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<TaskList>(InfusioOp<A>.ListTasksForCurrentUser op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class GetTask : InfusioOp<A>
@@ -1573,6 +1843,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<InfusionTask>>(InfusioOp<A>.GetTask op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<InfusionTask>(InfusioOp<A>.GetTask op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class UpdateTask : InfusioOp<A>
@@ -1590,6 +1863,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<InfusionTask>>(InfusioOp<A>.UpdateTask op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<InfusionTask>(InfusioOp<A>.UpdateTask op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class DeleteTask : InfusioOp<A>
@@ -1605,6 +1881,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.DeleteTask op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.DeleteTask op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class UpdatePropertiesOnTask : InfusioOp<A>
@@ -1622,6 +1901,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<InfusionTask>>(InfusioOp<A>.UpdatePropertiesOnTask op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<InfusionTask>(InfusioOp<A>.UpdatePropertiesOnTask op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class ListTransactions : InfusioOp<A>
@@ -1645,6 +1927,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<TransactionList>>(InfusioOp<A>.ListTransactions op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<TransactionList>(InfusioOp<A>.ListTransactions op) =>
+                op.AsHttpWorkflow();
         }
 
         internal class GetTransaction : InfusioOp<A>
@@ -1660,6 +1945,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Transaction>>(InfusioOp<A>.GetTransaction op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Transaction>(InfusioOp<A>.GetTransaction op) =>
+                op.AsHttpWorkflow();
         }
     }
 

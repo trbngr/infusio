@@ -83,8 +83,11 @@ namespace Infusio.Auth
             expiration: expiration == default ? Expiration : expiration
         );
 
-        public static implicit operator RefreshToken(AuthorizationInfo token) =>
-            Auth.RefreshToken.New(token.RefreshToken);
+        public static implicit operator RefreshToken(AuthorizationInfo info) =>
+            Auth.RefreshToken.New(info.RefreshToken);
+
+        public static implicit operator AccessToken(AuthorizationInfo info) =>
+            Auth.AccessToken.New(info.Token);
 
         public override string ToString() => JsonConvert.SerializeObject(this, Formatting.Indented);
 
