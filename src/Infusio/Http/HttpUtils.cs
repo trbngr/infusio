@@ -2,6 +2,7 @@
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using LanguageExt;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -45,9 +46,9 @@ namespace Infusio.Http
         );
 
         internal static string MakeUri(string relative, params Option<(string name, object value)>[] values) => ifNone(
-            from pair in Some(values.FoldT(HashMap<string, object>(), (acc, x) => acc.Add(x.name, x.value)))
+            from pair in Some(values.FoldT(HashMap<string, string>(), (acc, x) => acc.Add(x.name, x.value.ToString())))
             where !pair.IsEmpty
-            let qs = pair.Map((key, value) => $"{key}={value}").Values
+            let qs = pair.Map((key, value) => $"{key}={HttpUtility.UrlEncode(value)}").Values
             select $"{relative}?{string.Join("&", qs)}",
             relative
         );
