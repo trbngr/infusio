@@ -11,6 +11,127 @@ namespace Infusio.Model
 {
 
 
+    public enum Category
+    {
+        [EnumMember(Value = "Attachments")]
+        Attachments,
+
+        [EnumMember(Value = "Cart")]
+        Cart,
+
+        [EnumMember(Value = "Documents")]
+        Documents,
+
+        [EnumMember(Value = "Hidden")]
+        Hidden,
+
+        [EnumMember(Value = "Invoice")]
+        Invoice,
+
+        [EnumMember(Value = "Logo")]
+        Logo,
+
+        [EnumMember(Value = "Tickets")]
+        Tickets,
+
+        [EnumMember(Value = "WebForm")]
+        WebForm,
+
+        [EnumMember(Value = "Funnel")]
+        Funnel
+    }
+
+
+    public enum Field
+    {
+        [EnumMember(Value = "BILLING")]
+        BILLING,
+
+        [EnumMember(Value = "SHIPPING")]
+        SHIPPING,
+
+        [EnumMember(Value = "OTHER")]
+        OTHER,
+
+        [EnumMember(Value = "EMAIL1")]
+        EMAIL1
+    }
+
+
+    public enum SourceType
+    {
+        [EnumMember(Value = "WEBFORM")]
+        WEBFORM,
+
+        [EnumMember(Value = "LANDINGPAGE")]
+        LANDINGPAGE,
+
+        [EnumMember(Value = "IMPORT")]
+        IMPORT,
+
+        [EnumMember(Value = "MANUAL")]
+        MANUAL,
+
+        [EnumMember(Value = "API")]
+        API,
+
+        [EnumMember(Value = "OTHER")]
+        OTHER,
+
+        [EnumMember(Value = "UNKNOWN")]
+        UNKNOWN
+    }
+
+
+    public enum FileBoxType
+    {
+        [EnumMember(Value = "Application")]
+        Application,
+
+        [EnumMember(Value = "Image")]
+        Image,
+
+        [EnumMember(Value = "Fax")]
+        Fax,
+
+        [EnumMember(Value = "Attachment")]
+        Attachment,
+
+        [EnumMember(Value = "Ticket")]
+        Ticket,
+
+        [EnumMember(Value = "Contact")]
+        Contact,
+
+        [EnumMember(Value = "DigitalProduct")]
+        DigitalProduct,
+
+        [EnumMember(Value = "Import")]
+        Import,
+
+        [EnumMember(Value = "Hidden")]
+        Hidden,
+
+        [EnumMember(Value = "WebForm")]
+        WebForm,
+
+        [EnumMember(Value = "StyledCart")]
+        StyledCart,
+
+        [EnumMember(Value = "ReSampledImage")]
+        ReSampledImage,
+
+        [EnumMember(Value = "TemplateThumbnail")]
+        TemplateThumbnail,
+
+        [EnumMember(Value = "Funnel")]
+        Funnel,
+
+        [EnumMember(Value = "LogoThumbnail")]
+        LogoThumbnail
+    }
+
+
     public enum Type
     {
         [EnumMember(Value = "NULL")]
@@ -90,6 +211,28 @@ namespace Infusio.Model
     }
 
 
+    public enum Key
+    {
+        [EnumMember(Value = "SUCCESS")]
+        SUCCESS,
+
+        [EnumMember(Value = "DUPLICATE")]
+        DUPLICATE,
+
+        [EnumMember(Value = "CONTACT_NOT_FOUND")]
+        CONTACT_NOT_FOUND,
+
+        [EnumMember(Value = "TAG_ID_NOT_FOUND")]
+        TAG_ID_NOT_FOUND,
+
+        [EnumMember(Value = "FAILURE")]
+        FAILURE,
+
+        [EnumMember(Value = "NO_PERMISSION")]
+        NO_PERMISSION
+    }
+
+
     public enum RecordType
     {
         [EnumMember(Value = "CONTACT")]
@@ -125,62 +268,6 @@ namespace Infusio.Model
     }
 
 
-    public enum Category
-    {
-        [EnumMember(Value = "Attachments")]
-        Attachments,
-
-        [EnumMember(Value = "Cart")]
-        Cart,
-
-        [EnumMember(Value = "Documents")]
-        Documents,
-
-        [EnumMember(Value = "Hidden")]
-        Hidden,
-
-        [EnumMember(Value = "Invoice")]
-        Invoice,
-
-        [EnumMember(Value = "Logo")]
-        Logo,
-
-        [EnumMember(Value = "Tickets")]
-        Tickets,
-
-        [EnumMember(Value = "WebForm")]
-        WebForm,
-
-        [EnumMember(Value = "Funnel")]
-        Funnel
-    }
-
-
-    public enum SourceType
-    {
-        [EnumMember(Value = "WEBFORM")]
-        WEBFORM,
-
-        [EnumMember(Value = "LANDINGPAGE")]
-        LANDINGPAGE,
-
-        [EnumMember(Value = "IMPORT")]
-        IMPORT,
-
-        [EnumMember(Value = "MANUAL")]
-        MANUAL,
-
-        [EnumMember(Value = "API")]
-        API,
-
-        [EnumMember(Value = "OTHER")]
-        OTHER,
-
-        [EnumMember(Value = "UNKNOWN")]
-        UNKNOWN
-    }
-
-
     public enum CycleType
     {
         [EnumMember(Value = "YEAR")]
@@ -194,148 +281,6 @@ namespace Infusio.Model
 
         [EnumMember(Value = "DAY")]
         DAY
-    }
-
-
-    public enum Key
-    {
-        [EnumMember(Value = "SUCCESS")]
-        SUCCESS,
-
-        [EnumMember(Value = "DUPLICATE")]
-        DUPLICATE,
-
-        [EnumMember(Value = "CONTACT_NOT_FOUND")]
-        CONTACT_NOT_FOUND,
-
-        [EnumMember(Value = "TAG_ID_NOT_FOUND")]
-        TAG_ID_NOT_FOUND,
-
-        [EnumMember(Value = "FAILURE")]
-        FAILURE,
-
-        [EnumMember(Value = "NO_PERMISSION")]
-        NO_PERMISSION
-    }
-
-
-    public enum Field
-    {
-        [EnumMember(Value = "BILLING")]
-        BILLING,
-
-        [EnumMember(Value = "SHIPPING")]
-        SHIPPING,
-
-        [EnumMember(Value = "OTHER")]
-        OTHER,
-
-        [EnumMember(Value = "EMAIL1")]
-        EMAIL1
-    }
-
-
-    public enum EmailStatus
-    {
-        [EnumMember(Value = "Unengaged Marketable")]
-        UnengagedMarketable,
-
-        [EnumMember(Value = "Unconfirmed")]
-        Unconfirmed,
-
-        [EnumMember(Value = "Confirmed (Legacy)")]
-        ConfirmedLegacy,
-
-        [EnumMember(Value = "Confirmed")]
-        Confirmed,
-
-        [EnumMember(Value = "Unengaged NonMarketable")]
-        UnengagedNonMarketable,
-
-        [EnumMember(Value = "Non-marketable")]
-        NonMarketable,
-
-        [EnumMember(Value = "Lockdown")]
-        Lockdown,
-
-        [EnumMember(Value = "Soft Bounce")]
-        SoftBounce,
-
-        [EnumMember(Value = "Hard Bounce")]
-        HardBounce,
-
-        [EnumMember(Value = "Opt-Out")]
-        OptOut,
-
-        [EnumMember(Value = "Opt-Out: Admin")]
-        OptOutAdmin,
-
-        [EnumMember(Value = "Opt-Out: System")]
-        OptOutSystem,
-
-        [EnumMember(Value = "List Unsubscribe")]
-        ListUnsubscribe,
-
-        [EnumMember(Value = "Provided Feedback")]
-        ProvidedFeedback,
-
-        [EnumMember(Value = "Reported Spam")]
-        ReportedSpam,
-
-        [EnumMember(Value = "Invalid Email")]
-        InvalidEmail,
-
-        [EnumMember(Value = "SingleOptIn")]
-        SingleOptIn
-    }
-
-
-    public enum FileBoxType
-    {
-        [EnumMember(Value = "Application")]
-        Application,
-
-        [EnumMember(Value = "Image")]
-        Image,
-
-        [EnumMember(Value = "Fax")]
-        Fax,
-
-        [EnumMember(Value = "Attachment")]
-        Attachment,
-
-        [EnumMember(Value = "Ticket")]
-        Ticket,
-
-        [EnumMember(Value = "Contact")]
-        Contact,
-
-        [EnumMember(Value = "DigitalProduct")]
-        DigitalProduct,
-
-        [EnumMember(Value = "Import")]
-        Import,
-
-        [EnumMember(Value = "Hidden")]
-        Hidden,
-
-        [EnumMember(Value = "WebForm")]
-        WebForm,
-
-        [EnumMember(Value = "StyledCart")]
-        StyledCart,
-
-        [EnumMember(Value = "ReSampledImage")]
-        ReSampledImage,
-
-        [EnumMember(Value = "TemplateThumbnail")]
-        TemplateThumbnail,
-
-        [EnumMember(Value = "Funnel")]
-        Funnel,
-
-        [EnumMember(Value = "LogoThumbnail")]
-        LogoThumbnail
     }
 
 
@@ -412,6 +357,61 @@ namespace Infusio.Model
 
         [EnumMember(Value = "YesNo")]
         YesNo
+    }
+
+
+    public enum EmailStatus
+    {
+        [EnumMember(Value = "Unengaged Marketable")]
+        UnengagedMarketable,
+
+        [EnumMember(Value = "Unconfirmed")]
+        Unconfirmed,
+
+        [EnumMember(Value = "Confirmed (Legacy)")]
+        ConfirmedLegacy,
+
+        [EnumMember(Value = "Confirmed")]
+        Confirmed,
+
+        [EnumMember(Value = "Unengaged NonMarketable")]
+        UnengagedNonMarketable,
+
+        [EnumMember(Value = "Non-marketable")]
+        NonMarketable,
+
+        [EnumMember(Value = "Lockdown")]
+        Lockdown,
+
+        [EnumMember(Value = "Soft Bounce")]
+        SoftBounce,
+
+        [EnumMember(Value = "Hard Bounce")]
+        HardBounce,
+
+        [EnumMember(Value = "Opt-Out")]
+        OptOut,
+
+        [EnumMember(Value = "Opt-Out: Admin")]
+        OptOutAdmin,
+
+        [EnumMember(Value = "Opt-Out: System")]
+        OptOutSystem,
+
+        [EnumMember(Value = "List Unsubscribe")]
+        ListUnsubscribe,
+
+        [EnumMember(Value = "Provided Feedback")]
+        ProvidedFeedback,
+
+        [EnumMember(Value = "Reported Spam")]
+        ReportedSpam,
+
+        [EnumMember(Value = "Invalid Email")]
+        InvalidEmail,
+
+        [EnumMember(Value = "SingleOptIn")]
+        SingleOptIn
     }
 
 

@@ -1,8 +1,10 @@
-﻿namespace Infusio
+﻿using Infusio.Auth;
+
+namespace Infusio
 {
     public sealed class InfusioConfig
     {
-        public readonly string AccessToken;
-        public InfusioConfig(string accessToken) => AccessToken = accessToken;
+        public readonly AccessToken AccessToken;
+        public InfusioConfig(AccessToken accessToken) => AccessToken = accessToken;
     }
 }

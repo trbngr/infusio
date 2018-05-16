@@ -11,7 +11,7 @@ namespace Infusio.Http
     using static Prelude;
     using static JsonConvert;
 
-    internal delegate Task<Either<InfusioError, T>> HttpWorkflow<T>(HttpClient client);
+    internal delegate Task<Either<InfusioError, T>> HttpWorkflow<T>(InfusioClient client);
 
     internal static class HttpUtils
     {
@@ -52,21 +52,19 @@ namespace Infusio.Http
             relative
         );
 
-        internal static HttpRequestMessage Request(HttpMethod method, string relativeUrl, string accessToken,
-            params Option<(string name, object value)>[] values) =>
-            Request(method, relativeUrl, accessToken, MakeHttpContent(values));
+        internal static HttpRequestMessage Request(HttpMethod method, string relativeUrl, params Option<(string name, object value)>[] values) =>
+            Request(method, relativeUrl, MakeHttpContent(values));
 
-        internal static HttpRequestMessage Request(HttpMethod method, string relativeUrl, string accessToken, object body) =>
-            Request(method, relativeUrl, accessToken, new StringContent(SerializeObject(body), Encoding.UTF8, "application/json"));
+        internal static HttpRequestMessage Request(HttpMethod method, string relativeUrl, object body) =>
+            Request(method, relativeUrl, new StringContent(SerializeObject(body), Encoding.UTF8, "application/json"));
 
-        internal static HttpRequestMessage Request(HttpMethod method, string relativeUrl, string accessToken, HttpContent content) =>
+        internal static HttpRequestMessage Request(HttpMethod method, string relativeUrl, HttpContent content) =>
             new HttpRequestMessage(method, $"https://api.infusionsoft.com/crm/rest/v1{relativeUrl}")
             {
                 Content = content,
                 Headers =
                 {
-                    Accept = {MediaTypeWithQualityHeaderValue.Parse("application/json")},
-                    Authorization = new AuthenticationHeaderValue("Bearer", accessToken)
+                    Accept = {MediaTypeWithQualityHeaderValue.Parse("application/json")}
                 }
             };
 
@@ -77,8 +75,8 @@ namespace Infusio.Http
             Some: response => Right<InfusioError, KnownResponse>(response).AsTask()
         );
 
-        static Task<Either<InfusioError, HttpResponseMessage>> SendRequest(HttpClient client, HttpRequestMessage message) => match(
-            TryAsync(() => client.SendAsync(message)),
+        static Task<Either<InfusioError, HttpResponseMessage>> SendRequest(InfusioClient infusio, HttpRequestMessage message) => match(
+            TryAsync(() => infusio.Send(message)),
             Fail: e => Left<InfusioError, HttpResponseMessage>(new InfusioError($"Generic send InfusioError: {e.Message}")),
             Succ: x => Right<InfusioError, HttpResponseMessage>(x)
         );

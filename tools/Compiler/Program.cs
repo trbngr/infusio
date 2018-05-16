@@ -48,8 +48,8 @@ namespace Infusio.Compiler
                 .Add((FileName.New("Dto"), Render("Dto", model)))
                 .Add((FileName.New("Ops"), Render("Ops", model)))
                 .Add((FileName.New("Show"), Render("Show", model)))
-                .Add((FileName.New("Http/HttpSupport"), Render("Interpreter", model)))
-                .Add((FileName.New("Http/InfusioClient"), Render("Client", model)));
+                .Add((FileName.New("Http/Workflows"), Render("Workflows", model)))
+                .Add((FileName.New("Http/HttpSupport"), Render("Interpreter", model)));
 
         static Unit WriteToDisc(OutputDirectory directory, (FileName Name, Try<GeneratedCode> Attemp) result) =>
             WriteToDisc(directory, result.Name, result.Attemp);

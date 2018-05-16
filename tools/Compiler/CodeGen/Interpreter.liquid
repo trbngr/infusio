@@ -4,6 +4,7 @@
 //----------------------
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using LanguageExt;
 using Newtonsoft.Json;
 
@@ -15,28 +16,46 @@ namespace Infusio.Http
 
     public static class HttpSupport
     {
-        public static Task<Either<InfusioError, InfusioResult<T>>> interpret<T>(InfusioOp<T> op, InfusioClient client, InfusioLogging logging = InfusioLogging.WithoutLogs) =>
-            RunAsync(op, InfusioState.Create(logging), client).ToEither();
+        public static Task<Either<InfusioError, T>> interpret<T>(InfusioOp<T> op, InfusioClient client) =>
+            RunAsync(op, InfusioState.Create(useLogging: false), client).Match(
+                Left: e => Left<InfusioError, T>(e),
+                Right: r => r.Value
+            );
 
-        public static Task<Either<InfusioError, InfusioResult<T>>> Run<T>(this InfusioOp<T> op, InfusioClient client, InfusioLogging logging = InfusioLogging.WithoutLogs) =>
-            RunAsync(op, InfusioState.Create(logging), client).ToEither();
+        public static Task<Either<InfusioError, T>> Run<T>(this InfusioOp<T> op, InfusioClient client) =>
+            RunAsync(op, InfusioState.Create(useLogging: false), client).Match(
+                Left: e => Left<InfusioError, T>(e),
+                Right: r => r.Value
+            );
+
+        public static Task<Either<InfusioError, InfusioResult<T>>> interpret<T>(InfusioOp<T> op, InfusioClient client, InfusioState state) =>
+            RunAsync(op, state, client).ToEither();
+
+        public static Task<Either<InfusioError, InfusioResult<T>>> Run<T>(this InfusioOp<T> op, InfusioClient client, InfusioState state) =>
+            RunAsync(op, state, client).ToEither();
+
+        public static Task<Either<InfusioError, InfusioResult<T>>> interpretWithLogs<T>(InfusioOp<T> op, InfusioClient client, IEnumerable<string> logs = default) =>
+            RunAsync(op, InfusioState.Create(Seq(logs), useLogging: true), client).ToEither();
+
+        public static Task<Either<InfusioError, InfusioResult<T>>> RunWithLogs<T>(this InfusioOp<T> op, InfusioClient client, IEnumerable<string> logs = default) =>
+            RunAsync(op, InfusioState.Create(Seq(logs), useLogging: true), client).ToEither();
 
         static EitherAsync<InfusioError, InfusioResult<T>> RunAsync<T>(InfusioOp<T> op, InfusioState state, InfusioClient client) =>
             op is InfusioOp<T>.Return r ? Right<InfusioError, InfusioResult<T>>(new InfusioResult<T>(r.Value, state.Logs)).ToAsync() :
-            op is InfusioOp<T>.Log l ? Exe(l, () => Right<InfusioError, Unit>(unit).AsTask(), l.Next, state, client) :
+            op is InfusioOp<T>.Log l ? Exe(l, l, l.Next, state, client) :
 {% for op in Operations -%}
-            op is InfusioOp<T>.{{ op.Name }}{% assign op_name = forloop.index %} _{{ op_name }} ? Exe(_{{ op_name }}, () => client.{{ op.Name }}({% for p in op.Parameters -%}_{{ op_name }}.{{ p.Name | capitalize }}{% if forloop.last == false %}, {% endif %}{% endfor %}), _{{ op_name }}.Next, state, client) :
+            op is InfusioOp<T>.{{ op.Name }}{% assign op_name = forloop.index %} _{{ op_name }} ? Exe(_{{ op_name }}, _{{ op_name }}, _{{ op_name }}.Next, state, client) :
 {% endfor -%}
             throw new NotSupportedException();
 
-        static EitherAsync<InfusioError, InfusioResult<B>> Exe<T, B>(Show<InfusioOp<T>> show, Func<Task<Either<InfusioError, T>>> fn, Func<T, InfusioOp<B>> nextOp, InfusioState state, InfusioClient client) =>
-            from right in LogOperation(show, state, fn).ToAsync()
+        static EitherAsync<InfusioError, InfusioResult<B>> Exe<T, B>(Show<InfusioOp<T>> show, HttpWorkflow<T> workflow, Func<T, InfusioOp<B>> nextOp, InfusioState state, InfusioClient client) =>
+            from right in LogOperation(show, workflow, state, client).ToAsync()
             from next in RunAsync(nextOp(right.Value), right.State, client)
             select next;
 
-        static Task<Either<InfusioError, (InfusioState State, T Value)>> LogOperation<T>(Show<InfusioOp<T>> show, InfusioState state, Func<Task<Either<InfusioError, T>>> fn) =>
+        static Task<Either<InfusioError, (InfusioState State, T Value)>> LogOperation<T>(Show<InfusioOp<T>> show, HttpWorkflow<T> workflow, InfusioState state, InfusioClient client) =>
             from st in Right<InfusioError, (InfusioState, Unit)>((LogRequest(state, show), unit)).AsTask()
-            from result in fn().ToAsync().Match(
+            from result in workflow(client).ToAsync().Match(
                 Left: error => Left<InfusioError, (InfusioState, T)>(error),
                 Right: value => Right<InfusioError, (InfusioState, T)>((LogResult(st.Item1, value), value))
             )

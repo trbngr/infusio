@@ -34,6 +34,9 @@ namespace Infusio
 
             public static implicit operator Show<InfusioOp<Unit>>(InfusioOp<A>.Log op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<Unit>(InfusioOp<A>.Log op) => client =>
+                Right<InfusioError, Unit>(unit).AsTask();
         }
 
         {% for op in Operations %}
@@ -52,8 +55,11 @@ namespace Infusio
               {% endfor -%}
             }
 
-            public static implicit operator Show<InfusioOp<{{ op.ResponseType | normalize }}>>(InfusioOp<A>.{{ op.Name }} op) => 
+            public static implicit operator Show<InfusioOp<{{ op.ResponseType | normalize }}>>(InfusioOp<A>.{{ op.Name }} op) =>
                 op.AsShow();
+
+            public static implicit operator HttpWorkflow<{{ op.ResponseType | normalize }}>(InfusioOp<A>.{{ op.Name }} op) =>
+                op.AsHttpWorkflow();
         }
         {% endfor -%}
     }
@@ -71,7 +77,7 @@ namespace Infusio
 
         static InfusioOp<B> Bind<A, B>(this InfusioOp<A> op, Func<A, InfusioOp<B>> fn) =>
             op is InfusioOp<A>.Return rt ? fn(rt.Value) :
-            op is InfusioOp<A>.Log log ? new InfusioOp<B>.Log(x => log.Next(Unit.Default).Bind(fn), log.Message) : 
+            op is InfusioOp<A>.Log log ? new InfusioOp<B>.Log(x => log.Next(Unit.Default).Bind(fn), log.Message) :
             {% for op in Operations %}op is InfusioOp<A>.{{ op.Name }} {% assign opName = forloop.index %} _{{ opName }} ? new InfusioOp<B>.{{ op.Name }}(x => _{{ opName }}.Next(x).Bind(fn){% if op.Parameters.size > 0 %}, {% endif %}{% for parameter in op.Parameters %}_{{opName}}.{{ parameter.Name | capitalize }}{% if forloop.last == false %}, {% endif %}{% endfor %}){% if forloop.last == true %} as InfusioOp<B> {% endif %} :
             {% endfor %}throw new NotSupportedException();
     }
