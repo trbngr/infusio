@@ -54,7 +54,13 @@ namespace Infusio.Model
         OTHER,
 
         [EnumMember(Value = "EMAIL1")]
-        EMAIL1
+        EMAIL1,
+
+        [EnumMember(Value = "PHONE1")]
+        PHONE1,
+
+        [EnumMember(Value = "PHONE2")]
+        PHONE2
     }
 
 

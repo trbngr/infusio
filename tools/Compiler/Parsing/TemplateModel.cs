@@ -15,6 +15,8 @@ namespace Infusio.Compiler.Parsing
         // Handle enum values not documented in the swaggerdoc:
         private Map<string, Lst<string>> _extraEnumMembers = Map(
             ("Field", List("EMAIL1")),
+            ("Field", List("PHONE1")),
+            ("Field", List("PHONE2")),
             ("EmailStatus", List("SingleOptIn"))
         );
 
