@@ -3,7 +3,7 @@
     <PropertyGroup>
         <SemVerMajor>2</SemVerMajor>
         <SemVerMinor>0</SemVerMinor>
-        <SemVerPatch>2</SemVerPatch>
+        <SemVerPatch>1</SemVerPatch>
         <SemVerDashLabel></SemVerDashLabel>
     </PropertyGroup>
 

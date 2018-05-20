@@ -74,18 +74,11 @@ namespace Infusio.Http
                 .IfLeftAsync(e => throw new Exception(e.Value));
     }
 
-    public enum InfusioLogging
+    public class InfusioState
     {
-        WithLogs,
-        WithoutLogs
-    }
-
-    class InfusioState
-    {
-        public static InfusioState Create(InfusioLogging logging) => new InfusioState(Seq<string>(), logging == InfusioLogging.WithLogs ? true : false);
-        public static InfusioState Create(Seq<string> logs, InfusioLogging logging) => new InfusioState(logs, logging == InfusioLogging.WithLogs ? true : false);
         public readonly Seq<string> Logs;
         public readonly bool UseLogging;
+        public static InfusioState Create(Seq<string> logs = default, bool useLogging = default) => new InfusioState(useLogging:useLogging, logs: logs);
 
         InfusioState(Seq<string> logs = default, bool useLogging = default)
         {
