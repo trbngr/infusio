@@ -313,7 +313,7 @@ namespace Infusio
 
         public static Show<InfusioOp<FileList>> AsShow<T>(this InfusioOp<T>.ListFiles op) => () =>
         {
-            var uri = MakeUri($"/files", RequestParameter("name", op.Name), RequestParameter("type", op.Type), RequestParameter("permission", op.Permission), RequestParameter("viewable", op.Viewable), RequestParameter("offset", op.Offset), RequestParameter("limit", op.Limit));
+            var uri = MakeUri($"/files", RequestParameter("contactId", op.ContactId), RequestParameter("name", op.Name), RequestParameter("type", op.Type), RequestParameter("permission", op.Permission), RequestParameter("viewable", op.Viewable), RequestParameter("offset", op.Offset), RequestParameter("limit", op.Limit));
             var body = MakeBody();
             return body.Fold($"List Files. [GET: {uri}]", (msg, bd) => $"{msg}: {bd}");
         };
@@ -400,6 +400,20 @@ namespace Infusio
             var uri = MakeUri($"/hooks/{op.Key}/verify");
             var body = MakeBody();
             return body.Fold($"Verify a Hook Subscription. [POST: {uri}]", (msg, bd) => $"{msg}: {bd}");
+        };
+
+        public static Show<InfusioOp<CountriesByCode>> AsShow<T>(this InfusioOp<T>.ListCountries op) => () =>
+        {
+            var uri = MakeUri($"/locales/countries");
+            var body = MakeBody();
+            return body.Fold($"List Countries. [GET: {uri}]", (msg, bd) => $"{msg}: {bd}");
+        };
+
+        public static Show<InfusioOp<ProvincesByCode>> AsShow<T>(this InfusioOp<T>.ListCountries2 op) => () =>
+        {
+            var uri = MakeUri($"/locales/countries/{op.CountryCode}/provinces");
+            var body = MakeBody();
+            return body.Fold($"List a Country's Provinces. [GET: {uri}]", (msg, bd) => $"{msg}: {bd}");
         };
 
         public static Show<InfusioOp<UserInfoDTO>> AsShow<T>(this InfusioOp<T>.GetUserInfo op) => () =>

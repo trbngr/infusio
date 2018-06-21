@@ -2,6 +2,7 @@
 using DotLiquid;
 using LanguageExt;
 using Newtonsoft.Json.Linq;
+using static LanguageExt.Prelude;
 
 namespace Infusio.Compiler.Parsing
 {
@@ -12,7 +13,7 @@ namespace Infusio.Compiler.Parsing
         public Lst<Property> Properties { get; set; }
 
         public static Option<Definition> ParseDefinitions(JToken token) =>
-            from prop in Prelude.Optional(token as JProperty)
+            from prop in Optional(token as JProperty)
             let name = prop.Name.RenameTaskIfNeeded()
             select new Definition
             {

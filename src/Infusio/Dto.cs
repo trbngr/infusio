@@ -11,341 +11,6 @@ namespace Infusio.Model
 {
 
 
-    public enum SourceType
-    {
-        [EnumMember(Value = "WEBFORM")]
-        WEBFORM,
-
-        [EnumMember(Value = "LANDINGPAGE")]
-        LANDINGPAGE,
-
-        [EnumMember(Value = "IMPORT")]
-        IMPORT,
-
-        [EnumMember(Value = "MANUAL")]
-        MANUAL,
-
-        [EnumMember(Value = "API")]
-        API,
-
-        [EnumMember(Value = "OTHER")]
-        OTHER,
-
-        [EnumMember(Value = "UNKNOWN")]
-        UNKNOWN
-    }
-
-
-    public enum CycleType
-    {
-        [EnumMember(Value = "YEAR")]
-        YEAR,
-
-        [EnumMember(Value = "MONTH")]
-        MONTH,
-
-        [EnumMember(Value = "WEEK")]
-        WEEK,
-
-        [EnumMember(Value = "DAY")]
-        DAY
-    }
-
-
-    public enum Key
-    {
-        [EnumMember(Value = "SUCCESS")]
-        SUCCESS,
-
-        [EnumMember(Value = "DUPLICATE")]
-        DUPLICATE,
-
-        [EnumMember(Value = "CONTACT_NOT_FOUND")]
-        CONTACT_NOT_FOUND,
-
-        [EnumMember(Value = "TAG_ID_NOT_FOUND")]
-        TAG_ID_NOT_FOUND,
-
-        [EnumMember(Value = "FAILURE")]
-        FAILURE,
-
-        [EnumMember(Value = "NO_PERMISSION")]
-        NO_PERMISSION
-    }
-
-
-    public enum Status
-    {
-        [EnumMember(Value = "CREATED")]
-        CREATED,
-
-        [EnumMember(Value = "UPDATED")]
-        UPDATED,
-
-        [EnumMember(Value = "DELETED")]
-        DELETED
-    }
-
-
-    public enum RecordType
-    {
-        [EnumMember(Value = "CONTACT")]
-        CONTACT,
-
-        [EnumMember(Value = "REFERRAL_PARTNER")]
-        REFERRAL_PARTNER,
-
-        [EnumMember(Value = "OPPORTUNITY")]
-        OPPORTUNITY,
-
-        [EnumMember(Value = "TASK_APPOINTMENT")]
-        TASK_APPOINTMENT,
-
-        [EnumMember(Value = "COMPANY")]
-        COMPANY,
-
-        [EnumMember(Value = "ORDER")]
-        ORDER,
-
-        [EnumMember(Value = "SUBSCRIPTION")]
-        SUBSCRIPTION
-    }
-
-
-    public enum FileAssociation
-    {
-        [EnumMember(Value = "CONTACT")]
-        CONTACT,
-
-        [EnumMember(Value = "USER")]
-        USER,
-
-        [EnumMember(Value = "COMPANY")]
-        COMPANY
-    }
-
-
-    public enum FieldType
-    {
-        [EnumMember(Value = "Currency")]
-        Currency,
-
-        [EnumMember(Value = "Date")]
-        Date,
-
-        [EnumMember(Value = "DateTime")]
-        DateTime,
-
-        [EnumMember(Value = "DayOfWeek")]
-        DayOfWeek,
-
-        [EnumMember(Value = "Drilldown")]
-        Drilldown,
-
-        [EnumMember(Value = "Email")]
-        Email,
-
-        [EnumMember(Value = "Month")]
-        Month,
-
-        [EnumMember(Value = "ListBox")]
-        ListBox,
-
-        [EnumMember(Value = "Name")]
-        Name,
-
-        [EnumMember(Value = "WholeNumber")]
-        WholeNumber,
-
-        [EnumMember(Value = "DecimalNumber")]
-        DecimalNumber,
-
-        [EnumMember(Value = "Percent")]
-        Percent,
-
-        [EnumMember(Value = "PhoneNumber")]
-        PhoneNumber,
-
-        [EnumMember(Value = "Radio")]
-        Radio,
-
-        [EnumMember(Value = "Dropdown")]
-        Dropdown,
-
-        [EnumMember(Value = "SocialSecurityNumber")]
-        SocialSecurityNumber,
-
-        [EnumMember(Value = "State")]
-        State,
-
-        [EnumMember(Value = "Text")]
-        Text,
-
-        [EnumMember(Value = "TextArea")]
-        TextArea,
-
-        [EnumMember(Value = "User")]
-        User,
-
-        [EnumMember(Value = "UserListBox")]
-        UserListBox,
-
-        [EnumMember(Value = "Website")]
-        Website,
-
-        [EnumMember(Value = "Year")]
-        Year,
-
-        [EnumMember(Value = "YesNo")]
-        YesNo
-    }
-
-
-    public enum FileBoxType
-    {
-        [EnumMember(Value = "Application")]
-        Application,
-
-        [EnumMember(Value = "Image")]
-        Image,
-
-        [EnumMember(Value = "Fax")]
-        Fax,
-
-        [EnumMember(Value = "Attachment")]
-        Attachment,
-
-        [EnumMember(Value = "Ticket")]
-        Ticket,
-
-        [EnumMember(Value = "Contact")]
-        Contact,
-
-        [EnumMember(Value = "DigitalProduct")]
-        DigitalProduct,
-
-        [EnumMember(Value = "Import")]
-        Import,
-
-        [EnumMember(Value = "Hidden")]
-        Hidden,
-
-        [EnumMember(Value = "WebForm")]
-        WebForm,
-
-        [EnumMember(Value = "StyledCart")]
-        StyledCart,
-
-        [EnumMember(Value = "ReSampledImage")]
-        ReSampledImage,
-
-        [EnumMember(Value = "TemplateThumbnail")]
-        TemplateThumbnail,
-
-        [EnumMember(Value = "Funnel")]
-        Funnel,
-
-        [EnumMember(Value = "LogoThumbnail")]
-        LogoThumbnail
-    }
-
-
-    public enum Category
-    {
-        [EnumMember(Value = "Attachments")]
-        Attachments,
-
-        [EnumMember(Value = "Cart")]
-        Cart,
-
-        [EnumMember(Value = "Documents")]
-        Documents,
-
-        [EnumMember(Value = "Hidden")]
-        Hidden,
-
-        [EnumMember(Value = "Invoice")]
-        Invoice,
-
-        [EnumMember(Value = "Logo")]
-        Logo,
-
-        [EnumMember(Value = "Tickets")]
-        Tickets,
-
-        [EnumMember(Value = "WebForm")]
-        WebForm,
-
-        [EnumMember(Value = "Funnel")]
-        Funnel
-    }
-
-
-    public enum EmailStatus
-    {
-        [EnumMember(Value = "Unengaged Marketable")]
-        UnengagedMarketable,
-
-        [EnumMember(Value = "Unconfirmed")]
-        Unconfirmed,
-
-        [EnumMember(Value = "Confirmed (Legacy)")]
-        ConfirmedLegacy,
-
-        [EnumMember(Value = "Confirmed")]
-        Confirmed,
-
-        [EnumMember(Value = "Unengaged NonMarketable")]
-        UnengagedNonMarketable,
-
-        [EnumMember(Value = "Non-marketable")]
-        NonMarketable,
-
-        [EnumMember(Value = "Lockdown")]
-        Lockdown,
-
-        [EnumMember(Value = "Soft Bounce")]
-        SoftBounce,
-
-        [EnumMember(Value = "Hard Bounce")]
-        HardBounce,
-
-        [EnumMember(Value = "Opt-Out")]
-        OptOut,
-
-        [EnumMember(Value = "Opt-Out: Admin")]
-        OptOutAdmin,
-
-        [EnumMember(Value = "Opt-Out: System")]
-        OptOutSystem,
-
-        [EnumMember(Value = "List Unsubscribe")]
-        ListUnsubscribe,
-
-        [EnumMember(Value = "Provided Feedback")]
-        ProvidedFeedback,
-
-        [EnumMember(Value = "Reported Spam")]
-        ReportedSpam,
-
-        [EnumMember(Value = "Invalid Email")]
-        InvalidEmail,
-
-        [EnumMember(Value = "SingleOptIn")]
-        SingleOptIn
-    }
-
-
-    public enum DuplicateOption
-    {
-        [EnumMember(Value = "Email")]
-        Email,
-
-        [EnumMember(Value = "EmailAndName")]
-        EmailAndName
-    }
-
-
     public enum Type
     {
         [EnumMember(Value = "NULL")]
@@ -425,6 +90,103 @@ namespace Infusio.Model
     }
 
 
+    public enum Status
+    {
+        [EnumMember(Value = "CREATED")]
+        CREATED,
+
+        [EnumMember(Value = "UPDATED")]
+        UPDATED,
+
+        [EnumMember(Value = "DELETED")]
+        DELETED
+    }
+
+
+    public enum FileAssociation
+    {
+        [EnumMember(Value = "CONTACT")]
+        CONTACT,
+
+        [EnumMember(Value = "USER")]
+        USER,
+
+        [EnumMember(Value = "COMPANY")]
+        COMPANY
+    }
+
+
+    public enum FileBoxType
+    {
+        [EnumMember(Value = "Application")]
+        Application,
+
+        [EnumMember(Value = "Image")]
+        Image,
+
+        [EnumMember(Value = "Fax")]
+        Fax,
+
+        [EnumMember(Value = "Attachment")]
+        Attachment,
+
+        [EnumMember(Value = "Ticket")]
+        Ticket,
+
+        [EnumMember(Value = "Contact")]
+        Contact,
+
+        [EnumMember(Value = "DigitalProduct")]
+        DigitalProduct,
+
+        [EnumMember(Value = "Import")]
+        Import,
+
+        [EnumMember(Value = "Hidden")]
+        Hidden,
+
+        [EnumMember(Value = "WebForm")]
+        WebForm,
+
+        [EnumMember(Value = "StyledCart")]
+        StyledCart,
+
+        [EnumMember(Value = "ReSampledImage")]
+        ReSampledImage,
+
+        [EnumMember(Value = "TemplateThumbnail")]
+        TemplateThumbnail,
+
+        [EnumMember(Value = "Funnel")]
+        Funnel,
+
+        [EnumMember(Value = "LogoThumbnail")]
+        LogoThumbnail
+    }
+
+
+    public enum Key
+    {
+        [EnumMember(Value = "SUCCESS")]
+        SUCCESS,
+
+        [EnumMember(Value = "DUPLICATE")]
+        DUPLICATE,
+
+        [EnumMember(Value = "CONTACT_NOT_FOUND")]
+        CONTACT_NOT_FOUND,
+
+        [EnumMember(Value = "TAG_ID_NOT_FOUND")]
+        TAG_ID_NOT_FOUND,
+
+        [EnumMember(Value = "FAILURE")]
+        FAILURE,
+
+        [EnumMember(Value = "NO_PERMISSION")]
+        NO_PERMISSION
+    }
+
+
     public enum Field
     {
         [EnumMember(Value = "BILLING")]
@@ -444,6 +206,244 @@ namespace Infusio.Model
 
         [EnumMember(Value = "PHONE2")]
         PHONE2
+    }
+
+
+    public enum CycleType
+    {
+        [EnumMember(Value = "YEAR")]
+        YEAR,
+
+        [EnumMember(Value = "MONTH")]
+        MONTH,
+
+        [EnumMember(Value = "WEEK")]
+        WEEK,
+
+        [EnumMember(Value = "DAY")]
+        DAY
+    }
+
+
+    public enum EmailStatus
+    {
+        [EnumMember(Value = "Unengaged Marketable")]
+        UnengagedMarketable,
+
+        [EnumMember(Value = "Unconfirmed")]
+        Unconfirmed,
+
+        [EnumMember(Value = "Confirmed (Legacy)")]
+        ConfirmedLegacy,
+
+        [EnumMember(Value = "Confirmed")]
+        Confirmed,
+
+        [EnumMember(Value = "Unengaged NonMarketable")]
+        UnengagedNonMarketable,
+
+        [EnumMember(Value = "Non-marketable")]
+        NonMarketable,
+
+        [EnumMember(Value = "Lockdown")]
+        Lockdown,
+
+        [EnumMember(Value = "Soft Bounce")]
+        SoftBounce,
+
+        [EnumMember(Value = "Hard Bounce")]
+        HardBounce,
+
+        [EnumMember(Value = "Opt-Out")]
+        OptOut,
+
+        [EnumMember(Value = "Opt-Out: Admin")]
+        OptOutAdmin,
+
+        [EnumMember(Value = "Opt-Out: System")]
+        OptOutSystem,
+
+        [EnumMember(Value = "List Unsubscribe")]
+        ListUnsubscribe,
+
+        [EnumMember(Value = "Provided Feedback")]
+        ProvidedFeedback,
+
+        [EnumMember(Value = "Reported Spam")]
+        ReportedSpam,
+
+        [EnumMember(Value = "Invalid Email")]
+        InvalidEmail,
+
+        [EnumMember(Value = "SingleOptIn")]
+        SingleOptIn
+    }
+
+
+    public enum FieldType
+    {
+        [EnumMember(Value = "Currency")]
+        Currency,
+
+        [EnumMember(Value = "Date")]
+        Date,
+
+        [EnumMember(Value = "DateTime")]
+        DateTime,
+
+        [EnumMember(Value = "DayOfWeek")]
+        DayOfWeek,
+
+        [EnumMember(Value = "Drilldown")]
+        Drilldown,
+
+        [EnumMember(Value = "Email")]
+        Email,
+
+        [EnumMember(Value = "Month")]
+        Month,
+
+        [EnumMember(Value = "ListBox")]
+        ListBox,
+
+        [EnumMember(Value = "Name")]
+        Name,
+
+        [EnumMember(Value = "WholeNumber")]
+        WholeNumber,
+
+        [EnumMember(Value = "DecimalNumber")]
+        DecimalNumber,
+
+        [EnumMember(Value = "Percent")]
+        Percent,
+
+        [EnumMember(Value = "PhoneNumber")]
+        PhoneNumber,
+
+        [EnumMember(Value = "Radio")]
+        Radio,
+
+        [EnumMember(Value = "Dropdown")]
+        Dropdown,
+
+        [EnumMember(Value = "SocialSecurityNumber")]
+        SocialSecurityNumber,
+
+        [EnumMember(Value = "State")]
+        State,
+
+        [EnumMember(Value = "Text")]
+        Text,
+
+        [EnumMember(Value = "TextArea")]
+        TextArea,
+
+        [EnumMember(Value = "User")]
+        User,
+
+        [EnumMember(Value = "UserListBox")]
+        UserListBox,
+
+        [EnumMember(Value = "Website")]
+        Website,
+
+        [EnumMember(Value = "Year")]
+        Year,
+
+        [EnumMember(Value = "YesNo")]
+        YesNo
+    }
+
+
+    public enum DuplicateOption
+    {
+        [EnumMember(Value = "Email")]
+        Email,
+
+        [EnumMember(Value = "EmailAndName")]
+        EmailAndName
+    }
+
+
+    public enum SourceType
+    {
+        [EnumMember(Value = "WEBFORM")]
+        WEBFORM,
+
+        [EnumMember(Value = "LANDINGPAGE")]
+        LANDINGPAGE,
+
+        [EnumMember(Value = "IMPORT")]
+        IMPORT,
+
+        [EnumMember(Value = "MANUAL")]
+        MANUAL,
+
+        [EnumMember(Value = "API")]
+        API,
+
+        [EnumMember(Value = "OTHER")]
+        OTHER,
+
+        [EnumMember(Value = "UNKNOWN")]
+        UNKNOWN
+    }
+
+
+    public enum RecordType
+    {
+        [EnumMember(Value = "CONTACT")]
+        CONTACT,
+
+        [EnumMember(Value = "REFERRAL_PARTNER")]
+        REFERRAL_PARTNER,
+
+        [EnumMember(Value = "OPPORTUNITY")]
+        OPPORTUNITY,
+
+        [EnumMember(Value = "TASK_APPOINTMENT")]
+        TASK_APPOINTMENT,
+
+        [EnumMember(Value = "COMPANY")]
+        COMPANY,
+
+        [EnumMember(Value = "ORDER")]
+        ORDER,
+
+        [EnumMember(Value = "SUBSCRIPTION")]
+        SUBSCRIPTION
+    }
+
+
+    public enum Category
+    {
+        [EnumMember(Value = "Attachments")]
+        Attachments,
+
+        [EnumMember(Value = "Cart")]
+        Cart,
+
+        [EnumMember(Value = "Documents")]
+        Documents,
+
+        [EnumMember(Value = "Hidden")]
+        Hidden,
+
+        [EnumMember(Value = "Invoice")]
+        Invoice,
+
+        [EnumMember(Value = "Logo")]
+        Logo,
+
+        [EnumMember(Value = "Tickets")]
+        Tickets,
+
+        [EnumMember(Value = "WebForm")]
+        WebForm,
+
+        [EnumMember(Value = "Funnel")]
+        Funnel
     }
 
 
@@ -497,7 +497,7 @@ namespace Infusio.Model
         [JsonProperty("country_code")]
         public readonly string CountryCode;
         [JsonProperty("field")]
-        public readonly Field Field;
+        public readonly Field? Field;
         [JsonProperty("line1")]
         public readonly string Line1;
         [JsonProperty("line2")]
@@ -513,7 +513,7 @@ namespace Infusio.Model
         [JsonProperty("zip_four")]
         public readonly string ZipFour;
 
-        public Address(string countryCode = default, Field field = default, string line1 = default, string line2 = default, string locality = default, string postalCode = default, string region = default, string zipCode = default, string zipFour = default)
+        public Address(string countryCode = default, Field? field = default, string line1 = default, string line2 = default, string locality = default, string postalCode = default, string region = default, string zipCode = default, string zipFour = default)
         {
             CountryCode = countryCode;
             Field = field;
@@ -527,7 +527,7 @@ namespace Infusio.Model
 
         }
 
-        public Address Copy(string countryCode = default, Field field = default, string line1 = default, string line2 = default, string locality = default, string postalCode = default, string region = default, string zipCode = default, string zipFour = default) => new Address(
+        public Address Copy(string countryCode = default, Field? field = default, string line1 = default, string line2 = default, string locality = default, string postalCode = default, string region = default, string zipCode = default, string zipFour = default) => new Address(
                     countryCode: countryCode ?? CountryCode,
                           field: field == default ? Field : field,
                           line1: line1 ?? Line1,
@@ -703,9 +703,9 @@ namespace Infusio.Model
         [JsonProperty("previous_item_id")]
         public readonly long? PreviousItemId;
         [JsonProperty("type")]
-        public readonly Type Type;
+        public readonly Type? Type;
 
-        public Item(long? id = default, string name = default, long? nextItemId = default, long? previousItemId = default, Type type = default)
+        public Item(long? id = default, string name = default, long? nextItemId = default, long? previousItemId = default, Type? type = default)
         {
             Id = id;
             Name = name;
@@ -715,7 +715,7 @@ namespace Infusio.Model
 
         }
 
-        public Item Copy(long? id = default, string name = default, long? nextItemId = default, long? previousItemId = default, Type type = default) => new Item(
+        public Item Copy(long? id = default, string name = default, long? nextItemId = default, long? previousItemId = default, Type? type = default) => new Item(
                     id: id ?? Id,
                           name: name ?? Name,
                           nextItemId: nextItemId ?? NextItemId,
@@ -807,9 +807,9 @@ namespace Infusio.Model
         [JsonProperty("previous_sequence_ids")]
         public readonly Lst<long> PreviousSequenceIds;
         [JsonProperty("type")]
-        public readonly Type Type;
+        public readonly Type? Type;
 
-        public Goal(HistoricalCounts historicalContactCounts = default, long? id = default, string name = default, Lst<long> nextSequenceIds = default, Lst<long> previousSequenceIds = default, Type type = default)
+        public Goal(HistoricalCounts historicalContactCounts = default, long? id = default, string name = default, Lst<long> nextSequenceIds = default, Lst<long> previousSequenceIds = default, Type? type = default)
         {
             HistoricalContactCounts = historicalContactCounts;
             Id = id;
@@ -820,7 +820,7 @@ namespace Infusio.Model
 
         }
 
-        public Goal Copy(HistoricalCounts historicalContactCounts = default, long? id = default, string name = default, Lst<long> nextSequenceIds = default, Lst<long> previousSequenceIds = default, Type type = default) => new Goal(
+        public Goal Copy(HistoricalCounts historicalContactCounts = default, long? id = default, string name = default, Lst<long> nextSequenceIds = default, Lst<long> previousSequenceIds = default, Type? type = default) => new Goal(
                     historicalContactCounts: historicalContactCounts == default ? HistoricalContactCounts : historicalContactCounts,
                           id: id ?? Id,
                           name: name ?? Name,
@@ -834,13 +834,13 @@ namespace Infusio.Model
     public class FaxNumber : Record<FaxNumber>
     {
         [JsonProperty("field")]
-        public readonly Field Field;
+        public readonly Field? Field;
         [JsonProperty("number")]
         public readonly string Number;
         [JsonProperty("type")]
         public readonly string Type;
 
-        public FaxNumber(Field field = default, string number = default, string type = default)
+        public FaxNumber(Field? field = default, string number = default, string type = default)
         {
             Field = field;
             Number = number;
@@ -848,7 +848,7 @@ namespace Infusio.Model
 
         }
 
-        public FaxNumber Copy(Field field = default, string number = default, string type = default) => new FaxNumber(
+        public FaxNumber Copy(Field? field = default, string number = default, string type = default) => new FaxNumber(
                     field: field == default ? Field : field,
                           number: number ?? Number,
                           type: type ?? Type
@@ -931,16 +931,16 @@ namespace Infusio.Model
         [JsonProperty("email")]
         public readonly string Email;
         [JsonProperty("field")]
-        public readonly Field Field;
+        public readonly Field? Field;
 
-        public EmailAddress(string email = default, Field field = default)
+        public EmailAddress(string email = default, Field? field = default)
         {
             Email = email;
             Field = field;
 
         }
 
-        public EmailAddress Copy(string email = default, Field field = default) => new EmailAddress(
+        public EmailAddress Copy(string email = default, Field? field = default) => new EmailAddress(
                     email: email ?? Email,
                           field: field == default ? Field : field
 
@@ -1087,6 +1087,27 @@ namespace Infusio.Model
         );
     }
 
+    public class ContactOrigin : Record<ContactOrigin>
+    {
+        [JsonProperty("date")]
+        public readonly string Date;
+        [JsonProperty("ip_address")]
+        public readonly string IpAddress;
+
+        public ContactOrigin(string date = default, string ipAddress = default)
+        {
+            Date = date;
+            IpAddress = ipAddress;
+
+        }
+
+        public ContactOrigin Copy(string date = default, string ipAddress = default) => new ContactOrigin(
+                    date: date ?? Date,
+                          ipAddress: ipAddress ?? IpAddress
+
+        );
+    }
+
     public class CreateTagCategory : Record<CreateTagCategory>
     {
         [JsonProperty("description")]
@@ -1168,6 +1189,10 @@ namespace Infusio.Model
         public readonly Address Address;
         [JsonProperty("business_goals")]
         public readonly Lst<string> BusinessGoals;
+        [JsonProperty("business_primary_color")]
+        public readonly string BusinessPrimaryColor;
+        [JsonProperty("business_secondary_color")]
+        public readonly string BusinessSecondaryColor;
         [JsonProperty("business_type")]
         public readonly string BusinessType;
         [JsonProperty("currency_code")]
@@ -1189,10 +1214,12 @@ namespace Infusio.Model
         [JsonProperty("website")]
         public readonly string Website;
 
-        public AccountProfile(Address address = default, Lst<string> businessGoals = default, string businessType = default, string currencyCode = default, string email = default, string languageTag = default, string logoUrl = default, string name = default, string phone = default, string phoneExt = default, string timeZone = default, string website = default)
+        public AccountProfile(Address address = default, Lst<string> businessGoals = default, string businessPrimaryColor = default, string businessSecondaryColor = default, string businessType = default, string currencyCode = default, string email = default, string languageTag = default, string logoUrl = default, string name = default, string phone = default, string phoneExt = default, string timeZone = default, string website = default)
         {
             Address = address;
             BusinessGoals = businessGoals;
+            BusinessPrimaryColor = businessPrimaryColor;
+            BusinessSecondaryColor = businessSecondaryColor;
             BusinessType = businessType;
             CurrencyCode = currencyCode;
             Email = email;
@@ -1206,9 +1233,11 @@ namespace Infusio.Model
 
         }
 
-        public AccountProfile Copy(Address address = default, Lst<string> businessGoals = default, string businessType = default, string currencyCode = default, string email = default, string languageTag = default, string logoUrl = default, string name = default, string phone = default, string phoneExt = default, string timeZone = default, string website = default) => new AccountProfile(
+        public AccountProfile Copy(Address address = default, Lst<string> businessGoals = default, string businessPrimaryColor = default, string businessSecondaryColor = default, string businessType = default, string currencyCode = default, string email = default, string languageTag = default, string logoUrl = default, string name = default, string phone = default, string phoneExt = default, string timeZone = default, string website = default) => new AccountProfile(
                     address: address == default ? Address : address,
                           businessGoals: businessGoals == default ? BusinessGoals : businessGoals,
+                          businessPrimaryColor: businessPrimaryColor ?? BusinessPrimaryColor,
+                          businessSecondaryColor: businessSecondaryColor ?? BusinessSecondaryColor,
                           businessType: businessType ?? BusinessType,
                           currencyCode: currencyCode ?? CurrencyCode,
                           email: email ?? Email,
@@ -1344,9 +1373,9 @@ namespace Infusio.Model
         [JsonProperty("ready")]
         public readonly bool Ready;
         [JsonProperty("type")]
-        public readonly Type Type;
+        public readonly Type? Type;
 
-        public CampaignLandingPageNodeDTO(string formId = default, string id = default, string landingPageId = default, Lst<string> leadBucketIds = default, string name = default, object properties = default, bool ready = default, Type type = default)
+        public CampaignLandingPageNodeDTO(string formId = default, string id = default, string landingPageId = default, Lst<string> leadBucketIds = default, string name = default, object properties = default, bool ready = default, Type? type = default)
         {
             FormId = formId;
             Id = id;
@@ -1359,7 +1388,7 @@ namespace Infusio.Model
 
         }
 
-        public CampaignLandingPageNodeDTO Copy(string formId = default, string id = default, string landingPageId = default, Lst<string> leadBucketIds = default, string name = default, object properties = default, bool ready = default, Type type = default) => new CampaignLandingPageNodeDTO(
+        public CampaignLandingPageNodeDTO Copy(string formId = default, string id = default, string landingPageId = default, Lst<string> leadBucketIds = default, string name = default, object properties = default, bool ready = default, Type? type = default) => new CampaignLandingPageNodeDTO(
                     formId: formId ?? FormId,
                           id: id ?? Id,
                           landingPageId: landingPageId ?? LandingPageId,
@@ -1410,6 +1439,23 @@ namespace Infusio.Model
         );
     }
 
+    public class ProvincesByCode : Record<ProvincesByCode>
+    {
+        [JsonProperty("provinces")]
+        public readonly object Provinces;
+
+        public ProvincesByCode(object provinces = default)
+        {
+            Provinces = provinces;
+
+        }
+
+        public ProvincesByCode Copy(object provinces = default) => new ProvincesByCode(
+                    provinces: provinces ?? Provinces
+
+        );
+    }
+
     public class CampaignNodeDTO : Record<CampaignNodeDTO>
     {
         [JsonProperty("id")]
@@ -1421,9 +1467,9 @@ namespace Infusio.Model
         [JsonProperty("ready")]
         public readonly bool Ready;
         [JsonProperty("type")]
-        public readonly Type Type;
+        public readonly Type? Type;
 
-        public CampaignNodeDTO(string id = default, string name = default, object properties = default, bool ready = default, Type type = default)
+        public CampaignNodeDTO(string id = default, string name = default, object properties = default, bool ready = default, Type? type = default)
         {
             Id = id;
             Name = name;
@@ -1433,7 +1479,7 @@ namespace Infusio.Model
 
         }
 
-        public CampaignNodeDTO Copy(string id = default, string name = default, object properties = default, bool ready = default, Type type = default) => new CampaignNodeDTO(
+        public CampaignNodeDTO Copy(string id = default, string name = default, object properties = default, bool ready = default, Type? type = default) => new CampaignNodeDTO(
                     id: id ?? Id,
                           name: name ?? Name,
                           properties: properties ?? Properties,
@@ -1477,16 +1523,16 @@ namespace Infusio.Model
         [JsonProperty("product")]
         public readonly Product_ Product;
         [JsonProperty("status")]
-        public readonly Status Status;
+        public readonly Status? Status;
 
-        public ProductStatus(Product_ product = default, Status status = default)
+        public ProductStatus(Product_ product = default, Status? status = default)
         {
             Product = product;
             Status = status;
 
         }
 
-        public ProductStatus Copy(Product_ product = default, Status status = default) => new ProductStatus(
+        public ProductStatus Copy(Product_ product = default, Status? status = default) => new ProductStatus(
                     product: product == default ? Product : product,
                           status: status == default ? Status : status
 
@@ -1785,13 +1831,13 @@ namespace Infusio.Model
         [JsonProperty("extension")]
         public readonly string Extension;
         [JsonProperty("field")]
-        public readonly Field Field;
+        public readonly Field? Field;
         [JsonProperty("number")]
         public readonly string Number;
         [JsonProperty("type")]
         public readonly string Type;
 
-        public PhoneNumber(string extension = default, Field field = default, string number = default, string type = default)
+        public PhoneNumber(string extension = default, Field? field = default, string number = default, string type = default)
         {
             Extension = extension;
             Field = field;
@@ -1800,11 +1846,28 @@ namespace Infusio.Model
 
         }
 
-        public PhoneNumber Copy(string extension = default, Field field = default, string number = default, string type = default) => new PhoneNumber(
+        public PhoneNumber Copy(string extension = default, Field? field = default, string number = default, string type = default) => new PhoneNumber(
                     extension: extension ?? Extension,
                           field: field == default ? Field : field,
                           number: number ?? Number,
                           type: type ?? Type
+
+        );
+    }
+
+    public class CountriesByCode : Record<CountriesByCode>
+    {
+        [JsonProperty("countries")]
+        public readonly object Countries;
+
+        public CountriesByCode(object countries = default)
+        {
+            Countries = countries;
+
+        }
+
+        public CountriesByCode Copy(object countries = default) => new CountriesByCode(
+                    countries: countries ?? Countries
 
         );
     }
@@ -1841,7 +1904,7 @@ namespace Infusio.Model
     public class CustomFieldMetaData : Record<CustomFieldMetaData>
     {
         [JsonProperty("field_type")]
-        public readonly FieldType FieldType;
+        public readonly FieldType? FieldType;
         [JsonProperty("id")]
         public readonly long? Id;
         [JsonProperty("label")]
@@ -1849,9 +1912,9 @@ namespace Infusio.Model
         [JsonProperty("options")]
         public readonly Lst<CustomFieldOption> Options;
         [JsonProperty("record_type")]
-        public readonly RecordType RecordType;
+        public readonly RecordType? RecordType;
 
-        public CustomFieldMetaData(FieldType fieldType = default, long? id = default, string label = default, Lst<CustomFieldOption> options = default, RecordType recordType = default)
+        public CustomFieldMetaData(FieldType? fieldType = default, long? id = default, string label = default, Lst<CustomFieldOption> options = default, RecordType? recordType = default)
         {
             FieldType = fieldType;
             Id = id;
@@ -1861,7 +1924,7 @@ namespace Infusio.Model
 
         }
 
-        public CustomFieldMetaData Copy(FieldType fieldType = default, long? id = default, string label = default, Lst<CustomFieldOption> options = default, RecordType recordType = default) => new CustomFieldMetaData(
+        public CustomFieldMetaData Copy(FieldType? fieldType = default, long? id = default, string label = default, Lst<CustomFieldOption> options = default, RecordType? recordType = default) => new CustomFieldMetaData(
                     fieldType: fieldType == default ? FieldType : fieldType,
                           id: id ?? Id,
                           label: label ?? Label,
@@ -1895,15 +1958,15 @@ namespace Infusio.Model
     public class EntryLongString : Record<EntryLongString>
     {
         [JsonProperty("key")]
-        public readonly Key Key;
+        public readonly Key? Key;
 
-        public EntryLongString(Key key = default)
+        public EntryLongString(Key? key = default)
         {
             Key = key;
 
         }
 
-        public EntryLongString Copy(Key key = default) => new EntryLongString(
+        public EntryLongString Copy(Key? key = default) => new EntryLongString(
                     key: key == default ? Key : key
 
         );
@@ -1922,7 +1985,7 @@ namespace Infusio.Model
         [JsonProperty("email_opted_in")]
         public readonly bool EmailOptedIn;
         [JsonProperty("email_status")]
-        public readonly EmailStatus EmailStatus;
+        public readonly EmailStatus? EmailStatus;
         [JsonProperty("fax_number")]
         public readonly CompanyFaxNumber FaxNumber;
         [JsonProperty("id")]
@@ -1934,7 +1997,7 @@ namespace Infusio.Model
         [JsonProperty("website")]
         public readonly string Website;
 
-        public Company(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, bool emailOptedIn = default, EmailStatus emailStatus = default, CompanyFaxNumber faxNumber = default, long? id = default, string notes = default, CompanyPhoneNumber phoneNumber = default, string website = default)
+        public Company(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, bool emailOptedIn = default, EmailStatus? emailStatus = default, CompanyFaxNumber faxNumber = default, long? id = default, string notes = default, CompanyPhoneNumber phoneNumber = default, string website = default)
         {
             Address = address;
             CompanyName = companyName;
@@ -1950,7 +2013,7 @@ namespace Infusio.Model
 
         }
 
-        public Company Copy(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, bool emailOptedIn = default, EmailStatus emailStatus = default, CompanyFaxNumber faxNumber = default, long? id = default, string notes = default, CompanyPhoneNumber phoneNumber = default, string website = default) => new Company(
+        public Company Copy(CompanyAddress address = default, string companyName = default, Lst<CustomFieldValue> customFields = default, string emailAddress = default, bool emailOptedIn = default, EmailStatus? emailStatus = default, CompanyFaxNumber faxNumber = default, long? id = default, string notes = default, CompanyPhoneNumber phoneNumber = default, string website = default) => new Company(
                     address: address == default ? Address : address,
                           companyName: companyName ?? CompanyName,
                           customFields: customFields == default ? CustomFields : customFields,
@@ -2279,9 +2342,9 @@ namespace Infusio.Model
         [JsonProperty("key")]
         public readonly string Key;
         [JsonProperty("status")]
-        public readonly Status Status;
+        public readonly Status? Status;
 
-        public RestHook(string eventKey = default, string hookUrl = default, string key = default, Status status = default)
+        public RestHook(string eventKey = default, string hookUrl = default, string key = default, Status? status = default)
         {
             EventKey = eventKey;
             HookUrl = hookUrl;
@@ -2290,7 +2353,7 @@ namespace Infusio.Model
 
         }
 
-        public RestHook Copy(string eventKey = default, string hookUrl = default, string key = default, Status status = default) => new RestHook(
+        public RestHook Copy(string eventKey = default, string hookUrl = default, string key = default, Status? status = default) => new RestHook(
                     eventKey: eventKey ?? EventKey,
                           hookUrl: hookUrl ?? HookUrl,
                           key: key ?? Key,
@@ -2357,7 +2420,7 @@ namespace Infusio.Model
         [JsonProperty("email_opted_in")]
         public readonly bool EmailOptedIn;
         [JsonProperty("email_status")]
-        public readonly EmailStatus EmailStatus;
+        public readonly EmailStatus? EmailStatus;
         [JsonProperty("family_name")]
         public readonly string FamilyName;
         [JsonProperty("fax_numbers")]
@@ -2378,6 +2441,8 @@ namespace Infusio.Model
         public readonly string Notes;
         [JsonProperty("opt_in_reason")]
         public readonly string OptInReason;
+        [JsonProperty("origin")]
+        public readonly ContactOrigin Origin;
         [JsonProperty("owner_id")]
         public readonly long? OwnerId;
         [JsonProperty("phone_numbers")]
@@ -2393,7 +2458,7 @@ namespace Infusio.Model
         [JsonProperty("social_accounts")]
         public readonly Lst<SocialAccount> SocialAccounts;
         [JsonProperty("source_type")]
-        public readonly SourceType SourceType;
+        public readonly SourceType? SourceType;
         [JsonProperty("spouse_name")]
         public readonly string SpouseName;
         [JsonProperty("suffix")]
@@ -2405,7 +2470,7 @@ namespace Infusio.Model
         [JsonProperty("website")]
         public readonly string Website;
 
-        public FullContact(Lst<Address> addresses = default, string anniversary = default, string birthday = default, CompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, string dateCreated = default, Lst<EmailAddress> emailAddresses = default, bool emailOptedIn = default, EmailStatus emailStatus = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, long? id = default, string jobTitle = default, string lastUpdated = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<Relationship> relationships = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, Lst<long> tagIds = default, string timeZone = default, string website = default)
+        public FullContact(Lst<Address> addresses = default, string anniversary = default, string birthday = default, CompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, string dateCreated = default, Lst<EmailAddress> emailAddresses = default, bool emailOptedIn = default, EmailStatus? emailStatus = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, long? id = default, string jobTitle = default, string lastUpdated = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, ContactOrigin origin = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<Relationship> relationships = default, Lst<SocialAccount> socialAccounts = default, SourceType? sourceType = default, string spouseName = default, string suffix = default, Lst<long> tagIds = default, string timeZone = default, string website = default)
         {
             Addresses = addresses;
             Anniversary = anniversary;
@@ -2427,6 +2492,7 @@ namespace Infusio.Model
             MiddleName = middleName;
             Notes = notes;
             OptInReason = optInReason;
+            Origin = origin;
             OwnerId = ownerId;
             PhoneNumbers = phoneNumbers;
             PreferredLocale = preferredLocale;
@@ -2443,7 +2509,7 @@ namespace Infusio.Model
 
         }
 
-        public FullContact Copy(Lst<Address> addresses = default, string anniversary = default, string birthday = default, CompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, string dateCreated = default, Lst<EmailAddress> emailAddresses = default, bool emailOptedIn = default, EmailStatus emailStatus = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, long? id = default, string jobTitle = default, string lastUpdated = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<Relationship> relationships = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, Lst<long> tagIds = default, string timeZone = default, string website = default) => new FullContact(
+        public FullContact Copy(Lst<Address> addresses = default, string anniversary = default, string birthday = default, CompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, string dateCreated = default, Lst<EmailAddress> emailAddresses = default, bool emailOptedIn = default, EmailStatus? emailStatus = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, long? id = default, string jobTitle = default, string lastUpdated = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, ContactOrigin origin = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<Relationship> relationships = default, Lst<SocialAccount> socialAccounts = default, SourceType? sourceType = default, string spouseName = default, string suffix = default, Lst<long> tagIds = default, string timeZone = default, string website = default) => new FullContact(
                     addresses: addresses == default ? Addresses : addresses,
                           anniversary: anniversary ?? Anniversary,
                           birthday: birthday ?? Birthday,
@@ -2464,6 +2530,7 @@ namespace Infusio.Model
                           middleName: middleName ?? MiddleName,
                           notes: notes ?? Notes,
                           optInReason: optInReason ?? OptInReason,
+                          origin: origin == default ? Origin : origin,
                           ownerId: ownerId ?? OwnerId,
                           phoneNumbers: phoneNumbers == default ? PhoneNumbers : phoneNumbers,
                           preferredLocale: preferredLocale ?? PreferredLocale,
@@ -2477,6 +2544,23 @@ namespace Infusio.Model
                           tagIds: tagIds == default ? TagIds : tagIds,
                           timeZone: timeZone ?? TimeZone,
                           website: website ?? Website
+
+        );
+    }
+
+    public class CreateContactOrigin : Record<CreateContactOrigin>
+    {
+        [JsonProperty("ip_address")]
+        public readonly string IpAddress;
+
+        public CreateContactOrigin(string ipAddress = default)
+        {
+            IpAddress = ipAddress;
+
+        }
+
+        public CreateContactOrigin Copy(string ipAddress = default) => new CreateContactOrigin(
+                    ipAddress: ipAddress ?? IpAddress
 
         );
     }
@@ -2771,7 +2855,7 @@ namespace Infusio.Model
         [JsonProperty("custom_fields")]
         public readonly Lst<CustomFieldValue> CustomFields;
         [JsonProperty("duplicate_option")]
-        public readonly DuplicateOption DuplicateOption;
+        public readonly DuplicateOption? DuplicateOption;
         [JsonProperty("email_addresses")]
         public readonly Lst<EmailAddress> EmailAddresses;
         [JsonProperty("family_name")]
@@ -2790,6 +2874,8 @@ namespace Infusio.Model
         public readonly string Notes;
         [JsonProperty("opt_in_reason")]
         public readonly string OptInReason;
+        [JsonProperty("origin")]
+        public readonly CreateContactOrigin Origin;
         [JsonProperty("owner_id")]
         public readonly long? OwnerId;
         [JsonProperty("phone_numbers")]
@@ -2803,7 +2889,7 @@ namespace Infusio.Model
         [JsonProperty("social_accounts")]
         public readonly Lst<SocialAccount> SocialAccounts;
         [JsonProperty("source_type")]
-        public readonly SourceType SourceType;
+        public readonly SourceType? SourceType;
         [JsonProperty("spouse_name")]
         public readonly string SpouseName;
         [JsonProperty("suffix")]
@@ -2813,7 +2899,7 @@ namespace Infusio.Model
         [JsonProperty("website")]
         public readonly string Website;
 
-        public UpsertContact(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, DuplicateOption duplicateOption = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default)
+        public UpsertContact(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, DuplicateOption? duplicateOption = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, CreateContactOrigin origin = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType? sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default)
         {
             Addresses = addresses;
             Anniversary = anniversary;
@@ -2831,6 +2917,7 @@ namespace Infusio.Model
             MiddleName = middleName;
             Notes = notes;
             OptInReason = optInReason;
+            Origin = origin;
             OwnerId = ownerId;
             PhoneNumbers = phoneNumbers;
             PreferredLocale = preferredLocale;
@@ -2845,7 +2932,7 @@ namespace Infusio.Model
 
         }
 
-        public UpsertContact Copy(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, DuplicateOption duplicateOption = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default) => new UpsertContact(
+        public UpsertContact Copy(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, DuplicateOption? duplicateOption = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, CreateContactOrigin origin = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType? sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default) => new UpsertContact(
                     addresses: addresses == default ? Addresses : addresses,
                           anniversary: anniversary ?? Anniversary,
                           birthday: birthday ?? Birthday,
@@ -2862,6 +2949,7 @@ namespace Infusio.Model
                           middleName: middleName ?? MiddleName,
                           notes: notes ?? Notes,
                           optInReason: optInReason ?? OptInReason,
+                          origin: origin == default ? Origin : origin,
                           ownerId: ownerId ?? OwnerId,
                           phoneNumbers: phoneNumbers == default ? PhoneNumbers : phoneNumbers,
                           preferredLocale: preferredLocale ?? PreferredLocale,
@@ -3331,7 +3419,7 @@ namespace Infusio.Model
         [JsonProperty("active")]
         public readonly bool Active;
         [JsonProperty("cycle_type")]
-        public readonly CycleType CycleType;
+        public readonly CycleType? CycleType;
         [JsonProperty("frequency")]
         public readonly int? Frequency;
         [JsonProperty("number_of_cycles")]
@@ -3341,7 +3429,7 @@ namespace Infusio.Model
         [JsonProperty("subscription_plan_index")]
         public readonly int? SubscriptionPlanIndex;
 
-        public CreateProductSubscription(bool active = default, CycleType cycleType = default, int? frequency = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default)
+        public CreateProductSubscription(bool active = default, CycleType? cycleType = default, int? frequency = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default)
         {
             Active = active;
             CycleType = cycleType;
@@ -3352,7 +3440,7 @@ namespace Infusio.Model
 
         }
 
-        public CreateProductSubscription Copy(bool active = default, CycleType cycleType = default, int? frequency = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default) => new CreateProductSubscription(
+        public CreateProductSubscription Copy(bool active = default, CycleType? cycleType = default, int? frequency = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default) => new CreateProductSubscription(
                     active: active == default ? Active : active,
                           cycleType: cycleType == default ? CycleType : cycleType,
                           frequency: frequency ?? Frequency,
@@ -3530,9 +3618,9 @@ namespace Infusio.Model
         [JsonProperty("is_public")]
         public readonly bool IsPublic;
         [JsonProperty("file_association")]
-        public readonly FileAssociation FileAssociation;
+        public readonly FileAssociation? FileAssociation;
 
-        public FileUpload(string fileName = default, string fileData = default, long? contactId = default, bool isPublic = default, FileAssociation fileAssociation = default)
+        public FileUpload(string fileName = default, string fileData = default, long? contactId = default, bool isPublic = default, FileAssociation? fileAssociation = default)
         {
             FileName = fileName;
             FileData = fileData;
@@ -3542,7 +3630,7 @@ namespace Infusio.Model
 
         }
 
-        public FileUpload Copy(string fileName = default, string fileData = default, long? contactId = default, bool isPublic = default, FileAssociation fileAssociation = default) => new FileUpload(
+        public FileUpload Copy(string fileName = default, string fileData = default, long? contactId = default, bool isPublic = default, FileAssociation? fileAssociation = default) => new FileUpload(
                     fileName: fileName ?? FileName,
                           fileData: fileData ?? FileData,
                           contactId: contactId ?? ContactId,
@@ -3585,11 +3673,11 @@ namespace Infusio.Model
         [JsonProperty("text_message")]
         public readonly string TextMessage;
         [JsonProperty("type")]
-        public readonly Type Type;
+        public readonly Type? Type;
         [JsonProperty("values")]
         public readonly Lst<ProductOptionValue> Values;
 
-        public ProductOption(bool allowSpaces = default, bool canContainCharacter = default, bool canContainNumber = default, bool canEndWithCharacter = default, bool canEndWithNumber = default, bool canStartWithCharacter = default, bool canStartWithNumber = default, int? displayIndex = default, long? id = default, string label = default, int? maxChars = default, int? minChars = default, string name = default, bool required = default, string textMessage = default, Type type = default, Lst<ProductOptionValue> values = default)
+        public ProductOption(bool allowSpaces = default, bool canContainCharacter = default, bool canContainNumber = default, bool canEndWithCharacter = default, bool canEndWithNumber = default, bool canStartWithCharacter = default, bool canStartWithNumber = default, int? displayIndex = default, long? id = default, string label = default, int? maxChars = default, int? minChars = default, string name = default, bool required = default, string textMessage = default, Type? type = default, Lst<ProductOptionValue> values = default)
         {
             AllowSpaces = allowSpaces;
             CanContainCharacter = canContainCharacter;
@@ -3611,7 +3699,7 @@ namespace Infusio.Model
 
         }
 
-        public ProductOption Copy(bool allowSpaces = default, bool canContainCharacter = default, bool canContainNumber = default, bool canEndWithCharacter = default, bool canEndWithNumber = default, bool canStartWithCharacter = default, bool canStartWithNumber = default, int? displayIndex = default, long? id = default, string label = default, int? maxChars = default, int? minChars = default, string name = default, bool required = default, string textMessage = default, Type type = default, Lst<ProductOptionValue> values = default) => new ProductOption(
+        public ProductOption Copy(bool allowSpaces = default, bool canContainCharacter = default, bool canContainNumber = default, bool canEndWithCharacter = default, bool canEndWithNumber = default, bool canStartWithCharacter = default, bool canStartWithNumber = default, int? displayIndex = default, long? id = default, string label = default, int? maxChars = default, int? minChars = default, string name = default, bool required = default, string textMessage = default, Type? type = default, Lst<ProductOptionValue> values = default) => new ProductOption(
                     allowSpaces: allowSpaces == default ? AllowSpaces : allowSpaces,
                           canContainCharacter: canContainCharacter == default ? CanContainCharacter : canContainCharacter,
                           canContainNumber: canContainNumber == default ? CanContainNumber : canContainNumber,
@@ -3717,7 +3805,7 @@ namespace Infusio.Model
         [JsonProperty("active")]
         public readonly bool Active;
         [JsonProperty("cycle_type")]
-        public readonly CycleType CycleType;
+        public readonly CycleType? CycleType;
         [JsonProperty("frequency")]
         public readonly int? Frequency;
         [JsonProperty("id")]
@@ -3733,7 +3821,7 @@ namespace Infusio.Model
         [JsonProperty("url")]
         public readonly string Url;
 
-        public ProductSubscription(bool active = default, CycleType cycleType = default, int? frequency = default, long? id = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default, string subscriptionPlanName = default, string url = default)
+        public ProductSubscription(bool active = default, CycleType? cycleType = default, int? frequency = default, long? id = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default, string subscriptionPlanName = default, string url = default)
         {
             Active = active;
             CycleType = cycleType;
@@ -3747,7 +3835,7 @@ namespace Infusio.Model
 
         }
 
-        public ProductSubscription Copy(bool active = default, CycleType cycleType = default, int? frequency = default, long? id = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default, string subscriptionPlanName = default, string url = default) => new ProductSubscription(
+        public ProductSubscription Copy(bool active = default, CycleType? cycleType = default, int? frequency = default, long? id = default, int? numberOfCycles = default, int? planPrice = default, int? subscriptionPlanIndex = default, string subscriptionPlanName = default, string url = default) => new ProductSubscription(
                     active: active == default ? Active : active,
                           cycleType: cycleType == default ? CycleType : cycleType,
                           frequency: frequency ?? Frequency,
@@ -3826,6 +3914,8 @@ namespace Infusio.Model
         public readonly string Notes;
         [JsonProperty("opt_in_reason")]
         public readonly string OptInReason;
+        [JsonProperty("origin")]
+        public readonly CreateContactOrigin Origin;
         [JsonProperty("owner_id")]
         public readonly long? OwnerId;
         [JsonProperty("phone_numbers")]
@@ -3839,7 +3929,7 @@ namespace Infusio.Model
         [JsonProperty("social_accounts")]
         public readonly Lst<SocialAccount> SocialAccounts;
         [JsonProperty("source_type")]
-        public readonly SourceType SourceType;
+        public readonly SourceType? SourceType;
         [JsonProperty("spouse_name")]
         public readonly string SpouseName;
         [JsonProperty("suffix")]
@@ -3849,7 +3939,7 @@ namespace Infusio.Model
         [JsonProperty("website")]
         public readonly string Website;
 
-        public RequestContact(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default)
+        public RequestContact(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, CreateContactOrigin origin = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType? sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default)
         {
             Addresses = addresses;
             Anniversary = anniversary;
@@ -3866,6 +3956,7 @@ namespace Infusio.Model
             MiddleName = middleName;
             Notes = notes;
             OptInReason = optInReason;
+            Origin = origin;
             OwnerId = ownerId;
             PhoneNumbers = phoneNumbers;
             PreferredLocale = preferredLocale;
@@ -3880,7 +3971,7 @@ namespace Infusio.Model
 
         }
 
-        public RequestContact Copy(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default) => new RequestContact(
+        public RequestContact Copy(Lst<Address> addresses = default, string anniversary = default, string birthday = default, RequestCompanyReference company = default, string contactType = default, Lst<CustomFieldValue> customFields = default, Lst<EmailAddress> emailAddresses = default, string familyName = default, Lst<FaxNumber> faxNumbers = default, string givenName = default, string jobTitle = default, long? leadSourceId = default, string middleName = default, string notes = default, string optInReason = default, CreateContactOrigin origin = default, long? ownerId = default, Lst<PhoneNumber> phoneNumbers = default, string preferredLocale = default, string preferredName = default, string prefix = default, Lst<SocialAccount> socialAccounts = default, SourceType? sourceType = default, string spouseName = default, string suffix = default, string timeZone = default, string website = default) => new RequestContact(
                     addresses: addresses == default ? Addresses : addresses,
                           anniversary: anniversary ?? Anniversary,
                           birthday: birthday ?? Birthday,
@@ -3896,6 +3987,7 @@ namespace Infusio.Model
                           middleName: middleName ?? MiddleName,
                           notes: notes ?? Notes,
                           optInReason: optInReason ?? OptInReason,
+                          origin: origin == default ? Origin : origin,
                           ownerId: ownerId ?? OwnerId,
                           phoneNumbers: phoneNumbers == default ? PhoneNumbers : phoneNumbers,
                           preferredLocale: preferredLocale ?? PreferredLocale,
@@ -3916,16 +4008,16 @@ namespace Infusio.Model
         [JsonProperty("name")]
         public readonly string Name;
         [JsonProperty("type")]
-        public readonly Type Type;
+        public readonly Type? Type;
 
-        public SocialAccount(string name = default, Type type = default)
+        public SocialAccount(string name = default, Type? type = default)
         {
             Name = name;
             Type = type;
 
         }
 
-        public SocialAccount Copy(string name = default, Type type = default) => new SocialAccount(
+        public SocialAccount Copy(string name = default, Type? type = default) => new SocialAccount(
                     name: name ?? Name,
                           type: type == default ? Type : type
 
@@ -4070,7 +4162,7 @@ namespace Infusio.Model
     public class FileDescriptor : Record<FileDescriptor>
     {
         [JsonProperty("category")]
-        public readonly Category Category;
+        public readonly Category? Category;
         [JsonProperty("contact_id")]
         public readonly long? ContactId;
         [JsonProperty("created_by")]
@@ -4080,7 +4172,7 @@ namespace Infusio.Model
         [JsonProperty("download_url")]
         public readonly string DownloadUrl;
         [JsonProperty("file_box_type")]
-        public readonly FileBoxType FileBoxType;
+        public readonly FileBoxType? FileBoxType;
         [JsonProperty("file_name")]
         public readonly string FileName;
         [JsonProperty("file_size")]
@@ -4092,7 +4184,7 @@ namespace Infusio.Model
         [JsonProperty("remote_file_key")]
         public readonly string RemoteFileKey;
 
-        public FileDescriptor(Category category = default, long? contactId = default, long? createdBy = default, string dateCreated = default, string downloadUrl = default, FileBoxType fileBoxType = default, string fileName = default, long? fileSize = default, string lastUpdated = default, bool _public = default, string remoteFileKey = default)
+        public FileDescriptor(Category? category = default, long? contactId = default, long? createdBy = default, string dateCreated = default, string downloadUrl = default, FileBoxType? fileBoxType = default, string fileName = default, long? fileSize = default, string lastUpdated = default, bool _public = default, string remoteFileKey = default)
         {
             Category = category;
             ContactId = contactId;
@@ -4108,7 +4200,7 @@ namespace Infusio.Model
 
         }
 
-        public FileDescriptor Copy(Category category = default, long? contactId = default, long? createdBy = default, string dateCreated = default, string downloadUrl = default, FileBoxType fileBoxType = default, string fileName = default, long? fileSize = default, string lastUpdated = default, bool _public = default, string remoteFileKey = default) => new FileDescriptor(
+        public FileDescriptor Copy(Category? category = default, long? contactId = default, long? createdBy = default, string dateCreated = default, string downloadUrl = default, FileBoxType? fileBoxType = default, string fileName = default, long? fileSize = default, string lastUpdated = default, bool _public = default, string remoteFileKey = default) => new FileDescriptor(
                     category: category == default ? Category : category,
                           contactId: contactId ?? ContactId,
                           createdBy: createdBy ?? CreatedBy,

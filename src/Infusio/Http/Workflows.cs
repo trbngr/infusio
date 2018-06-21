@@ -414,7 +414,7 @@ namespace Infusio.Http
         );
 
         public static HttpWorkflow<FileList> AsHttpWorkflow<T>(this InfusioOp<T>.ListFiles op) => HttpWorkflow<FileList>(
-               message: Request(HttpMethod.Get, MakeUri($"/files", RequestParameter("name", op.Name), RequestParameter("type", op.Type), RequestParameter("permission", op.Permission), RequestParameter("viewable", op.Viewable), RequestParameter("offset", op.Offset), RequestParameter("limit", op.Limit))),
+               message: Request(HttpMethod.Get, MakeUri($"/files", RequestParameter("contactId", op.ContactId), RequestParameter("name", op.Name), RequestParameter("type", op.Type), RequestParameter("permission", op.Permission), RequestParameter("viewable", op.Viewable), RequestParameter("offset", op.Offset), RequestParameter("limit", op.Limit))),
                responses: HashSet<KnownResponse.Eq, KnownResponse>(
                    new KnownResponse(200, "OK", typeof(FileList)),
                    new KnownResponse(401, "Unauthorized", typeof(Error)),
@@ -536,6 +536,26 @@ namespace Infusio.Http
                    new KnownResponse(200, "OK", typeof(RestHook)),
                    new KnownResponse(401, "Unauthorized", typeof(Error)),
                    new KnownResponse(403, "Forbidden", typeof(Error))
+               )
+        );
+
+        public static HttpWorkflow<CountriesByCode> AsHttpWorkflow<T>(this InfusioOp<T>.ListCountries op) => HttpWorkflow<CountriesByCode>(
+               message: Request(HttpMethod.Get, MakeUri($"/locales/countries")),
+               responses: HashSet<KnownResponse.Eq, KnownResponse>(
+                   new KnownResponse(200, "OK", typeof(CountriesByCode)),
+                   new KnownResponse(401, "Unauthorized", typeof(Error)),
+                   new KnownResponse(403, "Forbidden", typeof(Error)),
+                   new KnownResponse(404, "Not Found", typeof(Error))
+               )
+        );
+
+        public static HttpWorkflow<ProvincesByCode> AsHttpWorkflow<T>(this InfusioOp<T>.ListCountries2 op) => HttpWorkflow<ProvincesByCode>(
+               message: Request(HttpMethod.Get, MakeUri($"/locales/countries/{op.CountryCode}/provinces")),
+               responses: HashSet<KnownResponse.Eq, KnownResponse>(
+                   new KnownResponse(200, "OK", typeof(ProvincesByCode)),
+                   new KnownResponse(401, "Unauthorized", typeof(Error)),
+                   new KnownResponse(403, "Forbidden", typeof(Error)),
+                   new KnownResponse(404, "Not Found", typeof(Error))
                )
         );
 

@@ -29,7 +29,7 @@ namespace Infusio.Compiler.Parsing
         public bool IsValueType => TypeResolver.ValueTypes.Find(Type).Map(_ => true).IfNone(false);
         public bool IsOptionalType => TypeResolver.OptionalTypes.Find(Type).Map(_ => true).IfNone(Type == "object");
 
-        public string OptionalTypeName => IsValueType ? $"{Type}?" : Type;
+        public string OptionalTypeName => IsEnum || IsValueType ? $"{Type}?" : Type;
 
         public string VariableName => NoReserved(Name.CamelCase());
 

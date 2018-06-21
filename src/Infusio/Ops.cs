@@ -873,6 +873,7 @@ namespace Infusio
         internal class ListFiles : InfusioOp<A>
         {
             public readonly Func<FileList, InfusioOp<A>> Next;
+            public readonly long? ContactId;
             public readonly string Name;
             public readonly string Type;
             public readonly string Permission;
@@ -880,9 +881,10 @@ namespace Infusio
             public readonly int? Offset;
             public readonly int? Limit;
 
-            public ListFiles(Func<FileList, InfusioOp<A>> next, string name, string type, string permission, string viewable, int? offset, int? limit)
+            public ListFiles(Func<FileList, InfusioOp<A>> next, long? contactId, string name, string type, string permission, string viewable, int? offset, int? limit)
             {
                 Next = next;
+                ContactId = contactId;
                 Name = name;
                 Type = type;
                 Permission = permission;
@@ -1115,6 +1117,40 @@ namespace Infusio
                 op.AsShow();
 
             public static implicit operator HttpWorkflow<RestHook>(InfusioOp<A>.VerifyAHookSubscription op) =>
+                op.AsHttpWorkflow();
+        }
+
+        internal class ListCountries : InfusioOp<A>
+        {
+            public readonly Func<CountriesByCode, InfusioOp<A>> Next;
+
+            public ListCountries(Func<CountriesByCode, InfusioOp<A>> next)
+            {
+                Next = next;
+            }
+
+            public static implicit operator Show<InfusioOp<CountriesByCode>>(InfusioOp<A>.ListCountries op) =>
+                op.AsShow();
+
+            public static implicit operator HttpWorkflow<CountriesByCode>(InfusioOp<A>.ListCountries op) =>
+                op.AsHttpWorkflow();
+        }
+
+        internal class ListCountries2 : InfusioOp<A>
+        {
+            public readonly Func<ProvincesByCode, InfusioOp<A>> Next;
+            public readonly string CountryCode;
+
+            public ListCountries2(Func<ProvincesByCode, InfusioOp<A>> next, string countryCode)
+            {
+                Next = next;
+                CountryCode = countryCode;
+            }
+
+            public static implicit operator Show<InfusioOp<ProvincesByCode>>(InfusioOp<A>.ListCountries2 op) =>
+                op.AsShow();
+
+            public static implicit operator HttpWorkflow<ProvincesByCode>(InfusioOp<A>.ListCountries2 op) =>
                 op.AsHttpWorkflow();
         }
 
@@ -2006,7 +2042,7 @@ namespace Infusio
             op is InfusioOp<A>.GetEmail _39 ? new InfusioOp<B>.GetEmail(x => _39.Next(x).Bind(fn), _39.Id) :
             op is InfusioOp<A>.UpdateEmail _40 ? new InfusioOp<B>.UpdateEmail(x => _40.Next(x).Bind(fn), _40.Id, _40.EmailWithContent) :
             op is InfusioOp<A>.DeleteEmail _41 ? new InfusioOp<B>.DeleteEmail(x => _41.Next(x).Bind(fn), _41.Id) :
-            op is InfusioOp<A>.ListFiles _42 ? new InfusioOp<B>.ListFiles(x => _42.Next(x).Bind(fn), _42.Name, _42.Type, _42.Permission, _42.Viewable, _42.Offset, _42.Limit) :
+            op is InfusioOp<A>.ListFiles _42 ? new InfusioOp<B>.ListFiles(x => _42.Next(x).Bind(fn), _42.ContactId, _42.Name, _42.Type, _42.Permission, _42.Viewable, _42.Offset, _42.Limit) :
             op is InfusioOp<A>.CreateFile _43 ? new InfusioOp<B>.CreateFile(x => _43.Next(x).Bind(fn), _43.FileUpload) :
             op is InfusioOp<A>.GetFile _44 ? new InfusioOp<B>.GetFile(x => _44.Next(x).Bind(fn), _44.FileId, _44.OptionalProperties) :
             op is InfusioOp<A>.UpdateFile _45 ? new InfusioOp<B>.UpdateFile(x => _45.Next(x).Bind(fn), _45.FileId, _45.FileUpload) :
@@ -2019,47 +2055,49 @@ namespace Infusio
             op is InfusioOp<A>.DeleteAHookSubscription _52 ? new InfusioOp<B>.DeleteAHookSubscription(x => _52.Next(x).Bind(fn), _52.Key) :
             op is InfusioOp<A>.VerifyAHookSubscriptionDelayed _53 ? new InfusioOp<B>.VerifyAHookSubscriptionDelayed(x => _53.Next(x).Bind(fn), _53.XHookSecret, _53.Key) :
             op is InfusioOp<A>.VerifyAHookSubscription _54 ? new InfusioOp<B>.VerifyAHookSubscription(x => _54.Next(x).Bind(fn), _54.Key) :
-            op is InfusioOp<A>.GetUserInfo _55 ? new InfusioOp<B>.GetUserInfo(x => _55.Next(x).Bind(fn)) :
-            op is InfusioOp<A>.ListOpportunities _56 ? new InfusioOp<B>.ListOpportunities(x => _56.Next(x).Bind(fn), _56.Order, _56.SearchTerm, _56.StageId, _56.UserId, _56.Offset, _56.Limit) :
-            op is InfusioOp<A>.CreateOpportunity _57 ? new InfusioOp<B>.CreateOpportunity(x => _57.Next(x).Bind(fn), _57.Opportunity) :
-            op is InfusioOp<A>.UpdateOpportunity _58 ? new InfusioOp<B>.UpdateOpportunity(x => _58.Next(x).Bind(fn), _58.Opportunity) :
-            op is InfusioOp<A>.RetrieveOpportunityModel _59 ? new InfusioOp<B>.RetrieveOpportunityModel(x => _59.Next(x).Bind(fn)) :
-            op is InfusioOp<A>.GetOpportunity _60 ? new InfusioOp<B>.GetOpportunity(x => _60.Next(x).Bind(fn), _60.OpportunityId, _60.OptionalProperties) :
-            op is InfusioOp<A>.UpdatePropertiesOnOpportunity _61 ? new InfusioOp<B>.UpdatePropertiesOnOpportunity(x => _61.Next(x).Bind(fn), _61.OpportunityId, _61.Opportunity) :
-            op is InfusioOp<A>.ListOpportunityStagePipelines _62 ? new InfusioOp<B>.ListOpportunityStagePipelines(x => _62.Next(x).Bind(fn)) :
-            op is InfusioOp<A>.ListOrders _63 ? new InfusioOp<B>.ListOrders(x => _63.Next(x).Bind(fn), _63.ProductId, _63.ContactId, _63.Order, _63.Paid, _63.Offset, _63.Limit, _63.Until, _63.Since) :
-            op is InfusioOp<A>.RetrieveOrderModel _64 ? new InfusioOp<B>.RetrieveOrderModel(x => _64.Next(x).Bind(fn)) :
-            op is InfusioOp<A>.GetOrder _65 ? new InfusioOp<B>.GetOrder(x => _65.Next(x).Bind(fn), _65.OrderId) :
-            op is InfusioOp<A>.ListTransactionsForOrder _66 ? new InfusioOp<B>.ListTransactionsForOrder(x => _66.Next(x).Bind(fn), _66.OrderId, _66.ContactId, _66.Offset, _66.Limit, _66.Until, _66.Since) :
-            op is InfusioOp<A>.ListProducts _67 ? new InfusioOp<B>.ListProducts(x => _67.Next(x).Bind(fn), _67.Active, _67.Offset, _67.Limit) :
-            op is InfusioOp<A>.CreateProduct _68 ? new InfusioOp<B>.CreateProduct(x => _68.Next(x).Bind(fn), _68.CreateProductModel) :
-            op is InfusioOp<A>.ListProductsFromSyncToken _69 ? new InfusioOp<B>.ListProductsFromSyncToken(x => _69.Next(x).Bind(fn), _69.Offset, _69.Limit, _69.SyncToken) :
-            op is InfusioOp<A>.RetrieveProduct _70 ? new InfusioOp<B>.RetrieveProduct(x => _70.Next(x).Bind(fn), _70.ProductId) :
-            op is InfusioOp<A>.DeleteProduct _71 ? new InfusioOp<B>.DeleteProduct(x => _71.Next(x).Bind(fn), _71.ProductId) :
-            op is InfusioOp<A>.CreateProductSubscription _72 ? new InfusioOp<B>.CreateProductSubscription(x => _72.Next(x).Bind(fn), _72.CreateProductSubscriptionModel, _72.ProductId) :
-            op is InfusioOp<A>.RetrieveProductSubscription _73 ? new InfusioOp<B>.RetrieveProductSubscription(x => _73.Next(x).Bind(fn), _73.SubscriptionId, _73.ProductId) :
-            op is InfusioOp<A>.DeleteProductSubscription _74 ? new InfusioOp<B>.DeleteProductSubscription(x => _74.Next(x).Bind(fn), _74.SubscriptionId, _74.ProductId) :
-            op is InfusioOp<A>.GetApplicationEnabled _75 ? new InfusioOp<B>.GetApplicationEnabled(x => _75.Next(x).Bind(fn)) :
-            op is InfusioOp<A>.GetContactOptionTypes _76 ? new InfusioOp<B>.GetContactOptionTypes(x => _76.Next(x).Bind(fn)) :
-            op is InfusioOp<A>.RetrieveSubscriptionModel _77 ? new InfusioOp<B>.RetrieveSubscriptionModel(x => _77.Next(x).Bind(fn)) :
-            op is InfusioOp<A>.ListTags _78 ? new InfusioOp<B>.ListTags(x => _78.Next(x).Bind(fn), _78.Category, _78.Offset, _78.Limit) :
-            op is InfusioOp<A>.CreateTag _79 ? new InfusioOp<B>.CreateTag(x => _79.Next(x).Bind(fn), _79.Tag) :
-            op is InfusioOp<A>.CreateTagCategory _80 ? new InfusioOp<B>.CreateTagCategory(x => _80.Next(x).Bind(fn), _80.TagCategory) :
-            op is InfusioOp<A>.GetTag _81 ? new InfusioOp<B>.GetTag(x => _81.Next(x).Bind(fn), _81.Id) :
-            op is InfusioOp<A>.ListContactsForTagId _82 ? new InfusioOp<B>.ListContactsForTagId(x => _82.Next(x).Bind(fn), _82.TagId, _82.Offset, _82.Limit) :
-            op is InfusioOp<A>.ApplyTagToContactIds _83 ? new InfusioOp<B>.ApplyTagToContactIds(x => _83.Next(x).Bind(fn), _83.Ids, _83.TagId) :
-            op is InfusioOp<A>.RemoveTagFromContactIds _84 ? new InfusioOp<B>.RemoveTagFromContactIds(x => _84.Next(x).Bind(fn), _84.Ids, _84.TagId) :
-            op is InfusioOp<A>.RemoveTagFromContactId _85 ? new InfusioOp<B>.RemoveTagFromContactId(x => _85.Next(x).Bind(fn), _85.ContactId, _85.TagId) :
-            op is InfusioOp<A>.ListTasks _86 ? new InfusioOp<B>.ListTasks(x => _86.Next(x).Bind(fn), _86.Order, _86.Offset, _86.Limit, _86.Completed, _86.Until, _86.Since, _86.UserId, _86.HasDueDate, _86.ContactId) :
-            op is InfusioOp<A>.CreateTask _87 ? new InfusioOp<B>.CreateTask(x => _87.Next(x).Bind(fn), _87.Task) :
-            op is InfusioOp<A>.RetrieveTaskModel _88 ? new InfusioOp<B>.RetrieveTaskModel(x => _88.Next(x).Bind(fn)) :
-            op is InfusioOp<A>.ListTasksForCurrentUser _89 ? new InfusioOp<B>.ListTasksForCurrentUser(x => _89.Next(x).Bind(fn), _89.Order, _89.Offset, _89.Limit, _89.Completed, _89.Until, _89.Since, _89.UserId, _89.HasDueDate, _89.ContactId) :
-            op is InfusioOp<A>.GetTask _90 ? new InfusioOp<B>.GetTask(x => _90.Next(x).Bind(fn), _90.TaskId) :
-            op is InfusioOp<A>.UpdateTask _91 ? new InfusioOp<B>.UpdateTask(x => _91.Next(x).Bind(fn), _91.Task, _91.TaskId) :
-            op is InfusioOp<A>.DeleteTask _92 ? new InfusioOp<B>.DeleteTask(x => _92.Next(x).Bind(fn), _92.TaskId) :
-            op is InfusioOp<A>.UpdatePropertiesOnTask _93 ? new InfusioOp<B>.UpdatePropertiesOnTask(x => _93.Next(x).Bind(fn), _93.Task, _93.TaskId) :
-            op is InfusioOp<A>.ListTransactions _94 ? new InfusioOp<B>.ListTransactions(x => _94.Next(x).Bind(fn), _94.ContactId, _94.Offset, _94.Limit, _94.Until, _94.Since) :
-            op is InfusioOp<A>.GetTransaction _95 ? new InfusioOp<B>.GetTransaction(x => _95.Next(x).Bind(fn), _95.TransactionId) as InfusioOp<B> :
+            op is InfusioOp<A>.ListCountries _55 ? new InfusioOp<B>.ListCountries(x => _55.Next(x).Bind(fn)) :
+            op is InfusioOp<A>.ListCountries2 _56 ? new InfusioOp<B>.ListCountries2(x => _56.Next(x).Bind(fn), _56.CountryCode) :
+            op is InfusioOp<A>.GetUserInfo _57 ? new InfusioOp<B>.GetUserInfo(x => _57.Next(x).Bind(fn)) :
+            op is InfusioOp<A>.ListOpportunities _58 ? new InfusioOp<B>.ListOpportunities(x => _58.Next(x).Bind(fn), _58.Order, _58.SearchTerm, _58.StageId, _58.UserId, _58.Offset, _58.Limit) :
+            op is InfusioOp<A>.CreateOpportunity _59 ? new InfusioOp<B>.CreateOpportunity(x => _59.Next(x).Bind(fn), _59.Opportunity) :
+            op is InfusioOp<A>.UpdateOpportunity _60 ? new InfusioOp<B>.UpdateOpportunity(x => _60.Next(x).Bind(fn), _60.Opportunity) :
+            op is InfusioOp<A>.RetrieveOpportunityModel _61 ? new InfusioOp<B>.RetrieveOpportunityModel(x => _61.Next(x).Bind(fn)) :
+            op is InfusioOp<A>.GetOpportunity _62 ? new InfusioOp<B>.GetOpportunity(x => _62.Next(x).Bind(fn), _62.OpportunityId, _62.OptionalProperties) :
+            op is InfusioOp<A>.UpdatePropertiesOnOpportunity _63 ? new InfusioOp<B>.UpdatePropertiesOnOpportunity(x => _63.Next(x).Bind(fn), _63.OpportunityId, _63.Opportunity) :
+            op is InfusioOp<A>.ListOpportunityStagePipelines _64 ? new InfusioOp<B>.ListOpportunityStagePipelines(x => _64.Next(x).Bind(fn)) :
+            op is InfusioOp<A>.ListOrders _65 ? new InfusioOp<B>.ListOrders(x => _65.Next(x).Bind(fn), _65.ProductId, _65.ContactId, _65.Order, _65.Paid, _65.Offset, _65.Limit, _65.Until, _65.Since) :
+            op is InfusioOp<A>.RetrieveOrderModel _66 ? new InfusioOp<B>.RetrieveOrderModel(x => _66.Next(x).Bind(fn)) :
+            op is InfusioOp<A>.GetOrder _67 ? new InfusioOp<B>.GetOrder(x => _67.Next(x).Bind(fn), _67.OrderId) :
+            op is InfusioOp<A>.ListTransactionsForOrder _68 ? new InfusioOp<B>.ListTransactionsForOrder(x => _68.Next(x).Bind(fn), _68.OrderId, _68.ContactId, _68.Offset, _68.Limit, _68.Until, _68.Since) :
+            op is InfusioOp<A>.ListProducts _69 ? new InfusioOp<B>.ListProducts(x => _69.Next(x).Bind(fn), _69.Active, _69.Offset, _69.Limit) :
+            op is InfusioOp<A>.CreateProduct _70 ? new InfusioOp<B>.CreateProduct(x => _70.Next(x).Bind(fn), _70.CreateProductModel) :
+            op is InfusioOp<A>.ListProductsFromSyncToken _71 ? new InfusioOp<B>.ListProductsFromSyncToken(x => _71.Next(x).Bind(fn), _71.Offset, _71.Limit, _71.SyncToken) :
+            op is InfusioOp<A>.RetrieveProduct _72 ? new InfusioOp<B>.RetrieveProduct(x => _72.Next(x).Bind(fn), _72.ProductId) :
+            op is InfusioOp<A>.DeleteProduct _73 ? new InfusioOp<B>.DeleteProduct(x => _73.Next(x).Bind(fn), _73.ProductId) :
+            op is InfusioOp<A>.CreateProductSubscription _74 ? new InfusioOp<B>.CreateProductSubscription(x => _74.Next(x).Bind(fn), _74.CreateProductSubscriptionModel, _74.ProductId) :
+            op is InfusioOp<A>.RetrieveProductSubscription _75 ? new InfusioOp<B>.RetrieveProductSubscription(x => _75.Next(x).Bind(fn), _75.SubscriptionId, _75.ProductId) :
+            op is InfusioOp<A>.DeleteProductSubscription _76 ? new InfusioOp<B>.DeleteProductSubscription(x => _76.Next(x).Bind(fn), _76.SubscriptionId, _76.ProductId) :
+            op is InfusioOp<A>.GetApplicationEnabled _77 ? new InfusioOp<B>.GetApplicationEnabled(x => _77.Next(x).Bind(fn)) :
+            op is InfusioOp<A>.GetContactOptionTypes _78 ? new InfusioOp<B>.GetContactOptionTypes(x => _78.Next(x).Bind(fn)) :
+            op is InfusioOp<A>.RetrieveSubscriptionModel _79 ? new InfusioOp<B>.RetrieveSubscriptionModel(x => _79.Next(x).Bind(fn)) :
+            op is InfusioOp<A>.ListTags _80 ? new InfusioOp<B>.ListTags(x => _80.Next(x).Bind(fn), _80.Category, _80.Offset, _80.Limit) :
+            op is InfusioOp<A>.CreateTag _81 ? new InfusioOp<B>.CreateTag(x => _81.Next(x).Bind(fn), _81.Tag) :
+            op is InfusioOp<A>.CreateTagCategory _82 ? new InfusioOp<B>.CreateTagCategory(x => _82.Next(x).Bind(fn), _82.TagCategory) :
+            op is InfusioOp<A>.GetTag _83 ? new InfusioOp<B>.GetTag(x => _83.Next(x).Bind(fn), _83.Id) :
+            op is InfusioOp<A>.ListContactsForTagId _84 ? new InfusioOp<B>.ListContactsForTagId(x => _84.Next(x).Bind(fn), _84.TagId, _84.Offset, _84.Limit) :
+            op is InfusioOp<A>.ApplyTagToContactIds _85 ? new InfusioOp<B>.ApplyTagToContactIds(x => _85.Next(x).Bind(fn), _85.Ids, _85.TagId) :
+            op is InfusioOp<A>.RemoveTagFromContactIds _86 ? new InfusioOp<B>.RemoveTagFromContactIds(x => _86.Next(x).Bind(fn), _86.Ids, _86.TagId) :
+            op is InfusioOp<A>.RemoveTagFromContactId _87 ? new InfusioOp<B>.RemoveTagFromContactId(x => _87.Next(x).Bind(fn), _87.ContactId, _87.TagId) :
+            op is InfusioOp<A>.ListTasks _88 ? new InfusioOp<B>.ListTasks(x => _88.Next(x).Bind(fn), _88.Order, _88.Offset, _88.Limit, _88.Completed, _88.Until, _88.Since, _88.UserId, _88.HasDueDate, _88.ContactId) :
+            op is InfusioOp<A>.CreateTask _89 ? new InfusioOp<B>.CreateTask(x => _89.Next(x).Bind(fn), _89.Task) :
+            op is InfusioOp<A>.RetrieveTaskModel _90 ? new InfusioOp<B>.RetrieveTaskModel(x => _90.Next(x).Bind(fn)) :
+            op is InfusioOp<A>.ListTasksForCurrentUser _91 ? new InfusioOp<B>.ListTasksForCurrentUser(x => _91.Next(x).Bind(fn), _91.Order, _91.Offset, _91.Limit, _91.Completed, _91.Until, _91.Since, _91.UserId, _91.HasDueDate, _91.ContactId) :
+            op is InfusioOp<A>.GetTask _92 ? new InfusioOp<B>.GetTask(x => _92.Next(x).Bind(fn), _92.TaskId) :
+            op is InfusioOp<A>.UpdateTask _93 ? new InfusioOp<B>.UpdateTask(x => _93.Next(x).Bind(fn), _93.Task, _93.TaskId) :
+            op is InfusioOp<A>.DeleteTask _94 ? new InfusioOp<B>.DeleteTask(x => _94.Next(x).Bind(fn), _94.TaskId) :
+            op is InfusioOp<A>.UpdatePropertiesOnTask _95 ? new InfusioOp<B>.UpdatePropertiesOnTask(x => _95.Next(x).Bind(fn), _95.Task, _95.TaskId) :
+            op is InfusioOp<A>.ListTransactions _96 ? new InfusioOp<B>.ListTransactions(x => _96.Next(x).Bind(fn), _96.ContactId, _96.Offset, _96.Limit, _96.Until, _96.Since) :
+            op is InfusioOp<A>.GetTransaction _97 ? new InfusioOp<B>.GetTransaction(x => _97.Next(x).Bind(fn), _97.TransactionId) as InfusioOp<B> :
             throw new NotSupportedException();
     }
 }

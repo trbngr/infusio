@@ -393,6 +393,7 @@ namespace Infusio
         /// <summary>
         /// List Files
         /// </summary>
+        /// <param name="contactId">Filter based on Contact Id, if user has permission to see Contact files.</param>
         /// <param name="name">Filter files based on name, with '*' preceding or following to indicate LIKE queries.</param>
         /// <param name="type">Filter based on the type of file.</param>
         /// <param name="permission">Filter based on the permission of files (USER or COMPANY), defaults to BOTH.</param>
@@ -400,8 +401,8 @@ namespace Infusio
         /// <param name="offset">Sets a beginning range of items to return</param>
         /// <param name="limit">Sets a total of items to return</param>
         /// <returns><see cref="FileList"/></returns>
-        public static InfusioOp<FileList> ListFiles(string name = default, string type = default, string permission = default, string viewable = default, int offset = default, int limit = default) =>
-                  new InfusioOp<FileList>.ListFiles(Return, name, type, permission, viewable, offset, limit);
+        public static InfusioOp<FileList> ListFiles(long contactId = default, string name = default, string type = default, string permission = default, string viewable = default, int offset = default, int limit = default) =>
+                  new InfusioOp<FileList>.ListFiles(Return, contactId, name, type, permission, viewable, offset, limit);
 
         /// <summary>
         /// Upload File
@@ -500,6 +501,21 @@ namespace Infusio
         /// <returns><see cref="RestHook"/></returns>
         public static InfusioOp<RestHook> VerifyAHookSubscription(string key) =>
                   new InfusioOp<RestHook>.VerifyAHookSubscription(Return, key);
+
+        /// <summary>
+        /// List Countries
+        /// </summary>
+        /// <returns><see cref="CountriesByCode"/></returns>
+        public static InfusioOp<CountriesByCode> ListCountries() =>
+                  new InfusioOp<CountriesByCode>.ListCountries(Return);
+
+        /// <summary>
+        /// List a Country's Provinces
+        /// </summary>
+        /// <param name="countryCode">countryCode</param>
+        /// <returns><see cref="ProvincesByCode"/></returns>
+        public static InfusioOp<ProvincesByCode> ListCountries2(string countryCode) =>
+                  new InfusioOp<ProvincesByCode>.ListCountries2(Return, countryCode);
 
         /// <summary>
         /// Retrieve User Info

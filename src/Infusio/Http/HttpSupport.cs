@@ -97,47 +97,49 @@ namespace Infusio.Http
             op is InfusioOp<T>.DeleteAHookSubscription _52 ? Exe(_52, _52, _52.Next, state, client) :
             op is InfusioOp<T>.VerifyAHookSubscriptionDelayed _53 ? Exe(_53, _53, _53.Next, state, client) :
             op is InfusioOp<T>.VerifyAHookSubscription _54 ? Exe(_54, _54, _54.Next, state, client) :
-            op is InfusioOp<T>.GetUserInfo _55 ? Exe(_55, _55, _55.Next, state, client) :
-            op is InfusioOp<T>.ListOpportunities _56 ? Exe(_56, _56, _56.Next, state, client) :
-            op is InfusioOp<T>.CreateOpportunity _57 ? Exe(_57, _57, _57.Next, state, client) :
-            op is InfusioOp<T>.UpdateOpportunity _58 ? Exe(_58, _58, _58.Next, state, client) :
-            op is InfusioOp<T>.RetrieveOpportunityModel _59 ? Exe(_59, _59, _59.Next, state, client) :
-            op is InfusioOp<T>.GetOpportunity _60 ? Exe(_60, _60, _60.Next, state, client) :
-            op is InfusioOp<T>.UpdatePropertiesOnOpportunity _61 ? Exe(_61, _61, _61.Next, state, client) :
-            op is InfusioOp<T>.ListOpportunityStagePipelines _62 ? Exe(_62, _62, _62.Next, state, client) :
-            op is InfusioOp<T>.ListOrders _63 ? Exe(_63, _63, _63.Next, state, client) :
-            op is InfusioOp<T>.RetrieveOrderModel _64 ? Exe(_64, _64, _64.Next, state, client) :
-            op is InfusioOp<T>.GetOrder _65 ? Exe(_65, _65, _65.Next, state, client) :
-            op is InfusioOp<T>.ListTransactionsForOrder _66 ? Exe(_66, _66, _66.Next, state, client) :
-            op is InfusioOp<T>.ListProducts _67 ? Exe(_67, _67, _67.Next, state, client) :
-            op is InfusioOp<T>.CreateProduct _68 ? Exe(_68, _68, _68.Next, state, client) :
-            op is InfusioOp<T>.ListProductsFromSyncToken _69 ? Exe(_69, _69, _69.Next, state, client) :
-            op is InfusioOp<T>.RetrieveProduct _70 ? Exe(_70, _70, _70.Next, state, client) :
-            op is InfusioOp<T>.DeleteProduct _71 ? Exe(_71, _71, _71.Next, state, client) :
-            op is InfusioOp<T>.CreateProductSubscription _72 ? Exe(_72, _72, _72.Next, state, client) :
-            op is InfusioOp<T>.RetrieveProductSubscription _73 ? Exe(_73, _73, _73.Next, state, client) :
-            op is InfusioOp<T>.DeleteProductSubscription _74 ? Exe(_74, _74, _74.Next, state, client) :
-            op is InfusioOp<T>.GetApplicationEnabled _75 ? Exe(_75, _75, _75.Next, state, client) :
-            op is InfusioOp<T>.GetContactOptionTypes _76 ? Exe(_76, _76, _76.Next, state, client) :
-            op is InfusioOp<T>.RetrieveSubscriptionModel _77 ? Exe(_77, _77, _77.Next, state, client) :
-            op is InfusioOp<T>.ListTags _78 ? Exe(_78, _78, _78.Next, state, client) :
-            op is InfusioOp<T>.CreateTag _79 ? Exe(_79, _79, _79.Next, state, client) :
-            op is InfusioOp<T>.CreateTagCategory _80 ? Exe(_80, _80, _80.Next, state, client) :
-            op is InfusioOp<T>.GetTag _81 ? Exe(_81, _81, _81.Next, state, client) :
-            op is InfusioOp<T>.ListContactsForTagId _82 ? Exe(_82, _82, _82.Next, state, client) :
-            op is InfusioOp<T>.ApplyTagToContactIds _83 ? Exe(_83, _83, _83.Next, state, client) :
-            op is InfusioOp<T>.RemoveTagFromContactIds _84 ? Exe(_84, _84, _84.Next, state, client) :
-            op is InfusioOp<T>.RemoveTagFromContactId _85 ? Exe(_85, _85, _85.Next, state, client) :
-            op is InfusioOp<T>.ListTasks _86 ? Exe(_86, _86, _86.Next, state, client) :
-            op is InfusioOp<T>.CreateTask _87 ? Exe(_87, _87, _87.Next, state, client) :
-            op is InfusioOp<T>.RetrieveTaskModel _88 ? Exe(_88, _88, _88.Next, state, client) :
-            op is InfusioOp<T>.ListTasksForCurrentUser _89 ? Exe(_89, _89, _89.Next, state, client) :
-            op is InfusioOp<T>.GetTask _90 ? Exe(_90, _90, _90.Next, state, client) :
-            op is InfusioOp<T>.UpdateTask _91 ? Exe(_91, _91, _91.Next, state, client) :
-            op is InfusioOp<T>.DeleteTask _92 ? Exe(_92, _92, _92.Next, state, client) :
-            op is InfusioOp<T>.UpdatePropertiesOnTask _93 ? Exe(_93, _93, _93.Next, state, client) :
-            op is InfusioOp<T>.ListTransactions _94 ? Exe(_94, _94, _94.Next, state, client) :
-            op is InfusioOp<T>.GetTransaction _95 ? Exe(_95, _95, _95.Next, state, client) :
+            op is InfusioOp<T>.ListCountries _55 ? Exe(_55, _55, _55.Next, state, client) :
+            op is InfusioOp<T>.ListCountries2 _56 ? Exe(_56, _56, _56.Next, state, client) :
+            op is InfusioOp<T>.GetUserInfo _57 ? Exe(_57, _57, _57.Next, state, client) :
+            op is InfusioOp<T>.ListOpportunities _58 ? Exe(_58, _58, _58.Next, state, client) :
+            op is InfusioOp<T>.CreateOpportunity _59 ? Exe(_59, _59, _59.Next, state, client) :
+            op is InfusioOp<T>.UpdateOpportunity _60 ? Exe(_60, _60, _60.Next, state, client) :
+            op is InfusioOp<T>.RetrieveOpportunityModel _61 ? Exe(_61, _61, _61.Next, state, client) :
+            op is InfusioOp<T>.GetOpportunity _62 ? Exe(_62, _62, _62.Next, state, client) :
+            op is InfusioOp<T>.UpdatePropertiesOnOpportunity _63 ? Exe(_63, _63, _63.Next, state, client) :
+            op is InfusioOp<T>.ListOpportunityStagePipelines _64 ? Exe(_64, _64, _64.Next, state, client) :
+            op is InfusioOp<T>.ListOrders _65 ? Exe(_65, _65, _65.Next, state, client) :
+            op is InfusioOp<T>.RetrieveOrderModel _66 ? Exe(_66, _66, _66.Next, state, client) :
+            op is InfusioOp<T>.GetOrder _67 ? Exe(_67, _67, _67.Next, state, client) :
+            op is InfusioOp<T>.ListTransactionsForOrder _68 ? Exe(_68, _68, _68.Next, state, client) :
+            op is InfusioOp<T>.ListProducts _69 ? Exe(_69, _69, _69.Next, state, client) :
+            op is InfusioOp<T>.CreateProduct _70 ? Exe(_70, _70, _70.Next, state, client) :
+            op is InfusioOp<T>.ListProductsFromSyncToken _71 ? Exe(_71, _71, _71.Next, state, client) :
+            op is InfusioOp<T>.RetrieveProduct _72 ? Exe(_72, _72, _72.Next, state, client) :
+            op is InfusioOp<T>.DeleteProduct _73 ? Exe(_73, _73, _73.Next, state, client) :
+            op is InfusioOp<T>.CreateProductSubscription _74 ? Exe(_74, _74, _74.Next, state, client) :
+            op is InfusioOp<T>.RetrieveProductSubscription _75 ? Exe(_75, _75, _75.Next, state, client) :
+            op is InfusioOp<T>.DeleteProductSubscription _76 ? Exe(_76, _76, _76.Next, state, client) :
+            op is InfusioOp<T>.GetApplicationEnabled _77 ? Exe(_77, _77, _77.Next, state, client) :
+            op is InfusioOp<T>.GetContactOptionTypes _78 ? Exe(_78, _78, _78.Next, state, client) :
+            op is InfusioOp<T>.RetrieveSubscriptionModel _79 ? Exe(_79, _79, _79.Next, state, client) :
+            op is InfusioOp<T>.ListTags _80 ? Exe(_80, _80, _80.Next, state, client) :
+            op is InfusioOp<T>.CreateTag _81 ? Exe(_81, _81, _81.Next, state, client) :
+            op is InfusioOp<T>.CreateTagCategory _82 ? Exe(_82, _82, _82.Next, state, client) :
+            op is InfusioOp<T>.GetTag _83 ? Exe(_83, _83, _83.Next, state, client) :
+            op is InfusioOp<T>.ListContactsForTagId _84 ? Exe(_84, _84, _84.Next, state, client) :
+            op is InfusioOp<T>.ApplyTagToContactIds _85 ? Exe(_85, _85, _85.Next, state, client) :
+            op is InfusioOp<T>.RemoveTagFromContactIds _86 ? Exe(_86, _86, _86.Next, state, client) :
+            op is InfusioOp<T>.RemoveTagFromContactId _87 ? Exe(_87, _87, _87.Next, state, client) :
+            op is InfusioOp<T>.ListTasks _88 ? Exe(_88, _88, _88.Next, state, client) :
+            op is InfusioOp<T>.CreateTask _89 ? Exe(_89, _89, _89.Next, state, client) :
+            op is InfusioOp<T>.RetrieveTaskModel _90 ? Exe(_90, _90, _90.Next, state, client) :
+            op is InfusioOp<T>.ListTasksForCurrentUser _91 ? Exe(_91, _91, _91.Next, state, client) :
+            op is InfusioOp<T>.GetTask _92 ? Exe(_92, _92, _92.Next, state, client) :
+            op is InfusioOp<T>.UpdateTask _93 ? Exe(_93, _93, _93.Next, state, client) :
+            op is InfusioOp<T>.DeleteTask _94 ? Exe(_94, _94, _94.Next, state, client) :
+            op is InfusioOp<T>.UpdatePropertiesOnTask _95 ? Exe(_95, _95, _95.Next, state, client) :
+            op is InfusioOp<T>.ListTransactions _96 ? Exe(_96, _96, _96.Next, state, client) :
+            op is InfusioOp<T>.GetTransaction _97 ? Exe(_97, _97, _97.Next, state, client) :
             throw new NotSupportedException();
 
         static EitherAsync<InfusioError, InfusioResult<B>> Exe<T, B>(Show<InfusioOp<T>> show, HttpWorkflow<T> workflow, Func<T, InfusioOp<B>> nextOp, InfusioState state, InfusioClient client) =>
@@ -170,7 +172,7 @@ namespace Infusio.Http
     {
         public readonly Seq<string> Logs;
         public readonly bool UseLogging;
-        public static InfusioState Create(Seq<string> logs = default, bool useLogging = default) => new InfusioState(useLogging:useLogging, logs: logs);
+        public static InfusioState Create(Seq<string> logs = default, bool useLogging = default) => new InfusioState(useLogging: useLogging, logs: logs);
 
         InfusioState(Seq<string> logs = default, bool useLogging = default)
         {
