@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 
 using LanguageExt;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Infusio.Model
 {
@@ -90,6 +91,7 @@ namespace Infusio.Model
     }
 
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum Status
     {
         [EnumMember(Value = "CREATED")]
@@ -103,6 +105,7 @@ namespace Infusio.Model
     }
 
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum FileAssociation
     {
         [EnumMember(Value = "CONTACT")]
@@ -165,6 +168,7 @@ namespace Infusio.Model
     }
 
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum Key
     {
         [EnumMember(Value = "SUCCESS")]
@@ -187,6 +191,7 @@ namespace Infusio.Model
     }
 
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum Field
     {
         [EnumMember(Value = "BILLING")]
@@ -209,6 +214,7 @@ namespace Infusio.Model
     }
 
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum CycleType
     {
         [EnumMember(Value = "YEAR")]
@@ -366,6 +372,7 @@ namespace Infusio.Model
     }
 
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum SourceType
     {
         [EnumMember(Value = "WEBFORM")]
@@ -391,6 +398,7 @@ namespace Infusio.Model
     }
 
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum RecordType
     {
         [EnumMember(Value = "CONTACT")]
